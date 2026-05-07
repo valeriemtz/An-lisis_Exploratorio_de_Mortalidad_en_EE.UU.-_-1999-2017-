@@ -1576,8 +1576,8 @@ choques vehiculares, casi el **17%** de todas las muertes por lesión.
 Los accidentes del tránsito son la primera causa de muerte para gente
 entre 5 y 24 años, y la segunda para mayores de 25. Como estado con
 carreteras de montaña, grandes distancias y deficiente infraestructura
-para el transporte público, esa cifra lleva consigo su contexto.\
-\
+para el transporte público, esa cifra lleva consigo su contexto.
+
 El abuso infantil y negligencia también pesan. En *2015* cinco niños de
 0 a 5 años murieron debido al maltrato infantil, un **26%** del número
 total de muerte por lesiones para esa población. Otros 19 niños con la
@@ -2416,9 +2416,681 @@ opioides documentada en la *sección 9.1.1* y la proyecta hacia
 2018–2022. Si las condiciones estructurales persisten, la tasa de
 lesiones no intencionales en West Virginia continuará creciendo,
 consolidando la brecha ya identificada respecto al promedio nacional y
-al resto de los estados del Clúster 3.
+al resto de los estados del Clúster 3. \## 12. Comparación de Modelos
+Predictivos
 
-### **12. INSIGHTS CLAVE**
+## 12. Comparación de Modelos Predictivos
+
+El modelo ARIMA(0,1,0) with drift fue implementado en la sección
+anterior como estándar metodológico en epidemiología de series de
+mortalidad. Sin embargo, la selección de un modelo predictivo requiere
+validación empírica frente a alternativas. En esta sección implementamos
+dos modelos adicionales **ETS (Suavizamiento Exponencial de Holt)** y
+**Regresión lineal con tendencia temporal**, realizando una comparación
+sistemática que justifica la elección final mediante los criterios de
+información, validación de series de tiempo y diagnóstico de residuos.
+
+El foco es la serie de **Unintentional injuries – West Virginia**, por
+ser la causa de mayor crecimiento en el ultimo año y la de mayor
+relevancia para política pública, dentro de el eje central del caso de
+estudio.
+
+### 12.1. Modelo 2 – ETS (Error, Trend, Seasonality)
+
+#### Marco teórico
+
+El modelo ETl, generaliza la familia de métodos de suavizamiento
+exponencial dentro de un marco probabilístico formal. A diferencia de
+los métodos clásicos, ETS especifica explícitamente una función de
+verosimilitud, lo que permite la selección automática del tipo de error
+(Aditivo/Multiplicativo), tendencia (None/Additive/Additive damped) y
+estacionalidad (None/Additive/Multiplicative) mediante criterio AICc.
+Esta propiedad lo convierte en un competidor directo de ARIMA para
+series univariadas de corto alcance (Hyndman & Khandakar, 2008).
+
+En series integradas I(1) con tendencia positiva sostenida como es el
+caso de Unintentional injuries `ets()` típicamente selecciona una
+especificación ETS(A,A,N) o ETS(M,A,N): error aditivo o multiplicativo,
+tendencia aditiva, sin componente estacional dado que la serie es anual.
+
+```{r ets_ajuste, message=FALSE, warning=FALSE}
+library(forecast)
+library(tseries)
+library(kableExtra)
+library(ggplot2)
+library(scales)
+
+# Ajuste automático – selección por AICc
+modelo_ets <- ets(ts_wv_acc)
+
+# Resumen del modelo seleccionado
+cat("=== Modelo ETS seleccionado ===\n")
+cat("Especificación:", modelo_ets$method, "\n")
+cat("AIC: ",  round(AIC(modelo_ets),  2), "\n")
+cat("AICc:", round(modelo_ets$aicc,   2), "\n")
+cat("BIC: ",  round(BIC(modelo_ets),  2), "\n\n")
+
+cat("=== Parámetros de suavizamiento ===\n")
+print(round(modelo_ets$par, 4))
+
+cat("\n=== Métricas de ajuste en muestra ===\n")
+print(round(accuracy(modelo_ets), 4))
+```
+
+#### Diagnóstico de residuos – ETS
+
+```{r ets_residuos, fig.width=10, fig.height=4, message=FALSE, warning=FALSE}
+par(mfrow = c(1, 2), bg = "#FAFAFA")
+checkresiduals(modelo_ets,
+               plot = TRUE,
+               main = "Residuos – ETS (Unintentional Injuries WV)")
+par(mfrow = c(1, 1))
+```
+
+*Los residuos del modelo ETS deben comportarse como ruido blanco para
+que el modelo sea válido. Un p-value \> 0.05 en la prueba de Ljung-Box
+confirma independencia serial.*
+
+#### Proyección ETS – 2018–2022
+
+```{r ets_forecast, fig.width=10, fig.height=5, message=FALSE, warning=FALSE}
+horizonte  <- 5
+pred_ets   <- forecast(modelo_ets, h = horizonte, level = c(80, 95))
+
+anios_hist <- 1999:2017
+anios_fut  <- 2018:2022
+
+df_hist_ets <- data.frame(year = anios_hist, valor = serie_wv_acc)
+df_fut_ets  <- data.frame(
+  year  = anios_fut,
+  valor = as.numeric(pred_ets$mean),
+  lo80  = as.numeric(pred_ets$lower[, 1]),
+  hi80  = as.numeric(pred_ets$upper[, 1]),
+  lo95  = as.numeric(pred_ets$lower[, 2]),
+  hi95  = as.numeric(pred_ets$upper[, 2])
+)
+
+ggplot() +
+  geom_ribbon(data = df_fut_ets,
+              aes(x = year, ymin = lo95, ymax = hi95),
+              fill = "#FFCDD2", alpha = 0.40) +
+  geom_ribbon(data = df_fut_ets,
+              aes(x = year, ymin = lo80, ymax = hi80),
+              fill = "#E63946", alpha = 0.30) +
+  geom_line(data  = df_hist_ets,
+            aes(x = year, y = valor),
+            color = "#B71C1C", linewidth = 1.3) +
+  geom_point(data = df_hist_ets,
+             aes(x = year, y = valor),
+             color = "#B71C1C", size = 2) +
+  geom_line(data  = df_fut_ets,
+            aes(x = year, y = valor),
+            color = "#E63946", linewidth = 1.3, linetype = "dashed") +
+  geom_point(data = df_fut_ets,
+             aes(x = year, y = valor),
+             color = "#E63946", size = 3, shape = 17) +
+  geom_vline(xintercept = 2017.5, linetype = "dotted",
+             color = "gray50", linewidth = 0.8) +
+  annotate("text", x = 2017.7, y = max(serie_wv_acc) * 0.97,
+           label = "→ Proyección", hjust = 0,
+           color = "gray40", fontface = "italic", size = 3.5) +
+  scale_x_continuous(breaks = seq(1999, 2022, by = 2)) +
+  scale_y_continuous(labels = comma) +
+  labs(
+    title    = "Proyección ETS – Unintentional Injuries",
+    subtitle = "West Virginia · Horizonte 2018–2022",
+    x = "Año", y = "Tasa por 100,000 hab.",
+    caption  = "Bandas: IC 80% (oscuro) e IC 95% (claro)"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title       = element_text(face = "bold", hjust = 0.5),
+    plot.subtitle    = element_text(hjust = 0.5, color = "gray40"),
+    axis.text.x      = element_text(angle = 45, hjust = 1),
+    panel.grid.minor = element_blank()
+  )
+```
+
+```{r ets_tabla_pred, message=FALSE}
+data.frame(
+  `Año`            = 2018:2022,
+  `Predicción`     = round(as.numeric(pred_ets$mean), 1),
+  `IC 80% inf.`    = round(as.numeric(pred_ets$lower[, 1]), 1),
+  `IC 80% sup.`    = round(as.numeric(pred_ets$upper[, 1]), 1),
+  `IC 95% inf.`    = round(as.numeric(pred_ets$lower[, 2]), 1),
+  `IC 95% sup.`    = round(as.numeric(pred_ets$upper[, 2]), 1),
+  check.names = FALSE
+) %>%
+  kable(
+    caption = "Valores proyectados – ETS · Unintentional injuries WV (2018–2022)",
+    align   = rep("c", 6)
+  ) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = TRUE, font_size = 11) %>%
+  row_spec(0, background = "#B71C1C", color = "white", bold = TRUE)
+```
+
+------------------------------------------------------------------------
+
+### 12.2. Modelo 3 – Regresión Lineal con Tendencia Temporal
+
+La regresión lineal con tendencia temporal (OLS-Trend) es el modelo de
+referencia más simple para series con tendencia monotónica. Asume que la
+tasa de mortalidad es una función lineal del tiempo:
+
+$$\hat{y}_t = \beta_0 + \beta_1 \cdot t + \varepsilon_t$$
+
+donde $t = 1, 2, ..., 19$ indexa los años 1999–2017. Su inclusión en la
+comparación cumple una función metodológica específica: constituye el
+**benchmark mínimo**.
+
+```{r lm_ajuste, message=FALSE, warning=FALSE}
+# Variable de tiempo explícita (requerida para predict() limpio)
+tiempo_hist  <- seq_along(serie_wv_acc)   # 1:19
+modelo_lm    <- lm(serie_wv_acc ~ tiempo_hist)
+
+cat("=== Modelo Regresión Lineal ===\n")
+summary(modelo_lm)
+
+cat("\n=== Métricas de ajuste en muestra ===\n")
+resid_lm <- residuals(modelo_lm)
+rmse_lm  <- sqrt(mean(resid_lm^2))
+mae_lm   <- mean(abs(resid_lm))
+mape_lm  <- mean(abs(resid_lm / serie_wv_acc)) * 100
+
+cat("RMSE:", round(rmse_lm, 4), "\n")
+cat("MAE: ", round(mae_lm,  4), "\n")
+cat("MAPE:", round(mape_lm, 4), "%\n")
+```
+
+#### Diagnóstico de residuos – Regresión Lineal
+
+El diagnóstico de residuos en regresión aplicada a series de tiempo
+incluye obligatoriamente la prueba de Ljung-Box, que evalúa si los
+residuos presentan autocorrelación serial la violación crítica del
+supuesto OLS en este contexto.
+
+```{r lm_residuos, fig.width=10, fig.height=5, message=FALSE, warning=FALSE}
+# Convertir residuos a objeto ts para checkresiduals
+resid_lm_ts <- ts(resid_lm, start = 1999, frequency = 1)
+
+par(mfrow = c(1, 2), bg = "#FAFAFA")
+# ACF de residuos
+acf(resid_lm_ts,
+    main = "ACF – Residuos Regresión Lineal",
+    col  = "#6A4C93", lwd = 2)
+# Histograma
+hist(resid_lm, breaks = 8,
+     main = "Distribución – Residuos Regresión Lineal",
+     xlab = "Residuos", col = "#D8B4FE", border = "white")
+curve(dnorm(x, mean = mean(resid_lm), sd = sd(resid_lm)),
+      add = TRUE, col = "#6A4C93", lwd = 2)
+par(mfrow = c(1, 1))
+
+# Prueba de Ljung-Box sobre residuos de la regresión
+lb_lm <- Box.test(resid_lm_ts, lag = 4, type = "Ljung-Box")
+cat("\n=== Ljung-Box – Residuos Regresión Lineal ===\n")
+cat("Q* =", round(lb_lm$statistic, 4),
+    "| df =", lb_lm$parameter,
+    "| p-value =", round(lb_lm$p.value, 4), "\n")
+cat(ifelse(lb_lm$p.value < 0.05,
+           "⚠ Autocorrelación significativa en residuos → supuesto OLS violado",
+           "✔ No se detecta autocorrelación significativa"), "\n")
+```
+
+#### Proyección – Regresión Lineal (2018–2022)
+
+```{r lm_forecast, fig.width=10, fig.height=5, message=FALSE, warning=FALSE}
+tiempo_proj  <- data.frame(
+  tiempo_hist = (length(serie_wv_acc) + 1):(length(serie_wv_acc) + horizonte)
+)
+pred_lm_ic   <- predict(modelo_lm, newdata = tiempo_proj,
+                        interval = "prediction", level = 0.95)
+pred_lm_ic80 <- predict(modelo_lm, newdata = tiempo_proj,
+                        interval = "prediction", level = 0.80)
+
+df_fut_lm <- data.frame(
+  year  = anios_fut,
+  valor = pred_lm_ic[, "fit"],
+  lo95  = pred_lm_ic[, "lwr"],
+  hi95  = pred_lm_ic[, "upr"],
+  lo80  = pred_lm_ic80[, "lwr"],
+  hi80  = pred_lm_ic80[, "upr"]
+)
+
+ggplot() +
+  geom_ribbon(data = df_fut_lm,
+              aes(x = year, ymin = lo95, ymax = hi95),
+              fill = "#E9D5FF", alpha = 0.45) +
+  geom_ribbon(data = df_fut_lm,
+              aes(x = year, ymin = lo80, ymax = hi80),
+              fill = "#6A4C93", alpha = 0.30) +
+  geom_line(data  = df_hist_ets,
+            aes(x = year, y = valor),
+            color = "#3B0764", linewidth = 1.3) +
+  geom_point(data = df_hist_ets,
+             aes(x = year, y = valor),
+             color = "#3B0764", size = 2) +
+  geom_line(data  = df_fut_lm,
+            aes(x = year, y = valor),
+            color = "#6A4C93", linewidth = 1.3, linetype = "dashed") +
+  geom_point(data = df_fut_lm,
+             aes(x = year, y = valor),
+             color = "#6A4C93", size = 3, shape = 17) +
+  geom_vline(xintercept = 2017.5, linetype = "dotted",
+             color = "gray50", linewidth = 0.8) +
+  annotate("text", x = 2017.7, y = max(serie_wv_acc) * 0.97,
+           label = "→ Proyección", hjust = 0,
+           color = "gray40", fontface = "italic", size = 3.5) +
+  scale_x_continuous(breaks = seq(1999, 2022, by = 2)) +
+  scale_y_continuous(labels = comma) +
+  labs(
+    title    = "Proyección Regresión Lineal – Unintentional Injuries",
+    subtitle = "West Virginia · Horizonte 2018–2022",
+    x = "Año", y = "Tasa por 100,000 hab.",
+    caption  = "Bandas: IC 80% (oscuro) e IC 95% (claro). Intervalos de predicción OLS."
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title       = element_text(face = "bold", hjust = 0.5),
+    plot.subtitle    = element_text(hjust = 0.5, color = "gray40"),
+    axis.text.x      = element_text(angle = 45, hjust = 1),
+    panel.grid.minor = element_blank()
+  )
+```
+
+```{r lm_tabla_pred, message=FALSE}
+data.frame(
+  `Año`            = 2018:2022,
+  `Predicción`     = round(pred_lm_ic[, "fit"], 1),
+  `IC 80% inf.`    = round(pred_lm_ic80[, "lwr"], 1),
+  `IC 80% sup.`    = round(pred_lm_ic80[, "upr"], 1),
+  `IC 95% inf.`    = round(pred_lm_ic[, "lwr"], 1),
+  `IC 95% sup.`    = round(pred_lm_ic[, "upr"], 1),
+  check.names = FALSE
+) %>%
+  kable(
+    caption = "Valores proyectados – Regresión Lineal · Unintentional injuries WV (2018–2022)",
+    align   = rep("c", 6)
+  ) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = TRUE, font_size = 11) %>%
+  row_spec(0, background = "#6A4C93", color = "white", bold = TRUE)
+```
+
+------------------------------------------------------------------------
+
+### 12.3. Comparación sistemática de modelos
+
+#### 12.3.1. Criterios de información (modelos paramétricos)
+
+Los criterios AIC, AICc y BIC penalizan la verosimilitud por la
+complejidad del modelo. El **AICc** es la métrica preferida cuando n \<
+40, ya que incorpora una corrección explícita por tamaño muestral que
+evita la sobreestimación de modelos complejos.
+
+```{r tabla_aic_completa, message=FALSE, warning=FALSE}
+
+# Ajustar versiones ETS equivalentes a Holt para comparación extendida
+modelo_holt_fit  <- ets(ts_wv_acc, model = "AAN")
+modelo_holtd_fit <- ets(ts_wv_acc, model = "AAN", damped = TRUE)
+
+tabla_aic <- data.frame(
+  Modelo = c(
+    "ARIMA(0,1,0) with drift",
+    paste0("ETS – ", modelo_ets$method),
+    "Holt lineal – ETS(A,A,N)",
+    "Holt amortiguado – ETS(A,Ad,N)"
+  ),
+  Parámetros = c(1, length(modelo_ets$par),
+                  length(modelo_holt_fit$par),
+                  length(modelo_holtd_fit$par)),
+  AIC  = round(c(AIC(modelo_acc),
+                  AIC(modelo_ets),
+                  AIC(modelo_holt_fit),
+                  AIC(modelo_holtd_fit)), 2),
+  AICc = round(c(modelo_acc$aicc,
+                  modelo_ets$aicc,
+                  modelo_holt_fit$aicc,
+                  modelo_holtd_fit$aicc), 2),
+  BIC  = round(c(BIC(modelo_acc),
+                  BIC(modelo_ets),
+                  BIC(modelo_holt_fit),
+                  BIC(modelo_holtd_fit)), 2),
+  check.names = FALSE
+)
+
+mejor_aicc <- which.min(tabla_aic$AICc)
+
+tabla_aic %>%
+  kable(
+    caption = "Criterios de información – modelos paramétricos (n = 19)",
+    align   = c("l", "c", "c", "c", "c")
+  ) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = FALSE, font_size = 12) %>%
+  row_spec(0, background = "#1D3557", color = "white", bold = TRUE) %>%
+  row_spec(mejor_aicc, background = "#A8DADC", bold = TRUE) %>%
+  add_header_above(
+    c(" " = 2, "Criterios de información (menor = mejor)" = 3),
+    background = "#457B9D", color = "white", bold = TRUE
+  )
+```
+
+La tabla de criterios de información confirma que ARIMA(0,1,0) with
+drift es el modelo óptimo para la serie de Unintentional injuries en
+West Virginia. Con un único parámetro estimado el drift β = 3.24 ,
+obtiene los valores más bajos en AIC (129.63), AICc (130.43) y BIC
+(131.41), los tres criterios evaluados de forma simultánea.
+
+Este resultado no es trivial: significa que el modelo más simple es
+también el que mejor balancea ajuste, lo cual es la condición ideal en
+series cortas.
+
+La diferencia de AICc frente al segundo mejor modelo, ETS(M,A,N), es de
+7.41 puntos. Siguiendo la escala de Burnham & Anderson (2002),
+diferencias superiores a 7 puntos constituyen evidencia fuerte contra el
+modelo con mayor AICc, descartando ETS como alternativa competitiva a
+pesar de utilizar cuatro parámetros.
+
+Holt lineal y Holt amortiguado acumulan diferencias de 11.65 y 17.96
+puntos respectivamente, lo que los sitúa fuera de cualquier
+consideración de selección. El BIC, que penaliza la complejidad de forma
+más severa que el AIC, refuerza la misma conclusión: ARIMA es el único
+modelo el ajuste converge.
+
+#### 12.3.2. Diagnóstico comparativo de residuos
+
+La prueba de Ljung-Box evalúa si los residuos de cada modelo son
+estadísticamente independientes. Un p-value \> 0.05 es condición
+necesaria para que el modelo sea válido: residuos con autocorrelación
+indican que el modelo no capturó toda la estructura temporal disponible.
+
+```{r tabla_ljungbox, message=FALSE, warning=FALSE}
+
+# Ljung-Box con lag = 4 (estándar para n = 19, series anuales)
+lb_arima <- Box.test(residuals(modelo_acc),       lag = 4, type = "Ljung-Box")
+lb_ets   <- Box.test(residuals(modelo_ets),       lag = 4, type = "Ljung-Box")
+lb_holt  <- Box.test(residuals(modelo_holt_fit),  lag = 4, type = "Ljung-Box")
+lb_holtd <- Box.test(residuals(modelo_holtd_fit), lag = 4, type = "Ljung-Box")
+lb_lm    <- Box.test(ts(residuals(modelo_lm), start = 1999, frequency = 1),
+                     lag = 4, type = "Ljung-Box")
+
+tabla_lb <- data.frame(
+  Modelo = c(
+    "ARIMA(0,1,0) with drift",
+    paste0("ETS – ", modelo_ets$method),
+    "Holt lineal",
+    "Holt amortiguado",
+    "Regresión lineal"
+  ),
+  `Q*`      = round(c(lb_arima$statistic, lb_ets$statistic,
+                       lb_holt$statistic,  lb_holtd$statistic,
+                       lb_lm$statistic), 4),
+  `df`      = c(lb_arima$parameter, lb_ets$parameter,
+                 lb_holt$parameter,  lb_holtd$parameter,
+                 lb_lm$parameter),
+  `p-value` = round(c(lb_arima$p.value, lb_ets$p.value,
+                       lb_holt$p.value,  lb_holtd$p.value,
+                       lb_lm$p.value), 4),
+  Resultado = ifelse(
+    c(lb_arima$p.value, lb_ets$p.value,
+      lb_holt$p.value,  lb_holtd$p.value,
+      lb_lm$p.value) > 0.05,
+    "✔ Ruido blanco",
+    "✖ Autocorrelación"
+  ),
+  check.names = FALSE
+)
+
+filas_ok <- which(tabla_lb$`p-value` > 0.05)
+
+tabla_lb %>%
+  kable(
+    caption = "Prueba de Ljung-Box sobre residuos – todos los modelos (lag = 4)",
+    align   = c("l", "c", "c", "c", "c")
+  ) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = FALSE, font_size = 12) %>%
+  row_spec(0, background = "#1D3557", color = "white", bold = TRUE) %>%
+  row_spec(filas_ok, background = "#D1FAE5")
+```
+
+Todos los modelos superan la prueba de Ljung-Box (p \> 0.05),
+confirmando que ninguno deja autocorrelación significativa en los
+residuos condición mínima de validez para cualquier modelo de series de
+tiempo. Dado que este criterio no discrimina entre los modelos
+evaluados, la selección final se apoya en los criterios de información
+(AICc) y la validación cruzada (tsCV).
+
+#### 12.3.3. Validación cruzada de series de tiempo (tsCV)
+
+La validación cruzada de series de tiempo evalúa el error de predicción
+fuera de muestra en ventanas de entrenamiento expandidas desde el
+origen. Es el método estándar cuando n es pequeño y no permite una
+partición train/test formal. Se evalúan dos horizontes: **h = 1**
+(precisión inmediata) y **h = 3** (capacidad de proyección a mediano
+plazo).
+
+```{r tscv_calculo, message=FALSE, warning=FALSE, cache=TRUE}
+# Wrappers requeridos por tsCV
+f_arima    <- function(y, h) forecast(auto.arima(y, stepwise = FALSE,
+                                                  approximation = FALSE), h = h)
+f_ets      <- function(y, h) forecast(ets(y), h = h)
+f_holt     <- function(y, h) holt(y, h = h)
+f_holt_d   <- function(y, h) holt(y, h = h, damped = TRUE)
+f_naive_d  <- function(y, h) rwf(y, h = h, drift = TRUE)
+f_lm       <- function(y, h) {
+  n      <- length(y)
+  t_hist <- 1:n
+  fit    <- lm(y ~ t_hist)
+  t_new  <- data.frame(t_hist = (n + 1):(n + h))
+  pred   <- predict(fit, newdata = t_new)
+  structure(
+    list(mean = ts(pred,
+                   start     = tsp(y)[2] + 1 / tsp(y)[3],
+                   frequency = tsp(y)[3])),
+    class = "forecast"
+  )
+}
+
+set.seed(42)
+
+# h = 1
+e1_arima  <- tsCV(ts_wv_acc, f_arima,   h = 1)
+e1_ets    <- tsCV(ts_wv_acc, f_ets,     h = 1)
+e1_holt   <- tsCV(ts_wv_acc, f_holt,    h = 1)
+e1_holtd  <- tsCV(ts_wv_acc, f_holt_d,  h = 1)
+e1_naive  <- tsCV(ts_wv_acc, f_naive_d, h = 1)
+e1_lm     <- tsCV(ts_wv_acc, f_lm,      h = 1)
+
+# h = 3
+e3_arima  <- tsCV(ts_wv_acc, f_arima,   h = 3)
+e3_ets    <- tsCV(ts_wv_acc, f_ets,     h = 3)
+e3_holt   <- tsCV(ts_wv_acc, f_holt,    h = 3)
+e3_holtd  <- tsCV(ts_wv_acc, f_holt_d,  h = 3)
+e3_naive  <- tsCV(ts_wv_acc, f_naive_d, h = 3)
+e3_lm     <- tsCV(ts_wv_acc, f_lm,      h = 3)
+
+cv_rmse <- function(e) round(sqrt(mean(e^2, na.rm = TRUE)), 3)
+cv_mae  <- function(e) round(mean(abs(e),   na.rm = TRUE),  3)
+
+modelos_label <- c(
+  "ARIMA(0,1,0) with drift",
+  paste0("ETS – ", modelo_ets$method),
+  "Holt lineal",
+  "Holt amortiguado",
+  "Naive with drift",
+  "Regresión lineal"
+)
+
+tabla_cv <- data.frame(
+  Modelo     = modelos_label,
+  `RMSE h=1` = c(cv_rmse(e1_arima), cv_rmse(e1_ets), cv_rmse(e1_holt),
+                  cv_rmse(e1_holtd), cv_rmse(e1_naive), cv_rmse(e1_lm)),
+  `MAE h=1`  = c(cv_mae(e1_arima),  cv_mae(e1_ets),  cv_mae(e1_holt),
+                  cv_mae(e1_holtd),  cv_mae(e1_naive),  cv_mae(e1_lm)),
+  `RMSE h=3` = c(cv_rmse(e3_arima), cv_rmse(e3_ets), cv_rmse(e3_holt),
+                  cv_rmse(e3_holtd), cv_rmse(e3_naive), cv_rmse(e3_lm)),
+  `MAE h=3`  = c(cv_mae(e3_arima),  cv_mae(e3_ets),  cv_mae(e3_holt),
+                  cv_mae(e3_holtd),  cv_mae(e3_naive),  cv_mae(e3_lm)),
+  check.names = FALSE
+)
+
+mejor_rmse_h1 <- which.min(tabla_cv$`RMSE h=1`)
+mejor_rmse_h3 <- which.min(tabla_cv$`RMSE h=3`)
+```
+
+```{r tscv_tabla, message=FALSE}
+
+tabla_cv %>%
+  kable(
+    caption = "Validación cruzada de series de tiempo – Unintentional injuries, West Virginia (1999–2017)",
+    align   = c("l", "c", "c", "c", "c")
+  ) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = FALSE, font_size = 12) %>%
+  row_spec(0, background = "#1D3557", color = "white", bold = TRUE) %>%
+  row_spec(mejor_rmse_h1, background = "#A8DADC", bold = TRUE) %>%
+  add_header_above(
+    c(" " = 1,
+      "Horizonte 1 paso (h=1)" = 2,
+      "Horizonte 3 pasos (h=3)" = 2),
+    background = "#457B9D", color = "white", bold = TRUE
+  )
+```
+
+La regresión lineal obtiene el menor RMSE en ambos horizontes, pero este
+resultado debe interpretarse con cautela: su buen desempeño en tsCV se
+explica porque la tendencia positiva global de la serie favorece a un
+modelo que precisamente impone una tendencia fija. Esto no la convierte
+en el mejor modelo aplicar OLS sobre una serie I(1) sin diferenciar
+produce intervalos de predicción estadísticamente inválidos, limitación
+que ninguna métrica de error promedio detecta.
+
+Entre los modelos válidos, las diferencias de RMSE son marginales en
+términos epidemiológicos: el rango entre ARIMA (8.947) y el mejor
+alternativo válido en h=1 es inferior a 0.4 puntos sobre una serie que
+oscila entre 42 y 100 por 100,000 habitantes. La selección no puede
+resolverse por tsCV en aislamiento requiere considerar conjuntamente los
+criterios de información y el diagnóstico de residuos, donde vemos que
+ARIMA es consistentemente superior.
+
+#### 12.3.4. Gráfico comparativo de proyecciones
+
+```{r grafico_comparacion_final, fig.width=11, fig.height=6, message=FALSE, warning=FALSE}
+# Proyecciones puntuales de cada modelo
+pred_arima_f  <- forecast(modelo_acc,       h = horizonte)
+pred_ets_f    <- forecast(modelo_ets,       h = horizonte)
+pred_holt_f   <- forecast(modelo_holt_fit,  h = horizonte)
+pred_holtd_f  <- forecast(modelo_holtd_fit, h = horizonte)
+pred_naive_f  <- rwf(ts_wv_acc, h = horizonte, drift = TRUE)
+
+tiempo_proj_v  <- (length(serie_wv_acc) + 1):(length(serie_wv_acc) + horizonte)
+pred_lm_v      <- as.numeric(
+  predict(modelo_lm,
+          newdata = data.frame(tiempo_hist = tiempo_proj_v))
+)
+
+df_preds_final <- data.frame(
+  year  = rep(anios_fut, 6),
+  valor = c(
+    as.numeric(pred_arima_f$mean),
+    as.numeric(pred_ets_f$mean),
+    as.numeric(pred_holt_f$mean),
+    as.numeric(pred_holtd_f$mean),
+    as.numeric(pred_naive_f$mean),
+    pred_lm_v
+  ),
+  modelo = rep(c(
+    "ARIMA(0,1,0) drift",
+    "ETS",
+    "Holt lineal",
+    "Holt amortiguado",
+    "Naive drift",
+    "Reg. lineal"
+  ), each = horizonte)
+)
+
+colores_comp <- c(
+  "ARIMA(0,1,0) drift" = "#1D3557",
+  "ETS"                = "#E63946",
+  "Holt lineal"        = "#2A9D8F",
+  "Holt amortiguado"   = "#F4A261",
+  "Naive drift"        = "#9B2226",
+  "Reg. lineal"        = "#6A4C93"
+)
+
+tipos_comp <- c(
+  "ARIMA(0,1,0) drift" = "dashed",
+  "ETS"                = "dashed",
+  "Holt lineal"        = "dotdash",
+  "Holt amortiguado"   = "dotdash",
+  "Naive drift"        = "longdash",
+  "Reg. lineal"        = "longdash"
+)
+
+ggplot() +
+  geom_line(data  = df_hist_ets,
+            aes(x = year, y = valor),
+            color = "black", linewidth = 1.4) +
+  geom_point(data = df_hist_ets,
+             aes(x = year, y = valor),
+             color = "black", size = 2.2) +
+  geom_line(data = df_preds_final,
+            aes(x = year, y = valor,
+                color = modelo, linetype = modelo),
+            linewidth = 1.0) +
+  geom_point(data = df_preds_final,
+             aes(x = year, y = valor, color = modelo),
+             size = 2.5, shape = 17) +
+  geom_vline(xintercept = 2017.5, linetype = "dotted",
+             color = "gray40", linewidth = 0.8) +
+  annotate("text", x = 2017.7, y = max(serie_wv_acc) * 0.75,
+           label = "→ Proyección", hjust = 0,
+           color = "gray40", fontface = "italic", size = 3.5) +
+  scale_color_manual(values    = colores_comp) +
+  scale_linetype_manual(values = tipos_comp) +
+  scale_x_continuous(breaks = seq(1999, 2022, by = 2)) +
+  scale_y_continuous(labels = comma) +
+  labs(
+    title    = "Comparación de proyecciones – Unintentional Injuries",
+    subtitle = "West Virginia · 2018–2022 · Todos los modelos evaluados",
+    x        = "Año",
+    y        = "Tasa ajustada por 100,000 hab.",
+    color    = "Modelo",
+    linetype = "Modelo",
+    caption  = "Serie histórica en negro. Proyecciones en colores por modelo."
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title       = element_text(face = "bold", hjust = 0.5),
+    plot.subtitle    = element_text(hjust = 0.5, color = "gray40"),
+    axis.text.x      = element_text(angle = 45, hjust = 1),
+    panel.grid.minor = element_blank(),
+    legend.position  = "bottom",
+    legend.title     = element_text(face = "bold")
+  )
+```
+
+------------------------------------------------------------------------
+
+### 12.4. Justificación del Modelo Seleccionado
+
+ARIMA obtiene el AICc más bajo de todos los modelos evaluados. Con n =
+19 (años) , esta ventaja no es marginal refleja que un solo parámetro
+(el drift) es suficiente para describir la serie sin sobreajustar. La
+prueba ADF confirmó que la serie es I(1). ARIMA(0,1,0) with drift es
+exactamente el modelo que corresponde a ese proceso: diferencia la serie
+para eliminar la raíz unitaria y estima un drift de 3.24 puntos por año,
+consistente con el crecimiento estructural documentado durante la
+epidemia de opioides desde 2014. **Conclusión** ARIMA es el único modelo
+que es simultáneamente parsimonioso, válido y teóricamente correcto para
+esta serie. Sus proyecciones indican que la tasa de Unintentional
+injuries en West Virginia continuará creciendo hacia 2022, profundizando
+la brecha con el promedio nacional identificada en la sección 9.3.
+
+### **13. INSIGHTS CLAVE**
 
 **El poder obstinado y omnipresente de las enfermedades crónicas:** Las
 enfermedades cardíacas y el cáncer siguen siendo las dos principales
@@ -2467,7 +3139,7 @@ los n índices ajustados bajos, lo que muestra la disparidad entre carga
 absoluta (demanda de asistencia) y riesgo relativo (probabilidad de
 fallecer), lo cual guía la distribución de recursos a diversas escalas.
 
-### **13. LIMITACIONES DEL ESTUDIO**
+### **14. LIMITACIONES DEL ESTUDIO**
 
 -   **Naturaleza observacional:** Los datos utilizados son de carácter
     observacional y agregado, por lo que permiten identificar
@@ -2491,7 +3163,7 @@ fallecer), lo cual guía la distribución de recursos a diversas escalas.
     ejemplo, dentro de California existen condados con tasas de
     mortalidad muy diferentes.
 
-### **14. CONCLUSIONES**
+### **15. CONCLUSIONES**
 
 **El análisis sobre la mortalidad en Estados Unidos (1999 – 2017) revela
 una evolución en el perfil epidemiológico del país:** Las enfermedades
@@ -2520,7 +3192,7 @@ reactivo a uno proactivo, combinar la prevención de enfermedades
 crónicas con acciones decisivas y así avanzar hacia un futuro con menos
 muertes prevenibles y mayor equidad en salud.
 
-### **15. REFERENCIAS BIBLIOGRÁFICAS**
+### **16. REFERENCIAS BIBLIOGRÁFICAS**
 
 West Virginis Government Department of Health and Human, Violence &
 Injury Prevention
