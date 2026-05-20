@@ -1,6 +1,6 @@
 # Evolución de la tasa ajustada de mortalidad anual
 
-```{r, echo=TRUE, warning=FALSE, message=FALSE}
+```{r, echo=TRUE, results="hide", warning=FALSE, message=FALSE}
 library(tidyverse)
 library(scales)
 
@@ -19,7 +19,7 @@ ggplot(total_anual, aes(x = anio, y = tasa_ajustada)) +
   scale_y_continuous(labels = comma) +
   labs(title = "Evolución de la tasa ajustada de mortalidad anual",
        x = "Año",
-       y = "Total de muertes") +
+       y = "Tasa ajustada por 100,000 hab.") +
   theme_minimal()
 ```
 

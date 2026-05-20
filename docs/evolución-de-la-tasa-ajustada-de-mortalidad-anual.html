@@ -286,39 +286,18 @@ div.csl-indent {
 <span id="cb12-6"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html#cb12-6" tabindex="-1"></a>  <span class="fu">arrange</span>(anio)</span>
 <span id="cb12-7"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html#cb12-7" tabindex="-1"></a></span>
 <span id="cb12-8"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html#cb12-8" tabindex="-1"></a><span class="co"># Ver resultado</span></span>
-<span id="cb12-9"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html#cb12-9" tabindex="-1"></a><span class="fu">print</span>(total_anual)</span></code></pre></div>
-<pre><code>## # A tibble: 19 × 4
-##     anio causa      muertes tasa_ajustada
-##    &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;         &lt;dbl&gt;
-##  1  1999 All causes      NA          8756
-##  2  2000 All causes      NA          8690
-##  3  2001 All causes      NA          8588
-##  4  2002 All causes      NA          8559
-##  5  2003 All causes      NA          8435
-##  6  2004 All causes      NA          8137
-##  7  2005 All causes      NA          8150
-##  8  2006 All causes      NA          7918
-##  9  2007 All causes      NA          7753
-## 10  2008 All causes      NA          7749
-## 11  2009 All causes      NA          7496
-## 12  2010 All causes      NA          7470
-## 13  2011 All causes      NA          7413
-## 14  2012 All causes      NA          7328
-## 15  2013 All causes      NA          7319
-## 16  2014 All causes      NA          7246
-## 17  2015 All causes      NA          7331
-## 18  2016 All causes      NA          7288
-## 19  2017 All causes      NA          7319</code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html#cb14-1" tabindex="-1"></a><span class="fu">ggplot</span>(total_anual, <span class="fu">aes</span>(<span class="at">x =</span> anio, <span class="at">y =</span> tasa_ajustada)) <span class="sc">+</span></span>
-<span id="cb14-2"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html#cb14-2" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">&quot;#2C3E50&quot;</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb14-3"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html#cb14-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#E74C3C&quot;</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb14-4"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html#cb14-4" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb14-5"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html#cb14-5" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">&quot;#18BC9C&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
-<span id="cb14-6"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html#cb14-6" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> comma) <span class="sc">+</span></span>
-<span id="cb14-7"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html#cb14-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Evolución de la tasa ajustada de mortalidad anual&quot;</span>,</span>
-<span id="cb14-8"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html#cb14-8" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Año&quot;</span>,</span>
-<span id="cb14-9"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html#cb14-9" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Total de muertes&quot;</span>) <span class="sc">+</span></span>
-<span id="cb14-10"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html#cb14-10" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<span id="cb12-9"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html#cb12-9" tabindex="-1"></a><span class="fu">print</span>(total_anual)</span>
+<span id="cb12-10"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html#cb12-10" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html#cb12-11" tabindex="-1"></a><span class="fu">ggplot</span>(total_anual, <span class="fu">aes</span>(<span class="at">x =</span> anio, <span class="at">y =</span> tasa_ajustada)) <span class="sc">+</span></span>
+<span id="cb12-12"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html#cb12-12" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">&quot;#2C3E50&quot;</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb12-13"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html#cb12-13" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#E74C3C&quot;</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb12-14"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html#cb12-14" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb12-15"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html#cb12-15" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">&quot;#18BC9C&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb12-16"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html#cb12-16" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> comma) <span class="sc">+</span></span>
+<span id="cb12-17"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html#cb12-17" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Evolución de la tasa ajustada de mortalidad anual&quot;</span>,</span>
+<span id="cb12-18"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html#cb12-18" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Año&quot;</span>,</span>
+<span id="cb12-19"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html#cb12-19" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Tasa ajustada por 100,000 hab.&quot;</span>) <span class="sc">+</span></span>
+<span id="cb12-20"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html#cb12-20" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <p><img src="mortalidad-eeuu_files/figure-html/unnamed-chunk-3-1.png" width="1500" /></p>
 <p>Interpretación: El gráfico muestra la evolución de la tasa
 ajustada de mortalidad anual a lo largo del tiempo, desde
