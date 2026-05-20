@@ -1,0 +1,117 @@
+# 1. Introducción
+
+## 1.1. Contexto del Problema
+
+Las enfermedades crónicas no transmisibles provocan la mayoría de los
+fallecimientos en Estados Unidos. El cáncer, enfermedades cardíacas,
+diabetes, enfermedades cerebrovasculares, Alzheimer, enfermedades
+respiratorias crónicas y enfermedades renales han sido motivos comunes
+de muerte. Además, existen causas externas [@cdc2017]. Se consideran
+factores externos de fallecimiento las lesiones no intencionales, los
+accidentes y el suicidio, conectadas con la manera en que vivimos y las
+circunstancias que nos envuelven. Determinado por varios factores,
+incluyendo el lugar y la forma en que vivimos, las predisposiciones
+genéticas y si contamos con el acceso a una atención médica de alta
+calidad [@cdc2017]. Sin embargo, los cambios en la salud son difíciles
+de entender sin primero analizar su evolución.
+
+Como demostró @james2018, que examinó 48 años de información sobre
+mortalidad entre 1968 y 2015 y fue publicado en Demographic Research, la
+mortalidad no es uniforme en todo el territorio, las disparidades
+geográficas son variables que se mantienen con el tiempo. En el sur
+rural, en los condados de Mississippi, Alabama, Kentucky y Tennessee, se
+localizan las zonas con más muertes. Es alarmante la diferencia de
+mortalidad entre esta región y el resto del país. En la década de 1960,
+el número de muertes era alrededor de 50 por cada 100,000 habitantes;
+Sin embargo, para el año 2015 ese número se incrementó a 220, los
+autores la llaman, "The difference between the Heart of America and
+Dixiela". Tendencia vinculada a la presencia de disparidades en las
+tasas de mortalidad, más pronunciadas en el sureste estadounidense.
+
+Este estudio cubre el periodo 1999 2017 [@shah2019]. En el pasado
+estudio, se demuestra la continuidad de las enfermedades crónicas como
+causa de muerte, así como la evolución de las diferentes causas, como
+ocurre con los suicidios y los accidentes, que cobran más importancias
+en las últimas décadas [@daugherty2019]. Años esenciales para entender
+el perfil de salud del país antes de la llegada de la pandemia de COVID
+19. El estudio presta atención a las diferencias geográficas que la
+revisión de literatura ha señalado. En particular, este análisis
+abordará las siguientes causas de muerte, que corresponden a
+enfermedades del corazón, cáncer, accidentes cerebrovasculares (stroke),
+enfermedades respiratorias crónicas (CLRD), accidentes no intencionales,
+Alzheimer, diabetes, enfermedades renales, influenza - neumonía y
+suicidio.
+
+## 1.2. Contexto del Dataset
+
+El dataset utilizado en este informe es, "*NCHS - Leading Causes of
+Death: United States*". **Centers for Disease Control and Prevention
+(CDC)** la agencia nacional de salud pública de Estados Unidos y
+constituyen la principal fuente de información epidemiológica del país.
+A través del **National Center for Health Statistics
+(NCHS) y National System of Vital Statistics (NVSS)**, los CDC
+recolectan todos los certificados de defunción emitidos en los 50
+estados y el District of Columbia, lo que garantiza que los datos
+provienen del registro universal de todos los fallecimientos.
+
+## 1.3. Pregunta Central de Investigación
+
+Este análisis se articula en torno a la siguiente pregunta:
+
+**¿Cómo han cambiado las principales causas de muerte en Estados Unidos
+a lo largo del tiempo (1999-2017) y que diferencias persistentes se
+observan entre los distintos estados?**
+
+La anterior pregunta abarca tres dimensiones fundamentales sobre la
+investigación:
+
+1.  Dimensión temporal: Tenemos en cuenta la evolución de las
+    enfermedades crónicas y las causas externas en las últimas décadas.
+    Por esta razón, analizamos cómo han variado las causas de muerte y
+    la medida en la que estas causas son diferentes.
+
+2.  Dimensión geográfica: Es necesario identificar si la mortalidad
+    tiene un impacto distinto o si varía de acuerdo al
+    estado. Analizando las desigualdades territoriales que la literatura
+    nos ha documentado.
+
+3.  Dimensión de ranking: Para tener una visión clara sobre las
+    causas de muerte y la existencia de diferencias en el patrón a lo
+    largo de los diferentes estados del país, es esencial identificar
+    cómo han cambiado con el tiempo. 
+
+## 1.4. Objetivos del Estudio
+
+### 1.4.1 Objetivo General
+
+Analizar la evolución de la mortalidad en Estados Unidos de 1999 hasta
+2017, identificando sus principales causas y distribución geográfica,
+mediante análisis exploratorio de datos, el desarrollo de un dashboard
+interactivo y la implementación de un modelo de predicción.
+
+### 1.4.2 Objetivos Específicos
+
+1.  **Descripción del panorama general de la mortalidad en Estados
+    Unidos durante el periodo de 1999-2017:** Identificar el volumen
+    anual de muertes y causas más frecuentes a nivel nacional en este
+    período, para construir así una perspectiva global.
+
+2.  Determinar el avance temporal de las causas principales:
+    Identificar los patrones existentes en las causas. En consecuencia,
+    nuestro punto de partida es el incremento de muertes por accidentes
+    y la evolución de las enfermedades crónicas en las últimas dos
+    décadas.
+
+3.  Disparidades geográficas: Comparación entre las tasas ajustadas
+    de mortalidad y los distintos estados, para así poder determinar las
+    áreas con mayores cargas de mortalidad.
+
+4.  **Visualizar el dinamismo del ranking de las diferentes causas de
+    muerte:** Las posiciones de cada causa han cambiado a lo largo del
+    período; Es necesario establecer cuáles adquieren o pierden
+    jerarquía en el contexto nacional.
+
+5.  **Formular hipótesis e insights basados en los patrones
+    encontrados:** Apartir de los patrones encontrados y basándose en
+    los resultados del análisis, dirigidas especialmente a las regiones
+    con mortalidad persistentemente alta.

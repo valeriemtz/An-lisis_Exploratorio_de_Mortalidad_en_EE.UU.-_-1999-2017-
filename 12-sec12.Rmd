@@ -1,0 +1,11 @@
+# 12. Modelos Adicionales
+
+El modelo ARIMA(0,1,0) with drift fue implementado en la sección
+anterior como estándar metodológico en epidemiología de series de
+mortalidad. Sin embargo, la selección de un modelo predictivo requiere
+validación empírica frente a alternativas. En la siguiente sección
+implementamos dos modelos adicionales: **ETS (Suavizamiento Exponencial
+de Holt) y Regresión lineal con tendencia temporal**, realizando una
+comparación sistemática para justificar la elección final mediante los
+criterios de información, validación de series de tiempo y diagnóstico
+de residuos.

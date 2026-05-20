@@ -1,0 +1,377 @@
+/* ============================================================
+   custom.css  — Mortalidad EE.UU. Dashboard
+   Paleta: azul marino #1a3a5c | rojo #e74c3c | fondo #f4f6f9
+   ============================================================ */
+
+/* ── Variables CSS ─────────────────────────────────────────── */
+:root {
+  --azul-marino:  #1a3a5c;
+  --azul-medio:   #2471a3;
+  --azul-claro:   #85c1e9;
+  --rojo:         #e74c3c;
+  --naranja:      #e67e22;
+  --verde:        #1e8449;
+  --morado:       #7d3c98;
+  --fondo:        #f4f6f9;
+  --gris-texto:   #4a4a4a;
+  --blanco:       #ffffff;
+  --sombra:       0 2px 8px rgba(0,0,0,0.10);
+  --radio:        8px;
+}
+
+/* ── Tipografía global ─────────────────────────────────────── */
+body, .content-wrapper, .main-sidebar {
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
+  background-color: var(--fondo) !important;
+  color: var(--gris-texto);
+}
+
+/* ── Sidebar ───────────────────────────────────────────────── */
+.main-sidebar, .sidebar {
+  background-color: #1e2a3a !important;
+}
+
+.sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link {
+  color: #cdd4de !important;
+  border-radius: 4px;
+  margin: 2px 8px;
+  transition: all 0.2s ease;
+}
+
+.sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link:hover,
+.sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active {
+  background-color: rgba(231, 76, 60, 0.15) !important;
+  color: #ffffff !important;
+  border-left: 3px solid var(--rojo) !important;
+}
+
+.sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active {
+  background-color: rgba(231, 76, 60, 0.20) !important;
+}
+
+/* Logo / brand en sidebar */
+.brand-link {
+  background-color: var(--azul-marino) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+}
+
+.brand-link .brand-text {
+  font-weight: 700 !important;
+  font-size: 0.85rem !important;
+  color: #ffffff !important;
+  line-height: 1.3 !important;
+}
+
+/* ── Header / Navbar ───────────────────────────────────────── */
+.main-header.navbar {
+  background-color: var(--azul-marino) !important;
+  border-bottom: 2px solid var(--rojo) !important;
+}
+
+.main-header .navbar-brand,
+.main-header .nav-link,
+.main-header .navbar-text {
+  color: #ffffff !important;
+}
+
+/* ── Content area ──────────────────────────────────────────── */
+.content-wrapper {
+  background-color: var(--fondo) !important;
+  padding: 20px !important;
+}
+
+/* ── Cards / Boxes ─────────────────────────────────────────── */
+.card, .box {
+  border-radius: var(--radio) !important;
+  box-shadow: var(--sombra) !important;
+  border: none !important;
+}
+
+.card-header, .box-header {
+  border-radius: var(--radio) var(--radio) 0 0 !important;
+  font-weight: 600 !important;
+  font-size: 0.95rem !important;
+  letter-spacing: 0.3px !important;
+}
+
+/* ── Value Boxes ───────────────────────────────────────────── */
+.small-box {
+  border-radius: var(--radio) !important;
+  box-shadow: var(--sombra) !important;
+  transition: transform 0.2s ease !important;
+}
+
+.small-box:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15) !important;
+}
+
+.small-box .inner h3 {
+  font-size: 1.8rem !important;
+  font-weight: 700 !important;
+}
+
+.small-box .inner p {
+  font-size: 0.85rem !important;
+  font-weight: 500 !important;
+}
+
+/* ── Sección headers ───────────────────────────────────────── */
+.section-header {
+  border-left: 4px solid var(--rojo);
+  padding-left: 12px;
+  margin: 20px 0 14px 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--azul-marino);
+  letter-spacing: 0.3px;
+}
+
+.section-subheader {
+  border-left: 3px solid var(--azul-claro);
+  padding-left: 10px;
+  margin: 14px 0 10px 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--azul-medio);
+}
+
+/* ── Texto académico ───────────────────────────────────────── */
+.texto-academico {
+  background-color: #f8fafd;
+  border-left: 4px solid var(--azul-medio);
+  border-radius: 0 6px 6px 0;
+  padding: 16px 20px;
+  margin: 10px 0;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--gris-texto);
+}
+
+/* ── Pregunta central destacada ────────────────────────────── */
+.pregunta-central {
+  background: linear-gradient(135deg, var(--azul-marino) 0%, #2c4d6f 100%);
+  color: #ffffff;
+  border-radius: var(--radio);
+  padding: 20px 24px;
+  margin: 16px 0;
+  font-size: 1.05rem;
+  font-weight: 500;
+  line-height: 1.6;
+  box-shadow: var(--sombra);
+}
+
+.pregunta-central::before {
+  content: "❓ ";
+  font-size: 1.2em;
+}
+
+/* ── Dimension cards (introducción) ────────────────────────── */
+.dimension-card {
+  background: var(--blanco);
+  border-radius: var(--radio);
+  padding: 18px 16px;
+  box-shadow: var(--sombra);
+  border-top: 3px solid var(--azul-medio);
+  height: 100%;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dimension-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.13);
+}
+
+.dimension-card .dimension-icon {
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+}
+
+.dimension-card h5 {
+  color: var(--azul-marino);
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+}
+
+.dimension-card p {
+  font-size: 0.83rem;
+  color: var(--gris-texto);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* ── Insight cards (conclusiones) ──────────────────────────── */
+.insight-card {
+  background: var(--blanco);
+  border-radius: var(--radio);
+  padding: 20px;
+  box-shadow: var(--sombra);
+  border-left: 5px solid var(--azul-medio);
+  margin-bottom: 16px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.insight-card:hover {
+  transform: translateX(3px);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.13);
+}
+
+.insight-card .insight-numero {
+  display: inline-block;
+  background: var(--azul-marino);
+  color: #fff;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+.insight-card h5 {
+  color: var(--azul-marino);
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+
+.insight-card p {
+  font-size: 0.85rem;
+  color: var(--gris-texto);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── Limitación cards ──────────────────────────────────────── */
+.limitacion-card {
+  background: var(--blanco);
+  border-radius: var(--radio);
+  padding: 16px 20px;
+  box-shadow: var(--sombra);
+  border-left: 4px solid var(--naranja);
+  margin-bottom: 12px;
+}
+
+.limitacion-card h6 {
+  color: var(--naranja);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+/* ── Tabla DT ──────────────────────────────────────────────── */
+.dataTables_wrapper {
+  font-size: 0.85rem;
+}
+
+table.dataTable thead th {
+  background-color: var(--azul-marino) !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+table.dataTable tbody tr:hover {
+  background-color: #eaf4fb !important;
+}
+
+/* ── Nota analítica ────────────────────────────────────────── */
+.nota-analitica {
+  background: linear-gradient(135deg, #eaf4fb 0%, #fef9f0 100%);
+  border-left: 4px solid var(--naranja);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-top: 12px;
+  font-size: 0.85rem;
+  color: var(--gris-texto);
+  font-style: italic;
+}
+
+/* ── Referencias bibliográficas ────────────────────────────── */
+.referencias {
+  background: #f8fafd;
+  border-radius: var(--radio);
+  padding: 16px 20px;
+  font-size: 0.82rem;
+  color: #555;
+  line-height: 1.7;
+  box-shadow: var(--sombra);
+}
+
+.referencias p {
+  margin: 4px 0;
+}
+
+/* ── Subtítulo de autores (header) ─────────────────────────── */
+.autores-subtitulo {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.7);
+  margin-left: 12px;
+  font-style: italic;
+}
+
+/* ── Pipline steps ─────────────────────────────────────────── */
+.pipeline-step {
+  display: flex;
+  align-items: flex-start;
+  padding: 10px 14px;
+  margin: 6px 0;
+  background: var(--blanco);
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  font-size: 0.87rem;
+}
+
+.pipeline-step .step-num {
+  background: var(--azul-marino);
+  color: #fff;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+/* ── Paquetes table ────────────────────────────────────────── */
+.pkg-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.pkg-table th {
+  background: var(--azul-marino);
+  color: #fff;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.pkg-table td {
+  padding: 7px 12px;
+  border-bottom: 1px solid #e8ecf0;
+}
+
+.pkg-table tr:hover td {
+  background: #eaf4fb;
+}
+
+/* ── Plotly override ───────────────────────────────────────── */
+.js-plotly-plot {
+  border-radius: var(--radio);
+}
+
+/* ── Responsive ajustes ────────────────────────────────────── */
+@media (max-width: 768px) {
+  .dimension-card {
+    margin-bottom: 12px;
+  }
+  .small-box .inner h3 {
+    font-size: 1.4rem !important;
+  }
+}

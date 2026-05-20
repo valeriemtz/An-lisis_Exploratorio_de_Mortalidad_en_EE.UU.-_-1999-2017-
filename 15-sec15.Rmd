@@ -1,0 +1,348 @@
+# 15. Comparación de modelos
+
+## 15.1. Criterios de información (modelos paramétricos)
+Los criterios AIC, AICc y BIC penalizan la verosimilitud por la
+complejidad del modelo. El AICc es la métrica preferida cuando n \<
+40, ya que incorpora una corrección explícita por tamaño muestral que
+evita la sobreestimación de modelos complejos.
+
+
+```{r, message=FALSE, warning=FALSE, echo=TRUE}
+modelo_holt_fit  <- ets(ts_wv_acc, model = "AAN")
+modelo_holtd_fit <- ets(ts_wv_acc, model = "AAN", damped = TRUE)
+
+tabla_aic <- data.frame(
+  Modelo = c(
+    "ARIMA(0,1,0) with drift",
+    paste0("ETS – ", modelo_ets$method),
+    "Holt lineal – ETS(A,A,N)",
+    "Holt amortiguado – ETS(A,Ad,N)"
+  ),
+  Parámetros = c(1, length(modelo_ets$par),
+                  length(modelo_holt_fit$par),
+                  length(modelo_holtd_fit$par)),
+  AIC  = round(c(AIC(modelo_acc),
+                  AIC(modelo_ets),
+                  AIC(modelo_holt_fit),
+                  AIC(modelo_holtd_fit)), 2),
+  AICc = round(c(modelo_acc$aicc,
+                  modelo_ets$aicc,
+                  modelo_holt_fit$aicc,
+                  modelo_holtd_fit$aicc), 2),
+  BIC  = round(c(BIC(modelo_acc),
+                  BIC(modelo_ets),
+                  BIC(modelo_holt_fit),
+                  BIC(modelo_holtd_fit)), 2),
+  check.names = FALSE
+)
+
+mejor_aicc <- which.min(tabla_aic$AICc)
+
+tabla_aic %>%
+  kable(
+    caption = "Criterios de información por modelo (menor AICc = mejor)",
+    
+    
+    align   = c("l", "c", "c", "c", "c")
+  ) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = FALSE, font_size = 12) %>%
+  row_spec(0, background = "#1D3557", color = "white", bold = TRUE) %>%
+  row_spec(mejor_aicc, background = "#A8DADC", bold = TRUE) %>%
+  add_header_above(
+    c(" " = 2, "Criterios de información (menor = mejor)" = 3),
+    background = "#457B9D", color = "white", bold = TRUE
+  )
+```
+
+La tabla de criterios de información confirma que **ARIMA(0,1,0) with
+drift** es el modelo óptimo para la serie de Unintentional injuries en
+West Virginia. Con un único parámetro estimado, el drift β = 3.24,
+obtiene los valores más bajos en AIC (129.63), AICc (130.43) y BIC
+(131.41), los tres criterios evaluados de forma simultánea.
+
+Este resultado no es trivial: significa que el modelo más simple es
+también el que mejor balancea ajuste, lo cual es la condición ideal en
+series cortas. La diferencia de AICc frente al segundo mejor modelo,
+ETS(M,A,N), es de 7.41 puntos. Siguiendo la escala de Burnham & Anderson
+(2002), diferencias superiores a 7 puntos constituyen evidencia fuerte
+contra el modelo con mayor AICc, descartando ETS como alternativa
+competitiva a pesar de utilizar cuatro parámetros.
+
+Holt lineal y Holt amortiguado acumulan diferencias de 11.65 y 17.96
+puntos respectivamente, lo que los sitúa fuera de cualquier
+consideración de selección. El BIC, que penaliza la complejidad de forma
+más severa que el AIC, refuerza la misma conclusión: ARIMA es el único
+modelo donde el ajuste converge.
+
+## 15.2. Diagnóstico comparativo de residuos
+La prueba de Ljung-Box evalúa si los residuos de cada modelo son
+estadísticamente independientes. Un p-value \> 0.05 es condición
+necesaria para que el modelo sea válido: residuos con autocorrelación
+indican que el modelo no capturó toda la estructura temporal disponible.
+
+
+```{r, message=FALSE, warning=FALSE, echo=TRUE}
+
+# Ljung-Box con lag = 4 (estándar para n = 19, series anuales)
+lb_arima <- Box.test(residuals(modelo_acc),       lag = 4, type = "Ljung-Box")
+lb_ets   <- Box.test(residuals(modelo_ets),       lag = 4, type = "Ljung-Box")
+lb_holt  <- Box.test(residuals(modelo_holt_fit),  lag = 4, type = "Ljung-Box")
+lb_holtd <- Box.test(residuals(modelo_holtd_fit), lag = 4, type = "Ljung-Box")
+lb_lm    <- Box.test(ts(residuals(modelo_lm), start = 1999, frequency = 1),
+                     lag = 4, type = "Ljung-Box")
+
+tabla_lb <- data.frame(
+  Modelo = c(
+    "ARIMA(0,1,0) with drift",
+    paste0("ETS – ", modelo_ets$method),
+    "Holt lineal",
+    "Holt amortiguado",
+    "Regresión lineal"
+  ),
+  `Q*`      = round(c(lb_arima$statistic, lb_ets$statistic,
+                       lb_holt$statistic,  lb_holtd$statistic,
+                       lb_lm$statistic), 4),
+  `df`      = c(lb_arima$parameter, lb_ets$parameter,
+                 lb_holt$parameter,  lb_holtd$parameter,
+                 lb_lm$parameter),
+  `p-value` = round(c(lb_arima$p.value, lb_ets$p.value,
+                       lb_holt$p.value,  lb_holtd$p.value,
+                       lb_lm$p.value), 4),
+  Resultado = ifelse(
+    c(lb_arima$p.value, lb_ets$p.value,
+      lb_holt$p.value,  lb_holtd$p.value,
+      lb_lm$p.value) > 0.05,
+    "✔ Ruido blanco",
+    "✖ Autocorrelación"
+  ),
+  check.names = FALSE
+)
+
+filas_ok <- which(tabla_lb$`p-value` > 0.05)
+
+tabla_lb %>%
+  kable(
+    caption = "Prueba de Ljung-Box por modelo (p > 0.05 = residuos independientes)",
+    
+    
+    align   = c("l", "c", "c", "c", "c")
+  ) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = FALSE, font_size = 12) %>%
+  row_spec(0, background = "#1D3557", color = "white", bold = TRUE) %>%
+  row_spec(filas_ok, background = "#D1FAE5")
+```
+
+Todos los modelos superan la prueba de Ljung-Box (p \> 0.05),
+confirmando que ninguno deja autocorrelación significativa en los
+residuos, condición mínima de validez para cualquier modelo de series de
+tiempo. Dado que este criterio no discrimina entre los modelos
+evaluados, la selección final se apoya en los criterios de información
+(AICc) y la validación cruzada (tsCV).
+
+## 15.3. Validación cruzada de series de tiempo (tsCV)
+La validación cruzada de series de tiempo evalúa el error de predicción
+fuera de muestra en ventanas de entrenamiento expandidas desde el
+origen. Es el método estándar cuando n es pequeño y no permite una
+partición train/test formal. Se evalúan dos horizontes: h = 1
+(precisión inmediata) y h = 3 (capacidad de proyección a mediano
+plazo).
+
+```{r tscv_calculo, message=FALSE, warning=FALSE, cache=TRUE}
+f_arima    <- function(y, h) forecast(auto.arima(y, stepwise = FALSE,
+                                                  approximation = FALSE), h = h)
+f_ets      <- function(y, h) forecast(ets(y), h = h)
+f_holt     <- function(y, h) holt(y, h = h)
+f_holt_d   <- function(y, h) holt(y, h = h, damped = TRUE)
+f_naive_d  <- function(y, h) rwf(y, h = h, drift = TRUE)
+f_lm       <- function(y, h) {
+  n      <- length(y)
+  t_hist <- 1:n
+  fit    <- lm(y ~ t_hist)
+  t_new  <- data.frame(t_hist = (n + 1):(n + h))
+  pred   <- predict(fit, newdata = t_new)
+  structure(
+    list(mean = ts(pred,
+                   start     = tsp(y)[2] + 1 / tsp(y)[3],
+                   frequency = tsp(y)[3])),
+    class = "forecast"
+  )
+}
+
+set.seed(42)
+
+# h = 1
+e1_arima  <- tsCV(ts_wv_acc, f_arima,   h = 1)
+e1_ets    <- tsCV(ts_wv_acc, f_ets,     h = 1)
+e1_holt   <- tsCV(ts_wv_acc, f_holt,    h = 1)
+e1_holtd  <- tsCV(ts_wv_acc, f_holt_d,  h = 1)
+e1_naive  <- tsCV(ts_wv_acc, f_naive_d, h = 1)
+e1_lm     <- tsCV(ts_wv_acc, f_lm,      h = 1)
+
+# h = 3
+e3_arima  <- tsCV(ts_wv_acc, f_arima,   h = 3)
+e3_ets    <- tsCV(ts_wv_acc, f_ets,     h = 3)
+e3_holt   <- tsCV(ts_wv_acc, f_holt,    h = 3)
+e3_holtd  <- tsCV(ts_wv_acc, f_holt_d,  h = 3)
+e3_naive  <- tsCV(ts_wv_acc, f_naive_d, h = 3)
+e3_lm     <- tsCV(ts_wv_acc, f_lm,      h = 3)
+
+cv_rmse <- function(e) round(sqrt(mean(e^2, na.rm = TRUE)), 3)
+cv_mae  <- function(e) round(mean(abs(e),   na.rm = TRUE),  3)
+
+modelos_label <- c(
+  "ARIMA(0,1,0) with drift",
+  paste0("ETS – ", modelo_ets$method),
+  "Holt lineal",
+  "Holt amortiguado",
+  "Naive with drift",
+  "Regresión lineal"
+)
+
+tabla_cv <- data.frame(
+  Modelo     = modelos_label,
+  `RMSE h=1` = c(cv_rmse(e1_arima), cv_rmse(e1_ets), cv_rmse(e1_holt),
+                  cv_rmse(e1_holtd), cv_rmse(e1_naive), cv_rmse(e1_lm)),
+  `MAE h=1`  = c(cv_mae(e1_arima),  cv_mae(e1_ets),  cv_mae(e1_holt),
+                  cv_mae(e1_holtd),  cv_mae(e1_naive),  cv_mae(e1_lm)),
+  `RMSE h=3` = c(cv_rmse(e3_arima), cv_rmse(e3_ets), cv_rmse(e3_holt),
+                  cv_rmse(e3_holtd), cv_rmse(e3_naive), cv_rmse(e3_lm)),
+  `MAE h=3`  = c(cv_mae(e3_arima),  cv_mae(e3_ets),  cv_mae(e3_holt),
+                  cv_mae(e3_holtd),  cv_mae(e3_naive),  cv_mae(e3_lm)),
+  check.names = FALSE
+)
+
+mejor_rmse_h1 <- which.min(tabla_cv$`RMSE h=1`)
+mejor_rmse_h3 <- which.min(tabla_cv$`RMSE h=3`)
+```
+
+
+```{r, message=FALSE, echo=TRUE}
+tabla_cv %>%
+  kable(
+    caption = "Validación cruzada tsCV – RMSE y MAE por horizonte (menor = mejor)",
+    
+    
+    align   = c("l", "c", "c", "c", "c")
+  ) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = FALSE, font_size = 12) %>%
+  row_spec(0, background = "#1D3557", color = "white", bold = TRUE) %>%
+  row_spec(mejor_rmse_h1, background = "#A8DADC", bold = TRUE) %>%
+  add_header_above(
+    c(" " = 1,
+      "Horizonte 1 paso (h=1)" = 2,
+      "Horizonte 3 pasos (h=3)" = 2),
+    background = "#457B9D", color = "white", bold = TRUE
+  )
+```
+
+La regresión lineal obtiene el menor RMSE en ambos horizontes; su buen
+desempeño en tsCV se explica porque la tendencia positiva global de la
+serie favorece a un modelo que precisamente impone una tendencia fija.
+Esto no la convierte en el mejor modelo: aplicar OLS sobre una serie I(1)
+sin diferenciar produce intervalos de predicción estadísticamente
+inválidos, limitación que ninguna métrica de error promedio detecta.
+
+Entre los modelos válidos, las diferencias de RMSE son marginales en
+términos epidemiológicos: el rango entre ARIMA (8.947) y el mejor
+alternativo válido en h=1 es inferior a 0.4 puntos sobre una serie que
+oscila entre 42 y 100 por 100,000 habitantes. La selección no puede
+resolverse por tsCV en aislamiento; requiere considerar conjuntamente los
+criterios de información y el diagnóstico de residuos, donde vemos que
+ARIMA es consistentemente superior.
+
+## 15.4. Gráfico comparativo de proyecciones
+```{r grafico_comparacion_final, fig.width=11, fig.height=6, message=FALSE, warning=FALSE}
+pred_arima_f  <- forecast(modelo_acc,       h = horizonte)
+pred_ets_f    <- forecast(modelo_ets,       h = horizonte)
+pred_holt_f   <- forecast(modelo_holt_fit,  h = horizonte)
+pred_holtd_f  <- forecast(modelo_holtd_fit, h = horizonte)
+pred_naive_f  <- rwf(ts_wv_acc, h = horizonte, drift = TRUE)
+
+tiempo_proj_v  <- (length(serie_wv_acc) + 1):(length(serie_wv_acc) + horizonte)
+pred_lm_v      <- as.numeric(
+  predict(modelo_lm,
+          newdata = data.frame(tiempo_hist = tiempo_proj_v))
+)
+
+df_preds_final <- data.frame(
+  year  = rep(anios_fut, 6),
+  valor = c(
+    as.numeric(pred_arima_f$mean),
+    as.numeric(pred_ets_f$mean),
+    as.numeric(pred_holt_f$mean),
+    as.numeric(pred_holtd_f$mean),
+    as.numeric(pred_naive_f$mean),
+    pred_lm_v
+  ),
+  modelo = rep(c(
+    "ARIMA(0,1,0) drift",
+    "ETS",
+    "Holt lineal",
+    "Holt amortiguado",
+    "Naive drift",
+    "Reg. lineal"
+  ), each = horizonte)
+)
+
+colores_comp <- c(
+  "ARIMA(0,1,0) drift" = "#1D3557",
+  "ETS"                = "#E63946",
+  "Holt lineal"        = "#2A9D8F",
+  "Holt amortiguado"   = "#F4A261",
+  "Naive drift"        = "#9B2226",
+  "Reg. lineal"        = "#6A4C93"
+)
+
+tipos_comp <- c(
+  "ARIMA(0,1,0) drift" = "dashed",
+  "ETS"                = "dashed",
+  "Holt lineal"        = "dotdash",
+  "Holt amortiguado"   = "dotdash",
+  "Naive drift"        = "longdash",
+  "Reg. lineal"        = "longdash"
+)
+
+ggplot() +
+  geom_line(data  = df_hist_ets,
+            aes(x = year, y = valor),
+            color = "black", linewidth = 1.4) +
+  geom_point(data = df_hist_ets,
+             aes(x = year, y = valor),
+             color = "black", size = 2.2) +
+  geom_line(data = df_preds_final,
+            aes(x = year, y = valor,
+                color = modelo, linetype = modelo),
+            linewidth = 1.0) +
+  geom_point(data = df_preds_final,
+             aes(x = year, y = valor, color = modelo),
+             size = 2.5, shape = 17) +
+  geom_vline(xintercept = 2017.5, linetype = "dotted",
+             color = "gray40", linewidth = 0.8) +
+  annotate("text", x = 2017.7, y = max(serie_wv_acc) * 0.75,
+           label = "→ Proyección", hjust = 0,
+           color = "gray40", fontface = "italic", size = 3.5) +
+  scale_color_manual(values    = colores_comp) +
+  scale_linetype_manual(values = tipos_comp) +
+  scale_x_continuous(breaks = seq(1999, 2022, by = 2)) +
+  scale_y_continuous(labels = comma) +
+  labs(
+    title    = "Comparación de proyecciones – Unintentional Injuries",
+    subtitle = "West Virginia · 2018–2022 · Todos los modelos evaluados",
+    x        = "Año",
+    y        = "Tasa ajustada por 100,000 hab.",
+    color    = "Modelo",
+    linetype = "Modelo"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title       = element_text(face = "bold", hjust = 0.5),
+    plot.subtitle    = element_text(hjust = 0.5, color = "gray40"),
+    axis.text.x      = element_text(angle = 45, hjust = 1),
+    panel.grid.minor = element_blank(),
+    legend.position  = "bottom",
+    legend.title     = element_text(face = "bold")
+  )
+```

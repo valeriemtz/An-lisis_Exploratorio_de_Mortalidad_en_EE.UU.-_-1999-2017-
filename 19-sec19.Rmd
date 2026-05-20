@@ -1,0 +1,30 @@
+# 19. Conclusiones
+
+El análisis sobre la mortalidad en Estados Unidos (1999–2017) revela
+una evolución en el perfil epidemiológico del país: Las **enfermedades
+cardíacas y el cáncer** se mantienen como las causas dominantes, pero
+mientras las primeras descienden sostenidamente, el cáncer se
+estabiliza, mientras que emergen con fuerza nuevas amenazas como las
+lesiones no intencionales y el suicidio —las llamadas *"muertes por
+desesperación"*— que aumentan de manera alarmante, especialmente a partir
+de 2014, y el Alzheimer escala posiciones impulsado por el
+envejecimiento poblacional, todo ello en un contexto donde las
+disparidades geográficas se consolidan como un patrón estructural: los
+estados del sur y los Apalaches presentan tasas de mortalidad muy
+superiores a la media nacional, reflejando desigualdades socioeconómicas
+y de acceso a la salud que persisten a lo largo de todo el período.
+
+Estos datos requieren políticas de salud pública dirigidas a donde hay
+más muertes, enfocadas contra los determinantes sociales subyacentes.
+Implementación de un enfoque universal para la crisis de los opioides y
+un apoyo psicológico para respaldar la salud mental, que incluya el
+control de sustancias y el acceso a tratamientos. Asimismo, el sistema
+de salud enfocado en la población envejecida debe mejorar; se debe
+fortalecer la atención geriátrica y el desarrollo de investigaciones
+sobre enfermedades neurodegenerativas.
+
+Los datos son claros: aunque el perfil de mortalidad ha cambiado, las
+respuestas institucionales aún no se han enfocado en estos nuevos retos.
+Es momento de pasar de un enfoque reactivo a uno proactivo, combinar la
+prevención de enfermedades crónicas con acciones decisivas y así avanzar
+hacia un futuro con menos muertes prevenibles y mayor equidad en salud.
