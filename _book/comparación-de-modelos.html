@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>14 15. Comparación de modelos | Análisis Temporal y Demográfico de las Principales Causas de Muerte en Estados Unidos</title>
+  <meta name="description" content="Análisis Exploratorio de Mortalidad en EE.UU. (1999-2017)" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="14 15. Comparación de modelos | Análisis Temporal y Demográfico de las Principales Causas de Muerte en Estados Unidos" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Análisis Exploratorio de Mortalidad en EE.UU. (1999-2017)" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="14 15. Comparación de modelos | Análisis Temporal y Demográfico de las Principales Causas de Muerte en Estados Unidos" />
+  
+  <meta name="twitter:description" content="Análisis Exploratorio de Mortalidad en EE.UU. (1999-2017)" />
+  
+
+<meta name="author" content="Valerie M y Luis C" />
+
+
+<meta name="date" content="2026-05-20" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="modelo-3-regresión-lineal-con-tendencia-temporal.html"/>
+<link rel="next" href="justificación-del-modelo-seleccionado.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="introducción.html"><a href="introducción.html"><i class="fa fa-check"></i><b>1</b> 1. Introducción</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introducción.html"><a href="introducción.html#contexto-del-problema"><i class="fa fa-check"></i><b>1.1</b> 1.1. Contexto del Problema</a></li>
+<li class="chapter" data-level="1.2" data-path="introducción.html"><a href="introducción.html#contexto-del-dataset"><i class="fa fa-check"></i><b>1.2</b> 1.2. Contexto del Dataset</a></li>
+<li class="chapter" data-level="1.3" data-path="introducción.html"><a href="introducción.html#pregunta-central-de-investigación"><i class="fa fa-check"></i><b>1.3</b> 1.3. Pregunta Central de Investigación</a></li>
+<li class="chapter" data-level="1.4" data-path="introducción.html"><a href="introducción.html#objetivos-del-estudio"><i class="fa fa-check"></i><b>1.4</b> 1.4. Objetivos del Estudio</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="introducción.html"><a href="introducción.html#objetivo-general"><i class="fa fa-check"></i><b>1.4.1</b> 1.4.1 Objetivo General</a></li>
+<li class="chapter" data-level="1.4.2" data-path="introducción.html"><a href="introducción.html#objetivos-específicos"><i class="fa fa-check"></i><b>1.4.2</b> 1.4.2 Objetivos Específicos</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="marco-teórico.html"><a href="marco-teórico.html"><i class="fa fa-check"></i><b>2</b> 2. Marco teórico</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="marco-teórico.html"><a href="marco-teórico.html#prevalencia-de-las-enfermedades-crónicas-en-ee.-uu."><i class="fa fa-check"></i><b>2.1</b> 2.1. Prevalencia de las enfermedades crónicas en EE. UU.</a></li>
+<li class="chapter" data-level="2.2" data-path="marco-teórico.html"><a href="marco-teórico.html#las-disparidades-geográficas-como-patrón-persistente"><i class="fa fa-check"></i><b>2.2</b> 2.2. Las disparidades geográficas como patrón persistente</a></li>
+<li class="chapter" data-level="2.3" data-path="marco-teórico.html"><a href="marco-teórico.html#la-importancia-del-análisis-temporal-y-por-ranking"><i class="fa fa-check"></i><b>2.3</b> 2.3. La importancia del análisis temporal y por ranking</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="metodología.html"><a href="metodología.html"><i class="fa fa-check"></i><b>3</b> 3. Metodología</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="metodología.html"><a href="metodología.html#fuente-de-datos-y-preprocesamiento"><i class="fa fa-check"></i><b>3.1</b> 3.1. Fuente de datos y preprocesamiento:</a></li>
+<li class="chapter" data-level="3.2" data-path="metodología.html"><a href="metodología.html#estadística-descriptiva"><i class="fa fa-check"></i><b>3.2</b> 3.2. Estadística descriptiva:</a></li>
+<li class="chapter" data-level="3.3" data-path="metodología.html"><a href="metodología.html#análisis-de-series-de-tiempo"><i class="fa fa-check"></i><b>3.3</b> 3.3. Análisis de series de tiempo:</a></li>
+<li class="chapter" data-level="3.4" data-path="metodología.html"><a href="metodología.html#análisis-geográfico"><i class="fa fa-check"></i><b>3.4</b> 3.4. Análisis geográfico:</a></li>
+<li class="chapter" data-level="3.5" data-path="metodología.html"><a href="metodología.html#modelo-predictivo-arima"><i class="fa fa-check"></i><b>3.5</b> 3.6. Modelo predictivo – ARIMA:</a></li>
+<li class="chapter" data-level="3.6" data-path="metodología.html"><a href="metodología.html#herramientas-computacionales"><i class="fa fa-check"></i><b>3.6</b> 3.7. Herramientas Computacionales</a></li>
+<li class="chapter" data-level="3.7" data-path="metodología.html"><a href="metodología.html#carga-y-limpieza-de-datos"><i class="fa fa-check"></i><b>3.7</b> 3.8. Carga y limpieza de datos</a></li>
+<li class="chapter" data-level="3.8" data-path="metodología.html"><a href="metodología.html#variables-del-dataset"><i class="fa fa-check"></i><b>3.8</b> 3.9. Variables del Dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html"><i class="fa fa-check"></i><b>4</b> 4. Evolución de la tasa ajustada de mortalidad anual</a></li>
+<li class="chapter" data-level="5" data-path="análisis-de-ranking-cambios-en-la-posición-de-las-causas-de-muerte.html"><a href="análisis-de-ranking-cambios-en-la-posición-de-las-causas-de-muerte.html"><i class="fa fa-check"></i><b>5</b> 5. Análisis de Ranking: Cambios en la Posición de las Causas de Muerte</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="análisis-de-ranking-cambios-en-la-posición-de-las-causas-de-muerte.html"><a href="análisis-de-ranking-cambios-en-la-posición-de-las-causas-de-muerte.html#ranking-de-causas-por-año"><i class="fa fa-check"></i><b>5.1</b> 5.1. Ranking de causas por año</a></li>
+<li class="chapter" data-level="5.2" data-path="análisis-de-ranking-cambios-en-la-posición-de-las-causas-de-muerte.html"><a href="análisis-de-ranking-cambios-en-la-posición-de-las-causas-de-muerte.html#cambios-en-el-ranking-1999-vs-2017"><i class="fa fa-check"></i><b>5.2</b> 5.2. Cambios en el ranking: 1999 vs 2017</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html"><i class="fa fa-check"></i><b>6</b> 6. Análisis Específico: La Crisis de las “Muertes por Desesperación”</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#evolución-conjunta-de-suicidio-y-accidentes"><i class="fa fa-check"></i><b>6.1</b> 6.1. Evolución conjunta de suicidio y accidentes</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="distribución-por-causas-principales-top-10.html"><a href="distribución-por-causas-principales-top-10.html"><i class="fa fa-check"></i><b>7</b> 7. Distribución por causas principales (top 10)</a></li>
+<li class="chapter" data-level="8" data-path="series-de-tiempo-por-causa.html"><a href="series-de-tiempo-por-causa.html"><i class="fa fa-check"></i><b>8</b> 8. Series de tiempo por causa</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="series-de-tiempo-por-causa.html"><a href="series-de-tiempo-por-causa.html#causa-vs-año"><i class="fa fa-check"></i><b>8.1</b> 8.1. Causa vs Año</a></li>
+<li class="chapter" data-level="8.2" data-path="series-de-tiempo-por-causa.html"><a href="series-de-tiempo-por-causa.html#heatmap-de-muertes-absolutas-por-causas-y-años"><i class="fa fa-check"></i><b>8.2</b> 8.2. Heatmap de muertes absolutas por causas y años</a></li>
+<li class="chapter" data-level="8.3" data-path="series-de-tiempo-por-causa.html"><a href="series-de-tiempo-por-causa.html#análisis-geográfico-disparidades-por-estado"><i class="fa fa-check"></i><b>8.3</b> 8.3. Análisis Geográfico: Disparidades por Estado</a></li>
+<li class="chapter" data-level="8.4" data-path="series-de-tiempo-por-causa.html"><a href="series-de-tiempo-por-causa.html#mapeo---número-de-muertes-de-1999-a-2017-por-estados"><i class="fa fa-check"></i><b>8.4</b> 8.3.1. Mapeo - Número de muertes de 1999 a 2017 por estados</a></li>
+<li class="chapter" data-level="8.5" data-path="series-de-tiempo-por-causa.html"><a href="series-de-tiempo-por-causa.html#mapeo-tasa-de-mortalidad-ajustada-por-edad-de-1999-a-2017-por-estados"><i class="fa fa-check"></i><b>8.5</b> 8.3.2 Mapeo – Tasa de mortalidad ajustada por edad de 1999 a 2017 por estados</a></li>
+<li class="chapter" data-level="8.6" data-path="series-de-tiempo-por-causa.html"><a href="series-de-tiempo-por-causa.html#estados-con-mayor-y-menor-mortalidad"><i class="fa fa-check"></i><b>8.6</b> 8.3.3. Estados con mayor y menor mortalidad</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="caso-de-estudio-west-virginia.html"><a href="caso-de-estudio-west-virginia.html"><i class="fa fa-check"></i><b>9</b> 9. Caso de estudio: West Virginia</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="caso-de-estudio-west-virginia.html"><a href="caso-de-estudio-west-virginia.html#evolución-de-las-causas-de-muerte-en-west-virginia-19992017"><i class="fa fa-check"></i><b>9.1</b> 9.1. Evolución de las causas de muerte en West Virginia (1999–2017)</a></li>
+<li class="chapter" data-level="9.2" data-path="caso-de-estudio-west-virginia.html"><a href="caso-de-estudio-west-virginia.html#qué-explica-el-crecimiento-de-las-lesiones-no-intencionales-en-west-virginia"><i class="fa fa-check"></i><b>9.2</b> 9.1.1.¿Qué explica el crecimiento de las lesiones no intencionales en West Virginia?</a></li>
+<li class="chapter" data-level="9.3" data-path="caso-de-estudio-west-virginia.html"><a href="caso-de-estudio-west-virginia.html#comparación-de-muertes-por-causa-west-virginia-1999-vs.-2017"><i class="fa fa-check"></i><b>9.3</b> 9.2. Comparación de muertes por causa: West Virginia 1999 vs. 2017</a></li>
+<li class="chapter" data-level="9.4" data-path="caso-de-estudio-west-virginia.html"><a href="caso-de-estudio-west-virginia.html#west-virginia-vs.-promedio-nacional-19992017"><i class="fa fa-check"></i><b>9.4</b> 9.3. West Virginia vs. Promedio Nacional (1999–2017)</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="modelo-1-arima.html"><a href="modelo-1-arima.html"><i class="fa fa-check"></i><b>10</b> 11. Modelo 1 – ARIMA</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="modelo-1-arima.html"><a href="modelo-1-arima.html#construcción-de-las-series-de-tiempo"><i class="fa fa-check"></i><b>10.1</b> 11.1. Construcción de las series de tiempo</a></li>
+<li class="chapter" data-level="10.2" data-path="modelo-1-arima.html"><a href="modelo-1-arima.html#prueba-de-estacionariedad-dickey-fuller-aumentada-adf"><i class="fa fa-check"></i><b>10.2</b> 11.2. Prueba de estacionariedad – Dickey-Fuller Aumentada (ADF)</a></li>
+<li class="chapter" data-level="10.3" data-path="modelo-1-arima.html"><a href="modelo-1-arima.html#acf-y-pacf-identificación-visual-del-orden"><i class="fa fa-check"></i><b>10.3</b> 11.3. ACF y PACF – identificación visual del orden</a></li>
+<li class="chapter" data-level="10.4" data-path="modelo-1-arima.html"><a href="modelo-1-arima.html#selección-automática-del-modelo"><i class="fa fa-check"></i><b>10.4</b> 11.4. Selección automática del modelo</a></li>
+<li class="chapter" data-level="10.5" data-path="modelo-1-arima.html"><a href="modelo-1-arima.html#diagnóstico-de-residuos"><i class="fa fa-check"></i><b>10.5</b> 11.5. Diagnóstico de residuos</a></li>
+<li class="chapter" data-level="10.6" data-path="modelo-1-arima.html"><a href="modelo-1-arima.html#proyecciones-arima-west-virginia-20182022"><i class="fa fa-check"></i><b>10.6</b> 11.6. Proyecciones ARIMA – West Virginia (2018–2022)</a></li>
+<li class="chapter" data-level="10.7" data-path="modelo-1-arima.html"><a href="modelo-1-arima.html#tabla-de-valores-proyectados"><i class="fa fa-check"></i><b>10.7</b> 11.7. Tabla de valores proyectados</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="modelos-adicionales.html"><a href="modelos-adicionales.html"><i class="fa fa-check"></i><b>11</b> 12. Modelos Adicionales</a></li>
+<li class="chapter" data-level="12" data-path="modelo-2-ets-error-trend-seasonality.html"><a href="modelo-2-ets-error-trend-seasonality.html"><i class="fa fa-check"></i><b>12</b> 13. Modelo 2 – ETS (Error, Trend, Seasonality)</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="modelo-2-ets-error-trend-seasonality.html"><a href="modelo-2-ets-error-trend-seasonality.html#diagnóstico-de-residuos-ets"><i class="fa fa-check"></i><b>12.1</b> 13.1. Diagnóstico de residuos – ETS</a></li>
+<li class="chapter" data-level="12.2" data-path="modelo-2-ets-error-trend-seasonality.html"><a href="modelo-2-ets-error-trend-seasonality.html#proyección-ets-20182022"><i class="fa fa-check"></i><b>12.2</b> 13.2. Proyección ETS (2018–2022)</a></li>
+<li class="chapter" data-level="12.3" data-path="modelo-2-ets-error-trend-seasonality.html"><a href="modelo-2-ets-error-trend-seasonality.html#tabla-de-valores-proyectados-1"><i class="fa fa-check"></i><b>12.3</b> 13.3. Tabla de valores proyectados</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="modelo-3-regresión-lineal-con-tendencia-temporal.html"><a href="modelo-3-regresión-lineal-con-tendencia-temporal.html"><i class="fa fa-check"></i><b>13</b> 14. Modelo 3 – Regresión Lineal con Tendencia Temporal</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="modelo-3-regresión-lineal-con-tendencia-temporal.html"><a href="modelo-3-regresión-lineal-con-tendencia-temporal.html#diagnóstico-de-residuos-regresión-lineal"><i class="fa fa-check"></i><b>13.1</b> 14.1. Diagnóstico de residuos – Regresión Lineal</a></li>
+<li class="chapter" data-level="13.2" data-path="modelo-3-regresión-lineal-con-tendencia-temporal.html"><a href="modelo-3-regresión-lineal-con-tendencia-temporal.html#proyección-regresión-lineal-20182022"><i class="fa fa-check"></i><b>13.2</b> 14.2. Proyección – Regresión Lineal (2018–2022)</a></li>
+<li class="chapter" data-level="13.3" data-path="modelo-3-regresión-lineal-con-tendencia-temporal.html"><a href="modelo-3-regresión-lineal-con-tendencia-temporal.html#tabla-de-valores-proyectados-2"><i class="fa fa-check"></i><b>13.3</b> 14.3. Tabla de valores proyectados</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="comparación-de-modelos.html"><a href="comparación-de-modelos.html"><i class="fa fa-check"></i><b>14</b> 15. Comparación de modelos</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="comparación-de-modelos.html"><a href="comparación-de-modelos.html#criterios-de-información-modelos-paramétricos"><i class="fa fa-check"></i><b>14.1</b> 15.1. Criterios de información (modelos paramétricos)</a></li>
+<li class="chapter" data-level="14.2" data-path="comparación-de-modelos.html"><a href="comparación-de-modelos.html#diagnóstico-comparativo-de-residuos"><i class="fa fa-check"></i><b>14.2</b> 15.2. Diagnóstico comparativo de residuos</a></li>
+<li class="chapter" data-level="14.3" data-path="comparación-de-modelos.html"><a href="comparación-de-modelos.html#validación-cruzada-de-series-de-tiempo-tscv"><i class="fa fa-check"></i><b>14.3</b> 15.3. Validación cruzada de series de tiempo (tsCV)</a></li>
+<li class="chapter" data-level="14.4" data-path="comparación-de-modelos.html"><a href="comparación-de-modelos.html#gráfico-comparativo-de-proyecciones"><i class="fa fa-check"></i><b>14.4</b> 15.4. Gráfico comparativo de proyecciones</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="justificación-del-modelo-seleccionado.html"><a href="justificación-del-modelo-seleccionado.html"><i class="fa fa-check"></i><b>15</b> 16. Justificación del Modelo Seleccionado</a></li>
+<li class="chapter" data-level="16" data-path="insights-clave.html"><a href="insights-clave.html"><i class="fa fa-check"></i><b>16</b> 17. Insights clave</a></li>
+<li class="chapter" data-level="17" data-path="limitaciones-del-estudio.html"><a href="limitaciones-del-estudio.html"><i class="fa fa-check"></i><b>17</b> 18. Limitaciones del estudio</a></li>
+<li class="chapter" data-level="18" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>18</b> 19. Conclusiones</a></li>
+<li class="chapter" data-level="19" data-path="referencias-bibliográficas.html"><a href="referencias-bibliográficas.html"><i class="fa fa-check"></i><b>19</b> 20. Referencias bibliográficas</a></li>
+<li class="chapter" data-level="20" data-path="análisis-exploratorio-de-mortalidad-en-ee.uu.-1999-2017.html"><a href="análisis-exploratorio-de-mortalidad-en-ee.uu.-1999-2017.html"><i class="fa fa-check"></i><b>20</b> <strong>Análisis Exploratorio de Mortalidad en EE.UU. (1999-2017)</strong></a></li>
+<li class="chapter" data-level="21" data-path="introducción-1.html"><a href="introducción-1.html"><i class="fa fa-check"></i><b>21</b> 1. Introducción</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="introducción-1.html"><a href="introducción-1.html#contexto-del-problema-1"><i class="fa fa-check"></i><b>21.1</b> <strong>1.1. Contexto del Problema</strong></a></li>
+<li class="chapter" data-level="21.2" data-path="introducción-1.html"><a href="introducción-1.html#contexto-del-dataset-1"><i class="fa fa-check"></i><b>21.2</b> <strong>1.2. Contexto del Dataset</strong></a></li>
+<li class="chapter" data-level="21.3" data-path="introducción-1.html"><a href="introducción-1.html#pregunta-central-de-investigación-1"><i class="fa fa-check"></i><b>21.3</b> <strong>1.3. Pregunta Central de Investigación</strong></a></li>
+<li class="chapter" data-level="21.4" data-path="introducción-1.html"><a href="introducción-1.html#objetivos-del-estudio-1"><i class="fa fa-check"></i><b>21.4</b> 1.4. Objetivos del Estudio</a>
+<ul>
+<li class="chapter" data-level="21.4.1" data-path="introducción-1.html"><a href="introducción-1.html#objetivo-general-1"><i class="fa fa-check"></i><b>21.4.1</b> 1.4.1 Objetivo General</a></li>
+<li class="chapter" data-level="21.4.2" data-path="introducción-1.html"><a href="introducción-1.html#objetivos-específicos-1"><i class="fa fa-check"></i><b>21.4.2</b> 1.4.2 Objetivos Específicos</a></li>
+</ul></li>
+<li class="chapter" data-level="21.5" data-path="introducción-1.html"><a href="introducción-1.html#marco-teórico-1"><i class="fa fa-check"></i><b>21.5</b> 2. <strong>Marco teórico</strong></a>
+<ul>
+<li class="chapter" data-level="21.5.1" data-path="introducción-1.html"><a href="introducción-1.html#prevalencia-de-las-enfermedades-crónicas-en-ee.-uu.-1"><i class="fa fa-check"></i><b>21.5.1</b> 2.1. Prevalencia de las enfermedades crónicas en EE. UU.</a></li>
+<li class="chapter" data-level="21.5.2" data-path="introducción-1.html"><a href="introducción-1.html#las-disparidades-geográficas-como-patrón-persistente-1"><i class="fa fa-check"></i><b>21.5.2</b> <strong>2.2. Las disparidades geográficas como patrón persistente</strong></a></li>
+<li class="chapter" data-level="21.5.3" data-path="introducción-1.html"><a href="introducción-1.html#la-importancia-del-análisis-temporal-y-por-ranking-1"><i class="fa fa-check"></i><b>21.5.3</b> <strong>2.3. La importancia del análisis temporal y por ranking</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="21.6" data-path="introducción-1.html"><a href="introducción-1.html#metodología-1"><i class="fa fa-check"></i><b>21.6</b> 3. Metodología</a>
+<ul>
+<li class="chapter" data-level="21.6.1" data-path="introducción-1.html"><a href="introducción-1.html#fuente-de-datos-y-preprocesamiento-1"><i class="fa fa-check"></i><b>21.6.1</b> 3.1. Fuente de datos y preprocesamiento:</a></li>
+<li class="chapter" data-level="21.6.2" data-path="introducción-1.html"><a href="introducción-1.html#estadística-descriptiva-1"><i class="fa fa-check"></i><b>21.6.2</b> 3.2. Estadística descriptiva:</a></li>
+<li class="chapter" data-level="21.6.3" data-path="introducción-1.html"><a href="introducción-1.html#análisis-de-series-de-tiempo-1"><i class="fa fa-check"></i><b>21.6.3</b> 3.3. Análisis de series de tiempo:</a></li>
+<li class="chapter" data-level="21.6.4" data-path="introducción-1.html"><a href="introducción-1.html#análisis-geográfico-1"><i class="fa fa-check"></i><b>21.6.4</b> 3.4. Análisis geográfico:</a></li>
+<li class="chapter" data-level="21.6.5" data-path="introducción-1.html"><a href="introducción-1.html#análisis-de-clustering-k-means"><i class="fa fa-check"></i><b>21.6.5</b> 3.5. Análisis de clustering – K-Means:</a></li>
+<li class="chapter" data-level="21.6.6" data-path="introducción-1.html"><a href="introducción-1.html#modelo-predictivo-arima-1"><i class="fa fa-check"></i><b>21.6.6</b> 3.6. Modelo predictivo – ARIMA:</a></li>
+<li class="chapter" data-level="21.6.7" data-path="introducción-1.html"><a href="introducción-1.html#herramientas-computacionales-1"><i class="fa fa-check"></i><b>21.6.7</b> 3.7. Herramientas Computacionales</a></li>
+<li class="chapter" data-level="21.6.8" data-path="introducción-1.html"><a href="introducción-1.html#carga-y-limpieza-de-datos-1"><i class="fa fa-check"></i><b>21.6.8</b> 3.8. Carga y limpieza de datos</a></li>
+<li class="chapter" data-level="21.6.9" data-path="introducción-1.html"><a href="introducción-1.html#variables-del-dataset-1"><i class="fa fa-check"></i><b>21.6.9</b> 3.9. <strong>Variables del Dataset</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="21.7" data-path="introducción-1.html"><a href="introducción-1.html#evolución-de-la-tasa-ajustada-de-mortalidad-anual-1"><i class="fa fa-check"></i><b>21.7</b> <strong>4. Evolución de la tasa ajustada de mortalidad anual</strong></a></li>
+<li class="chapter" data-level="21.8" data-path="introducción-1.html"><a href="introducción-1.html#análisis-de-ranking-cambios-en-la-posición-de-las-causas-de-muerte-1"><i class="fa fa-check"></i><b>21.8</b> <strong>5. Análisis de Ranking: Cambios en la Posición de las Causas de Muerte</strong></a>
+<ul>
+<li class="chapter" data-level="21.8.1" data-path="introducción-1.html"><a href="introducción-1.html#ranking-de-causas-por-año-1"><i class="fa fa-check"></i><b>21.8.1</b> <strong>5.1. Ranking de causas por año</strong></a></li>
+<li class="chapter" data-level="21.8.2" data-path="introducción-1.html"><a href="introducción-1.html#cambios-en-el-ranking-1999-vs-2017-1"><i class="fa fa-check"></i><b>21.8.2</b> <strong>5.2. Cambios en el ranking: 1999 vs 2017</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="21.9" data-path="introducción-1.html"><a href="introducción-1.html#análisis-específico-la-crisis-de-las-muertes-por-desesperación-1"><i class="fa fa-check"></i><b>21.9</b> <strong>6. Análisis Específico: La Crisis de las “Muertes por Desesperación”</strong></a>
+<ul>
+<li class="chapter" data-level="21.9.1" data-path="introducción-1.html"><a href="introducción-1.html#evolución-conjunta-de-suicidio-y-accidentes-1"><i class="fa fa-check"></i><b>21.9.1</b> <strong>6.1. Evolución conjunta de suicidio y accidentes</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="21.10" data-path="introducción-1.html"><a href="introducción-1.html#distribución-por-causas-principales-top-10-1"><i class="fa fa-check"></i><b>21.10</b> 7. Distribución por causas principales (top 10)</a></li>
+<li class="chapter" data-level="21.11" data-path="introducción-1.html"><a href="introducción-1.html#series-de-tiempo-por-causa-1"><i class="fa fa-check"></i><b>21.11</b> 8. Series de tiempo por causa</a>
+<ul>
+<li class="chapter" data-level="21.11.1" data-path="introducción-1.html"><a href="introducción-1.html#causa-vs-año-1"><i class="fa fa-check"></i><b>21.11.1</b> 8.1. Causa vs Año</a></li>
+<li class="chapter" data-level="21.11.2" data-path="introducción-1.html"><a href="introducción-1.html#heatmap-de-muertes-absolutas-por-causas-y-años-1"><i class="fa fa-check"></i><b>21.11.2</b> <strong>8.2. Heatmap de muertes absolutas por causas y años</strong></a></li>
+<li class="chapter" data-level="21.11.3" data-path="introducción-1.html"><a href="introducción-1.html#análisis-geográfico-disparidades-por-estado-1"><i class="fa fa-check"></i><b>21.11.3</b> 8.3. Análisis Geográfico: Disparidades por Estado</a></li>
+<li class="chapter" data-level="21.11.4" data-path="introducción-1.html"><a href="introducción-1.html#mapeo---número-de-muertes-de-1999-a-2017-por-estados-1"><i class="fa fa-check"></i><b>21.11.4</b> <strong>8.3.1.</strong> Mapeo - Número de muertes de 1999 a 2017 por estados</a></li>
+<li class="chapter" data-level="21.11.5" data-path="introducción-1.html"><a href="introducción-1.html#mapeo-tasa-de-mortalidad-ajustada-por-edad-de-1999-a-2017-por-estados-1"><i class="fa fa-check"></i><b>21.11.5</b> 8.3.2 Mapeo – Tasa de mortalidad ajustada por edad de 1999 a 2017 por estados</a></li>
+<li class="chapter" data-level="21.11.6" data-path="introducción-1.html"><a href="introducción-1.html#estados-con-mayor-y-menor-mortalidad-1"><i class="fa fa-check"></i><b>21.11.6</b> <strong>8.3.3. Estados con mayor y menor mortalidad</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="21.12" data-path="introducción-1.html"><a href="introducción-1.html#caso-de-estudio-west-virginia-1"><i class="fa fa-check"></i><b>21.12</b> 9. Caso de estudio: West Virginia</a>
+<ul>
+<li class="chapter" data-level="21.12.1" data-path="introducción-1.html"><a href="introducción-1.html#evolución-de-las-causas-de-muerte-en-west-virginia-19992017-1"><i class="fa fa-check"></i><b>21.12.1</b> 9.1. Evolución de las causas de muerte en West Virginia (1999–2017)</a></li>
+<li class="chapter" data-level="21.12.2" data-path="introducción-1.html"><a href="introducción-1.html#qué-explica-el-crecimiento-de-las-lesiones-no-intencionales-en-west-virginia-1"><i class="fa fa-check"></i><b>21.12.2</b> 9.1.1.¿Qué explica el crecimiento de las lesiones no intencionales en West Virginia?</a></li>
+<li class="chapter" data-level="21.12.3" data-path="introducción-1.html"><a href="introducción-1.html#comparación-de-muertes-por-causa-west-virginia-1999-vs.-2017-1"><i class="fa fa-check"></i><b>21.12.3</b> 9.2. Comparación de muertes por causa: West Virginia 1999 vs. 2017</a></li>
+<li class="chapter" data-level="21.12.4" data-path="introducción-1.html"><a href="introducción-1.html#west-virginia-vs.-promedio-nacional-19992017-1"><i class="fa fa-check"></i><b>21.12.4</b> 9.3. West Virginia vs. Promedio Nacional (1999–2017)</a></li>
+</ul></li>
+<li class="chapter" data-level="21.13" data-path="introducción-1.html"><a href="introducción-1.html#clustering-de-estados-por-perfil-de-mortalidad"><i class="fa fa-check"></i><b>21.13</b> 10. Clustering de estados por perfil de mortalidad</a>
+<ul>
+<li class="chapter" data-level="21.13.1" data-path="introducción-1.html"><a href="introducción-1.html#preparación-de-datos"><i class="fa fa-check"></i><b>21.13.1</b> 10.1. Preparación de datos</a></li>
+<li class="chapter" data-level="21.13.2" data-path="introducción-1.html"><a href="introducción-1.html#estandarización-y-número-óptimo-de-clústeres-método-del-codo"><i class="fa fa-check"></i><b>21.13.2</b> 10.2. Estandarización y número óptimo de clústeres (método del codo)</a></li>
+<li class="chapter" data-level="21.13.3" data-path="introducción-1.html"><a href="introducción-1.html#modelo-k-means-y-composición-de-clústeres"><i class="fa fa-check"></i><b>21.13.3</b> 10.3. Modelo K-Means y composición de clústeres</a></li>
+<li class="chapter" data-level="21.13.4" data-path="introducción-1.html"><a href="introducción-1.html#visualización-pca-posicionamiento-de-los-estados"><i class="fa fa-check"></i><b>21.13.4</b> 10.4. Visualización PCA – posicionamiento de los estados</a></li>
+</ul></li>
+<li class="chapter" data-level="21.14" data-path="introducción-1.html"><a href="introducción-1.html#modelo-predictivo-arima-2"><i class="fa fa-check"></i><b>21.14</b> 11. Modelo Predictivo ARIMA</a>
+<ul>
+<li class="chapter" data-level="21.14.1" data-path="introducción-1.html"><a href="introducción-1.html#construcción-de-las-series-de-tiempo-1"><i class="fa fa-check"></i><b>21.14.1</b> 11.1. Construcción de las series de tiempo</a></li>
+<li class="chapter" data-level="21.14.2" data-path="introducción-1.html"><a href="introducción-1.html#prueba-de-estacionariedad-dickey-fuller-aumentada-adf-1"><i class="fa fa-check"></i><b>21.14.2</b> 11.2. Prueba de estacionariedad – Dickey-Fuller Aumentada (ADF)</a></li>
+<li class="chapter" data-level="21.14.3" data-path="introducción-1.html"><a href="introducción-1.html#acf-y-pacf-identificación-visual-del-orden-1"><i class="fa fa-check"></i><b>21.14.3</b> 11.3. ACF y PACF – identificación visual del orden</a></li>
+<li class="chapter" data-level="21.14.4" data-path="introducción-1.html"><a href="introducción-1.html#selección-automática-del-modelo-1"><i class="fa fa-check"></i><b>21.14.4</b> 11.4. Selección automática del modelo</a></li>
+<li class="chapter" data-level="21.14.5" data-path="introducción-1.html"><a href="introducción-1.html#diagnóstico-de-residuos-1"><i class="fa fa-check"></i><b>21.14.5</b> 11.5. Diagnóstico de residuos</a></li>
+<li class="chapter" data-level="21.14.6" data-path="introducción-1.html"><a href="introducción-1.html#proyecciones-arima-west-virginia-20182022-1"><i class="fa fa-check"></i><b>21.14.6</b> 11.6. Proyecciones ARIMA – West Virginia (2018–2022)</a></li>
+<li class="chapter" data-level="21.14.7" data-path="introducción-1.html"><a href="introducción-1.html#tabla-de-valores-proyectados-3"><i class="fa fa-check"></i><b>21.14.7</b> 11.7. Tabla de valores proyectados</a></li>
+<li class="chapter" data-level="21.14.8" data-path="introducción-1.html"><a href="introducción-1.html#modelo-predictivo"><i class="fa fa-check"></i><b>21.14.8</b> 11.8. Modelo predictivo</a></li>
+</ul></li>
+<li class="chapter" data-level="21.15" data-path="introducción-1.html"><a href="introducción-1.html#comparación-de-modelos-predictivos"><i class="fa fa-check"></i><b>21.15</b> 12. Comparación de Modelos Predictivos</a>
+<ul>
+<li class="chapter" data-level="21.15.1" data-path="introducción-1.html"><a href="introducción-1.html#modelo-2-ets-error-trend-seasonality-1"><i class="fa fa-check"></i><b>21.15.1</b> 12.1. Modelo 2 – ETS (Error, Trend, Seasonality)</a></li>
+<li class="chapter" data-level="21.15.2" data-path="introducción-1.html"><a href="introducción-1.html#modelo-3-regresión-lineal-con-tendencia-temporal-1"><i class="fa fa-check"></i><b>21.15.2</b> 12.2. Modelo 3 – Regresión Lineal con Tendencia Temporal</a></li>
+<li class="chapter" data-level="21.15.3" data-path="introducción-1.html"><a href="introducción-1.html#comparación-sistemática-de-modelos"><i class="fa fa-check"></i><b>21.15.3</b> 12.3. Comparación sistemática de modelos</a></li>
+<li class="chapter" data-level="21.15.4" data-path="introducción-1.html"><a href="introducción-1.html#justificación-del-modelo-seleccionado-1"><i class="fa fa-check"></i><b>21.15.4</b> 12.4. Justificación del Modelo Seleccionado</a></li>
+<li class="chapter" data-level="21.15.5" data-path="introducción-1.html"><a href="introducción-1.html#insights-clave-1"><i class="fa fa-check"></i><b>21.15.5</b> <strong>13. INSIGHTS CLAVE</strong></a></li>
+<li class="chapter" data-level="21.15.6" data-path="introducción-1.html"><a href="introducción-1.html#limitaciones-del-estudio-1"><i class="fa fa-check"></i><b>21.15.6</b> <strong>14. LIMITACIONES DEL ESTUDIO</strong></a></li>
+<li class="chapter" data-level="21.15.7" data-path="introducción-1.html"><a href="introducción-1.html#conclusiones-1"><i class="fa fa-check"></i><b>21.15.7</b> <strong>15. CONCLUSIONES</strong></a></li>
+<li class="chapter" data-level="21.15.8" data-path="introducción-1.html"><a href="introducción-1.html#referencias-bibliográficas-1"><i class="fa fa-check"></i><b>21.15.8</b> <strong>16. REFERENCIAS BIBLIOGRÁFICAS</strong></a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análisis Temporal y Demográfico de las Principales Causas de Muerte en Estados Unidos</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="comparación-de-modelos" class="section level1 hasAnchor" number="14">
+<h1><span class="header-section-number">14</span> 15. Comparación de modelos<a href="comparación-de-modelos.html#comparación-de-modelos" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="criterios-de-información-modelos-paramétricos" class="section level2 hasAnchor" number="14.1">
+<h2><span class="header-section-number">14.1</span> 15.1. Criterios de información (modelos paramétricos)<a href="comparación-de-modelos.html#criterios-de-información-modelos-paramétricos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Los criterios AIC, AICc y BIC penalizan la verosimilitud por la
+complejidad del modelo. El AICc es la métrica preferida cuando n &lt;
+40, ya que incorpora una corrección explícita por tamaño muestral que
+evita la sobreestimación de modelos complejos.</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="comparación-de-modelos.html#cb104-1" tabindex="-1"></a>modelo_holt_fit  <span class="ot">&lt;-</span> <span class="fu">ets</span>(ts_wv_acc, <span class="at">model =</span> <span class="st">&quot;AAN&quot;</span>)</span>
+<span id="cb104-2"><a href="comparación-de-modelos.html#cb104-2" tabindex="-1"></a>modelo_holtd_fit <span class="ot">&lt;-</span> <span class="fu">ets</span>(ts_wv_acc, <span class="at">model =</span> <span class="st">&quot;AAN&quot;</span>, <span class="at">damped =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb104-3"><a href="comparación-de-modelos.html#cb104-3" tabindex="-1"></a></span>
+<span id="cb104-4"><a href="comparación-de-modelos.html#cb104-4" tabindex="-1"></a>tabla_aic <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb104-5"><a href="comparación-de-modelos.html#cb104-5" tabindex="-1"></a>  <span class="at">Modelo =</span> <span class="fu">c</span>(</span>
+<span id="cb104-6"><a href="comparación-de-modelos.html#cb104-6" tabindex="-1"></a>    <span class="st">&quot;ARIMA(0,1,0) with drift&quot;</span>,</span>
+<span id="cb104-7"><a href="comparación-de-modelos.html#cb104-7" tabindex="-1"></a>    <span class="fu">paste0</span>(<span class="st">&quot;ETS – &quot;</span>, modelo_ets<span class="sc">$</span>method),</span>
+<span id="cb104-8"><a href="comparación-de-modelos.html#cb104-8" tabindex="-1"></a>    <span class="st">&quot;Holt lineal – ETS(A,A,N)&quot;</span>,</span>
+<span id="cb104-9"><a href="comparación-de-modelos.html#cb104-9" tabindex="-1"></a>    <span class="st">&quot;Holt amortiguado – ETS(A,Ad,N)&quot;</span></span>
+<span id="cb104-10"><a href="comparación-de-modelos.html#cb104-10" tabindex="-1"></a>  ),</span>
+<span id="cb104-11"><a href="comparación-de-modelos.html#cb104-11" tabindex="-1"></a>  Parámetros <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fu">length</span>(modelo_ets<span class="sc">$</span>par),</span>
+<span id="cb104-12"><a href="comparación-de-modelos.html#cb104-12" tabindex="-1"></a>                  <span class="fu">length</span>(modelo_holt_fit<span class="sc">$</span>par),</span>
+<span id="cb104-13"><a href="comparación-de-modelos.html#cb104-13" tabindex="-1"></a>                  <span class="fu">length</span>(modelo_holtd_fit<span class="sc">$</span>par)),</span>
+<span id="cb104-14"><a href="comparación-de-modelos.html#cb104-14" tabindex="-1"></a>  <span class="at">AIC  =</span> <span class="fu">round</span>(<span class="fu">c</span>(<span class="fu">AIC</span>(modelo_acc),</span>
+<span id="cb104-15"><a href="comparación-de-modelos.html#cb104-15" tabindex="-1"></a>                  <span class="fu">AIC</span>(modelo_ets),</span>
+<span id="cb104-16"><a href="comparación-de-modelos.html#cb104-16" tabindex="-1"></a>                  <span class="fu">AIC</span>(modelo_holt_fit),</span>
+<span id="cb104-17"><a href="comparación-de-modelos.html#cb104-17" tabindex="-1"></a>                  <span class="fu">AIC</span>(modelo_holtd_fit)), <span class="dv">2</span>),</span>
+<span id="cb104-18"><a href="comparación-de-modelos.html#cb104-18" tabindex="-1"></a>  <span class="at">AICc =</span> <span class="fu">round</span>(<span class="fu">c</span>(modelo_acc<span class="sc">$</span>aicc,</span>
+<span id="cb104-19"><a href="comparación-de-modelos.html#cb104-19" tabindex="-1"></a>                  modelo_ets<span class="sc">$</span>aicc,</span>
+<span id="cb104-20"><a href="comparación-de-modelos.html#cb104-20" tabindex="-1"></a>                  modelo_holt_fit<span class="sc">$</span>aicc,</span>
+<span id="cb104-21"><a href="comparación-de-modelos.html#cb104-21" tabindex="-1"></a>                  modelo_holtd_fit<span class="sc">$</span>aicc), <span class="dv">2</span>),</span>
+<span id="cb104-22"><a href="comparación-de-modelos.html#cb104-22" tabindex="-1"></a>  <span class="at">BIC  =</span> <span class="fu">round</span>(<span class="fu">c</span>(<span class="fu">BIC</span>(modelo_acc),</span>
+<span id="cb104-23"><a href="comparación-de-modelos.html#cb104-23" tabindex="-1"></a>                  <span class="fu">BIC</span>(modelo_ets),</span>
+<span id="cb104-24"><a href="comparación-de-modelos.html#cb104-24" tabindex="-1"></a>                  <span class="fu">BIC</span>(modelo_holt_fit),</span>
+<span id="cb104-25"><a href="comparación-de-modelos.html#cb104-25" tabindex="-1"></a>                  <span class="fu">BIC</span>(modelo_holtd_fit)), <span class="dv">2</span>),</span>
+<span id="cb104-26"><a href="comparación-de-modelos.html#cb104-26" tabindex="-1"></a>  <span class="at">check.names =</span> <span class="cn">FALSE</span></span>
+<span id="cb104-27"><a href="comparación-de-modelos.html#cb104-27" tabindex="-1"></a>)</span>
+<span id="cb104-28"><a href="comparación-de-modelos.html#cb104-28" tabindex="-1"></a></span>
+<span id="cb104-29"><a href="comparación-de-modelos.html#cb104-29" tabindex="-1"></a>mejor_aicc <span class="ot">&lt;-</span> <span class="fu">which.min</span>(tabla_aic<span class="sc">$</span>AICc)</span>
+<span id="cb104-30"><a href="comparación-de-modelos.html#cb104-30" tabindex="-1"></a></span>
+<span id="cb104-31"><a href="comparación-de-modelos.html#cb104-31" tabindex="-1"></a>tabla_aic <span class="sc">%&gt;%</span></span>
+<span id="cb104-32"><a href="comparación-de-modelos.html#cb104-32" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb104-33"><a href="comparación-de-modelos.html#cb104-33" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Criterios de información por modelo (menor AICc = mejor)&quot;</span>,</span>
+<span id="cb104-34"><a href="comparación-de-modelos.html#cb104-34" tabindex="-1"></a>    </span>
+<span id="cb104-35"><a href="comparación-de-modelos.html#cb104-35" tabindex="-1"></a>    </span>
+<span id="cb104-36"><a href="comparación-de-modelos.html#cb104-36" tabindex="-1"></a>    <span class="at">align   =</span> <span class="fu">c</span>(<span class="st">&quot;l&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>)</span>
+<span id="cb104-37"><a href="comparación-de-modelos.html#cb104-37" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb104-38"><a href="comparación-de-modelos.html#cb104-38" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>),</span>
+<span id="cb104-39"><a href="comparación-de-modelos.html#cb104-39" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">font_size =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb104-40"><a href="comparación-de-modelos.html#cb104-40" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">background =</span> <span class="st">&quot;#1D3557&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb104-41"><a href="comparación-de-modelos.html#cb104-41" tabindex="-1"></a>  <span class="fu">row_spec</span>(mejor_aicc, <span class="at">background =</span> <span class="st">&quot;#A8DADC&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb104-42"><a href="comparación-de-modelos.html#cb104-42" tabindex="-1"></a>  <span class="fu">add_header_above</span>(</span>
+<span id="cb104-43"><a href="comparación-de-modelos.html#cb104-43" tabindex="-1"></a>    <span class="fu">c</span>(<span class="st">&quot; &quot;</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">&quot;Criterios de información (menor = mejor)&quot;</span> <span class="ot">=</span> <span class="dv">3</span>),</span>
+<span id="cb104-44"><a href="comparación-de-modelos.html#cb104-44" tabindex="-1"></a>    <span class="at">background =</span> <span class="st">&quot;#457B9D&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span></span>
+<span id="cb104-45"><a href="comparación-de-modelos.html#cb104-45" tabindex="-1"></a>  )</span></code></pre></div>
+<table class="table table-striped table-hover" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:unnamed-chunk-21">Table 14.1: </span>Criterios de información por modelo (menor AICc = mejor)
+</caption>
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="2">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; color: white !important;padding-right: 4px; padding-left: 4px; background-color: rgba(69, 123, 157, 255) !important;" colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Criterios de información (menor = mejor)
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(29, 53, 87, 255) !important;">
+Modelo
+</th>
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(29, 53, 87, 255) !important;">
+Parámetros
+</th>
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(29, 53, 87, 255) !important;">
+AIC
+</th>
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(29, 53, 87, 255) !important;">
+AICc
+</th>
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(29, 53, 87, 255) !important;">
+BIC
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;background-color: rgba(168, 218, 220, 255) !important;">
+ARIMA(0,1,0) with drift
+</td>
+<td style="text-align:center;font-weight: bold;background-color: rgba(168, 218, 220, 255) !important;">
+1
+</td>
+<td style="text-align:center;font-weight: bold;background-color: rgba(168, 218, 220, 255) !important;">
+129.63
+</td>
+<td style="text-align:center;font-weight: bold;background-color: rgba(168, 218, 220, 255) !important;">
+130.43
+</td>
+<td style="text-align:center;font-weight: bold;background-color: rgba(168, 218, 220, 255) !important;">
+131.41
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ETS – ETS(M,A,N)
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+133.22
+</td>
+<td style="text-align:center;">
+137.84
+</td>
+<td style="text-align:center;">
+137.95
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Holt lineal – ETS(A,A,N)
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+137.47
+</td>
+<td style="text-align:center;">
+142.08
+</td>
+<td style="text-align:center;">
+142.19
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Holt amortiguado – ETS(A,Ad,N)
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+141.39
+</td>
+<td style="text-align:center;">
+148.39
+</td>
+<td style="text-align:center;">
+147.06
+</td>
+</tr>
+</tbody>
+</table>
+<p>La tabla de criterios de información confirma que <strong>ARIMA(0,1,0) with
+drift</strong> es el modelo óptimo para la serie de Unintentional injuries en
+West Virginia. Con un único parámetro estimado, el drift β = 3.24,
+obtiene los valores más bajos en AIC (129.63), AICc (130.43) y BIC
+(131.41), los tres criterios evaluados de forma simultánea.</p>
+<p>Este resultado no es trivial: significa que el modelo más simple es
+también el que mejor balancea ajuste, lo cual es la condición ideal en
+series cortas. La diferencia de AICc frente al segundo mejor modelo,
+ETS(M,A,N), es de 7.41 puntos. Siguiendo la escala de Burnham &amp; Anderson
+(2002), diferencias superiores a 7 puntos constituyen evidencia fuerte
+contra el modelo con mayor AICc, descartando ETS como alternativa
+competitiva a pesar de utilizar cuatro parámetros.</p>
+<p>Holt lineal y Holt amortiguado acumulan diferencias de 11.65 y 17.96
+puntos respectivamente, lo que los sitúa fuera de cualquier
+consideración de selección. El BIC, que penaliza la complejidad de forma
+más severa que el AIC, refuerza la misma conclusión: ARIMA es el único
+modelo donde el ajuste converge.</p>
+</div>
+<div id="diagnóstico-comparativo-de-residuos" class="section level2 hasAnchor" number="14.2">
+<h2><span class="header-section-number">14.2</span> 15.2. Diagnóstico comparativo de residuos<a href="comparación-de-modelos.html#diagnóstico-comparativo-de-residuos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La prueba de Ljung-Box evalúa si los residuos de cada modelo son
+estadísticamente independientes. Un p-value &gt; 0.05 es condición
+necesaria para que el modelo sea válido: residuos con autocorrelación
+indican que el modelo no capturó toda la estructura temporal disponible.</p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="comparación-de-modelos.html#cb105-1" tabindex="-1"></a><span class="co"># Ljung-Box con lag = 4 (estándar para n = 19, series anuales)</span></span>
+<span id="cb105-2"><a href="comparación-de-modelos.html#cb105-2" tabindex="-1"></a>lb_arima <span class="ot">&lt;-</span> <span class="fu">Box.test</span>(<span class="fu">residuals</span>(modelo_acc),       <span class="at">lag =</span> <span class="dv">4</span>, <span class="at">type =</span> <span class="st">&quot;Ljung-Box&quot;</span>)</span>
+<span id="cb105-3"><a href="comparación-de-modelos.html#cb105-3" tabindex="-1"></a>lb_ets   <span class="ot">&lt;-</span> <span class="fu">Box.test</span>(<span class="fu">residuals</span>(modelo_ets),       <span class="at">lag =</span> <span class="dv">4</span>, <span class="at">type =</span> <span class="st">&quot;Ljung-Box&quot;</span>)</span>
+<span id="cb105-4"><a href="comparación-de-modelos.html#cb105-4" tabindex="-1"></a>lb_holt  <span class="ot">&lt;-</span> <span class="fu">Box.test</span>(<span class="fu">residuals</span>(modelo_holt_fit),  <span class="at">lag =</span> <span class="dv">4</span>, <span class="at">type =</span> <span class="st">&quot;Ljung-Box&quot;</span>)</span>
+<span id="cb105-5"><a href="comparación-de-modelos.html#cb105-5" tabindex="-1"></a>lb_holtd <span class="ot">&lt;-</span> <span class="fu">Box.test</span>(<span class="fu">residuals</span>(modelo_holtd_fit), <span class="at">lag =</span> <span class="dv">4</span>, <span class="at">type =</span> <span class="st">&quot;Ljung-Box&quot;</span>)</span>
+<span id="cb105-6"><a href="comparación-de-modelos.html#cb105-6" tabindex="-1"></a>lb_lm    <span class="ot">&lt;-</span> <span class="fu">Box.test</span>(<span class="fu">ts</span>(<span class="fu">residuals</span>(modelo_lm), <span class="at">start =</span> <span class="dv">1999</span>, <span class="at">frequency =</span> <span class="dv">1</span>),</span>
+<span id="cb105-7"><a href="comparación-de-modelos.html#cb105-7" tabindex="-1"></a>                     <span class="at">lag =</span> <span class="dv">4</span>, <span class="at">type =</span> <span class="st">&quot;Ljung-Box&quot;</span>)</span>
+<span id="cb105-8"><a href="comparación-de-modelos.html#cb105-8" tabindex="-1"></a></span>
+<span id="cb105-9"><a href="comparación-de-modelos.html#cb105-9" tabindex="-1"></a>tabla_lb <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb105-10"><a href="comparación-de-modelos.html#cb105-10" tabindex="-1"></a>  <span class="at">Modelo =</span> <span class="fu">c</span>(</span>
+<span id="cb105-11"><a href="comparación-de-modelos.html#cb105-11" tabindex="-1"></a>    <span class="st">&quot;ARIMA(0,1,0) with drift&quot;</span>,</span>
+<span id="cb105-12"><a href="comparación-de-modelos.html#cb105-12" tabindex="-1"></a>    <span class="fu">paste0</span>(<span class="st">&quot;ETS – &quot;</span>, modelo_ets<span class="sc">$</span>method),</span>
+<span id="cb105-13"><a href="comparación-de-modelos.html#cb105-13" tabindex="-1"></a>    <span class="st">&quot;Holt lineal&quot;</span>,</span>
+<span id="cb105-14"><a href="comparación-de-modelos.html#cb105-14" tabindex="-1"></a>    <span class="st">&quot;Holt amortiguado&quot;</span>,</span>
+<span id="cb105-15"><a href="comparación-de-modelos.html#cb105-15" tabindex="-1"></a>    <span class="st">&quot;Regresión lineal&quot;</span></span>
+<span id="cb105-16"><a href="comparación-de-modelos.html#cb105-16" tabindex="-1"></a>  ),</span>
+<span id="cb105-17"><a href="comparación-de-modelos.html#cb105-17" tabindex="-1"></a>  <span class="st">`</span><span class="at">Q*</span><span class="st">`</span>      <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">c</span>(lb_arima<span class="sc">$</span>statistic, lb_ets<span class="sc">$</span>statistic,</span>
+<span id="cb105-18"><a href="comparación-de-modelos.html#cb105-18" tabindex="-1"></a>                       lb_holt<span class="sc">$</span>statistic,  lb_holtd<span class="sc">$</span>statistic,</span>
+<span id="cb105-19"><a href="comparación-de-modelos.html#cb105-19" tabindex="-1"></a>                       lb_lm<span class="sc">$</span>statistic), <span class="dv">4</span>),</span>
+<span id="cb105-20"><a href="comparación-de-modelos.html#cb105-20" tabindex="-1"></a>  <span class="st">`</span><span class="at">df</span><span class="st">`</span>      <span class="ot">=</span> <span class="fu">c</span>(lb_arima<span class="sc">$</span>parameter, lb_ets<span class="sc">$</span>parameter,</span>
+<span id="cb105-21"><a href="comparación-de-modelos.html#cb105-21" tabindex="-1"></a>                 lb_holt<span class="sc">$</span>parameter,  lb_holtd<span class="sc">$</span>parameter,</span>
+<span id="cb105-22"><a href="comparación-de-modelos.html#cb105-22" tabindex="-1"></a>                 lb_lm<span class="sc">$</span>parameter),</span>
+<span id="cb105-23"><a href="comparación-de-modelos.html#cb105-23" tabindex="-1"></a>  <span class="st">`</span><span class="at">p-value</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">c</span>(lb_arima<span class="sc">$</span>p.value, lb_ets<span class="sc">$</span>p.value,</span>
+<span id="cb105-24"><a href="comparación-de-modelos.html#cb105-24" tabindex="-1"></a>                       lb_holt<span class="sc">$</span>p.value,  lb_holtd<span class="sc">$</span>p.value,</span>
+<span id="cb105-25"><a href="comparación-de-modelos.html#cb105-25" tabindex="-1"></a>                       lb_lm<span class="sc">$</span>p.value), <span class="dv">4</span>),</span>
+<span id="cb105-26"><a href="comparación-de-modelos.html#cb105-26" tabindex="-1"></a>  <span class="at">Resultado =</span> <span class="fu">ifelse</span>(</span>
+<span id="cb105-27"><a href="comparación-de-modelos.html#cb105-27" tabindex="-1"></a>    <span class="fu">c</span>(lb_arima<span class="sc">$</span>p.value, lb_ets<span class="sc">$</span>p.value,</span>
+<span id="cb105-28"><a href="comparación-de-modelos.html#cb105-28" tabindex="-1"></a>      lb_holt<span class="sc">$</span>p.value,  lb_holtd<span class="sc">$</span>p.value,</span>
+<span id="cb105-29"><a href="comparación-de-modelos.html#cb105-29" tabindex="-1"></a>      lb_lm<span class="sc">$</span>p.value) <span class="sc">&gt;</span> <span class="fl">0.05</span>,</span>
+<span id="cb105-30"><a href="comparación-de-modelos.html#cb105-30" tabindex="-1"></a>    <span class="st">&quot;✔ Ruido blanco&quot;</span>,</span>
+<span id="cb105-31"><a href="comparación-de-modelos.html#cb105-31" tabindex="-1"></a>    <span class="st">&quot;✖ Autocorrelación&quot;</span></span>
+<span id="cb105-32"><a href="comparación-de-modelos.html#cb105-32" tabindex="-1"></a>  ),</span>
+<span id="cb105-33"><a href="comparación-de-modelos.html#cb105-33" tabindex="-1"></a>  <span class="at">check.names =</span> <span class="cn">FALSE</span></span>
+<span id="cb105-34"><a href="comparación-de-modelos.html#cb105-34" tabindex="-1"></a>)</span>
+<span id="cb105-35"><a href="comparación-de-modelos.html#cb105-35" tabindex="-1"></a></span>
+<span id="cb105-36"><a href="comparación-de-modelos.html#cb105-36" tabindex="-1"></a>filas_ok <span class="ot">&lt;-</span> <span class="fu">which</span>(tabla_lb<span class="sc">$</span><span class="st">`</span><span class="at">p-value</span><span class="st">`</span> <span class="sc">&gt;</span> <span class="fl">0.05</span>)</span>
+<span id="cb105-37"><a href="comparación-de-modelos.html#cb105-37" tabindex="-1"></a></span>
+<span id="cb105-38"><a href="comparación-de-modelos.html#cb105-38" tabindex="-1"></a>tabla_lb <span class="sc">%&gt;%</span></span>
+<span id="cb105-39"><a href="comparación-de-modelos.html#cb105-39" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb105-40"><a href="comparación-de-modelos.html#cb105-40" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Prueba de Ljung-Box por modelo (p &gt; 0.05 = residuos independientes)&quot;</span>,</span>
+<span id="cb105-41"><a href="comparación-de-modelos.html#cb105-41" tabindex="-1"></a>    </span>
+<span id="cb105-42"><a href="comparación-de-modelos.html#cb105-42" tabindex="-1"></a>    </span>
+<span id="cb105-43"><a href="comparación-de-modelos.html#cb105-43" tabindex="-1"></a>    <span class="at">align   =</span> <span class="fu">c</span>(<span class="st">&quot;l&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>)</span>
+<span id="cb105-44"><a href="comparación-de-modelos.html#cb105-44" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb105-45"><a href="comparación-de-modelos.html#cb105-45" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>),</span>
+<span id="cb105-46"><a href="comparación-de-modelos.html#cb105-46" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">font_size =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb105-47"><a href="comparación-de-modelos.html#cb105-47" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">background =</span> <span class="st">&quot;#1D3557&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb105-48"><a href="comparación-de-modelos.html#cb105-48" tabindex="-1"></a>  <span class="fu">row_spec</span>(filas_ok, <span class="at">background =</span> <span class="st">&quot;#D1FAE5&quot;</span>)</span></code></pre></div>
+<table class="table table-striped table-hover" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:unnamed-chunk-22">Table 14.2: </span>Prueba de Ljung-Box por modelo (p &gt; 0.05 = residuos independientes)
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(29, 53, 87, 255) !important;">
+Modelo
+</th>
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(29, 53, 87, 255) !important;">
+Q*
+</th>
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(29, 53, 87, 255) !important;">
+df
+</th>
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(29, 53, 87, 255) !important;">
+p-value
+</th>
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(29, 53, 87, 255) !important;">
+Resultado
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;background-color: rgba(209, 250, 229, 255) !important;">
+ARIMA(0,1,0) with drift
+</td>
+<td style="text-align:center;background-color: rgba(209, 250, 229, 255) !important;">
+6.3866
+</td>
+<td style="text-align:center;background-color: rgba(209, 250, 229, 255) !important;">
+4
+</td>
+<td style="text-align:center;background-color: rgba(209, 250, 229, 255) !important;">
+0.1721
+</td>
+<td style="text-align:center;background-color: rgba(209, 250, 229, 255) !important;">
+✔ Ruido blanco
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: rgba(209, 250, 229, 255) !important;">
+ETS – ETS(M,A,N)
+</td>
+<td style="text-align:center;background-color: rgba(209, 250, 229, 255) !important;">
+5.6615
+</td>
+<td style="text-align:center;background-color: rgba(209, 250, 229, 255) !important;">
+4
+</td>
+<td style="text-align:center;background-color: rgba(209, 250, 229, 255) !important;">
+0.2259
+</td>
+<td style="text-align:center;background-color: rgba(209, 250, 229, 255) !important;">
+✔ Ruido blanco
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: rgba(209, 250, 229, 255) !important;">
+Holt lineal
+</td>
+<td style="text-align:center;background-color: rgba(209, 250, 229, 255) !important;">
+4.8952
+</td>
+<td style="text-align:center;background-color: rgba(209, 250, 229, 255) !important;">
+4
+</td>
+<td style="text-align:center;background-color: rgba(209, 250, 229, 255) !important;">
+0.2982
+</td>
+<td style="text-align:center;background-color: rgba(209, 250, 229, 255) !important;">
+✔ Ruido blanco
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: rgba(209, 250, 229, 255) !important;">
+Holt amortiguado
+</td>
+<td style="text-align:center;background-color: rgba(209, 250, 229, 255) !important;">
+4.3264
+</td>
+<td style="text-align:center;background-color: rgba(209, 250, 229, 255) !important;">
+4
+</td>
+<td style="text-align:center;background-color: rgba(209, 250, 229, 255) !important;">
+0.3636
+</td>
+<td style="text-align:center;background-color: rgba(209, 250, 229, 255) !important;">
+✔ Ruido blanco
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: rgba(209, 250, 229, 255) !important;">
+Regresión lineal
+</td>
+<td style="text-align:center;background-color: rgba(209, 250, 229, 255) !important;">
+4.7703
+</td>
+<td style="text-align:center;background-color: rgba(209, 250, 229, 255) !important;">
+4
+</td>
+<td style="text-align:center;background-color: rgba(209, 250, 229, 255) !important;">
+0.3117
+</td>
+<td style="text-align:center;background-color: rgba(209, 250, 229, 255) !important;">
+✔ Ruido blanco
+</td>
+</tr>
+</tbody>
+</table>
+<p>Todos los modelos superan la prueba de Ljung-Box (p &gt; 0.05),
+confirmando que ninguno deja autocorrelación significativa en los
+residuos, condición mínima de validez para cualquier modelo de series de
+tiempo. Dado que este criterio no discrimina entre los modelos
+evaluados, la selección final se apoya en los criterios de información
+(AICc) y la validación cruzada (tsCV).</p>
+</div>
+<div id="validación-cruzada-de-series-de-tiempo-tscv" class="section level2 hasAnchor" number="14.3">
+<h2><span class="header-section-number">14.3</span> 15.3. Validación cruzada de series de tiempo (tsCV)<a href="comparación-de-modelos.html#validación-cruzada-de-series-de-tiempo-tscv" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La validación cruzada de series de tiempo evalúa el error de predicción
+fuera de muestra en ventanas de entrenamiento expandidas desde el
+origen. Es el método estándar cuando n es pequeño y no permite una
+partición train/test formal. Se evalúan dos horizontes: h = 1
+(precisión inmediata) y h = 3 (capacidad de proyección a mediano
+plazo).</p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="comparación-de-modelos.html#cb106-1" tabindex="-1"></a>f_arima    <span class="ot">&lt;-</span> <span class="cf">function</span>(y, h) <span class="fu">forecast</span>(<span class="fu">auto.arima</span>(y, <span class="at">stepwise =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb106-2"><a href="comparación-de-modelos.html#cb106-2" tabindex="-1"></a>                                                  <span class="at">approximation =</span> <span class="cn">FALSE</span>), <span class="at">h =</span> h)</span>
+<span id="cb106-3"><a href="comparación-de-modelos.html#cb106-3" tabindex="-1"></a>f_ets      <span class="ot">&lt;-</span> <span class="cf">function</span>(y, h) <span class="fu">forecast</span>(<span class="fu">ets</span>(y), <span class="at">h =</span> h)</span>
+<span id="cb106-4"><a href="comparación-de-modelos.html#cb106-4" tabindex="-1"></a>f_holt     <span class="ot">&lt;-</span> <span class="cf">function</span>(y, h) <span class="fu">holt</span>(y, <span class="at">h =</span> h)</span>
+<span id="cb106-5"><a href="comparación-de-modelos.html#cb106-5" tabindex="-1"></a>f_holt_d   <span class="ot">&lt;-</span> <span class="cf">function</span>(y, h) <span class="fu">holt</span>(y, <span class="at">h =</span> h, <span class="at">damped =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb106-6"><a href="comparación-de-modelos.html#cb106-6" tabindex="-1"></a>f_naive_d  <span class="ot">&lt;-</span> <span class="cf">function</span>(y, h) <span class="fu">rwf</span>(y, <span class="at">h =</span> h, <span class="at">drift =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb106-7"><a href="comparación-de-modelos.html#cb106-7" tabindex="-1"></a>f_lm       <span class="ot">&lt;-</span> <span class="cf">function</span>(y, h) {</span>
+<span id="cb106-8"><a href="comparación-de-modelos.html#cb106-8" tabindex="-1"></a>  n      <span class="ot">&lt;-</span> <span class="fu">length</span>(y)</span>
+<span id="cb106-9"><a href="comparación-de-modelos.html#cb106-9" tabindex="-1"></a>  t_hist <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span>n</span>
+<span id="cb106-10"><a href="comparación-de-modelos.html#cb106-10" tabindex="-1"></a>  fit    <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> t_hist)</span>
+<span id="cb106-11"><a href="comparación-de-modelos.html#cb106-11" tabindex="-1"></a>  t_new  <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">t_hist =</span> (n <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>(n <span class="sc">+</span> h))</span>
+<span id="cb106-12"><a href="comparación-de-modelos.html#cb106-12" tabindex="-1"></a>  pred   <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit, <span class="at">newdata =</span> t_new)</span>
+<span id="cb106-13"><a href="comparación-de-modelos.html#cb106-13" tabindex="-1"></a>  <span class="fu">structure</span>(</span>
+<span id="cb106-14"><a href="comparación-de-modelos.html#cb106-14" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">mean =</span> <span class="fu">ts</span>(pred,</span>
+<span id="cb106-15"><a href="comparación-de-modelos.html#cb106-15" tabindex="-1"></a>                   <span class="at">start     =</span> <span class="fu">tsp</span>(y)[<span class="dv">2</span>] <span class="sc">+</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fu">tsp</span>(y)[<span class="dv">3</span>],</span>
+<span id="cb106-16"><a href="comparación-de-modelos.html#cb106-16" tabindex="-1"></a>                   <span class="at">frequency =</span> <span class="fu">tsp</span>(y)[<span class="dv">3</span>])),</span>
+<span id="cb106-17"><a href="comparación-de-modelos.html#cb106-17" tabindex="-1"></a>    <span class="at">class =</span> <span class="st">&quot;forecast&quot;</span></span>
+<span id="cb106-18"><a href="comparación-de-modelos.html#cb106-18" tabindex="-1"></a>  )</span>
+<span id="cb106-19"><a href="comparación-de-modelos.html#cb106-19" tabindex="-1"></a>}</span>
+<span id="cb106-20"><a href="comparación-de-modelos.html#cb106-20" tabindex="-1"></a></span>
+<span id="cb106-21"><a href="comparación-de-modelos.html#cb106-21" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb106-22"><a href="comparación-de-modelos.html#cb106-22" tabindex="-1"></a></span>
+<span id="cb106-23"><a href="comparación-de-modelos.html#cb106-23" tabindex="-1"></a><span class="co"># h = 1</span></span>
+<span id="cb106-24"><a href="comparación-de-modelos.html#cb106-24" tabindex="-1"></a>e1_arima  <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_arima,   <span class="at">h =</span> <span class="dv">1</span>)</span>
+<span id="cb106-25"><a href="comparación-de-modelos.html#cb106-25" tabindex="-1"></a>e1_ets    <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_ets,     <span class="at">h =</span> <span class="dv">1</span>)</span>
+<span id="cb106-26"><a href="comparación-de-modelos.html#cb106-26" tabindex="-1"></a>e1_holt   <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_holt,    <span class="at">h =</span> <span class="dv">1</span>)</span>
+<span id="cb106-27"><a href="comparación-de-modelos.html#cb106-27" tabindex="-1"></a>e1_holtd  <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_holt_d,  <span class="at">h =</span> <span class="dv">1</span>)</span>
+<span id="cb106-28"><a href="comparación-de-modelos.html#cb106-28" tabindex="-1"></a>e1_naive  <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_naive_d, <span class="at">h =</span> <span class="dv">1</span>)</span>
+<span id="cb106-29"><a href="comparación-de-modelos.html#cb106-29" tabindex="-1"></a>e1_lm     <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_lm,      <span class="at">h =</span> <span class="dv">1</span>)</span>
+<span id="cb106-30"><a href="comparación-de-modelos.html#cb106-30" tabindex="-1"></a></span>
+<span id="cb106-31"><a href="comparación-de-modelos.html#cb106-31" tabindex="-1"></a><span class="co"># h = 3</span></span>
+<span id="cb106-32"><a href="comparación-de-modelos.html#cb106-32" tabindex="-1"></a>e3_arima  <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_arima,   <span class="at">h =</span> <span class="dv">3</span>)</span>
+<span id="cb106-33"><a href="comparación-de-modelos.html#cb106-33" tabindex="-1"></a>e3_ets    <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_ets,     <span class="at">h =</span> <span class="dv">3</span>)</span>
+<span id="cb106-34"><a href="comparación-de-modelos.html#cb106-34" tabindex="-1"></a>e3_holt   <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_holt,    <span class="at">h =</span> <span class="dv">3</span>)</span>
+<span id="cb106-35"><a href="comparación-de-modelos.html#cb106-35" tabindex="-1"></a>e3_holtd  <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_holt_d,  <span class="at">h =</span> <span class="dv">3</span>)</span>
+<span id="cb106-36"><a href="comparación-de-modelos.html#cb106-36" tabindex="-1"></a>e3_naive  <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_naive_d, <span class="at">h =</span> <span class="dv">3</span>)</span>
+<span id="cb106-37"><a href="comparación-de-modelos.html#cb106-37" tabindex="-1"></a>e3_lm     <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_lm,      <span class="at">h =</span> <span class="dv">3</span>)</span>
+<span id="cb106-38"><a href="comparación-de-modelos.html#cb106-38" tabindex="-1"></a></span>
+<span id="cb106-39"><a href="comparación-de-modelos.html#cb106-39" tabindex="-1"></a>cv_rmse <span class="ot">&lt;-</span> <span class="cf">function</span>(e) <span class="fu">round</span>(<span class="fu">sqrt</span>(<span class="fu">mean</span>(e<span class="sc">^</span><span class="dv">2</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)), <span class="dv">3</span>)</span>
+<span id="cb106-40"><a href="comparación-de-modelos.html#cb106-40" tabindex="-1"></a>cv_mae  <span class="ot">&lt;-</span> <span class="cf">function</span>(e) <span class="fu">round</span>(<span class="fu">mean</span>(<span class="fu">abs</span>(e),   <span class="at">na.rm =</span> <span class="cn">TRUE</span>),  <span class="dv">3</span>)</span>
+<span id="cb106-41"><a href="comparación-de-modelos.html#cb106-41" tabindex="-1"></a></span>
+<span id="cb106-42"><a href="comparación-de-modelos.html#cb106-42" tabindex="-1"></a>modelos_label <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb106-43"><a href="comparación-de-modelos.html#cb106-43" tabindex="-1"></a>  <span class="st">&quot;ARIMA(0,1,0) with drift&quot;</span>,</span>
+<span id="cb106-44"><a href="comparación-de-modelos.html#cb106-44" tabindex="-1"></a>  <span class="fu">paste0</span>(<span class="st">&quot;ETS – &quot;</span>, modelo_ets<span class="sc">$</span>method),</span>
+<span id="cb106-45"><a href="comparación-de-modelos.html#cb106-45" tabindex="-1"></a>  <span class="st">&quot;Holt lineal&quot;</span>,</span>
+<span id="cb106-46"><a href="comparación-de-modelos.html#cb106-46" tabindex="-1"></a>  <span class="st">&quot;Holt amortiguado&quot;</span>,</span>
+<span id="cb106-47"><a href="comparación-de-modelos.html#cb106-47" tabindex="-1"></a>  <span class="st">&quot;Naive with drift&quot;</span>,</span>
+<span id="cb106-48"><a href="comparación-de-modelos.html#cb106-48" tabindex="-1"></a>  <span class="st">&quot;Regresión lineal&quot;</span></span>
+<span id="cb106-49"><a href="comparación-de-modelos.html#cb106-49" tabindex="-1"></a>)</span>
+<span id="cb106-50"><a href="comparación-de-modelos.html#cb106-50" tabindex="-1"></a></span>
+<span id="cb106-51"><a href="comparación-de-modelos.html#cb106-51" tabindex="-1"></a>tabla_cv <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb106-52"><a href="comparación-de-modelos.html#cb106-52" tabindex="-1"></a>  <span class="at">Modelo     =</span> modelos_label,</span>
+<span id="cb106-53"><a href="comparación-de-modelos.html#cb106-53" tabindex="-1"></a>  <span class="st">`</span><span class="at">RMSE h=1</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">cv_rmse</span>(e1_arima), <span class="fu">cv_rmse</span>(e1_ets), <span class="fu">cv_rmse</span>(e1_holt),</span>
+<span id="cb106-54"><a href="comparación-de-modelos.html#cb106-54" tabindex="-1"></a>                  <span class="fu">cv_rmse</span>(e1_holtd), <span class="fu">cv_rmse</span>(e1_naive), <span class="fu">cv_rmse</span>(e1_lm)),</span>
+<span id="cb106-55"><a href="comparación-de-modelos.html#cb106-55" tabindex="-1"></a>  <span class="st">`</span><span class="at">MAE h=1</span><span class="st">`</span>  <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">cv_mae</span>(e1_arima),  <span class="fu">cv_mae</span>(e1_ets),  <span class="fu">cv_mae</span>(e1_holt),</span>
+<span id="cb106-56"><a href="comparación-de-modelos.html#cb106-56" tabindex="-1"></a>                  <span class="fu">cv_mae</span>(e1_holtd),  <span class="fu">cv_mae</span>(e1_naive),  <span class="fu">cv_mae</span>(e1_lm)),</span>
+<span id="cb106-57"><a href="comparación-de-modelos.html#cb106-57" tabindex="-1"></a>  <span class="st">`</span><span class="at">RMSE h=3</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">cv_rmse</span>(e3_arima), <span class="fu">cv_rmse</span>(e3_ets), <span class="fu">cv_rmse</span>(e3_holt),</span>
+<span id="cb106-58"><a href="comparación-de-modelos.html#cb106-58" tabindex="-1"></a>                  <span class="fu">cv_rmse</span>(e3_holtd), <span class="fu">cv_rmse</span>(e3_naive), <span class="fu">cv_rmse</span>(e3_lm)),</span>
+<span id="cb106-59"><a href="comparación-de-modelos.html#cb106-59" tabindex="-1"></a>  <span class="st">`</span><span class="at">MAE h=3</span><span class="st">`</span>  <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">cv_mae</span>(e3_arima),  <span class="fu">cv_mae</span>(e3_ets),  <span class="fu">cv_mae</span>(e3_holt),</span>
+<span id="cb106-60"><a href="comparación-de-modelos.html#cb106-60" tabindex="-1"></a>                  <span class="fu">cv_mae</span>(e3_holtd),  <span class="fu">cv_mae</span>(e3_naive),  <span class="fu">cv_mae</span>(e3_lm)),</span>
+<span id="cb106-61"><a href="comparación-de-modelos.html#cb106-61" tabindex="-1"></a>  <span class="at">check.names =</span> <span class="cn">FALSE</span></span>
+<span id="cb106-62"><a href="comparación-de-modelos.html#cb106-62" tabindex="-1"></a>)</span>
+<span id="cb106-63"><a href="comparación-de-modelos.html#cb106-63" tabindex="-1"></a></span>
+<span id="cb106-64"><a href="comparación-de-modelos.html#cb106-64" tabindex="-1"></a>mejor_rmse_h1 <span class="ot">&lt;-</span> <span class="fu">which.min</span>(tabla_cv<span class="sc">$</span><span class="st">`</span><span class="at">RMSE h=1</span><span class="st">`</span>)</span>
+<span id="cb106-65"><a href="comparación-de-modelos.html#cb106-65" tabindex="-1"></a>mejor_rmse_h3 <span class="ot">&lt;-</span> <span class="fu">which.min</span>(tabla_cv<span class="sc">$</span><span class="st">`</span><span class="at">RMSE h=3</span><span class="st">`</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="comparación-de-modelos.html#cb107-1" tabindex="-1"></a>tabla_cv <span class="sc">%&gt;%</span></span>
+<span id="cb107-2"><a href="comparación-de-modelos.html#cb107-2" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb107-3"><a href="comparación-de-modelos.html#cb107-3" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Validación cruzada tsCV – RMSE y MAE por horizonte (menor = mejor)&quot;</span>,</span>
+<span id="cb107-4"><a href="comparación-de-modelos.html#cb107-4" tabindex="-1"></a>    </span>
+<span id="cb107-5"><a href="comparación-de-modelos.html#cb107-5" tabindex="-1"></a>    </span>
+<span id="cb107-6"><a href="comparación-de-modelos.html#cb107-6" tabindex="-1"></a>    <span class="at">align   =</span> <span class="fu">c</span>(<span class="st">&quot;l&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>)</span>
+<span id="cb107-7"><a href="comparación-de-modelos.html#cb107-7" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb107-8"><a href="comparación-de-modelos.html#cb107-8" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>),</span>
+<span id="cb107-9"><a href="comparación-de-modelos.html#cb107-9" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">font_size =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb107-10"><a href="comparación-de-modelos.html#cb107-10" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">background =</span> <span class="st">&quot;#1D3557&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb107-11"><a href="comparación-de-modelos.html#cb107-11" tabindex="-1"></a>  <span class="fu">row_spec</span>(mejor_rmse_h1, <span class="at">background =</span> <span class="st">&quot;#A8DADC&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb107-12"><a href="comparación-de-modelos.html#cb107-12" tabindex="-1"></a>  <span class="fu">add_header_above</span>(</span>
+<span id="cb107-13"><a href="comparación-de-modelos.html#cb107-13" tabindex="-1"></a>    <span class="fu">c</span>(<span class="st">&quot; &quot;</span> <span class="ot">=</span> <span class="dv">1</span>,</span>
+<span id="cb107-14"><a href="comparación-de-modelos.html#cb107-14" tabindex="-1"></a>      <span class="st">&quot;Horizonte 1 paso (h=1)&quot;</span> <span class="ot">=</span> <span class="dv">2</span>,</span>
+<span id="cb107-15"><a href="comparación-de-modelos.html#cb107-15" tabindex="-1"></a>      <span class="st">&quot;Horizonte 3 pasos (h=3)&quot;</span> <span class="ot">=</span> <span class="dv">2</span>),</span>
+<span id="cb107-16"><a href="comparación-de-modelos.html#cb107-16" tabindex="-1"></a>    <span class="at">background =</span> <span class="st">&quot;#457B9D&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span></span>
+<span id="cb107-17"><a href="comparación-de-modelos.html#cb107-17" tabindex="-1"></a>  )</span></code></pre></div>
+<table class="table table-striped table-hover" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:unnamed-chunk-23">Table 14.3: </span>Validación cruzada tsCV – RMSE y MAE por horizonte (menor = mejor)
+</caption>
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; color: white !important;padding-right: 4px; padding-left: 4px; background-color: rgba(69, 123, 157, 255) !important;" colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Horizonte 1 paso (h=1)
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; color: white !important;padding-right: 4px; padding-left: 4px; background-color: rgba(69, 123, 157, 255) !important;" colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Horizonte 3 pasos (h=3)
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(29, 53, 87, 255) !important;">
+Modelo
+</th>
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(29, 53, 87, 255) !important;">
+RMSE h=1
+</th>
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(29, 53, 87, 255) !important;">
+MAE h=1
+</th>
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(29, 53, 87, 255) !important;">
+RMSE h=3
+</th>
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(29, 53, 87, 255) !important;">
+MAE h=3
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+ARIMA(0,1,0) with drift
+</td>
+<td style="text-align:center;">
+8.947
+</td>
+<td style="text-align:center;">
+7.212
+</td>
+<td style="text-align:center;">
+11.702
+</td>
+<td style="text-align:center;">
+9.349
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ETS – ETS(M,A,N)
+</td>
+<td style="text-align:center;">
+9.096
+</td>
+<td style="text-align:center;">
+7.208
+</td>
+<td style="text-align:center;">
+10.189
+</td>
+<td style="text-align:center;">
+8.301
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Holt lineal
+</td>
+<td style="text-align:center;">
+8.809
+</td>
+<td style="text-align:center;">
+6.240
+</td>
+<td style="text-align:center;">
+9.456
+</td>
+<td style="text-align:center;">
+7.102
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Holt amortiguado
+</td>
+<td style="text-align:center;">
+9.222
+</td>
+<td style="text-align:center;">
+6.856
+</td>
+<td style="text-align:center;">
+10.344
+</td>
+<td style="text-align:center;">
+8.035
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Naive with drift
+</td>
+<td style="text-align:center;">
+8.643
+</td>
+<td style="text-align:center;">
+6.641
+</td>
+<td style="text-align:center;">
+11.060
+</td>
+<td style="text-align:center;">
+8.578
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;background-color: rgba(168, 218, 220, 255) !important;">
+Regresión lineal
+</td>
+<td style="text-align:center;font-weight: bold;background-color: rgba(168, 218, 220, 255) !important;">
+8.045
+</td>
+<td style="text-align:center;font-weight: bold;background-color: rgba(168, 218, 220, 255) !important;">
+5.389
+</td>
+<td style="text-align:center;font-weight: bold;background-color: rgba(168, 218, 220, 255) !important;">
+8.729
+</td>
+<td style="text-align:center;font-weight: bold;background-color: rgba(168, 218, 220, 255) !important;">
+6.303
+</td>
+</tr>
+</tbody>
+</table>
+<p>La regresión lineal obtiene el menor RMSE en ambos horizontes; su buen
+desempeño en tsCV se explica porque la tendencia positiva global de la
+serie favorece a un modelo que precisamente impone una tendencia fija.
+Esto no la convierte en el mejor modelo: aplicar OLS sobre una serie I(1)
+sin diferenciar produce intervalos de predicción estadísticamente
+inválidos, limitación que ninguna métrica de error promedio detecta.</p>
+<p>Entre los modelos válidos, las diferencias de RMSE son marginales en
+términos epidemiológicos: el rango entre ARIMA (8.947) y el mejor
+alternativo válido en h=1 es inferior a 0.4 puntos sobre una serie que
+oscila entre 42 y 100 por 100,000 habitantes. La selección no puede
+resolverse por tsCV en aislamiento; requiere considerar conjuntamente los
+criterios de información y el diagnóstico de residuos, donde vemos que
+ARIMA es consistentemente superior.</p>
+</div>
+<div id="gráfico-comparativo-de-proyecciones" class="section level2 hasAnchor" number="14.4">
+<h2><span class="header-section-number">14.4</span> 15.4. Gráfico comparativo de proyecciones<a href="comparación-de-modelos.html#gráfico-comparativo-de-proyecciones" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="comparación-de-modelos.html#cb108-1" tabindex="-1"></a>pred_arima_f  <span class="ot">&lt;-</span> <span class="fu">forecast</span>(modelo_acc,       <span class="at">h =</span> horizonte)</span>
+<span id="cb108-2"><a href="comparación-de-modelos.html#cb108-2" tabindex="-1"></a>pred_ets_f    <span class="ot">&lt;-</span> <span class="fu">forecast</span>(modelo_ets,       <span class="at">h =</span> horizonte)</span>
+<span id="cb108-3"><a href="comparación-de-modelos.html#cb108-3" tabindex="-1"></a>pred_holt_f   <span class="ot">&lt;-</span> <span class="fu">forecast</span>(modelo_holt_fit,  <span class="at">h =</span> horizonte)</span>
+<span id="cb108-4"><a href="comparación-de-modelos.html#cb108-4" tabindex="-1"></a>pred_holtd_f  <span class="ot">&lt;-</span> <span class="fu">forecast</span>(modelo_holtd_fit, <span class="at">h =</span> horizonte)</span>
+<span id="cb108-5"><a href="comparación-de-modelos.html#cb108-5" tabindex="-1"></a>pred_naive_f  <span class="ot">&lt;-</span> <span class="fu">rwf</span>(ts_wv_acc, <span class="at">h =</span> horizonte, <span class="at">drift =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb108-6"><a href="comparación-de-modelos.html#cb108-6" tabindex="-1"></a></span>
+<span id="cb108-7"><a href="comparación-de-modelos.html#cb108-7" tabindex="-1"></a>tiempo_proj_v  <span class="ot">&lt;-</span> (<span class="fu">length</span>(serie_wv_acc) <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>(<span class="fu">length</span>(serie_wv_acc) <span class="sc">+</span> horizonte)</span>
+<span id="cb108-8"><a href="comparación-de-modelos.html#cb108-8" tabindex="-1"></a>pred_lm_v      <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(</span>
+<span id="cb108-9"><a href="comparación-de-modelos.html#cb108-9" tabindex="-1"></a>  <span class="fu">predict</span>(modelo_lm,</span>
+<span id="cb108-10"><a href="comparación-de-modelos.html#cb108-10" tabindex="-1"></a>          <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">tiempo_hist =</span> tiempo_proj_v))</span>
+<span id="cb108-11"><a href="comparación-de-modelos.html#cb108-11" tabindex="-1"></a>)</span>
+<span id="cb108-12"><a href="comparación-de-modelos.html#cb108-12" tabindex="-1"></a></span>
+<span id="cb108-13"><a href="comparación-de-modelos.html#cb108-13" tabindex="-1"></a>df_preds_final <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb108-14"><a href="comparación-de-modelos.html#cb108-14" tabindex="-1"></a>  <span class="at">year  =</span> <span class="fu">rep</span>(anios_fut, <span class="dv">6</span>),</span>
+<span id="cb108-15"><a href="comparación-de-modelos.html#cb108-15" tabindex="-1"></a>  <span class="at">valor =</span> <span class="fu">c</span>(</span>
+<span id="cb108-16"><a href="comparación-de-modelos.html#cb108-16" tabindex="-1"></a>    <span class="fu">as.numeric</span>(pred_arima_f<span class="sc">$</span>mean),</span>
+<span id="cb108-17"><a href="comparación-de-modelos.html#cb108-17" tabindex="-1"></a>    <span class="fu">as.numeric</span>(pred_ets_f<span class="sc">$</span>mean),</span>
+<span id="cb108-18"><a href="comparación-de-modelos.html#cb108-18" tabindex="-1"></a>    <span class="fu">as.numeric</span>(pred_holt_f<span class="sc">$</span>mean),</span>
+<span id="cb108-19"><a href="comparación-de-modelos.html#cb108-19" tabindex="-1"></a>    <span class="fu">as.numeric</span>(pred_holtd_f<span class="sc">$</span>mean),</span>
+<span id="cb108-20"><a href="comparación-de-modelos.html#cb108-20" tabindex="-1"></a>    <span class="fu">as.numeric</span>(pred_naive_f<span class="sc">$</span>mean),</span>
+<span id="cb108-21"><a href="comparación-de-modelos.html#cb108-21" tabindex="-1"></a>    pred_lm_v</span>
+<span id="cb108-22"><a href="comparación-de-modelos.html#cb108-22" tabindex="-1"></a>  ),</span>
+<span id="cb108-23"><a href="comparación-de-modelos.html#cb108-23" tabindex="-1"></a>  <span class="at">modelo =</span> <span class="fu">rep</span>(<span class="fu">c</span>(</span>
+<span id="cb108-24"><a href="comparación-de-modelos.html#cb108-24" tabindex="-1"></a>    <span class="st">&quot;ARIMA(0,1,0) drift&quot;</span>,</span>
+<span id="cb108-25"><a href="comparación-de-modelos.html#cb108-25" tabindex="-1"></a>    <span class="st">&quot;ETS&quot;</span>,</span>
+<span id="cb108-26"><a href="comparación-de-modelos.html#cb108-26" tabindex="-1"></a>    <span class="st">&quot;Holt lineal&quot;</span>,</span>
+<span id="cb108-27"><a href="comparación-de-modelos.html#cb108-27" tabindex="-1"></a>    <span class="st">&quot;Holt amortiguado&quot;</span>,</span>
+<span id="cb108-28"><a href="comparación-de-modelos.html#cb108-28" tabindex="-1"></a>    <span class="st">&quot;Naive drift&quot;</span>,</span>
+<span id="cb108-29"><a href="comparación-de-modelos.html#cb108-29" tabindex="-1"></a>    <span class="st">&quot;Reg. lineal&quot;</span></span>
+<span id="cb108-30"><a href="comparación-de-modelos.html#cb108-30" tabindex="-1"></a>  ), <span class="at">each =</span> horizonte)</span>
+<span id="cb108-31"><a href="comparación-de-modelos.html#cb108-31" tabindex="-1"></a>)</span>
+<span id="cb108-32"><a href="comparación-de-modelos.html#cb108-32" tabindex="-1"></a></span>
+<span id="cb108-33"><a href="comparación-de-modelos.html#cb108-33" tabindex="-1"></a>colores_comp <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb108-34"><a href="comparación-de-modelos.html#cb108-34" tabindex="-1"></a>  <span class="st">&quot;ARIMA(0,1,0) drift&quot;</span> <span class="ot">=</span> <span class="st">&quot;#1D3557&quot;</span>,</span>
+<span id="cb108-35"><a href="comparación-de-modelos.html#cb108-35" tabindex="-1"></a>  <span class="st">&quot;ETS&quot;</span>                <span class="ot">=</span> <span class="st">&quot;#E63946&quot;</span>,</span>
+<span id="cb108-36"><a href="comparación-de-modelos.html#cb108-36" tabindex="-1"></a>  <span class="st">&quot;Holt lineal&quot;</span>        <span class="ot">=</span> <span class="st">&quot;#2A9D8F&quot;</span>,</span>
+<span id="cb108-37"><a href="comparación-de-modelos.html#cb108-37" tabindex="-1"></a>  <span class="st">&quot;Holt amortiguado&quot;</span>   <span class="ot">=</span> <span class="st">&quot;#F4A261&quot;</span>,</span>
+<span id="cb108-38"><a href="comparación-de-modelos.html#cb108-38" tabindex="-1"></a>  <span class="st">&quot;Naive drift&quot;</span>        <span class="ot">=</span> <span class="st">&quot;#9B2226&quot;</span>,</span>
+<span id="cb108-39"><a href="comparación-de-modelos.html#cb108-39" tabindex="-1"></a>  <span class="st">&quot;Reg. lineal&quot;</span>        <span class="ot">=</span> <span class="st">&quot;#6A4C93&quot;</span></span>
+<span id="cb108-40"><a href="comparación-de-modelos.html#cb108-40" tabindex="-1"></a>)</span>
+<span id="cb108-41"><a href="comparación-de-modelos.html#cb108-41" tabindex="-1"></a></span>
+<span id="cb108-42"><a href="comparación-de-modelos.html#cb108-42" tabindex="-1"></a>tipos_comp <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb108-43"><a href="comparación-de-modelos.html#cb108-43" tabindex="-1"></a>  <span class="st">&quot;ARIMA(0,1,0) drift&quot;</span> <span class="ot">=</span> <span class="st">&quot;dashed&quot;</span>,</span>
+<span id="cb108-44"><a href="comparación-de-modelos.html#cb108-44" tabindex="-1"></a>  <span class="st">&quot;ETS&quot;</span>                <span class="ot">=</span> <span class="st">&quot;dashed&quot;</span>,</span>
+<span id="cb108-45"><a href="comparación-de-modelos.html#cb108-45" tabindex="-1"></a>  <span class="st">&quot;Holt lineal&quot;</span>        <span class="ot">=</span> <span class="st">&quot;dotdash&quot;</span>,</span>
+<span id="cb108-46"><a href="comparación-de-modelos.html#cb108-46" tabindex="-1"></a>  <span class="st">&quot;Holt amortiguado&quot;</span>   <span class="ot">=</span> <span class="st">&quot;dotdash&quot;</span>,</span>
+<span id="cb108-47"><a href="comparación-de-modelos.html#cb108-47" tabindex="-1"></a>  <span class="st">&quot;Naive drift&quot;</span>        <span class="ot">=</span> <span class="st">&quot;longdash&quot;</span>,</span>
+<span id="cb108-48"><a href="comparación-de-modelos.html#cb108-48" tabindex="-1"></a>  <span class="st">&quot;Reg. lineal&quot;</span>        <span class="ot">=</span> <span class="st">&quot;longdash&quot;</span></span>
+<span id="cb108-49"><a href="comparación-de-modelos.html#cb108-49" tabindex="-1"></a>)</span>
+<span id="cb108-50"><a href="comparación-de-modelos.html#cb108-50" tabindex="-1"></a></span>
+<span id="cb108-51"><a href="comparación-de-modelos.html#cb108-51" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb108-52"><a href="comparación-de-modelos.html#cb108-52" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data  =</span> df_hist_ets,</span>
+<span id="cb108-53"><a href="comparación-de-modelos.html#cb108-53" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> valor),</span>
+<span id="cb108-54"><a href="comparación-de-modelos.html#cb108-54" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">linewidth =</span> <span class="fl">1.4</span>) <span class="sc">+</span></span>
+<span id="cb108-55"><a href="comparación-de-modelos.html#cb108-55" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> df_hist_ets,</span>
+<span id="cb108-56"><a href="comparación-de-modelos.html#cb108-56" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> valor),</span>
+<span id="cb108-57"><a href="comparación-de-modelos.html#cb108-57" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">size =</span> <span class="fl">2.2</span>) <span class="sc">+</span></span>
+<span id="cb108-58"><a href="comparación-de-modelos.html#cb108-58" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> df_preds_final,</span>
+<span id="cb108-59"><a href="comparación-de-modelos.html#cb108-59" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> valor,</span>
+<span id="cb108-60"><a href="comparación-de-modelos.html#cb108-60" tabindex="-1"></a>                <span class="at">color =</span> modelo, <span class="at">linetype =</span> modelo),</span>
+<span id="cb108-61"><a href="comparación-de-modelos.html#cb108-61" tabindex="-1"></a>            <span class="at">linewidth =</span> <span class="fl">1.0</span>) <span class="sc">+</span></span>
+<span id="cb108-62"><a href="comparación-de-modelos.html#cb108-62" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> df_preds_final,</span>
+<span id="cb108-63"><a href="comparación-de-modelos.html#cb108-63" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> valor, <span class="at">color =</span> modelo),</span>
+<span id="cb108-64"><a href="comparación-de-modelos.html#cb108-64" tabindex="-1"></a>             <span class="at">size =</span> <span class="fl">2.5</span>, <span class="at">shape =</span> <span class="dv">17</span>) <span class="sc">+</span></span>
+<span id="cb108-65"><a href="comparación-de-modelos.html#cb108-65" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">2017.5</span>, <span class="at">linetype =</span> <span class="st">&quot;dotted&quot;</span>,</span>
+<span id="cb108-66"><a href="comparación-de-modelos.html#cb108-66" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;gray40&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb108-67"><a href="comparación-de-modelos.html#cb108-67" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="fl">2017.7</span>, <span class="at">y =</span> <span class="fu">max</span>(serie_wv_acc) <span class="sc">*</span> <span class="fl">0.75</span>,</span>
+<span id="cb108-68"><a href="comparación-de-modelos.html#cb108-68" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">&quot;→ Proyección&quot;</span>, <span class="at">hjust =</span> <span class="dv">0</span>,</span>
+<span id="cb108-69"><a href="comparación-de-modelos.html#cb108-69" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">&quot;gray40&quot;</span>, <span class="at">fontface =</span> <span class="st">&quot;italic&quot;</span>, <span class="at">size =</span> <span class="fl">3.5</span>) <span class="sc">+</span></span>
+<span id="cb108-70"><a href="comparación-de-modelos.html#cb108-70" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values    =</span> colores_comp) <span class="sc">+</span></span>
+<span id="cb108-71"><a href="comparación-de-modelos.html#cb108-71" tabindex="-1"></a>  <span class="fu">scale_linetype_manual</span>(<span class="at">values =</span> tipos_comp) <span class="sc">+</span></span>
+<span id="cb108-72"><a href="comparación-de-modelos.html#cb108-72" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1999</span>, <span class="dv">2022</span>, <span class="at">by =</span> <span class="dv">2</span>)) <span class="sc">+</span></span>
+<span id="cb108-73"><a href="comparación-de-modelos.html#cb108-73" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> comma) <span class="sc">+</span></span>
+<span id="cb108-74"><a href="comparación-de-modelos.html#cb108-74" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb108-75"><a href="comparación-de-modelos.html#cb108-75" tabindex="-1"></a>    <span class="at">title    =</span> <span class="st">&quot;Comparación de proyecciones – Unintentional Injuries&quot;</span>,</span>
+<span id="cb108-76"><a href="comparación-de-modelos.html#cb108-76" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;West Virginia · 2018–2022 · Todos los modelos evaluados&quot;</span>,</span>
+<span id="cb108-77"><a href="comparación-de-modelos.html#cb108-77" tabindex="-1"></a>    <span class="at">x        =</span> <span class="st">&quot;Año&quot;</span>,</span>
+<span id="cb108-78"><a href="comparación-de-modelos.html#cb108-78" tabindex="-1"></a>    <span class="at">y        =</span> <span class="st">&quot;Tasa ajustada por 100,000 hab.&quot;</span>,</span>
+<span id="cb108-79"><a href="comparación-de-modelos.html#cb108-79" tabindex="-1"></a>    <span class="at">color    =</span> <span class="st">&quot;Modelo&quot;</span>,</span>
+<span id="cb108-80"><a href="comparación-de-modelos.html#cb108-80" tabindex="-1"></a>    <span class="at">linetype =</span> <span class="st">&quot;Modelo&quot;</span></span>
+<span id="cb108-81"><a href="comparación-de-modelos.html#cb108-81" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb108-82"><a href="comparación-de-modelos.html#cb108-82" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb108-83"><a href="comparación-de-modelos.html#cb108-83" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb108-84"><a href="comparación-de-modelos.html#cb108-84" tabindex="-1"></a>    <span class="at">plot.title       =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb108-85"><a href="comparación-de-modelos.html#cb108-85" tabindex="-1"></a>    <span class="at">plot.subtitle    =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;gray40&quot;</span>),</span>
+<span id="cb108-86"><a href="comparación-de-modelos.html#cb108-86" tabindex="-1"></a>    <span class="at">axis.text.x      =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
+<span id="cb108-87"><a href="comparación-de-modelos.html#cb108-87" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb108-88"><a href="comparación-de-modelos.html#cb108-88" tabindex="-1"></a>    <span class="at">legend.position  =</span> <span class="st">&quot;bottom&quot;</span>,</span>
+<span id="cb108-89"><a href="comparación-de-modelos.html#cb108-89" tabindex="-1"></a>    <span class="at">legend.title     =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>)</span>
+<span id="cb108-90"><a href="comparación-de-modelos.html#cb108-90" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="_main_files/figure-html/sec15_grafico_comparacion_final-1.png" width="1650" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="modelo-3-regresión-lineal-con-tendencia-temporal.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="justificación-del-modelo-seleccionado.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
