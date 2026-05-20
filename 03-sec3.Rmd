@@ -65,7 +65,7 @@ el modelo no dejó estructura sin capturar. Las proyecciones cubren
 
 ## 3.7. Herramientas Computacionales
 
-```{r setup, include=FALSE}
+```{r sec3_setup-sec3, include=FALSE}
 knitr::opts_chunk$set(
   echo    = TRUE,
   message = FALSE,
@@ -77,7 +77,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r librerias}
+```{r sec3_librerias}
 # librerías necesarias
 library(tidyverse)
 library(skimr)
@@ -144,12 +144,12 @@ desarrollo RStudio. Las principales librerías empleadas fueron:
 
 ## 3.8. Carga y limpieza de datos
 
-```{r carga_datos}
+```{r sec3_carga_datos}
 
 datos <- read_csv("NCHS_Leading_Causes.csv")
 ```
 
-```{r limpieza}
+```{r sec3_limpieza}
 datos <- datos %>% clean_names()
 
 datos <- datos %>%

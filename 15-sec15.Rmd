@@ -149,7 +149,7 @@ partición train/test formal. Se evalúan dos horizontes: h = 1
 (precisión inmediata) y h = 3 (capacidad de proyección a mediano
 plazo).
 
-```{r tscv_calculo, message=FALSE, warning=FALSE, cache=TRUE}
+```{r sec15_tscv_calculo, message=FALSE, warning=FALSE, cache=TRUE}
 f_arima    <- function(y, h) forecast(auto.arima(y, stepwise = FALSE,
                                                   approximation = FALSE), h = h)
 f_ets      <- function(y, h) forecast(ets(y), h = h)
@@ -254,7 +254,7 @@ criterios de información y el diagnóstico de residuos, donde vemos que
 ARIMA es consistentemente superior.
 
 ## 15.4. Gráfico comparativo de proyecciones
-```{r grafico_comparacion_final, fig.width=11, fig.height=6, message=FALSE, warning=FALSE}
+```{r sec15_grafico_comparacion_final, fig.width=11, fig.height=6, message=FALSE, warning=FALSE}
 pred_arima_f  <- forecast(modelo_acc,       h = horizonte)
 pred_ets_f    <- forecast(modelo_ets,       h = horizonte)
 pred_holt_f   <- forecast(modelo_holt_fit,  h = horizonte)

@@ -10,7 +10,7 @@ donde $t = 1, 2, ..., 19$ indexa los años 1999–2017. Su inclusión en la
 comparación cumple una función metodológica específica: constituye el
 benchmark mínimo.
 
-```{r lm_ajuste, message=FALSE, warning=FALSE}
+```{r sec14_lm_ajuste, message=FALSE, warning=FALSE}
 tiempo_hist  <- seq_along(serie_wv_acc)   # 1:19
 modelo_lm    <- lm(serie_wv_acc ~ tiempo_hist)
 
@@ -40,7 +40,7 @@ incluye obligatoriamente la prueba de Ljung-Box, que evalúa si los
 residuos presentan autocorrelación serial, la violación crítica del
 supuesto OLS en este contexto.
 
-```{r lm_residuos, fig.width=10, fig.height=5, message=FALSE, warning=FALSE}
+```{r sec14_lm_residuos, fig.width=10, fig.height=5, message=FALSE, warning=FALSE}
 # Convertir residuos a objeto ts para checkresiduals
 resid_lm_ts <- ts(resid_lm, start = 1999, frequency = 1)
 
@@ -68,7 +68,7 @@ cat(ifelse(lb_lm$p.value < 0.05,
 ```
 
 ## 14.2. Proyección – Regresión Lineal (2018–2022)
-```{r lm_forecast, fig.width=10, fig.height=5, message=FALSE, warning=FALSE}
+```{r sec14_lm_forecast, fig.width=10, fig.height=5, message=FALSE, warning=FALSE}
 tiempo_proj  <- data.frame(
   tiempo_hist = (length(serie_wv_acc) + 1):(length(serie_wv_acc) + horizonte)
 )

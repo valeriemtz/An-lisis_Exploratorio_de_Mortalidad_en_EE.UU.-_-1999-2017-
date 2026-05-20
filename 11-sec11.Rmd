@@ -18,7 +18,7 @@ con intervalos de confianza.
 
 ## 11.1. Construcción de las series de tiempo
 
-```{r arima_setup, message=FALSE, warning=FALSE}
+```{r sec11_arima_setup, message=FALSE, warning=FALSE}
 library(forecast)
 library(tseries)
 library(readr)
@@ -106,7 +106,7 @@ data.frame(
 
 ## 11.3. ACF y PACF – identificación visual del orden
 
-```{r arima_acf, fig.width=10, fig.height=5, message=FALSE}
+```{r sec11_arima_acf, fig.width=10, fig.height=5, message=FALSE}
 par(mfrow = c(2, 2), mar = c(4, 4, 3, 1), bg = "#FAFAFA")
 
 acf(ts_wv_total,  main = "ACF – WV All causes",
@@ -163,7 +163,7 @@ cat("\n--- Resumen modelo Unintentional injuries ---\n"); summary(modelo_acc)
 
 ## 11.5. Diagnóstico de residuos
 
-```{r arima_diagnostico, fig.width=10, fig.height=4, message=FALSE}
+```{r sec11_arima_diagnostico, fig.width=10, fig.height=4, message=FALSE}
 par(mfrow = c(1, 2), bg = "#FAFAFA")
 
 checkresiduals(modelo_total, plot = TRUE, main = "Residuos – WV All causes")
@@ -181,7 +181,7 @@ encima de 0.05.*
 
 ## 11.6. Proyecciones ARIMA – West Virginia (2018–2022)
 
-```{r arima_forecast, fig.width=11, fig.height=9, message=FALSE}
+```{r sec11_arima_forecast, fig.width=11, fig.height=9, message=FALSE}
 library(patchwork)
 
 horizonte    <- 5

@@ -20,7 +20,7 @@ West Virginia a lo largo del período, destacando la causa que presenta
 el comportamiento más atípico: las **lesiones no intencionales
 (Unintentional Injuries)**.
 
-```{r wv_series_causas, message=FALSE, warning=FALSE, fig.width=10, fig.height=6}
+```{r sec9_wv_series_causas, message=FALSE, warning=FALSE, fig.width=10, fig.height=6}
 library(dplyr)
 library(ggplot2)
 library(scales)
@@ -188,7 +188,7 @@ Para cuantificar el cambio absoluto en cada causa entre el inicio y
 el final del período, se compara directamente el número de muertes en
 West Virginia en 1999 y 2017.
 
-```{r wv_comparacion_barras, message=FALSE, warning=FALSE, fig.width=10, fig.height=6}
+```{r sec9_wv_comparacion_barras, message=FALSE, warning=FALSE, fig.width=10, fig.height=6}
 library(dplyr)
 library(ggplot2)
 library(scales)
@@ -266,7 +266,7 @@ ajustada de West Virginia y el promedio de todos los estados, que es
 la referencia metodológicamente correcta para evaluar disparidades
 territoriales [@james2018].
 
-```{r wv_vs_nacional, message=FALSE, warning=FALSE, fig.width=10, fig.height=6}
+```{r sec9_wv_vs_nacional, message=FALSE, warning=FALSE, fig.width=10, fig.height=6}
 library(dplyr)
 library(ggplot2)
 library(scales)

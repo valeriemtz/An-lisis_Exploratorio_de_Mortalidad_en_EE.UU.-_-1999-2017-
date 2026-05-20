@@ -56,7 +56,7 @@ nuevas amenazas asociadas a la longevidad y a riesgos externos, lo que
 plantea retos estratégicos para la salud pública y la planificación de
 políticas sanitarias.
 
-```{r boxplots_semestre, fig.width=12, fig.height=8}
+```{r sec8_boxplots_semestre, fig.width=12, fig.height=8}
 library(tidyverse)
 library(scales)
 
@@ -202,7 +202,7 @@ entre regiones.
 
 ## 8.3.1. Mapeo - Número de muertes de 1999 a 2017 por estados
 
-```{r mapa_muertes, warning=FALSE, message=FALSE, out.width="100%"}
+```{r sec8_mapa_muertes, warning=FALSE, message=FALSE, out.width="100%"}
 library(dplyr)
 library(readr)
 library(stringr)
@@ -315,7 +315,7 @@ permitiendo comparaciones precisas entre años y regiones.*
 
 ## 8.3.2 Mapeo – Tasa de mortalidad ajustada por edad de 1999 a 2017 por estados
 
-```{r mapa_tasa, warning=FALSE, message=FALSE, out.width="100%"}
+```{r sec8_mapa_tasa, warning=FALSE, message=FALSE, out.width="100%"}
 library(dplyr)
 library(readr)
 library(stringr)
