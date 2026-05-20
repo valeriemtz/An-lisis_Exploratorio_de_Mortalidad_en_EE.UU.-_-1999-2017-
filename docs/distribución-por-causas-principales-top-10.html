@@ -284,7 +284,7 @@ div.csl-indent {
 <span id="cb20-4"><a href="distribución-por-causas-principales-top-10.html#cb20-4" tabindex="-1"></a></span>
 <span id="cb20-5"><a href="distribución-por-causas-principales-top-10.html#cb20-5" tabindex="-1"></a>top10_causas <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;NCHS_Leading_Causes.csv&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb20-6"><a href="distribución-por-causas-principales-top-10.html#cb20-6" tabindex="-1"></a>  <span class="fu">filter</span>(Cause.Name <span class="sc">!=</span> <span class="st">&quot;All causes&quot;</span>, State <span class="sc">==</span> <span class="st">&quot;United States&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb20-7"><a href="distribución-por-causas-principales-top-10.html#cb20-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Deaths =</span> <span class="fu">as.numeric</span>(Deaths)) <span class="sc">%&gt;%</span></span>
+<span id="cb20-7"><a href="distribución-por-causas-principales-top-10.html#cb20-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Deaths =</span> <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">&quot;[.]&quot;</span>, <span class="st">&quot;&quot;</span>, Deaths))) <span class="sc">%&gt;%</span></span>
 <span id="cb20-8"><a href="distribución-por-causas-principales-top-10.html#cb20-8" tabindex="-1"></a>  <span class="fu">group_by</span>(Cause.Name) <span class="sc">%&gt;%</span></span>
 <span id="cb20-9"><a href="distribución-por-causas-principales-top-10.html#cb20-9" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_muertes =</span> <span class="fu">sum</span>(Deaths, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb20-10"><a href="distribución-por-causas-principales-top-10.html#cb20-10" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(total_muertes)) <span class="sc">%&gt;%</span></span>
@@ -331,7 +331,7 @@ Total de muertes
 Heart disease
 </td>
 <td style="text-align:right;">
-12,223
+12,222,640
 </td>
 </tr>
 <tr>
@@ -339,7 +339,7 @@ Heart disease
 Cancer
 </td>
 <td style="text-align:right;">
-10,844
+10,843,644
 </td>
 </tr>
 <tr>
@@ -347,7 +347,7 @@ Cancer
 Stroke
 </td>
 <td style="text-align:right;">
-2,727
+2,726,523
 </td>
 </tr>
 <tr>
@@ -355,7 +355,7 @@ Stroke
 CLRD
 </td>
 <td style="text-align:right;">
-2,595
+2,594,927
 </td>
 </tr>
 <tr>
@@ -363,7 +363,7 @@ CLRD
 Unintentional injuries
 </td>
 <td style="text-align:right;">
-2,348
+2,347,820
 </td>
 </tr>
 <tr>
@@ -371,7 +371,7 @@ Unintentional injuries
 Alzheimer’s disease
 </td>
 <td style="text-align:right;">
-1,495
+1,494,816
 </td>
 </tr>
 <tr>
@@ -379,7 +379,7 @@ Alzheimer’s disease
 Diabetes
 </td>
 <td style="text-align:right;">
-1,400
+1,399,943
 </td>
 </tr>
 <tr>
@@ -387,7 +387,7 @@ Diabetes
 Influenza and pneumonia
 </td>
 <td style="text-align:right;">
-1,095
+1,094,641
 </td>
 </tr>
 <tr>
@@ -395,7 +395,7 @@ Influenza and pneumonia
 Kidney disease
 </td>
 <td style="text-align:right;">
-859
+858,613
 </td>
 </tr>
 <tr>
@@ -403,7 +403,7 @@ Kidney disease
 Suicide
 </td>
 <td style="text-align:right;">
-697
+697,016
 </td>
 </tr>
 </tbody>
