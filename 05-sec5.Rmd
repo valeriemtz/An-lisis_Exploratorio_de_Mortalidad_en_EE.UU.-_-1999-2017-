@@ -1,0 +1,188 @@
+# 5. Análisis de Ranking: Cambios en la Posición de las Causas de Muerte
+El ranking de causas de muerte no es estático. Analizar cómo cambia la
+posición relativa de cada causa a lo largo del tiempo permite
+identificar qué enfermedades ganan o pierden importancia en la carga de
+mortalidad.
+
+## 5.1. Ranking de causas por año
+```{r, echo=TRUE, warning=FALSE, message=FALSE}
+top10_tasas <- datos %>%
+  filter(causa != "All causes") %>%
+  group_by(causa) %>%
+  summarise(tasa_promedio = mean(tasa_ajustada, na.rm = TRUE)) %>%
+  arrange(desc(tasa_promedio)) %>%
+  slice_head(n = 10) %>%
+  pull(causa)
+
+# 2. Calcular tasa nacional promedio por año 
+datos_tasas_nac <- datos %>%
+  filter(causa %in% top10_tasas) %>%
+  group_by(anio, causa) %>%
+  summarise(tasa_nac = mean(tasa_ajustada, na.rm = TRUE), .groups = "drop")
+
+# 3. Verificar rango de tasas
+print(paste("Rango de tasas:", min(datos_tasas_nac$tasa_nac), "-", max(datos_tasas_nac$tasa_nac)))
+
+
+colores_set1 <- brewer.pal(9, "Set1")
+colores_10 <- c(colores_set1, "#333333")  # añadimos gris oscuro para la décima causa
+causas_ordenadas <- sort(unique(datos_tasas_nac$causa))
+colores_asignados <- setNames(colores_10[1:length(causas_ordenadas)], causas_ordenadas)
+
+
+ggplot(datos_tasas_nac, aes(x = anio, y = tasa_nac, color = causa)) +
+  geom_line(size = 1.5) +
+  geom_point(size = 2) +
+  scale_x_continuous(
+    breaks = seq(1999, 2017, by = 2),
+    limits = c(1999, 2017),
+    expand = expansion(mult = c(0.01, 0.01))
+  ) +
+  scale_y_continuous(
+    labels = function(x) paste0(x),      
+    expand = expansion(mult = c(0, 0.05))
+  ) +
+  scale_color_manual(values = colores_asignados) +
+  labs(
+    title = "Evolución de las tasas de mortalidad ajustadas por edad",
+    subtitle = "Promedio nacional para las 10 causas principales (1999-2017)",
+    x = "Año",
+    y = "Tasa por 100,000 habitantes",
+    color = "Causa"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    legend.position = "right",
+    legend.text = element_text(size = 9),
+    legend.key.width = unit(1, "cm"),
+    plot.title = element_text(face = "bold", size = 16, hjust = 0.5),
+    plot.subtitle = element_text(size = 12, hjust = 0.5, color = "gray40"),
+    axis.title = element_text(face = "bold"),
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
+    axis.text.y = element_text(size = 10),
+    panel.grid.minor = element_blank()
+  )
+```
+
+Interpretación: La gráfica de la evolución de las tasas de
+mortalidad ajustadas por edad entre 1999 y 2017 evidencia que las dos
+principales causas de muerte enfermedades cardíacas y cáncer
+presentan las tasas más altas, aunque ambas muestran una tendencia
+descendente sostenida, lo que sugiere avances en prevención y
+tratamiento. En contraste, las lesiones no intencionales exhiben un
+incremento progresivo, reflejando un cambio en factores sociales y
+ambientales. Otras causas como diabetes, enfermedades
+renales, influenza/neumonía y CLRD se mantienen
+relativamente estables o con ligeras disminuciones, mientras que el
+Alzheimer destaca por un aumento gradual, vinculado al
+envejecimiento poblacional. En conjunto, el análisis confirma una
+transición epidemiológica: reducción en enfermedades crónicas
+tradicionales, pero crecimiento en causas relacionadas con la longevidad
+y accidentes, lo que plantea nuevos retos para la salud pública.
+
+## 5.2. Cambios en el ranking: 1999 vs 2017
+```{r, echo=TRUE, warning=FALSE, message=FALSE}
+library(dplyr)
+library(knitr)
+library(kableExtra)
+
+if (!exists("datos_nacional")) {
+  datos_nacional <- datos %>%
+    filter(causa != "All causes") %>%
+    group_by(anio, causa) %>%
+    summarise(muertes = sum(muertes, na.rm = TRUE), .groups = "drop")
+}
+
+# 1. Calcular ranking por año (excluyendo "All causes")
+ranking_anual <- datos_nacional %>%
+  group_by(anio) %>%
+  mutate(rank = rank(-muertes, ties.method = "min")) %>%
+  ungroup()
+
+# 2. Extraer rankings de 1999 y 2017
+rank_1999 <- ranking_anual %>%
+  filter(anio == 1999) %>%
+  select(causa, rank_1999 = rank, muertes_1999 = muertes)
+
+rank_2017 <- ranking_anual %>%
+  filter(anio == 2017) %>%
+  select(causa, rank_2017 = rank, muertes_2017 = muertes)
+
+# 3. Unir y calcular cambios
+cambios_ranking <- inner_join(rank_1999, rank_2017, by = "causa") %>%
+  mutate(
+    cambio_rank = rank_2017 - rank_1999,
+    cambio_muertes = muertes_2017 - muertes_1999,
+    pct_cambio = (muertes_2017 - muertes_1999) / muertes_1999 * 100,
+    cambio_formateado = case_when(
+      cambio_rank < 0 ~ paste0("▲ ", abs(cambio_rank)),
+      cambio_rank > 0 ~ paste0("▼ ", cambio_rank),
+      TRUE ~ "="
+    ),
+    dir_cambio = case_when(
+      cambio_rank < 0 ~ "up",
+      cambio_rank > 0 ~ "down",
+      TRUE ~ "same"
+    ),
+    dir_pct = case_when(
+      pct_cambio > 0 ~ "up",
+      pct_cambio < 0 ~ "down",
+      TRUE ~ "same"
+    )
+  ) %>%
+  arrange(desc(abs(cambio_rank)), rank_1999)
+
+tabla_cambios <- cambios_ranking %>%
+  select(causa, rank_1999, rank_2017, cambio_formateado, pct_cambio) %>%
+  mutate(pct_cambio = round(pct_cambio, 1)) %>%
+  rename(
+    "Causa" = causa,
+    "Rank 1999" = rank_1999,
+    "Rank 2017" = rank_2017,
+    "Cambio" = cambio_formateado,
+    "Variación %" = pct_cambio
+  )
+
+tabla_cambios %>%
+  kable(
+    caption = "Cambios en el ranking de causas de muerte (1999-2017)",
+    
+    
+    align = c("l", "c", "c", "c", "r"),
+    escape = FALSE
+  ) %>%
+  kable_styling(
+    bootstrap_options = c("striped", "hover", "condensed"),
+    full_width = FALSE,
+    position = "center",
+    font_size = 12
+  ) %>%
+  column_spec(4, 
+    color = ifelse(cambios_ranking$dir_cambio == "up", "green",
+                   ifelse(cambios_ranking$dir_cambio == "down", "red", "gray")),
+    bold = ifelse(cambios_ranking$cambio_rank != 0, TRUE, FALSE)
+  ) %>%
+  column_spec(5, 
+    color = ifelse(cambios_ranking$dir_pct == "up", "red",
+                   ifelse(cambios_ranking$dir_pct == "down", "green", "black")),
+    bold = ifelse(abs(cambios_ranking$pct_cambio) > 10, TRUE, FALSE)
+  ) %>%
+  row_spec(0, background = "#04376B", color = "white", bold = TRUE)
+```
+
+Interpretacion: La tabla de cambios en el ranking de causas de
+muerte (1999-2017) evidencia transformaciones importantes en el perfil
+epidemiológico: las enfermedades cardíacas y el cáncer se
+mantienen como las dos principales causas, aunque con variaciones
+porcentuales moderadas (-10.7% y +9.0% respectivamente). En contraste,
+las lesiones no intencionales suben del puesto 5 al 3 con un
+incremento del 73.7%, y el Alzheimer asciende del 8 al 6
+con un aumento notable del 172.6%, reflejando el impacto del
+envejecimiento poblacional. Por otro lado, causas como el stroke
+bajan del 3 al 5 (-12.5%) y la influenza/neumonía del 7
+al 8 (-12.6%), mostrando menor peso relativo. Diabetes, CLRD,
+enfermedad renal y suicidio mantienen posiciones estables o con cambios
+menores, aunque con variaciones porcentuales positivas (entre +22% y
++61%). Descenso en algunas enfermedades tradicionales, pero un
+crecimiento marcado en condiciones asociadas a la longevidad y a
+factores externos como accidentes.

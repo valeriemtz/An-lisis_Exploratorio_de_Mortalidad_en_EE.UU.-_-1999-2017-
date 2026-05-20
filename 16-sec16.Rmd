@@ -1,0 +1,56 @@
+# 16. Justificación del Modelo Seleccionado
+
+La métrica central para la selección del modelo final es el AICc
+(criterio de información de Akaike corregido por tamaño muestral). Con n
+= 19, el AICc es el criterio apropiado porque penaliza la complejidad en
+función del tamaño muestral, corrigiendo la tendencia del AIC estándar a
+premiar modelos sobreparametrizados en muestras pequeñas. Los demás
+criterios —Ljung-Box, tsCV y coherencia teórica con la prueba ADF—
+operan como evidencia complementaria que respalda y contextualiza la
+decisión basada en AICc.
+
+ETS obtiene AICc = 137.84, una diferencia de 7.41 puntos frente a
+ARIMA (130.43). Según Burnham & Anderson (2002), diferencias superiores
+a 7 puntos en AICc constituyen evidencia fuerte contra el modelo con
+mayor valor.
+
+ETS requiere 4 parámetros estimados (alpha = 0.0001, beta = 0.0001, l =
+38.68, b = 2.47) para lograr un ajuste en muestra prácticamente idéntico
+al de ARIMA (RMSE: 6.57 vs 13.11), sin que esa complejidad adicional
+esté justificada por los datos. Sus residuos superan Ljung-Box (Q\* =
+5.66, p = 0.2259).
+
+Holt lineal obtiene AICc = 142.08 (Δ = 11.65) y Holt amortiguado
+AICc = 148.39 (Δ = 17.96); diferencias que, según la escala de Burnham &
+Anderson, constituyen evidencia decisiva en su contra. Ambos requieren
+más parámetros que ARIMA para un ajuste inferior, lo que los descarta
+bajo el criterio AICc.
+
+La regresión obtiene el menor RMSE en tsCV (h=1: 8.045; h=3: 8.729)
+y un R² = 0.818 en muestra, lo que a primera vista podría sugerirla como
+candidata. Sin embargo, no es comparable por AICc: la prueba ADF
+confirmó que la serie es I(1) (p = 0.511, no estacionaria), y aplicar
+OLS sobre una serie no estacionaria sin diferenciar viola el supuesto de
+errores independientes. Sus buenos resultados en tsCV son consecuencia
+de que la tendencia positiva global domina la señal; cualquier modelo
+que la imponga como supuesto fijo obtendría resultados similares. Sus
+intervalos de predicción son inválidos para la serie I(1) (Granger &
+Newbold, 1974), lo que la descarta como modelo de proyección
+independientemente de sus métricas de error.
+
+¿Por qué ARIMA(0,1,0) with drift? ARIMA obtiene el AICc más bajo:
+130.43, con un único parámetro estimado, el drift (β = 3.24, SE = 1.87).
+Es el modelo más parsimonioso, sus residuos son independientes
+(Ljung-Box: Q\* = 6.39, p = 0.1721), y es teóricamente correcto para la
+serie: la diferenciación de orden 1 elimina la raíz unitaria confirmada
+por ADF, y el drift captura el crecimiento estructural de 3.24 puntos
+por año, coherente con la aceleración documentada durante la epidemia de
+opioides desde 2014 en la *sección 9.1.1*.
+
+Bajo el criterio AICc —métrica de selección apropiada para n = 19—
+ARIMA(0,1,0) with drift es el modelo óptimo con evidencia fuerte frente
+a todas las alternativas evaluadas. Sus proyecciones indican que la tasa
+de Unintentional injuries en West Virginia continuará creciendo hacia
+2022, profundizando la brecha con el promedio nacional identificada en
+la *sección 9.3* y demandando intervención prioritaria en política de
+salud pública.

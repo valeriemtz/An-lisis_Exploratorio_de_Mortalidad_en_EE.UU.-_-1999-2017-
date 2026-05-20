@@ -1,0 +1,58 @@
+# 2. Marco teórico
+
+Sustentar el análisis apoyado en la evidencia de la revisión de
+literatura especializada, determinando el estado del conocimiento sobre
+las tendencias y las disparidades en mortalidad en los Estados Unidos
+entre 1999 y 2017.
+
+## 2.1. Prevalencia de las enfermedades crónicas en EE. UU.
+
+Como la mayoria de las naciones desarrolladas, hace décadas Estados
+Unidos experimentó un cambio epidemiológico. Las enfermedades
+infecciosas dejaron de ser las principales causas de muerte,
+posibilitando el predominio de enfermedades crónicas y degenerativas.
+Desde la mitad del siglo XX las enfermedades cardiovasculares, el cáncer
+y enfermedades cerebrovasculares han mantenido una posición en los
+primeros puestos de las cifras de mortalidad en el país. [@shah2019].
+
+La evolución de estas enfermedades no ha sido estática. Investigaciones
+recientes documentan que, tras décadas de reducción sostenida, la
+mortalidad por enfermedades cardiovasculares comenzó a estabilizarse
+alrededor de 2010[@shah2019]. De igual forma, otras causas como el
+Alzheimer, diabetes y las enfermedades renales han incrementado su
+contribución relativa al total de defunciones en el país, reflejando el
+envejecimiento poblacional y el aumento de condiciones metabólicas como
+la obesidad[@shah2019].
+
+A estas causas se añaden otros nuevos factores. Como las muertes por
+causas externas, suicidios y accidentes no intencionales. Los
+accidentes, en particular, han mostrado un crecimiento en este último
+siglo, impulsados principalmente por intoxicaciones accidentales
+relacionadas con el consumo de drogas, aunque también influyen
+accidentes de tráfico, caídas y otros eventos
+prevenible[@daugherty2019].
+
+## 2.2. Las disparidades geográficas como patrón persistente
+
+Uno de los descubrimientos más sólidos en la literatura acerca de la
+mortalidad en Estados Unidos es que hay un "gradiente geográfico" que
+perjudica de manera sistemática al sureste del país. Según la
+investigación de @james2018, que examinó 48 años de datos (1968-2015),
+los condados con una alta mortalidad sostenida se encuentran en la
+división Este Sur Central (Alabama, Kentucky, Mississippi y Tennessee).
+La brecha en mortalidad entre esta región y el resto del país aumentó
+significativamente. En cincuenta años, pasó de 50 a 220 muertes por cada
+100,000 habitantes. Según los autores, este aumento se debe a varios
+factores. Entre ellos, se encuentran un nivel socioeconómico más bajo,
+el acceso limitado a servicios de salud y una mayor prevalencia de
+conductas de riesgo.
+
+## 2.3. La importancia del análisis temporal y por ranking
+
+Se ha demostrado por medio de la literatura la existencia de cambios
+significativos en las causas de muerte a lo largo del periodo. Existe un
+aumento en enfermedades como el Alzheimer debido al envejecimiento de la
+población. Igualmente, los accidentes también han aumentado debido a la
+crisis de los opioides. Las variaciones en el ranking representan
+cambios tanto en los perfiles de riesgo de la población y en la eficacia
+de las intervenciones de salud pública, su seguimiento es fundamental.

@@ -1,0 +1,48 @@
+# 17. Insights clave
+
+El poder obstinado y omnipresente de las enfermedades crónicas: Las
+enfermedades cardíacas y el cáncer siguen siendo las dos principales
+causas de muerte en un amplio período de tiempo (1999-2017). Aunque
+ambas lideran, las enfermedades cardíacas están experimentando un
+descenso constante (de 260 a 165 por cada 100,000 personas), lo que
+refleja mejoras en la prevención y el tratamiento, mientras que el
+cáncer se mantiene más estable; en la actualidad, ambos están en terreno
+firme. Este patrón recíproco corrobora el dominio de las enfermedades
+crónicas en el cambio epidemiológico [@shah2019].
+
+Crisis silenciosa de las "muertes por desesperación": Las muertes
+por suicidio y las lesiones accidentales están aumentando, con estas
+últimas superando las 48 por cada 100,000 en 2017 y acelerándose desde
+2014. Este es un efecto inverso que, coincidentemente, está fuertemente
+vinculado a la epidemia de trastornos por uso de opioides y a la pobreza
+[@daugherty2019] y contrasta fuertemente con el descenso en otros
+factores; también en proporción directa al llamado a los determinantes
+sociales de la salud.
+
+Profundas y obstinadas brechas regionales: La tasa de mortalidad
+estatal es tan grave que Virginia Occidental, con 957 por cada 100,000
+personas, es casi el doble que Hawái (585). Este desequilibrio común en
+el sur rural y en los Apalaches tiende a permanecer en el tiempo,
+reflejando un estatus socioeconómico más bajo y un peor acceso a la
+atención médica en estas áreas [@james2018].
+
+El Alzheimer emerge como un desafío creciente: El Alzheimer sube del
+lugar 8 al 6, con un aumento de muertes del 173%, lo que es el
+porcentaje más elevado entre todas las causas. Su tendencia ascendente
+muestra el envejecimiento de la población y presenta cada vez más
+desafíos en términos sociales y sanitarios debido a la escasez de
+tratamientos curativos [@shah2019].
+
+El ranking es dinámico, pero el top 2 es inamovible: Dado que el
+stroke (de la posición 3 a la 5) baja, y las lesiones no intencionales
+(del puesto 5 al 3) y el Alzheimer (del 8 al 6) suben, las afecciones
+del corazón y el cáncer permanecen sin cambios en los dos primeros
+puestos. Esta movilidad manifiesta alteraciones epidemiológicas, pero
+enfatiza la continua preeminencia de las enfermedades crónicas.
+
+La carga de mortalidad se ubica en ciertas zonas geográficas: El
+total de muertes es mayor en California, Texas, Florida y Nueva York
+debido a la alta densidad poblacional. Sin embargo, esto contrasta con
+los índices ajustados bajos, lo que muestra la disparidad entre carga
+absoluta (demanda de asistencia) y riesgo relativo (probabilidad de
+fallecer), lo cual guía la distribución de recursos a diversas escalas.
