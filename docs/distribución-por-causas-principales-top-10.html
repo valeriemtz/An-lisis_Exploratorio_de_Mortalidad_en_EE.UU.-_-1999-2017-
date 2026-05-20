@@ -283,8 +283,8 @@ div.csl-indent {
 <span id="cb20-3"><a href="distribución-por-causas-principales-top-10.html#cb20-3" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
 <span id="cb20-4"><a href="distribución-por-causas-principales-top-10.html#cb20-4" tabindex="-1"></a></span>
 <span id="cb20-5"><a href="distribución-por-causas-principales-top-10.html#cb20-5" tabindex="-1"></a>top10_causas <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;NCHS_Leading_Causes.csv&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb20-6"><a href="distribución-por-causas-principales-top-10.html#cb20-6" tabindex="-1"></a>  <span class="fu">filter</span>(Cause.Name <span class="sc">!=</span> <span class="st">&quot;All causes&quot;</span>, State <span class="sc">!=</span> <span class="st">&quot;United States&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb20-7"><a href="distribución-por-causas-principales-top-10.html#cb20-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Deaths =</span> <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">&quot;,&quot;</span>, <span class="st">&quot;&quot;</span>, Deaths))) <span class="sc">%&gt;%</span></span>
+<span id="cb20-6"><a href="distribución-por-causas-principales-top-10.html#cb20-6" tabindex="-1"></a>  <span class="fu">filter</span>(Cause.Name <span class="sc">!=</span> <span class="st">&quot;All causes&quot;</span>, State <span class="sc">==</span> <span class="st">&quot;United States&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-7"><a href="distribución-por-causas-principales-top-10.html#cb20-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Deaths =</span> <span class="fu">as.numeric</span>(Deaths)) <span class="sc">%&gt;%</span></span>
 <span id="cb20-8"><a href="distribución-por-causas-principales-top-10.html#cb20-8" tabindex="-1"></a>  <span class="fu">group_by</span>(Cause.Name) <span class="sc">%&gt;%</span></span>
 <span id="cb20-9"><a href="distribución-por-causas-principales-top-10.html#cb20-9" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_muertes =</span> <span class="fu">sum</span>(Deaths, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb20-10"><a href="distribución-por-causas-principales-top-10.html#cb20-10" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(total_muertes)) <span class="sc">%&gt;%</span></span>
@@ -328,66 +328,10 @@ Total de muertes
 <tbody>
 <tr>
 <td style="text-align:left;width: 25em; ">
-Suicide
+Heart disease
 </td>
 <td style="text-align:right;">
-325,940
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 25em; ">
-Influenza and pneumonia
-</td>
-<td style="text-align:right;">
-280,904
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 25em; ">
-Kidney disease
-</td>
-<td style="text-align:right;">
-246,876
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 25em; ">
-Alzheimer’s disease
-</td>
-<td style="text-align:right;">
-206,028
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 25em; ">
-Diabetes
-</td>
-<td style="text-align:right;">
-190,744
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 25em; ">
-Stroke
-</td>
-<td style="text-align:right;">
-167,637
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 25em; ">
-CLRD
-</td>
-<td style="text-align:right;">
-142,188
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 25em; ">
-Unintentional injuries
-</td>
-<td style="text-align:right;">
-141,372
+12,223
 </td>
 </tr>
 <tr>
@@ -395,15 +339,71 @@ Unintentional injuries
 Cancer
 </td>
 <td style="text-align:right;">
-42,284
+10,844
 </td>
 </tr>
 <tr>
 <td style="text-align:left;width: 25em; ">
-Heart disease
+Stroke
 </td>
 <td style="text-align:right;">
-36,652
+2,727
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 25em; ">
+CLRD
+</td>
+<td style="text-align:right;">
+2,595
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 25em; ">
+Unintentional injuries
+</td>
+<td style="text-align:right;">
+2,348
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 25em; ">
+Alzheimer’s disease
+</td>
+<td style="text-align:right;">
+1,495
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 25em; ">
+Diabetes
+</td>
+<td style="text-align:right;">
+1,400
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 25em; ">
+Influenza and pneumonia
+</td>
+<td style="text-align:right;">
+1,095
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 25em; ">
+Kidney disease
+</td>
+<td style="text-align:right;">
+859
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 25em; ">
+Suicide
+</td>
+<td style="text-align:right;">
+697
 </td>
 </tr>
 </tbody>
