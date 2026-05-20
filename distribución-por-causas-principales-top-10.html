@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>7 7. Distribución por causas principales (top 10) | Análisis Temporal y Demográfico de las Principales Causas de Muerte en Estados Unidos</title>
+  <meta name="description" content="Análisis Exploratorio de Mortalidad en EE.UU. (1999-2017)" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="7 7. Distribución por causas principales (top 10) | Análisis Temporal y Demográfico de las Principales Causas de Muerte en Estados Unidos" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Análisis Exploratorio de Mortalidad en EE.UU. (1999-2017)" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="7 7. Distribución por causas principales (top 10) | Análisis Temporal y Demográfico de las Principales Causas de Muerte en Estados Unidos" />
+  
+  <meta name="twitter:description" content="Análisis Exploratorio de Mortalidad en EE.UU. (1999-2017)" />
+  
+
+<meta name="author" content="Valerie M y Luis C" />
+
+
+<meta name="date" content="2026-05-20" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html"/>
+<link rel="next" href="series-de-tiempo-por-causa.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="introducción.html"><a href="introducción.html"><i class="fa fa-check"></i><b>1</b> 1. Introducción</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introducción.html"><a href="introducción.html#contexto-del-problema"><i class="fa fa-check"></i><b>1.1</b> 1.1. Contexto del Problema</a></li>
+<li class="chapter" data-level="1.2" data-path="introducción.html"><a href="introducción.html#contexto-del-dataset"><i class="fa fa-check"></i><b>1.2</b> 1.2. Contexto del Dataset</a></li>
+<li class="chapter" data-level="1.3" data-path="introducción.html"><a href="introducción.html#pregunta-central-de-investigación"><i class="fa fa-check"></i><b>1.3</b> 1.3. Pregunta Central de Investigación</a></li>
+<li class="chapter" data-level="1.4" data-path="introducción.html"><a href="introducción.html#objetivos-del-estudio"><i class="fa fa-check"></i><b>1.4</b> 1.4. Objetivos del Estudio</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="introducción.html"><a href="introducción.html#objetivo-general"><i class="fa fa-check"></i><b>1.4.1</b> 1.4.1 Objetivo General</a></li>
+<li class="chapter" data-level="1.4.2" data-path="introducción.html"><a href="introducción.html#objetivos-específicos"><i class="fa fa-check"></i><b>1.4.2</b> 1.4.2 Objetivos Específicos</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="marco-teórico.html"><a href="marco-teórico.html"><i class="fa fa-check"></i><b>2</b> 2. Marco teórico</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="marco-teórico.html"><a href="marco-teórico.html#prevalencia-de-las-enfermedades-crónicas-en-ee.-uu."><i class="fa fa-check"></i><b>2.1</b> 2.1. Prevalencia de las enfermedades crónicas en EE. UU.</a></li>
+<li class="chapter" data-level="2.2" data-path="marco-teórico.html"><a href="marco-teórico.html#las-disparidades-geográficas-como-patrón-persistente"><i class="fa fa-check"></i><b>2.2</b> 2.2. Las disparidades geográficas como patrón persistente</a></li>
+<li class="chapter" data-level="2.3" data-path="marco-teórico.html"><a href="marco-teórico.html#la-importancia-del-análisis-temporal-y-por-ranking"><i class="fa fa-check"></i><b>2.3</b> 2.3. La importancia del análisis temporal y por ranking</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="metodología.html"><a href="metodología.html"><i class="fa fa-check"></i><b>3</b> 3. Metodología</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="metodología.html"><a href="metodología.html#fuente-de-datos-y-preprocesamiento"><i class="fa fa-check"></i><b>3.1</b> 3.1. Fuente de datos y preprocesamiento:</a></li>
+<li class="chapter" data-level="3.2" data-path="metodología.html"><a href="metodología.html#estadística-descriptiva"><i class="fa fa-check"></i><b>3.2</b> 3.2. Estadística descriptiva:</a></li>
+<li class="chapter" data-level="3.3" data-path="metodología.html"><a href="metodología.html#análisis-de-series-de-tiempo"><i class="fa fa-check"></i><b>3.3</b> 3.3. Análisis de series de tiempo:</a></li>
+<li class="chapter" data-level="3.4" data-path="metodología.html"><a href="metodología.html#análisis-geográfico"><i class="fa fa-check"></i><b>3.4</b> 3.4. Análisis geográfico:</a></li>
+<li class="chapter" data-level="3.5" data-path="metodología.html"><a href="metodología.html#modelo-predictivo-arima"><i class="fa fa-check"></i><b>3.5</b> 3.6. Modelo predictivo – ARIMA:</a></li>
+<li class="chapter" data-level="3.6" data-path="metodología.html"><a href="metodología.html#herramientas-computacionales"><i class="fa fa-check"></i><b>3.6</b> 3.7. Herramientas Computacionales</a></li>
+<li class="chapter" data-level="3.7" data-path="metodología.html"><a href="metodología.html#carga-y-limpieza-de-datos"><i class="fa fa-check"></i><b>3.7</b> 3.8. Carga y limpieza de datos</a></li>
+<li class="chapter" data-level="3.8" data-path="metodología.html"><a href="metodología.html#variables-del-dataset"><i class="fa fa-check"></i><b>3.8</b> 3.9. Variables del Dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html"><i class="fa fa-check"></i><b>4</b> 4. Evolución de la tasa ajustada de mortalidad anual</a></li>
+<li class="chapter" data-level="5" data-path="análisis-de-ranking-cambios-en-la-posición-de-las-causas-de-muerte.html"><a href="análisis-de-ranking-cambios-en-la-posición-de-las-causas-de-muerte.html"><i class="fa fa-check"></i><b>5</b> 5. Análisis de Ranking: Cambios en la Posición de las Causas de Muerte</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="análisis-de-ranking-cambios-en-la-posición-de-las-causas-de-muerte.html"><a href="análisis-de-ranking-cambios-en-la-posición-de-las-causas-de-muerte.html#ranking-de-causas-por-año"><i class="fa fa-check"></i><b>5.1</b> 5.1. Ranking de causas por año</a></li>
+<li class="chapter" data-level="5.2" data-path="análisis-de-ranking-cambios-en-la-posición-de-las-causas-de-muerte.html"><a href="análisis-de-ranking-cambios-en-la-posición-de-las-causas-de-muerte.html#cambios-en-el-ranking-1999-vs-2017"><i class="fa fa-check"></i><b>5.2</b> 5.2. Cambios en el ranking: 1999 vs 2017</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html"><i class="fa fa-check"></i><b>6</b> 6. Análisis Específico: La Crisis de las “Muertes por Desesperación”</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#evolución-conjunta-de-suicidio-y-accidentes"><i class="fa fa-check"></i><b>6.1</b> 6.1. Evolución conjunta de suicidio y accidentes</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="distribución-por-causas-principales-top-10.html"><a href="distribución-por-causas-principales-top-10.html"><i class="fa fa-check"></i><b>7</b> 7. Distribución por causas principales (top 10)</a></li>
+<li class="chapter" data-level="8" data-path="series-de-tiempo-por-causa.html"><a href="series-de-tiempo-por-causa.html"><i class="fa fa-check"></i><b>8</b> 8. Series de tiempo por causa</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="series-de-tiempo-por-causa.html"><a href="series-de-tiempo-por-causa.html#causa-vs-año"><i class="fa fa-check"></i><b>8.1</b> 8.1. Causa vs Año</a></li>
+<li class="chapter" data-level="8.2" data-path="series-de-tiempo-por-causa.html"><a href="series-de-tiempo-por-causa.html#heatmap-de-muertes-absolutas-por-causas-y-años"><i class="fa fa-check"></i><b>8.2</b> 8.2. Heatmap de muertes absolutas por causas y años</a></li>
+<li class="chapter" data-level="8.3" data-path="series-de-tiempo-por-causa.html"><a href="series-de-tiempo-por-causa.html#análisis-geográfico-disparidades-por-estado"><i class="fa fa-check"></i><b>8.3</b> 8.3. Análisis Geográfico: Disparidades por Estado</a></li>
+<li class="chapter" data-level="8.4" data-path="series-de-tiempo-por-causa.html"><a href="series-de-tiempo-por-causa.html#mapeo---número-de-muertes-de-1999-a-2017-por-estados"><i class="fa fa-check"></i><b>8.4</b> 8.3.1. Mapeo - Número de muertes de 1999 a 2017 por estados</a></li>
+<li class="chapter" data-level="8.5" data-path="series-de-tiempo-por-causa.html"><a href="series-de-tiempo-por-causa.html#mapeo-tasa-de-mortalidad-ajustada-por-edad-de-1999-a-2017-por-estados"><i class="fa fa-check"></i><b>8.5</b> 8.3.2 Mapeo – Tasa de mortalidad ajustada por edad de 1999 a 2017 por estados</a></li>
+<li class="chapter" data-level="8.6" data-path="series-de-tiempo-por-causa.html"><a href="series-de-tiempo-por-causa.html#estados-con-mayor-y-menor-mortalidad"><i class="fa fa-check"></i><b>8.6</b> 8.3.3. Estados con mayor y menor mortalidad</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="caso-de-estudio-west-virginia.html"><a href="caso-de-estudio-west-virginia.html"><i class="fa fa-check"></i><b>9</b> 9. Caso de estudio: West Virginia</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="caso-de-estudio-west-virginia.html"><a href="caso-de-estudio-west-virginia.html#evolución-de-las-causas-de-muerte-en-west-virginia-19992017"><i class="fa fa-check"></i><b>9.1</b> 9.1. Evolución de las causas de muerte en West Virginia (1999–2017)</a></li>
+<li class="chapter" data-level="9.2" data-path="caso-de-estudio-west-virginia.html"><a href="caso-de-estudio-west-virginia.html#qué-explica-el-crecimiento-de-las-lesiones-no-intencionales-en-west-virginia"><i class="fa fa-check"></i><b>9.2</b> 9.1.1.¿Qué explica el crecimiento de las lesiones no intencionales en West Virginia?</a></li>
+<li class="chapter" data-level="9.3" data-path="caso-de-estudio-west-virginia.html"><a href="caso-de-estudio-west-virginia.html#comparación-de-muertes-por-causa-west-virginia-1999-vs.-2017"><i class="fa fa-check"></i><b>9.3</b> 9.2. Comparación de muertes por causa: West Virginia 1999 vs. 2017</a></li>
+<li class="chapter" data-level="9.4" data-path="caso-de-estudio-west-virginia.html"><a href="caso-de-estudio-west-virginia.html#west-virginia-vs.-promedio-nacional-19992017"><i class="fa fa-check"></i><b>9.4</b> 9.3. West Virginia vs. Promedio Nacional (1999–2017)</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="modelo-1-arima.html"><a href="modelo-1-arima.html"><i class="fa fa-check"></i><b>10</b> 11. Modelo 1 – ARIMA</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="modelo-1-arima.html"><a href="modelo-1-arima.html#construcción-de-las-series-de-tiempo"><i class="fa fa-check"></i><b>10.1</b> 11.1. Construcción de las series de tiempo</a></li>
+<li class="chapter" data-level="10.2" data-path="modelo-1-arima.html"><a href="modelo-1-arima.html#prueba-de-estacionariedad-dickey-fuller-aumentada-adf"><i class="fa fa-check"></i><b>10.2</b> 11.2. Prueba de estacionariedad – Dickey-Fuller Aumentada (ADF)</a></li>
+<li class="chapter" data-level="10.3" data-path="modelo-1-arima.html"><a href="modelo-1-arima.html#acf-y-pacf-identificación-visual-del-orden"><i class="fa fa-check"></i><b>10.3</b> 11.3. ACF y PACF – identificación visual del orden</a></li>
+<li class="chapter" data-level="10.4" data-path="modelo-1-arima.html"><a href="modelo-1-arima.html#selección-automática-del-modelo"><i class="fa fa-check"></i><b>10.4</b> 11.4. Selección automática del modelo</a></li>
+<li class="chapter" data-level="10.5" data-path="modelo-1-arima.html"><a href="modelo-1-arima.html#diagnóstico-de-residuos"><i class="fa fa-check"></i><b>10.5</b> 11.5. Diagnóstico de residuos</a></li>
+<li class="chapter" data-level="10.6" data-path="modelo-1-arima.html"><a href="modelo-1-arima.html#proyecciones-arima-west-virginia-20182022"><i class="fa fa-check"></i><b>10.6</b> 11.6. Proyecciones ARIMA – West Virginia (2018–2022)</a></li>
+<li class="chapter" data-level="10.7" data-path="modelo-1-arima.html"><a href="modelo-1-arima.html#tabla-de-valores-proyectados"><i class="fa fa-check"></i><b>10.7</b> 11.7. Tabla de valores proyectados</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="modelos-adicionales.html"><a href="modelos-adicionales.html"><i class="fa fa-check"></i><b>11</b> 12. Modelos Adicionales</a></li>
+<li class="chapter" data-level="12" data-path="modelo-2-ets-error-trend-seasonality.html"><a href="modelo-2-ets-error-trend-seasonality.html"><i class="fa fa-check"></i><b>12</b> 13. Modelo 2 – ETS (Error, Trend, Seasonality)</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="modelo-2-ets-error-trend-seasonality.html"><a href="modelo-2-ets-error-trend-seasonality.html#diagnóstico-de-residuos-ets"><i class="fa fa-check"></i><b>12.1</b> 13.1. Diagnóstico de residuos – ETS</a></li>
+<li class="chapter" data-level="12.2" data-path="modelo-2-ets-error-trend-seasonality.html"><a href="modelo-2-ets-error-trend-seasonality.html#proyección-ets-20182022"><i class="fa fa-check"></i><b>12.2</b> 13.2. Proyección ETS (2018–2022)</a></li>
+<li class="chapter" data-level="12.3" data-path="modelo-2-ets-error-trend-seasonality.html"><a href="modelo-2-ets-error-trend-seasonality.html#tabla-de-valores-proyectados-1"><i class="fa fa-check"></i><b>12.3</b> 13.3. Tabla de valores proyectados</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="modelo-3-regresión-lineal-con-tendencia-temporal.html"><a href="modelo-3-regresión-lineal-con-tendencia-temporal.html"><i class="fa fa-check"></i><b>13</b> 14. Modelo 3 – Regresión Lineal con Tendencia Temporal</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="modelo-3-regresión-lineal-con-tendencia-temporal.html"><a href="modelo-3-regresión-lineal-con-tendencia-temporal.html#diagnóstico-de-residuos-regresión-lineal"><i class="fa fa-check"></i><b>13.1</b> 14.1. Diagnóstico de residuos – Regresión Lineal</a></li>
+<li class="chapter" data-level="13.2" data-path="modelo-3-regresión-lineal-con-tendencia-temporal.html"><a href="modelo-3-regresión-lineal-con-tendencia-temporal.html#proyección-regresión-lineal-20182022"><i class="fa fa-check"></i><b>13.2</b> 14.2. Proyección – Regresión Lineal (2018–2022)</a></li>
+<li class="chapter" data-level="13.3" data-path="modelo-3-regresión-lineal-con-tendencia-temporal.html"><a href="modelo-3-regresión-lineal-con-tendencia-temporal.html#tabla-de-valores-proyectados-2"><i class="fa fa-check"></i><b>13.3</b> 14.3. Tabla de valores proyectados</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="comparación-de-modelos.html"><a href="comparación-de-modelos.html"><i class="fa fa-check"></i><b>14</b> 15. Comparación de modelos</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="comparación-de-modelos.html"><a href="comparación-de-modelos.html#criterios-de-información-modelos-paramétricos"><i class="fa fa-check"></i><b>14.1</b> 15.1. Criterios de información (modelos paramétricos)</a></li>
+<li class="chapter" data-level="14.2" data-path="comparación-de-modelos.html"><a href="comparación-de-modelos.html#diagnóstico-comparativo-de-residuos"><i class="fa fa-check"></i><b>14.2</b> 15.2. Diagnóstico comparativo de residuos</a></li>
+<li class="chapter" data-level="14.3" data-path="comparación-de-modelos.html"><a href="comparación-de-modelos.html#validación-cruzada-de-series-de-tiempo-tscv"><i class="fa fa-check"></i><b>14.3</b> 15.3. Validación cruzada de series de tiempo (tsCV)</a></li>
+<li class="chapter" data-level="14.4" data-path="comparación-de-modelos.html"><a href="comparación-de-modelos.html#gráfico-comparativo-de-proyecciones"><i class="fa fa-check"></i><b>14.4</b> 15.4. Gráfico comparativo de proyecciones</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="justificación-del-modelo-seleccionado.html"><a href="justificación-del-modelo-seleccionado.html"><i class="fa fa-check"></i><b>15</b> 16. Justificación del Modelo Seleccionado</a></li>
+<li class="chapter" data-level="16" data-path="insights-clave.html"><a href="insights-clave.html"><i class="fa fa-check"></i><b>16</b> 17. Insights clave</a></li>
+<li class="chapter" data-level="17" data-path="limitaciones-del-estudio.html"><a href="limitaciones-del-estudio.html"><i class="fa fa-check"></i><b>17</b> 18. Limitaciones del estudio</a></li>
+<li class="chapter" data-level="18" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>18</b> 19. Conclusiones</a></li>
+<li class="chapter" data-level="19" data-path="referencias-bibliográficas.html"><a href="referencias-bibliográficas.html"><i class="fa fa-check"></i><b>19</b> 20. Referencias bibliográficas</a></li>
+<li class="chapter" data-level="20" data-path="análisis-exploratorio-de-mortalidad-en-ee.uu.-1999-2017.html"><a href="análisis-exploratorio-de-mortalidad-en-ee.uu.-1999-2017.html"><i class="fa fa-check"></i><b>20</b> <strong>Análisis Exploratorio de Mortalidad en EE.UU. (1999-2017)</strong></a></li>
+<li class="chapter" data-level="21" data-path="introducción-1.html"><a href="introducción-1.html"><i class="fa fa-check"></i><b>21</b> 1. Introducción</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="introducción-1.html"><a href="introducción-1.html#contexto-del-problema-1"><i class="fa fa-check"></i><b>21.1</b> <strong>1.1. Contexto del Problema</strong></a></li>
+<li class="chapter" data-level="21.2" data-path="introducción-1.html"><a href="introducción-1.html#contexto-del-dataset-1"><i class="fa fa-check"></i><b>21.2</b> <strong>1.2. Contexto del Dataset</strong></a></li>
+<li class="chapter" data-level="21.3" data-path="introducción-1.html"><a href="introducción-1.html#pregunta-central-de-investigación-1"><i class="fa fa-check"></i><b>21.3</b> <strong>1.3. Pregunta Central de Investigación</strong></a></li>
+<li class="chapter" data-level="21.4" data-path="introducción-1.html"><a href="introducción-1.html#objetivos-del-estudio-1"><i class="fa fa-check"></i><b>21.4</b> 1.4. Objetivos del Estudio</a>
+<ul>
+<li class="chapter" data-level="21.4.1" data-path="introducción-1.html"><a href="introducción-1.html#objetivo-general-1"><i class="fa fa-check"></i><b>21.4.1</b> 1.4.1 Objetivo General</a></li>
+<li class="chapter" data-level="21.4.2" data-path="introducción-1.html"><a href="introducción-1.html#objetivos-específicos-1"><i class="fa fa-check"></i><b>21.4.2</b> 1.4.2 Objetivos Específicos</a></li>
+</ul></li>
+<li class="chapter" data-level="21.5" data-path="introducción-1.html"><a href="introducción-1.html#marco-teórico-1"><i class="fa fa-check"></i><b>21.5</b> 2. <strong>Marco teórico</strong></a>
+<ul>
+<li class="chapter" data-level="21.5.1" data-path="introducción-1.html"><a href="introducción-1.html#prevalencia-de-las-enfermedades-crónicas-en-ee.-uu.-1"><i class="fa fa-check"></i><b>21.5.1</b> 2.1. Prevalencia de las enfermedades crónicas en EE. UU.</a></li>
+<li class="chapter" data-level="21.5.2" data-path="introducción-1.html"><a href="introducción-1.html#las-disparidades-geográficas-como-patrón-persistente-1"><i class="fa fa-check"></i><b>21.5.2</b> <strong>2.2. Las disparidades geográficas como patrón persistente</strong></a></li>
+<li class="chapter" data-level="21.5.3" data-path="introducción-1.html"><a href="introducción-1.html#la-importancia-del-análisis-temporal-y-por-ranking-1"><i class="fa fa-check"></i><b>21.5.3</b> <strong>2.3. La importancia del análisis temporal y por ranking</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="21.6" data-path="introducción-1.html"><a href="introducción-1.html#metodología-1"><i class="fa fa-check"></i><b>21.6</b> 3. Metodología</a>
+<ul>
+<li class="chapter" data-level="21.6.1" data-path="introducción-1.html"><a href="introducción-1.html#fuente-de-datos-y-preprocesamiento-1"><i class="fa fa-check"></i><b>21.6.1</b> 3.1. Fuente de datos y preprocesamiento:</a></li>
+<li class="chapter" data-level="21.6.2" data-path="introducción-1.html"><a href="introducción-1.html#estadística-descriptiva-1"><i class="fa fa-check"></i><b>21.6.2</b> 3.2. Estadística descriptiva:</a></li>
+<li class="chapter" data-level="21.6.3" data-path="introducción-1.html"><a href="introducción-1.html#análisis-de-series-de-tiempo-1"><i class="fa fa-check"></i><b>21.6.3</b> 3.3. Análisis de series de tiempo:</a></li>
+<li class="chapter" data-level="21.6.4" data-path="introducción-1.html"><a href="introducción-1.html#análisis-geográfico-1"><i class="fa fa-check"></i><b>21.6.4</b> 3.4. Análisis geográfico:</a></li>
+<li class="chapter" data-level="21.6.5" data-path="introducción-1.html"><a href="introducción-1.html#análisis-de-clustering-k-means"><i class="fa fa-check"></i><b>21.6.5</b> 3.5. Análisis de clustering – K-Means:</a></li>
+<li class="chapter" data-level="21.6.6" data-path="introducción-1.html"><a href="introducción-1.html#modelo-predictivo-arima-1"><i class="fa fa-check"></i><b>21.6.6</b> 3.6. Modelo predictivo – ARIMA:</a></li>
+<li class="chapter" data-level="21.6.7" data-path="introducción-1.html"><a href="introducción-1.html#herramientas-computacionales-1"><i class="fa fa-check"></i><b>21.6.7</b> 3.7. Herramientas Computacionales</a></li>
+<li class="chapter" data-level="21.6.8" data-path="introducción-1.html"><a href="introducción-1.html#carga-y-limpieza-de-datos-1"><i class="fa fa-check"></i><b>21.6.8</b> 3.8. Carga y limpieza de datos</a></li>
+<li class="chapter" data-level="21.6.9" data-path="introducción-1.html"><a href="introducción-1.html#variables-del-dataset-1"><i class="fa fa-check"></i><b>21.6.9</b> 3.9. <strong>Variables del Dataset</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="21.7" data-path="introducción-1.html"><a href="introducción-1.html#evolución-de-la-tasa-ajustada-de-mortalidad-anual-1"><i class="fa fa-check"></i><b>21.7</b> <strong>4. Evolución de la tasa ajustada de mortalidad anual</strong></a></li>
+<li class="chapter" data-level="21.8" data-path="introducción-1.html"><a href="introducción-1.html#análisis-de-ranking-cambios-en-la-posición-de-las-causas-de-muerte-1"><i class="fa fa-check"></i><b>21.8</b> <strong>5. Análisis de Ranking: Cambios en la Posición de las Causas de Muerte</strong></a>
+<ul>
+<li class="chapter" data-level="21.8.1" data-path="introducción-1.html"><a href="introducción-1.html#ranking-de-causas-por-año-1"><i class="fa fa-check"></i><b>21.8.1</b> <strong>5.1. Ranking de causas por año</strong></a></li>
+<li class="chapter" data-level="21.8.2" data-path="introducción-1.html"><a href="introducción-1.html#cambios-en-el-ranking-1999-vs-2017-1"><i class="fa fa-check"></i><b>21.8.2</b> <strong>5.2. Cambios en el ranking: 1999 vs 2017</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="21.9" data-path="introducción-1.html"><a href="introducción-1.html#análisis-específico-la-crisis-de-las-muertes-por-desesperación-1"><i class="fa fa-check"></i><b>21.9</b> <strong>6. Análisis Específico: La Crisis de las “Muertes por Desesperación”</strong></a>
+<ul>
+<li class="chapter" data-level="21.9.1" data-path="introducción-1.html"><a href="introducción-1.html#evolución-conjunta-de-suicidio-y-accidentes-1"><i class="fa fa-check"></i><b>21.9.1</b> <strong>6.1. Evolución conjunta de suicidio y accidentes</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="21.10" data-path="introducción-1.html"><a href="introducción-1.html#distribución-por-causas-principales-top-10-1"><i class="fa fa-check"></i><b>21.10</b> 7. Distribución por causas principales (top 10)</a></li>
+<li class="chapter" data-level="21.11" data-path="introducción-1.html"><a href="introducción-1.html#series-de-tiempo-por-causa-1"><i class="fa fa-check"></i><b>21.11</b> 8. Series de tiempo por causa</a>
+<ul>
+<li class="chapter" data-level="21.11.1" data-path="introducción-1.html"><a href="introducción-1.html#causa-vs-año-1"><i class="fa fa-check"></i><b>21.11.1</b> 8.1. Causa vs Año</a></li>
+<li class="chapter" data-level="21.11.2" data-path="introducción-1.html"><a href="introducción-1.html#heatmap-de-muertes-absolutas-por-causas-y-años-1"><i class="fa fa-check"></i><b>21.11.2</b> <strong>8.2. Heatmap de muertes absolutas por causas y años</strong></a></li>
+<li class="chapter" data-level="21.11.3" data-path="introducción-1.html"><a href="introducción-1.html#análisis-geográfico-disparidades-por-estado-1"><i class="fa fa-check"></i><b>21.11.3</b> 8.3. Análisis Geográfico: Disparidades por Estado</a></li>
+<li class="chapter" data-level="21.11.4" data-path="introducción-1.html"><a href="introducción-1.html#mapeo---número-de-muertes-de-1999-a-2017-por-estados-1"><i class="fa fa-check"></i><b>21.11.4</b> <strong>8.3.1.</strong> Mapeo - Número de muertes de 1999 a 2017 por estados</a></li>
+<li class="chapter" data-level="21.11.5" data-path="introducción-1.html"><a href="introducción-1.html#mapeo-tasa-de-mortalidad-ajustada-por-edad-de-1999-a-2017-por-estados-1"><i class="fa fa-check"></i><b>21.11.5</b> 8.3.2 Mapeo – Tasa de mortalidad ajustada por edad de 1999 a 2017 por estados</a></li>
+<li class="chapter" data-level="21.11.6" data-path="introducción-1.html"><a href="introducción-1.html#estados-con-mayor-y-menor-mortalidad-1"><i class="fa fa-check"></i><b>21.11.6</b> <strong>8.3.3. Estados con mayor y menor mortalidad</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="21.12" data-path="introducción-1.html"><a href="introducción-1.html#caso-de-estudio-west-virginia-1"><i class="fa fa-check"></i><b>21.12</b> 9. Caso de estudio: West Virginia</a>
+<ul>
+<li class="chapter" data-level="21.12.1" data-path="introducción-1.html"><a href="introducción-1.html#evolución-de-las-causas-de-muerte-en-west-virginia-19992017-1"><i class="fa fa-check"></i><b>21.12.1</b> 9.1. Evolución de las causas de muerte en West Virginia (1999–2017)</a></li>
+<li class="chapter" data-level="21.12.2" data-path="introducción-1.html"><a href="introducción-1.html#qué-explica-el-crecimiento-de-las-lesiones-no-intencionales-en-west-virginia-1"><i class="fa fa-check"></i><b>21.12.2</b> 9.1.1.¿Qué explica el crecimiento de las lesiones no intencionales en West Virginia?</a></li>
+<li class="chapter" data-level="21.12.3" data-path="introducción-1.html"><a href="introducción-1.html#comparación-de-muertes-por-causa-west-virginia-1999-vs.-2017-1"><i class="fa fa-check"></i><b>21.12.3</b> 9.2. Comparación de muertes por causa: West Virginia 1999 vs. 2017</a></li>
+<li class="chapter" data-level="21.12.4" data-path="introducción-1.html"><a href="introducción-1.html#west-virginia-vs.-promedio-nacional-19992017-1"><i class="fa fa-check"></i><b>21.12.4</b> 9.3. West Virginia vs. Promedio Nacional (1999–2017)</a></li>
+</ul></li>
+<li class="chapter" data-level="21.13" data-path="introducción-1.html"><a href="introducción-1.html#clustering-de-estados-por-perfil-de-mortalidad"><i class="fa fa-check"></i><b>21.13</b> 10. Clustering de estados por perfil de mortalidad</a>
+<ul>
+<li class="chapter" data-level="21.13.1" data-path="introducción-1.html"><a href="introducción-1.html#preparación-de-datos"><i class="fa fa-check"></i><b>21.13.1</b> 10.1. Preparación de datos</a></li>
+<li class="chapter" data-level="21.13.2" data-path="introducción-1.html"><a href="introducción-1.html#estandarización-y-número-óptimo-de-clústeres-método-del-codo"><i class="fa fa-check"></i><b>21.13.2</b> 10.2. Estandarización y número óptimo de clústeres (método del codo)</a></li>
+<li class="chapter" data-level="21.13.3" data-path="introducción-1.html"><a href="introducción-1.html#modelo-k-means-y-composición-de-clústeres"><i class="fa fa-check"></i><b>21.13.3</b> 10.3. Modelo K-Means y composición de clústeres</a></li>
+<li class="chapter" data-level="21.13.4" data-path="introducción-1.html"><a href="introducción-1.html#visualización-pca-posicionamiento-de-los-estados"><i class="fa fa-check"></i><b>21.13.4</b> 10.4. Visualización PCA – posicionamiento de los estados</a></li>
+</ul></li>
+<li class="chapter" data-level="21.14" data-path="introducción-1.html"><a href="introducción-1.html#modelo-predictivo-arima-2"><i class="fa fa-check"></i><b>21.14</b> 11. Modelo Predictivo ARIMA</a>
+<ul>
+<li class="chapter" data-level="21.14.1" data-path="introducción-1.html"><a href="introducción-1.html#construcción-de-las-series-de-tiempo-1"><i class="fa fa-check"></i><b>21.14.1</b> 11.1. Construcción de las series de tiempo</a></li>
+<li class="chapter" data-level="21.14.2" data-path="introducción-1.html"><a href="introducción-1.html#prueba-de-estacionariedad-dickey-fuller-aumentada-adf-1"><i class="fa fa-check"></i><b>21.14.2</b> 11.2. Prueba de estacionariedad – Dickey-Fuller Aumentada (ADF)</a></li>
+<li class="chapter" data-level="21.14.3" data-path="introducción-1.html"><a href="introducción-1.html#acf-y-pacf-identificación-visual-del-orden-1"><i class="fa fa-check"></i><b>21.14.3</b> 11.3. ACF y PACF – identificación visual del orden</a></li>
+<li class="chapter" data-level="21.14.4" data-path="introducción-1.html"><a href="introducción-1.html#selección-automática-del-modelo-1"><i class="fa fa-check"></i><b>21.14.4</b> 11.4. Selección automática del modelo</a></li>
+<li class="chapter" data-level="21.14.5" data-path="introducción-1.html"><a href="introducción-1.html#diagnóstico-de-residuos-1"><i class="fa fa-check"></i><b>21.14.5</b> 11.5. Diagnóstico de residuos</a></li>
+<li class="chapter" data-level="21.14.6" data-path="introducción-1.html"><a href="introducción-1.html#proyecciones-arima-west-virginia-20182022-1"><i class="fa fa-check"></i><b>21.14.6</b> 11.6. Proyecciones ARIMA – West Virginia (2018–2022)</a></li>
+<li class="chapter" data-level="21.14.7" data-path="introducción-1.html"><a href="introducción-1.html#tabla-de-valores-proyectados-3"><i class="fa fa-check"></i><b>21.14.7</b> 11.7. Tabla de valores proyectados</a></li>
+<li class="chapter" data-level="21.14.8" data-path="introducción-1.html"><a href="introducción-1.html#modelo-predictivo"><i class="fa fa-check"></i><b>21.14.8</b> 11.8. Modelo predictivo</a></li>
+</ul></li>
+<li class="chapter" data-level="21.15" data-path="introducción-1.html"><a href="introducción-1.html#comparación-de-modelos-predictivos"><i class="fa fa-check"></i><b>21.15</b> 12. Comparación de Modelos Predictivos</a>
+<ul>
+<li class="chapter" data-level="21.15.1" data-path="introducción-1.html"><a href="introducción-1.html#modelo-2-ets-error-trend-seasonality-1"><i class="fa fa-check"></i><b>21.15.1</b> 12.1. Modelo 2 – ETS (Error, Trend, Seasonality)</a></li>
+<li class="chapter" data-level="21.15.2" data-path="introducción-1.html"><a href="introducción-1.html#modelo-3-regresión-lineal-con-tendencia-temporal-1"><i class="fa fa-check"></i><b>21.15.2</b> 12.2. Modelo 3 – Regresión Lineal con Tendencia Temporal</a></li>
+<li class="chapter" data-level="21.15.3" data-path="introducción-1.html"><a href="introducción-1.html#comparación-sistemática-de-modelos"><i class="fa fa-check"></i><b>21.15.3</b> 12.3. Comparación sistemática de modelos</a></li>
+<li class="chapter" data-level="21.15.4" data-path="introducción-1.html"><a href="introducción-1.html#justificación-del-modelo-seleccionado-1"><i class="fa fa-check"></i><b>21.15.4</b> 12.4. Justificación del Modelo Seleccionado</a></li>
+<li class="chapter" data-level="21.15.5" data-path="introducción-1.html"><a href="introducción-1.html#insights-clave-1"><i class="fa fa-check"></i><b>21.15.5</b> <strong>13. INSIGHTS CLAVE</strong></a></li>
+<li class="chapter" data-level="21.15.6" data-path="introducción-1.html"><a href="introducción-1.html#limitaciones-del-estudio-1"><i class="fa fa-check"></i><b>21.15.6</b> <strong>14. LIMITACIONES DEL ESTUDIO</strong></a></li>
+<li class="chapter" data-level="21.15.7" data-path="introducción-1.html"><a href="introducción-1.html#conclusiones-1"><i class="fa fa-check"></i><b>21.15.7</b> <strong>15. CONCLUSIONES</strong></a></li>
+<li class="chapter" data-level="21.15.8" data-path="introducción-1.html"><a href="introducción-1.html#referencias-bibliográficas-1"><i class="fa fa-check"></i><b>21.15.8</b> <strong>16. REFERENCIAS BIBLIOGRÁFICAS</strong></a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análisis Temporal y Demográfico de las Principales Causas de Muerte en Estados Unidos</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="distribución-por-causas-principales-top-10" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">7</span> 7. Distribución por causas principales (top 10)<a href="distribución-por-causas-principales-top-10.html#distribución-por-causas-principales-top-10" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="distribución-por-causas-principales-top-10.html#cb20-1" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb20-2"><a href="distribución-por-causas-principales-top-10.html#cb20-2" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb20-3"><a href="distribución-por-causas-principales-top-10.html#cb20-3" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb20-4"><a href="distribución-por-causas-principales-top-10.html#cb20-4" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="distribución-por-causas-principales-top-10.html#cb20-5" tabindex="-1"></a>top10_causas <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb20-6"><a href="distribución-por-causas-principales-top-10.html#cb20-6" tabindex="-1"></a>  <span class="at">causa =</span> <span class="fu">c</span>(<span class="st">&quot;Heart disease&quot;</span>, <span class="st">&quot;Cancer&quot;</span>, <span class="st">&quot;Unintentional injuries&quot;</span>,</span>
+<span id="cb20-7"><a href="distribución-por-causas-principales-top-10.html#cb20-7" tabindex="-1"></a>            <span class="st">&quot;CLRD&quot;</span>, <span class="st">&quot;Stroke&quot;</span>, <span class="st">&quot;Diabetes&quot;</span>,</span>
+<span id="cb20-8"><a href="distribución-por-causas-principales-top-10.html#cb20-8" tabindex="-1"></a>            <span class="st">&quot;Alzheimer&#39;s disease&quot;</span>, <span class="st">&quot;Kidney disease&quot;</span>,</span>
+<span id="cb20-9"><a href="distribución-por-causas-principales-top-10.html#cb20-9" tabindex="-1"></a>            <span class="st">&quot;Influenza and pneumonia&quot;</span>, <span class="st">&quot;Suicide&quot;</span>),</span>
+<span id="cb20-10"><a href="distribución-por-causas-principales-top-10.html#cb20-10" tabindex="-1"></a>  <span class="at">total_muertes =</span> <span class="fu">c</span>(<span class="dv">326637</span>, <span class="dv">281998</span>, <span class="dv">247735</span>,</span>
+<span id="cb20-11"><a href="distribución-por-causas-principales-top-10.html#cb20-11" tabindex="-1"></a>                    <span class="dv">207523</span>, <span class="dv">192144</span>, <span class="dv">170364</span>,</span>
+<span id="cb20-12"><a href="distribución-por-causas-principales-top-10.html#cb20-12" tabindex="-1"></a>                    <span class="dv">144783</span>, <span class="dv">143719</span>,</span>
+<span id="cb20-13"><a href="distribución-por-causas-principales-top-10.html#cb20-13" tabindex="-1"></a>                    <span class="dv">53128</span>, <span class="dv">48875</span>)</span>
+<span id="cb20-14"><a href="distribución-por-causas-principales-top-10.html#cb20-14" tabindex="-1"></a>)</span>
+<span id="cb20-15"><a href="distribución-por-causas-principales-top-10.html#cb20-15" tabindex="-1"></a></span>
+<span id="cb20-16"><a href="distribución-por-causas-principales-top-10.html#cb20-16" tabindex="-1"></a>top10_causas <span class="sc">%&gt;%</span></span>
+<span id="cb20-17"><a href="distribución-por-causas-principales-top-10.html#cb20-17" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total_muertes =</span> scales<span class="sc">::</span><span class="fu">comma</span>(total_muertes)) <span class="sc">%&gt;%</span></span>
+<span id="cb20-18"><a href="distribución-por-causas-principales-top-10.html#cb20-18" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">&quot;Causa&quot;</span> <span class="ot">=</span> causa,</span>
+<span id="cb20-19"><a href="distribución-por-causas-principales-top-10.html#cb20-19" tabindex="-1"></a>         <span class="st">&quot;Total de muertes&quot;</span> <span class="ot">=</span> total_muertes) <span class="sc">%&gt;%</span></span>
+<span id="cb20-20"><a href="distribución-por-causas-principales-top-10.html#cb20-20" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb20-21"><a href="distribución-por-causas-principales-top-10.html#cb20-21" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Top 10 causas de muerte en EE.UU. (1999–2017)&quot;</span>,</span>
+<span id="cb20-22"><a href="distribución-por-causas-principales-top-10.html#cb20-22" tabindex="-1"></a>    </span>
+<span id="cb20-23"><a href="distribución-por-causas-principales-top-10.html#cb20-23" tabindex="-1"></a>    </span>
+<span id="cb20-24"><a href="distribución-por-causas-principales-top-10.html#cb20-24" tabindex="-1"></a>    <span class="at">align =</span> <span class="fu">c</span>(<span class="st">&quot;l&quot;</span>, <span class="st">&quot;r&quot;</span>)</span>
+<span id="cb20-25"><a href="distribución-por-causas-principales-top-10.html#cb20-25" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb20-26"><a href="distribución-por-causas-principales-top-10.html#cb20-26" tabindex="-1"></a>  <span class="fu">kable_styling</span>(</span>
+<span id="cb20-27"><a href="distribución-por-causas-principales-top-10.html#cb20-27" tabindex="-1"></a>    <span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>),</span>
+<span id="cb20-28"><a href="distribución-por-causas-principales-top-10.html#cb20-28" tabindex="-1"></a>    <span class="at">full_width =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb20-29"><a href="distribución-por-causas-principales-top-10.html#cb20-29" tabindex="-1"></a>    <span class="at">position =</span> <span class="st">&quot;center&quot;</span>,</span>
+<span id="cb20-30"><a href="distribución-por-causas-principales-top-10.html#cb20-30" tabindex="-1"></a>    <span class="at">font_size =</span> <span class="dv">12</span></span>
+<span id="cb20-31"><a href="distribución-por-causas-principales-top-10.html#cb20-31" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb20-32"><a href="distribución-por-causas-principales-top-10.html#cb20-32" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">background =</span> <span class="st">&quot;#04376B&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-33"><a href="distribución-por-causas-principales-top-10.html#cb20-33" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">width =</span> <span class="st">&quot;25em&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-34"><a href="distribución-por-causas-principales-top-10.html#cb20-34" tabindex="-1"></a>  <span class="fu">footnote</span>(</span>
+<span id="cb20-35"><a href="distribución-por-causas-principales-top-10.html#cb20-35" tabindex="-1"></a>    <span class="at">general =</span> <span class="st">&quot;Datos del CDC - Leading Causes of Death&quot;</span>,</span>
+<span id="cb20-36"><a href="distribución-por-causas-principales-top-10.html#cb20-36" tabindex="-1"></a>    <span class="at">general_title =</span> <span class="st">&quot;Fuente:&quot;</span>,</span>
+<span id="cb20-37"><a href="distribución-por-causas-principales-top-10.html#cb20-37" tabindex="-1"></a>    <span class="at">footnote_as_chunk =</span> <span class="cn">TRUE</span></span>
+<span id="cb20-38"><a href="distribución-por-causas-principales-top-10.html#cb20-38" tabindex="-1"></a>  )</span></code></pre></div>
+<table class="table table-striped table-hover table-condensed" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption style="font-size: initial !important;">
+<span id="tab:unnamed-chunk-7">Table 7.1: </span>Top 10 causas de muerte en EE.UU. (1999–2017)
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(4, 55, 107, 255) !important;">
+Causa
+</th>
+<th style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(4, 55, 107, 255) !important;">
+Total de muertes
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;width: 25em; ">
+Heart disease
+</td>
+<td style="text-align:right;">
+326,637
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 25em; ">
+Cancer
+</td>
+<td style="text-align:right;">
+281,998
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 25em; ">
+Unintentional injuries
+</td>
+<td style="text-align:right;">
+247,735
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 25em; ">
+CLRD
+</td>
+<td style="text-align:right;">
+207,523
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 25em; ">
+Stroke
+</td>
+<td style="text-align:right;">
+192,144
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 25em; ">
+Diabetes
+</td>
+<td style="text-align:right;">
+170,364
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 25em; ">
+Alzheimer’s disease
+</td>
+<td style="text-align:right;">
+144,783
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 25em; ">
+Kidney disease
+</td>
+<td style="text-align:right;">
+143,719
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 25em; ">
+Influenza and pneumonia
+</td>
+<td style="text-align:right;">
+53,128
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 25em; ">
+Suicide
+</td>
+<td style="text-align:right;">
+48,875
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<span style="font-style: italic;">Fuente:</span> <sup></sup> Datos del CDC - Leading Causes of Death
+</td>
+</tr>
+</tfoot>
+</table>
+<hr />
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="distribución-por-causas-principales-top-10.html#cb21-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb21-2"><a href="distribución-por-causas-principales-top-10.html#cb21-2" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb21-3"><a href="distribución-por-causas-principales-top-10.html#cb21-3" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="distribución-por-causas-principales-top-10.html#cb21-4" tabindex="-1"></a>top10_graf <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb21-5"><a href="distribución-por-causas-principales-top-10.html#cb21-5" tabindex="-1"></a>  <span class="at">causa =</span> <span class="fu">c</span>(<span class="st">&quot;Heart disease&quot;</span>, <span class="st">&quot;Cancer&quot;</span>, <span class="st">&quot;Unintentional injuries&quot;</span>,</span>
+<span id="cb21-6"><a href="distribución-por-causas-principales-top-10.html#cb21-6" tabindex="-1"></a>            <span class="st">&quot;CLRD&quot;</span>, <span class="st">&quot;Stroke&quot;</span>, <span class="st">&quot;Diabetes&quot;</span>,</span>
+<span id="cb21-7"><a href="distribución-por-causas-principales-top-10.html#cb21-7" tabindex="-1"></a>            <span class="st">&quot;Alzheimer&#39;s disease&quot;</span>, <span class="st">&quot;Kidney disease&quot;</span>,</span>
+<span id="cb21-8"><a href="distribución-por-causas-principales-top-10.html#cb21-8" tabindex="-1"></a>            <span class="st">&quot;Influenza and pneumonia&quot;</span>, <span class="st">&quot;Suicide&quot;</span>),</span>
+<span id="cb21-9"><a href="distribución-por-causas-principales-top-10.html#cb21-9" tabindex="-1"></a>  <span class="at">total_muertes =</span> <span class="fu">c</span>(<span class="dv">326637</span>, <span class="dv">281998</span>, <span class="dv">247735</span>,</span>
+<span id="cb21-10"><a href="distribución-por-causas-principales-top-10.html#cb21-10" tabindex="-1"></a>                    <span class="dv">207523</span>, <span class="dv">192144</span>, <span class="dv">170364</span>,</span>
+<span id="cb21-11"><a href="distribución-por-causas-principales-top-10.html#cb21-11" tabindex="-1"></a>                    <span class="dv">144783</span>, <span class="dv">143719</span>,</span>
+<span id="cb21-12"><a href="distribución-por-causas-principales-top-10.html#cb21-12" tabindex="-1"></a>                    <span class="dv">53128</span>, <span class="dv">48875</span>)</span>
+<span id="cb21-13"><a href="distribución-por-causas-principales-top-10.html#cb21-13" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb21-14"><a href="distribución-por-causas-principales-top-10.html#cb21-14" tabindex="-1"></a>  <span class="fu">arrange</span>(total_muertes) <span class="sc">%&gt;%</span></span>
+<span id="cb21-15"><a href="distribución-por-causas-principales-top-10.html#cb21-15" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">causa =</span> <span class="fu">factor</span>(causa, <span class="at">levels =</span> causa))</span>
+<span id="cb21-16"><a href="distribución-por-causas-principales-top-10.html#cb21-16" tabindex="-1"></a></span>
+<span id="cb21-17"><a href="distribución-por-causas-principales-top-10.html#cb21-17" tabindex="-1"></a><span class="fu">ggplot</span>(top10_graf, <span class="fu">aes</span>(<span class="at">x =</span> causa, <span class="at">y =</span> total_muertes, <span class="at">fill =</span> total_muertes)) <span class="sc">+</span></span>
+<span id="cb21-18"><a href="distribución-por-causas-principales-top-10.html#cb21-18" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">width =</span> <span class="fl">0.7</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb21-19"><a href="distribución-por-causas-principales-top-10.html#cb21-19" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> scales<span class="sc">::</span><span class="fu">comma</span>(total_muertes)), </span>
+<span id="cb21-20"><a href="distribución-por-causas-principales-top-10.html#cb21-20" tabindex="-1"></a>            <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.1</span>, <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">fontface =</span> <span class="st">&quot;bold&quot;</span>) <span class="sc">+</span></span>
+<span id="cb21-21"><a href="distribución-por-causas-principales-top-10.html#cb21-21" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">&quot;#A6CEE3&quot;</span>, <span class="at">high =</span> <span class="st">&quot;#1F4E79&quot;</span>) <span class="sc">+</span></span>
+<span id="cb21-22"><a href="distribución-por-causas-principales-top-10.html#cb21-22" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb21-23"><a href="distribución-por-causas-principales-top-10.html#cb21-23" tabindex="-1"></a>    <span class="at">labels =</span> scales<span class="sc">::</span>comma,</span>
+<span id="cb21-24"><a href="distribución-por-causas-principales-top-10.html#cb21-24" tabindex="-1"></a>    <span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.15</span>))</span>
+<span id="cb21-25"><a href="distribución-por-causas-principales-top-10.html#cb21-25" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb21-26"><a href="distribución-por-causas-principales-top-10.html#cb21-26" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb21-27"><a href="distribución-por-causas-principales-top-10.html#cb21-27" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb21-28"><a href="distribución-por-causas-principales-top-10.html#cb21-28" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Top 10 Causas de Muerte en EE.UU.&quot;</span>,</span>
+<span id="cb21-29"><a href="distribución-por-causas-principales-top-10.html#cb21-29" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Total acumulado de muertes (1999–2017)&quot;</span>,</span>
+<span id="cb21-30"><a href="distribución-por-causas-principales-top-10.html#cb21-30" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb21-31"><a href="distribución-por-causas-principales-top-10.html#cb21-31" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Número de Muertes&quot;</span>,</span>
+<span id="cb21-32"><a href="distribución-por-causas-principales-top-10.html#cb21-32" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Fuente: CDC - Leading Causes of Death&quot;</span></span>
+<span id="cb21-33"><a href="distribución-por-causas-principales-top-10.html#cb21-33" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb21-34"><a href="distribución-por-causas-principales-top-10.html#cb21-34" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb21-35"><a href="distribución-por-causas-principales-top-10.html#cb21-35" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb21-36"><a href="distribución-por-causas-principales-top-10.html#cb21-36" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">size =</span> <span class="dv">16</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb21-37"><a href="distribución-por-causas-principales-top-10.html#cb21-37" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;gray30&quot;</span>),</span>
+<span id="cb21-38"><a href="distribución-por-causas-principales-top-10.html#cb21-38" tabindex="-1"></a>    <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>, <span class="at">color =</span> <span class="st">&quot;gray50&quot;</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
+<span id="cb21-39"><a href="distribución-por-causas-principales-top-10.html#cb21-39" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
+<span id="cb21-40"><a href="distribución-por-causas-principales-top-10.html#cb21-40" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
+<span id="cb21-41"><a href="distribución-por-causas-principales-top-10.html#cb21-41" tabindex="-1"></a>    <span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb21-42"><a href="distribución-por-causas-principales-top-10.html#cb21-42" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb21-43"><a href="distribución-por-causas-principales-top-10.html#cb21-43" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-8-1.png" width="1500" /></p>
+<p>Interpretación: La tabla y el gráfico muestran la <strong>distribución
+acumulada de muertes por causa en EE.UU. entre 1999 y 2017</strong>. Las
+enfermedades cardíacas lideran con más de 326,000 muertes totales,
+seguidas por el cáncer (282,000) y las lesiones no intencionales
+(247,000), consolidándose como las tres principales causas de
+mortalidad en el período. Las <strong>enfermedades respiratorias crónicas
+(CLRD), el stroke y la diabetes</strong> ocupan el rango intermedio,
+mientras que el Alzheimer, la enfermedad renal, la <strong>influenza y
+neumonía y el suicidio</strong> cierran el top 10. Este panorama confirma
+el peso estructural de las enfermedades crónicas en la mortalidad
+estadounidense y sienta las bases para el análisis de las tendencias
+temporales y geográficas desarrollado en las secciones siguientes.</p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="series-de-tiempo-por-causa.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
