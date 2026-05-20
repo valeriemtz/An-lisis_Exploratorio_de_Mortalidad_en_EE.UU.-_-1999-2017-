@@ -1,29 +1,23 @@
 # Distribución por causas principales (top 10)
 
-```{r, echo=TRUE, warning=FALSE, message=FALSE}
+```{r top10_causas, echo=TRUE, warning=FALSE, message=FALSE}
 library(knitr)
 library(kableExtra)
 library(scales)
 
-top10_causas <- data.frame(
-  causa = c("Heart disease", "Cancer", "Unintentional injuries",
-            "CLRD", "Stroke", "Diabetes",
-            "Alzheimer's disease", "Kidney disease",
-            "Influenza and pneumonia", "Suicide"),
-  total_muertes = c(326637, 281998, 247735,
-                    207523, 192144, 170364,
-                    144783, 143719,
-                    53128, 48875)
-)
+top10_causas <- datos %>%
+  filter(causa != "All causes") %>%
+  group_by(causa) %>%
+  summarise(total_muertes = sum(muertes, na.rm = TRUE), .groups = "drop") %>%
+  arrange(desc(total_muertes)) %>%
+  slice_head(n = 10)
 
 top10_causas %>%
   mutate(total_muertes = scales::comma(total_muertes)) %>%
   rename("Causa" = causa,
          "Total de muertes" = total_muertes) %>%
   kable(
-    caption = "Top 10 causas de muerte en EE.UU. (1999–2017)",
-    
-    
+    caption = "Top 10 causas de muerte en EE.UU. (1999-2017)",
     align = c("l", "r")
   ) %>%
   kable_styling(
@@ -41,63 +35,3 @@ top10_causas %>%
   )
 ```
 
----
-
-```{r, echo=TRUE, warning=FALSE, message=FALSE, fig.width=10, fig.height=6}
-library(ggplot2)
-library(scales)
-
-top10_graf <- data.frame(
-  causa = c("Heart disease", "Cancer", "Unintentional injuries",
-            "CLRD", "Stroke", "Diabetes",
-            "Alzheimer's disease", "Kidney disease",
-            "Influenza and pneumonia", "Suicide"),
-  total_muertes = c(326637, 281998, 247735,
-                    207523, 192144, 170364,
-                    144783, 143719,
-                    53128, 48875)
-) %>%
-  arrange(total_muertes) %>%
-  mutate(causa = factor(causa, levels = causa))
-
-ggplot(top10_graf, aes(x = causa, y = total_muertes, fill = total_muertes)) +
-  geom_bar(stat = "identity", width = 0.7, show.legend = FALSE) +
-  geom_text(aes(label = scales::comma(total_muertes)), 
-            hjust = -0.1, size = 3.5, fontface = "bold") +
-  scale_fill_gradient(low = "#A6CEE3", high = "#1F4E79") +
-  scale_y_continuous(
-    labels = scales::comma,
-    expand = expansion(mult = c(0, 0.15))
-  ) +
-  coord_flip() +
-  labs(
-    title = "Top 10 Causas de Muerte en EE.UU.",
-    subtitle = "Total acumulado de muertes (1999–2017)",
-    x = NULL,
-    y = "Número de Muertes",
-    caption = "Fuente: CDC - Leading Causes of Death"
-  ) +
-  theme_minimal(base_size = 12) +
-  theme(
-    plot.title = element_text(face = "bold", size = 16, hjust = 0.5),
-    plot.subtitle = element_text(size = 12, hjust = 0.5, color = "gray30"),
-    plot.caption = element_text(size = 9, color = "gray50", hjust = 1),
-    axis.title = element_text(face = "bold"),
-    axis.text.y = element_text(size = 11),
-    panel.grid.major.y = element_blank(),
-    panel.grid.minor = element_blank()
-  )
-```
-
-Interpretación: La tabla y el gráfico muestran la distribución
-acumulada de muertes por causa en EE.UU. entre 1999 y 2017. Las
-enfermedades cardíacas lideran con más de 326,000 muertes totales,
-seguidas por el cáncer (282,000) y las lesiones no intencionales
-(247,000), consolidándose como las tres principales causas de
-mortalidad en el período. Las enfermedades respiratorias crónicas
-(CLRD), el stroke y la diabetes ocupan el rango intermedio,
-mientras que el Alzheimer, la enfermedad renal, la influenza y
-neumonía y el suicidio cierran el top 10. Este panorama confirma
-el peso estructural de las enfermedades crónicas en la mortalidad
-estadounidense y sienta las bases para el análisis de las tendencias
-temporales y geográficas desarrollado en las secciones siguientes.
