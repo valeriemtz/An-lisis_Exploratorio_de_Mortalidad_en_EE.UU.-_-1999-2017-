@@ -1,4 +1,4 @@
-# 3. Metodología
+# Metodología
 
 El presente estudio corresponde a un análisis exploratorio de datos
 (EDA) de corte longitudinal, basado en registros administrativos de
@@ -6,7 +6,7 @@ mortalidad en Estados Unidos durante el periodo 1999–2017. El enfoque
 metodológico combina estadística descriptiva, análisis de series de
 tiempo y modelado predictivo.
 
-## 3.1. Fuente de datos y preprocesamiento:
+## Fuente de datos y preprocesamiento:
 
 El conjunto contiene registros anuales de mortalidad por causa y estado,
 incluyendo la tasa ajustada por edad (*age-adjusted death rate*), que
@@ -18,7 +18,7 @@ El preprocesamiento incluyó estandarización de nombres de variables,
 corrección de formatos numéricos inconsistentes, conversión de tipos de
 datos y filtrado del periodo 1999–2017.
 
-## 3.2. Estadística descriptiva:
+## Estadística descriptiva:
 
 Como punto de partida se construyeron diagramas de barras comparativos
 para analizar la distribución porcentual de las causas de muerte de
@@ -28,7 +28,7 @@ permiten detectar tendencias, cambios en el ranking de causas y
 variaciones en la carga relativa de cada enfermedad a lo largo del
 período.
 
-## 3.3. Análisis de series de tiempo:
+## Análisis de series de tiempo:
 
 Se aplicaron las siguientes técnicas para evaluar el comportamiento
 temporal de las series de mortalidad:
@@ -43,7 +43,7 @@ temporal de las series de mortalidad:
     dependencia temporal y orientar la selección de parámetros del
     modelo.
 
-## 3.4. Análisis geográfico:
+## Análisis geográfico:
 
 Se calcularon tasas ajustadas promedio por estado para identificar
 disparidades territoriales. Se construyeron mapas coropléticos
@@ -51,7 +51,7 @@ interactivos con `leaflet` y visualizaciones comparativas de los
 estados con mayor y menor carga de mortalidad, consistente con el
 gradiente geográfico documentado en la literatura.
 
-## 3.6. Modelo predictivo – ARIMA:
+## Modelo predictivo – ARIMA:
 
 Para proyectar tendencias futuras se implementó un modelo
 ARIMA(p,d,q), definido por tres parámetros: orden autoregresivo (p),
@@ -63,7 +63,7 @@ establece independencia de los residuos un p-value \> 0.05 confirma que
 el modelo no dejó estructura sin capturar. Las proyecciones cubren
 2018–2022 para West Virginia.
 
-## 3.7. Herramientas Computacionales
+## Herramientas Computacionales
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
@@ -142,7 +142,7 @@ desarrollo RStudio. Las principales librerías empleadas fueron:
 -   `htmlwidgets`: para utilizar widgets de JavaScript (como leaflet,
     plotly, DT) en R y documentos R Markdown.
 
-## 3.8. Carga y limpieza de datos
+## Carga y limpieza de datos
 
 ```{r carga_datos}
 
@@ -235,7 +235,7 @@ del envejecimiento poblacional; cáncer se mantuvo estable alrededor del
 29%, pero las enfermedades cardíacas crecieron fuertemente de 31.1% a
 38.1%, consolidándose como la principal causa de muerte en 2017.
 
-## 3.9. Variables del Dataset
+## Variables del Dataset
 
 El dataset original contiene las siguientes variables:
 

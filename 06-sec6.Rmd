@@ -1,11 +1,11 @@
-# 6. Análisis Específico: La Crisis de las "Muertes por Desesperación"
+# Análisis Específico: La Crisis de las "Muertes por Desesperación"
 
 Como se discutió en el marco teórico (*sección 2.1*), el aumento de
 suicidios y accidentes (especialmente sobredosis) ha sido uno de los
 fenómenos más preocupantes en la mortalidad de EE.UU. durante el periodo
 de estudio.
 
-## 6.1. Evolución conjunta de suicidio y accidentes
+## Evolución conjunta de suicidio y accidentes
 
 ```{r, echo=TRUE, message=FALSE, warning=FALSE, fig.width=10, fig.height=6}
 

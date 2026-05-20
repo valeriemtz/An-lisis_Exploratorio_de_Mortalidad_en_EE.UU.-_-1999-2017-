@@ -1,4 +1,4 @@
-# 16. Justificación del Modelo Seleccionado
+# Justificación del Modelo Seleccionado
 
 La métrica central para la selección del modelo final es el AICc
 (criterio de información de Akaike corregido por tamaño muestral). Con n

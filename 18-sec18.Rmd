@@ -1,4 +1,4 @@
-# 18. Limitaciones del estudio
+# Limitaciones del estudio
 
 -   Naturaleza observacional: Los datos utilizados son de carácter
     observacional y agregado, por lo que permiten identificar

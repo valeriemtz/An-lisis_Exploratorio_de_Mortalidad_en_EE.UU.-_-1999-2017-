@@ -1,4 +1,4 @@
-# 12. Modelos Adicionales
+# Modelos Adicionales
 
 El modelo ARIMA(0,1,0) with drift fue implementado en la sección
 anterior como estándar metodológico en epidemiología de series de

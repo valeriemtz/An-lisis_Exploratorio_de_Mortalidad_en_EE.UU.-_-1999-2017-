@@ -1,11 +1,11 @@
-# 2. Marco teórico
+# Marco teórico
 
 Sustentar el análisis apoyado en la evidencia de la revisión de
 literatura especializada, determinando el estado del conocimiento sobre
 las tendencias y las disparidades en mortalidad en los Estados Unidos
 entre 1999 y 2017.
 
-## 2.1. Prevalencia de las enfermedades crónicas en EE. UU.
+## Prevalencia de las enfermedades crónicas en EE. UU.
 
 Como la mayoria de las naciones desarrolladas, hace décadas Estados
 Unidos experimentó un cambio epidemiológico. Las enfermedades
@@ -32,7 +32,7 @@ relacionadas con el consumo de drogas, aunque también influyen
 accidentes de tráfico, caídas y otros eventos
 prevenible[@daugherty2019].
 
-## 2.2. Las disparidades geográficas como patrón persistente
+## Las disparidades geográficas como patrón persistente
 
 Uno de los descubrimientos más sólidos en la literatura acerca de la
 mortalidad en Estados Unidos es que hay un "gradiente geográfico" que
@@ -47,7 +47,7 @@ factores. Entre ellos, se encuentran un nivel socioeconómico más bajo,
 el acceso limitado a servicios de salud y una mayor prevalencia de
 conductas de riesgo.
 
-## 2.3. La importancia del análisis temporal y por ranking
+## La importancia del análisis temporal y por ranking
 
 Se ha demostrado por medio de la literatura la existencia de cambios
 significativos en las causas de muerte a lo largo del periodo. Existe un

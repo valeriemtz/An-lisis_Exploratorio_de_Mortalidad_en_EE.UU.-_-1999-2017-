@@ -1,4 +1,4 @@
-# 13. Modelo 2 – ETS (Error, Trend, Seasonality)
+# Modelo 2 – ETS (Error, Trend, Seasonality)
 
 El modelo ETS generaliza la familia de métodos de suavizamiento
 exponencial dentro de un marco probabilístico formal. A diferencia de
@@ -50,7 +50,7 @@ adecuado, la penalización por complejidad del AICc ya anticipa su
 posición frente a ARIMA, que logra un resultado superior con un único
 parámetro.
 
-## 13.1. Diagnóstico de residuos – ETS
+## Diagnóstico de residuos – ETS
 ```{r ets_residuos, fig.width=10, fig.height=4, message=FALSE, warning=FALSE}
 par(mfrow = c(1, 2), bg = "#FAFAFA")
 checkresiduals(modelo_ets,
@@ -63,7 +63,7 @@ par(mfrow = c(1, 1))
 que el modelo sea válido. Un p-value \> 0.05 en la prueba de Ljung-Box
 confirma independencia serial.*
 
-## 13.2. Proyección ETS (2018–2022)
+## Proyección ETS (2018–2022)
 ```{r ets_forecast, fig.width=10, fig.height=5, message=FALSE, warning=FALSE}
 horizonte  <- 5
 pred_ets   <- forecast(modelo_ets, h = horizonte, level = c(80, 95))
@@ -121,7 +121,7 @@ ggplot() +
   )
 ```
 
-## 13.3. Tabla de valores proyectados
+## Tabla de valores proyectados
 ```{r, message=FALSE, echo=TRUE}
 data.frame(
   `Año`            = 2018:2022,

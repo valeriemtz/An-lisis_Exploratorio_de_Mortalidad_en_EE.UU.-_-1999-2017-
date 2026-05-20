@@ -1,6 +1,6 @@
-# 8. Series de tiempo por causa
+# Series de tiempo por causa
 
-## 8.1. Causa vs Año
+## Causa vs Año
 
 ```{r, echo=TRUE, warning=FALSE, message=FALSE}
 library(scales)
@@ -123,7 +123,7 @@ y el segundo 2009–2017, reflejando mejoras en prevención y tratamiento.
 En cambio, Unintentional injuries, Alzheimer's y Suicide aumentan,
 vinculadas al envejecimiento poblacional y la crisis de opioides.
 
-## 8.2. Heatmap de muertes absolutas por causas y años
+## Heatmap de muertes absolutas por causas y años
 ```{r, echo=TRUE, warning=FALSE, message=FALSE}
 causas_todas <- datos_nacional %>%
   filter(causa != "All causes") %>%
@@ -189,7 +189,7 @@ importancia relativa, aportando evidencia para orientar políticas de
 salud pública hacia la prevención de enfermedades crónicas y la
 reducción de muertes evitables.
 
-## 8.3. Análisis Geográfico: Disparidades por Estado
+## Análisis Geográfico: Disparidades por Estado
 
 Las tasas de mortalidad no se distribuyen de manera homogénea en el
 territorio estadounidense. Diversos factores socioeconómicos, de acceso
@@ -200,7 +200,7 @@ edad (columna `tasa_ajustada`), que eliminan el efecto de las
 diferentes estructuras poblacionales y permiten comparaciones justas
 entre regiones.
 
-## 8.3.1. Mapeo - Número de muertes de 1999 a 2017 por estados
+## Mapeo - Número de muertes de 1999 a 2017 por estados
 
 ```{r mapa_muertes, warning=FALSE, message=FALSE, out.width="100%"}
 library(dplyr)
@@ -313,7 +313,7 @@ Texas, Florida y Nueva York. La herramienta emergente (popup)
 proporciona el valor exacto en miles al hacer clic sobre cada estado,
 permitiendo comparaciones precisas entre años y regiones.*
 
-## 8.3.2 Mapeo – Tasa de mortalidad ajustada por edad de 1999 a 2017 por estados
+## Mapeo – Tasa de mortalidad ajustada por edad de 1999 a 2017 por estados
 
 ```{r mapa_tasa, warning=FALSE, message=FALSE, out.width="100%"}
 library(dplyr)
@@ -417,7 +417,7 @@ plot_geo(datos_plot2, locationmode = "USA-states", frame = ~year) %>%
   )
 ```
 
-## 8.3.3. Estados con mayor y menor mortalidad
+## Estados con mayor y menor mortalidad
 
 ```{r, echo=TRUE, warning=FALSE, message=FALSE}
 

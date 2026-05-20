@@ -1,4 +1,4 @@
-# 9. Caso de estudio: West Virginia
+# Caso de estudio: West Virginia
 
 West Virginia el estado con la tasa de mortalidad ajustada por edad
 más alta del país en 2017 (957.5 por 100,000 habitantes), casi el
@@ -13,7 +13,7 @@ finalmente se contrasta la serie temporal del estado con el promedio
 nacional, para evaluar si West Virginia converge o diverge con el
 resto del país.
 
-## 9.1. Evolución de las causas de muerte en West Virginia (1999–2017)
+## Evolución de las causas de muerte en West Virginia (1999–2017)
 
 El siguiente gráfico muestra la trayectoria de cada causa de muerte en
 West Virginia a lo largo del período, destacando la causa que presenta
@@ -182,7 +182,7 @@ forma uniforme. Intervenciones territoriales focalizadas que aborden los
 determinantes sociales, factores conductuales, económicos y de acceso a
 servicios de salud específicos
 
-## 9.2. Comparación de muertes por causa: West Virginia 1999 vs. 2017
+## Comparación de muertes por causa: West Virginia 1999 vs. 2017
 
 Para cuantificar el cambio absoluto en cada causa entre el inicio y
 el final del período, se compara directamente el número de muertes en
@@ -257,7 +257,7 @@ ggplot(wv_comp,
   )
 ```
 
-## 9.3. West Virginia vs. Promedio Nacional (1999–2017)
+## West Virginia vs. Promedio Nacional (1999–2017)
 
 La pregunta principal de esta subsección es: ¿West Virginia converge
 con el resto del país a lo largo del tiempo o la brecha se mantiene

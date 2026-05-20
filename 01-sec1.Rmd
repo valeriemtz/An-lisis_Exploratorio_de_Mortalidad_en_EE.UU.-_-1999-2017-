@@ -1,6 +1,6 @@
-# 1. Introducción
+# Introducción
 
-## 1.1. Contexto del Problema
+## Contexto del Problema
 
 Las enfermedades crónicas no transmisibles provocan la mayoría de los
 fallecimientos en Estados Unidos. El cáncer, enfermedades cardíacas,
@@ -42,7 +42,7 @@ enfermedades respiratorias crónicas (CLRD), accidentes no intencionales,
 Alzheimer, diabetes, enfermedades renales, influenza - neumonía y
 suicidio.
 
-## 1.2. Contexto del Dataset
+## Contexto del Dataset
 
 El dataset utilizado en este informe es, "*NCHS - Leading Causes of
 Death: United States*". Centers for Disease Control and Prevention
@@ -54,7 +54,7 @@ recolectan todos los certificados de defunción emitidos en los 50
 estados y el District of Columbia, lo que garantiza que los datos
 provienen del registro universal de todos los fallecimientos.
 
-## 1.3. Pregunta Central de Investigación
+## Pregunta Central de Investigación
 
 Este análisis se articula en torno a la siguiente pregunta:
 
@@ -80,16 +80,16 @@ investigación:
     largo de los diferentes estados del país, es esencial identificar
     cómo han cambiado con el tiempo. 
 
-## 1.4. Objetivos del Estudio
+## Objetivos del Estudio
 
-### 1.4.1 Objetivo General
+### Objetivo General
 
 Analizar la evolución de la mortalidad en Estados Unidos de 1999 hasta
 2017, identificando sus principales causas y distribución geográfica,
 mediante análisis exploratorio de datos, el desarrollo de un dashboard
 interactivo y la implementación de un modelo de predicción.
 
-### 1.4.2 Objetivos Específicos
+### Objetivos Específicos
 
 1.  Descripción del panorama general de la mortalidad en Estados
     Unidos durante el periodo de 1999-2017: Identificar el volumen

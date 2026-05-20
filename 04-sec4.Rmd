@@ -1,4 +1,4 @@
-# 4. Evolución de la tasa ajustada de mortalidad anual
+# Evolución de la tasa ajustada de mortalidad anual
 
 ```{r, echo=TRUE, warning=FALSE, message=FALSE}
 library(tidyverse)

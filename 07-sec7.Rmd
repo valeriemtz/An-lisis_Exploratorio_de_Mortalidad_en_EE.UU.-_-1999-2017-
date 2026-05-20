@@ -1,4 +1,4 @@
-# 7. Distribución por causas principales (top 10)
+# Distribución por causas principales (top 10)
 
 ```{r, echo=TRUE, warning=FALSE, message=FALSE}
 library(knitr)

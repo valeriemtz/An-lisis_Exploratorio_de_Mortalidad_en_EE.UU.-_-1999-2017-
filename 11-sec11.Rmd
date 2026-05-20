@@ -1,4 +1,4 @@
-# 11. Modelo 1 – ARIMA
+# Modelo 1 – ARIMA
 
 Con el perfil de West Virginia caracterizado en el estudio de caso, el paso siguiente es proyectar
 su trayectoria futura. Los objetivos del modelo predictivo son:
@@ -16,7 +16,7 @@ de mortalidad [@shah2019], siguiendo tres pasos: evaluación de
 estacionariedad, identificación del orden óptimo, ajuste y proyección
 con intervalos de confianza.
 
-## 11.1. Construcción de las series de tiempo
+## Construcción de las series de tiempo
 
 ```{r arima_setup, message=FALSE, warning=FALSE}
 library(forecast)
@@ -69,7 +69,7 @@ cat("\nSerie Unintentional Injuries WV:\n"); print(round(serie_wv_acc, 1))
 
 ```
 
-## 11.2. Prueba de estacionariedad – Dickey-Fuller Aumentada (ADF)
+## Prueba de estacionariedad – Dickey-Fuller Aumentada (ADF)
 
 La hipótesis nula de la prueba ADF establece que la serie tiene raíz
 unitaria (no estacionaria). Un valor-p \< 0.05 permite rechazarla. Si la
@@ -104,7 +104,7 @@ data.frame(
   row_spec(0, background = "#1D3557", color = "white", bold = TRUE)
 ```
 
-## 11.3. ACF y PACF – identificación visual del orden
+## ACF y PACF – identificación visual del orden
 
 ```{r arima_acf, fig.width=10, fig.height=5, message=FALSE}
 par(mfrow = c(2, 2), mar = c(4, 4, 3, 1), bg = "#FAFAFA")
@@ -127,7 +127,7 @@ dependencia temporal: un corte abrupto en el PACF tras el lag 1 sugiere
 un componente ARIMA(1); un corte similar en el ACF, un MA(1). Estos
 patrones orientan la selección automática del modelo.*
 
-## 11.4. Selección automática del modelo
+## Selección automática del modelo
 
 ```{r, message=FALSE, warning=FALSE}
 modelo_total <- auto.arima(ts_wv_total,
@@ -161,7 +161,7 @@ cat("\n--- Resumen modelo All causes ---\n");          summary(modelo_total)
 cat("\n--- Resumen modelo Unintentional injuries ---\n"); summary(modelo_acc)
 ```
 
-## 11.5. Diagnóstico de residuos
+## Diagnóstico de residuos
 
 ```{r arima_diagnostico, fig.width=10, fig.height=4, message=FALSE}
 par(mfrow = c(1, 2), bg = "#FAFAFA")
@@ -179,7 +179,7 @@ significativa y el histograma se aproxima a una distribución normal. La
 prueba de Ljung-Box confirma esto con un p-value de 0.6663, muy por
 encima de 0.05.*
 
-## 11.6. Proyecciones ARIMA – West Virginia (2018–2022)
+## Proyecciones ARIMA – West Virginia (2018–2022)
 
 ```{r arima_forecast, fig.width=11, fig.height=9, message=FALSE}
 library(patchwork)
@@ -300,7 +300,7 @@ la epidemia de opioides no resuelta. Ambos modelos deben interpretarse
 como indicadores de dirección de tendencia, con mayor confiabilidad en
 el corto plazo.
 
-## 11.7. Tabla de valores proyectados
+## Tabla de valores proyectados
 
 ```{r, message=FALSE}
 data.frame(

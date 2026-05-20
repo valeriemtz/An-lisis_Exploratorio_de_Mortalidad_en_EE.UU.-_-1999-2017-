@@ -1,6 +1,6 @@
-# 15. Comparación de modelos
+# Comparación de modelos
 
-## 15.1. Criterios de información (modelos paramétricos)
+## Criterios de información (modelos paramétricos)
 Los criterios AIC, AICc y BIC penalizan la verosimilitud por la
 complejidad del modelo. El AICc es la métrica preferida cuando n \<
 40, ya que incorpora una corrección explícita por tamaño muestral que
@@ -75,7 +75,7 @@ consideración de selección. El BIC, que penaliza la complejidad de forma
 más severa que el AIC, refuerza la misma conclusión: ARIMA es el único
 modelo donde el ajuste converge.
 
-## 15.2. Diagnóstico comparativo de residuos
+## Diagnóstico comparativo de residuos
 La prueba de Ljung-Box evalúa si los residuos de cada modelo son
 estadísticamente independientes. Un p-value \> 0.05 es condición
 necesaria para que el modelo sea válido: residuos con autocorrelación
@@ -141,7 +141,7 @@ tiempo. Dado que este criterio no discrimina entre los modelos
 evaluados, la selección final se apoya en los criterios de información
 (AICc) y la validación cruzada (tsCV).
 
-## 15.3. Validación cruzada de series de tiempo (tsCV)
+## Validación cruzada de series de tiempo (tsCV)
 La validación cruzada de series de tiempo evalúa el error de predicción
 fuera de muestra en ventanas de entrenamiento expandidas desde el
 origen. Es el método estándar cuando n es pequeño y no permite una
@@ -253,7 +253,7 @@ resolverse por tsCV en aislamiento; requiere considerar conjuntamente los
 criterios de información y el diagnóstico de residuos, donde vemos que
 ARIMA es consistentemente superior.
 
-## 15.4. Gráfico comparativo de proyecciones
+## Gráfico comparativo de proyecciones
 ```{r grafico_comparacion_final, fig.width=11, fig.height=6, message=FALSE, warning=FALSE}
 pred_arima_f  <- forecast(modelo_acc,       h = horizonte)
 pred_ets_f    <- forecast(modelo_ets,       h = horizonte)

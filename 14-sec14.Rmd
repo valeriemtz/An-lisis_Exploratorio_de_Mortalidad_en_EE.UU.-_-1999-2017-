@@ -1,4 +1,4 @@
-# 14. Modelo 3 – Regresión Lineal con Tendencia Temporal
+# Modelo 3 – Regresión Lineal con Tendencia Temporal
 
 La regresión lineal con tendencia temporal (OLS-Trend) es el modelo de
 referencia más simple para series con tendencia monotónica. Asume que la
@@ -34,7 +34,7 @@ por año (p \< 0.001), explicando el 81.8% de la varianza histórica (R² =
 ETS, lo que refleja que ambos modelos capturan esencialmente la misma
 tendencia lineal global.
 
-## 14.1. Diagnóstico de residuos – Regresión Lineal
+## Diagnóstico de residuos – Regresión Lineal
 El diagnóstico de residuos en regresión aplicada a series de tiempo
 incluye obligatoriamente la prueba de Ljung-Box, que evalúa si los
 residuos presentan autocorrelación serial, la violación crítica del
@@ -67,7 +67,7 @@ cat(ifelse(lb_lm$p.value < 0.05,
            "✔ No se detecta autocorrelación significativa"), "\n")
 ```
 
-## 14.2. Proyección – Regresión Lineal (2018–2022)
+## Proyección – Regresión Lineal (2018–2022)
 ```{r lm_forecast, fig.width=10, fig.height=5, message=FALSE, warning=FALSE}
 tiempo_proj  <- data.frame(
   tiempo_hist = (length(serie_wv_acc) + 1):(length(serie_wv_acc) + horizonte)
@@ -126,7 +126,7 @@ ggplot() +
   )
 ```
 
-## 14.3. Tabla de valores proyectados
+## Tabla de valores proyectados
 ```{r, message=FALSE, echo=TRUE}
 data.frame(
   `Año`            = 2018:2022,

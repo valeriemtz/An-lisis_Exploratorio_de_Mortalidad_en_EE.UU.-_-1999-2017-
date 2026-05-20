@@ -1,10 +1,10 @@
-# 5. Análisis de Ranking: Cambios en la Posición de las Causas de Muerte
+# Análisis de Ranking: Cambios en la Posición de las Causas de Muerte
 El ranking de causas de muerte no es estático. Analizar cómo cambia la
 posición relativa de cada causa a lo largo del tiempo permite
 identificar qué enfermedades ganan o pierden importancia en la carga de
 mortalidad.
 
-## 5.1. Ranking de causas por año
+## Ranking de causas por año
 ```{r, echo=TRUE, warning=FALSE, message=FALSE}
 top10_tasas <- datos %>%
   filter(causa != "All causes") %>%
@@ -80,7 +80,7 @@ transición epidemiológica: reducción en enfermedades crónicas
 tradicionales, pero crecimiento en causas relacionadas con la longevidad
 y accidentes, lo que plantea nuevos retos para la salud pública.
 
-## 5.2. Cambios en el ranking: 1999 vs 2017
+## Cambios en el ranking: 1999 vs 2017
 ```{r, echo=TRUE, warning=FALSE, message=FALSE}
 library(dplyr)
 library(knitr)
