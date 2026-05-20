@@ -5,16 +5,17 @@ library(knitr)
 library(kableExtra)
 library(scales)
 
-top10_causas <- datos %>%
-  filter(causa != "All causes") %>%
-  group_by(causa) %>%
-  summarise(total_muertes = sum(muertes, na.rm = TRUE), .groups = "drop") %>%
+top10_causas <- read.csv("NCHS_Leading_Causes.csv") %>%
+  filter(Cause.Name != "All causes", State != "United States") %>%
+  mutate(Deaths = as.numeric(gsub(",", "", Deaths))) %>%
+  group_by(Cause.Name) %>%
+  summarise(total_muertes = sum(Deaths, na.rm = TRUE), .groups = "drop") %>%
   arrange(desc(total_muertes)) %>%
   slice_head(n = 10)
 
 top10_causas %>%
   mutate(total_muertes = scales::comma(total_muertes)) %>%
-  rename("Causa" = causa,
+  rename("Causa" = Cause.Name,
          "Total de muertes" = total_muertes) %>%
   kable(
     caption = "Top 10 causas de muerte en EE.UU. (1999-2017)",
