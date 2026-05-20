@@ -8,6 +8,9 @@ bibliography: refs.bib
 biblio-style: apalike
 link-citations: yes
 description: "Análisis Exploratorio de Mortalidad en EE.UU. (1999-2017)"
+output:
+  bookdown::gitbook:
+    number_sections: false
 ---
 
 ```{r setup-global, include=FALSE}
