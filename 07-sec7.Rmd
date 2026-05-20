@@ -4,6 +4,7 @@
 library(knitr)
 library(kableExtra)
 library(scales)
+library(dplyr)
 
 top10_causas <- read.csv("NCHS_Leading_Causes.csv") %>%
   filter(Cause.Name != "All causes", State == "United States") %>%
@@ -15,24 +16,13 @@ top10_causas <- read.csv("NCHS_Leading_Causes.csv") %>%
 
 top10_causas %>%
   mutate(total_muertes = scales::comma(total_muertes)) %>%
-  rename("Causa" = Cause.Name,
-         "Total de muertes" = total_muertes) %>%
-  kable(
-    caption = "Top 10 causas de muerte en EE.UU. (1999-2017)",
-    align = c("l", "r")
-  ) %>%
-  kable_styling(
-    bootstrap_options = c("striped", "hover", "condensed"),
-    full_width = FALSE,
-    position = "center",
-    font_size = 12
-  ) %>%
+  rename("Causa" = Cause.Name, "Total de muertes" = total_muertes) %>%
+  kable(caption = "Top 10 causas de muerte en EE.UU. (1999-2017)", align = c("l", "r")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = FALSE, position = "center", font_size = 12) %>%
   row_spec(0, background = "#04376B", color = "white", bold = TRUE) %>%
   column_spec(1, width = "25em") %>%
-  footnote(
-    general = "Datos del CDC - Leading Causes of Death",
-    general_title = "Fuente:",
-    footnote_as_chunk = TRUE
-  )
+  footnote(general = "Datos del CDC - Leading Causes of Death",
+           general_title = "Fuente:", footnote_as_chunk = TRUE)
 ```
 
