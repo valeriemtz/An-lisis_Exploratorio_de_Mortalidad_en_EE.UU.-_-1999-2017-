@@ -51,19 +51,27 @@ datos_nacional %>%
   )
 ```
 
-Interpretación: La gráfica sobre la evolución de las "muertes por
-desesperación" (1999-2017) muestra un patrón preocupante: tanto el
-suicidio como las lesiones no intencionales presentan una
-tendencia ascendente en las tasas por cada 100,000 habitantes, con un
-incremento más marcado a partir de 2014. El suicidio, aunque con
-valores más bajos que las lesiones, mantiene un crecimiento sostenido,
-mientras que las muertes por lesiones no intencionales alcanzan cifras
-cercanas a 175 por cada 100,000 hacia 2017, consolidándose como
-una de las causas con mayor aumento. Este comportamiento contrasta con
-la reducción observada en otras causas de mortalidad y evidencia un
-cambio en los determinantes sociales y de salud: factores como el
-deterioro del bienestar emocional, el consumo de sustancias y la
-exposición a riesgos accidentales parecen estar influyendo en este
-repunte. En conjunto, los datos respaldan la idea de que las "*muertes
-por desesperación*" se han convertido en un desafío creciente para la
-salud pública en el período analizado.
+Interpretación: Lo primero que llama la atención en este gráfico es
+la asimetría de magnitudes: las lesiones no intencionales alcanzan
+cerca de 175,000 muertes absolutas anuales en 2017, mientras el
+suicidio se mantiene por debajo de 50,000. Sin embargo, leer esto como
+que el suicidio es un problema menor sería un error de interpretación:
+su crecimiento porcentual en el período es constante y no muestra
+ninguna señal de reversión.
+
+El año 2014 funciona como bisagra para ambas curvas. Antes de ese
+punto, las lesiones no intencionales ya venían creciendo, pero a un
+ritmo moderado. Después de 2014 la pendiente se pronuncia
+notablemente, coincidiendo con la irrupción del fentanilo como sustituto
+del oxycodone en el mercado ilegal de opioides. Este no es un dato
+menor: significa que la curva que vemos no obedece a más "accidentes"
+en el sentido cotidiano, sino a una epidemia de sobredosis sistémica
+que el sistema de salud tardó en reconocer y catalogar como tal.
+
+El suicidio, por su parte, responde a determinantes distintos pero no
+desvinculados: mayor precariedad económica en comunidades que perdieron
+su base industrial y un deterioro del bienestar social que @daugherty2019
+documenta en los Apalaches y el Medio Oeste. Que ambas curvas crezcan
+en paralelo no es coincidencia —comparten el mismo sustrato de
+vulnerabilidad estructural—, lo que sugiere que intervenciones que
+traten estas causas de forma aislada probablemente sean insuficientes.

@@ -8,7 +8,7 @@ library(dplyr)
 
 top10_causas <- read.csv("NCHS_Leading_Causes.csv") %>%
   filter(Cause.Name != "All causes", State == "United States") %>%
-  mutate(Deaths = as.numeric(Deaths) * 1000) %>%
+  mutate(Deaths = as.numeric(gsub(",", "", Deaths))) %>%
   group_by(Cause.Name) %>%
   summarise(total_muertes = sum(Deaths, na.rm = TRUE), .groups = "drop") %>%
   arrange(desc(total_muertes)) %>%

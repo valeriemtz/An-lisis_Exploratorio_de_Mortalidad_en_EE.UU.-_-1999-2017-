@@ -157,8 +157,8 @@ datos <- datos %>%
     anio = as.numeric(year),
     causa = cause_name,
     estado = state,
-    muertes = as.numeric(deaths),
-    tasa_ajustada = as.numeric(age_adjusted_death_rate)
+    muertes = as.numeric(gsub(",", "", deaths)),
+    tasa_ajustada = as.numeric(gsub(",", ".", age_adjusted_death_rate))
   ) %>%
   filter(
     estado == "United States",

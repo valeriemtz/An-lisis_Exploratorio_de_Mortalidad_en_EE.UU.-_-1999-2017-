@@ -40,21 +40,27 @@ ggplot(tasas_nacional, aes(x = anio, y = tasa_promedio)) +
   )
 ```
 
-Interpretación: La gráfica de la evolución de las tasas de
-mortalidad ajustadas por edad muestra cómo han cambiado las
-principales causas de muerte entre 1999 y 2017. Se observa un patrón
-claro: las enfermedades cardíacas y el cáncer presentan las
-tasas más altas pero con una tendencia descendente, lo que refleja
-avances en prevención y tratamiento; en contraste, el Alzheimer y
-las lesiones no intencionales muestran un aumento sostenido,
-vinculado al envejecimiento poblacional y a factores sociales. Otras
-causas como diabetes, enfermedad renal, influenza/neumonía y CLRD se
-mantienen relativamente estables o con ligeras variaciones. Es relevante
-porque evidencia una transición epidemiológica: mientras algunas
-enfermedades crónicas tradicionales disminuyen, emergen con fuerza
-nuevas amenazas asociadas a la longevidad y a riesgos externos, lo que
-plantea retos estratégicos para la salud pública y la planificación de
-políticas sanitarias.
+Interpretación: Los paneles facetados permiten ver algo que un gráfico
+agregado ocultaría: cada causa tiene su propia "firma" temporal. Las
+enfermedades cardíacas muestran la caída más pronunciada y consistente
+de todo el período, con una forma casi lineal descendente que refleja
+décadas de inversión en cardiología preventiva. El cáncer cae también,
+pero a un ritmo más lento y con mayor variabilidad año a año, lo que
+sugiere que los avances en oncología son heterogéneos por tipo de tumor.
+
+El contraste más instructivo está entre el Alzheimer y la influenza/
+neumonía: el primero sube de forma sostenida, el segundo baja y
+presenta picos discretos en años de epidemia griega intensa (2003,
+2008). Que la influenza baje estructuralmente mientras el Alzheimer
+sube confirma que el sistema de salud ha priorizado la prevención de
+enfermedades infecciosas, pero no tiene aún respuesta efectiva para
+las neurodegenerativas.
+
+Las lesiones no intencionales son el único panel con un quiebre
+estructural claro: la serie es casi plana hasta 2013 y luego se dispara,
+lo que impide modelarla como una tendencia continua. Cualquier
+proyección de esta causa que no incorpore ese cambio de régimen
+subestimaría el riesgo real.
 
 ```{r boxplots_semestre, fig.width=12, fig.height=8}
 library(tidyverse)
@@ -117,11 +123,21 @@ ggplot(tasas_semestre, aes(x = semestre_periodo,
   )
 ```
 
-Los boxplots muestran dos tendencias opuestas: Heart disease, Cancer,
-Stroke y Diabetes reducen sus tasas entre el primer semestre 1999–2008
-y el segundo 2009–2017, reflejando mejoras en prevención y tratamiento.
-En cambio, Unintentional injuries, Alzheimer's y Suicide aumentan,
-vinculadas al envejecimiento poblacional y la crisis de opioides.
+Los boxplots revelan algo más preciso que las series de tiempo: la
+**dispersión dentro de cada subperíodo**. Heart disease y Cancer no solo
+bajan de mediana entre el primer (1999–2008) y el segundo período
+(2009–2017), sino que también reducen su variabilidad, lo que indica
+que la mejora es consistente entre años, no impulsada por un par de
+años atípicos. Stroke y Diabetes muestran un patrón similar.
+
+En cambio, Unintentional injuries y Alzheimer no solo suben en
+mediana sino que amplían su dispersión en el segundo período, señal de
+que la tendencia ascendente se vuelve más irregular y difícil de
+predecir. Para Unintentional injuries esto es atribuible a que la
+epidemia de opioides no afectó a todos los estados por igual ni al
+mismo tiempo, generando alta varianza entre unidades territoriales.
+El suicidio sube en mediana pero mantiene dispersión contenida, lo que
+sugiere un crecimiento más uniforme geográficamente.
 
 ## Heatmap de muertes absolutas por causas y años
 ```{r, echo=TRUE, warning=FALSE, message=FALSE}
@@ -175,19 +191,27 @@ ggplot(datos_heatmap, aes(x = anio,
   )
 ```
 
-Interpretación: Se observa que enfermedades cardíacas y
-cáncer son las causas con mayor intensidad (celdas más oscuras,
-superando las 600 mil muertes anuales), manteniéndose como líderes en
-todo el período. En contraste, causas como suicidio, enfermedad
-renal y influenza/neumonía aparecen con tonos más claros,
-reflejando menor volumen absoluto de muertes. El Alzheimer y las
-lesiones no intencionales muestran un aumento progresivo en la
-intensidad, lo que coincide con el envejecimiento poblacional y cambios
-sociales. Este patrón es relevante porque permite identificar no solo
-las causas dominantes, sino también aquellas que están creciendo en
-importancia relativa, aportando evidencia para orientar políticas de
-salud pública hacia la prevención de enfermedades crónicas y la
-reducción de muertes evitables.
+Interpretación: El heatmap permite comparar simultáneamente magnitud y
+evolución temporal, algo que los gráficos de líneas individuales no
+logran. Las enfermedades cardíacas y el cáncer dominan con celdas
+persistentemente oscuras, superando 600,000 muertes anuales cada una,
+pero si se observa con atención, las celdas de cardíacas se
+**aclaran** ligeramente de izquierda a derecha, lo que traduce la caída
+de la tasa ajustada en volumen absoluto controlado.
+
+El Alzheimer presenta el patrón opuesto: sus celdas se oscurecen
+progresivamente, un oscurecimiento que se acelera en la segunda mitad
+del período. Esto es coherente con que en 2017 ya se acerca en
+intensidad visual a causas como Stroke o CLRD, que hace 18 años lo
+superaban ampliamente.
+
+Un detalle que el heatmap hace visible y que los gráficos de tasa
+ocultan: las lesiones no intencionales tienen celdas de intensidad
+media pero creciente, mientras que influenza/neumonía tiene celdas de
+intensidad similar pero estable o decreciente. Esto confirma que la
+diferencia entre ambas no es solo de magnitud sino de dirección, y que
+de mantenerse la tendencia, las lesiones terminarán superando a
+influenza como causa en el rango medio del ranking.
 
 ## Análisis Geográfico: Disparidades por Estado
 
