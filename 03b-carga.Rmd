@@ -1,18 +1,22 @@
 # Carga y limpieza de datos
 
-```{r carga_datos}
+```{r carga_datos, echo=TRUE, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(janitor)
+library(scales)
+
 datos <- read_csv("NCHS_Leading_Causes.csv")
 ```
 
-```{r limpieza}
+```{r limpieza, echo=TRUE, warning=FALSE, message=FALSE}
 datos <- datos %>% clean_names()
 
 datos <- datos %>%
   mutate(
-    anio = as.numeric(year),
-    causa = cause_name,
-    estado = state,
-    muertes = as.numeric(gsub(",", "", deaths)),
+    anio          = as.numeric(year),
+    causa         = cause_name,
+    estado        = state,
+    muertes       = as.numeric(gsub("\\.", "", deaths)),
     tasa_ajustada = as.numeric(gsub(",", ".", age_adjusted_death_rate))
   ) %>%
   filter(
@@ -28,7 +32,7 @@ totales_anuales <- datos %>%
 cat("\nTotales nacionales por año:\n")
 print(totales_anuales %>%
         arrange(anio) %>%
-        mutate(muertes = comma(muertes)))
+        mutate(muertes = format(muertes, big.mark = ",", scientific = FALSE)))
 
 totales_causa <- datos %>%
   filter(causa != "All causes") %>%
@@ -41,7 +45,7 @@ totales_causa <- datos %>%
 
 cat("\nTotal acumulado por causa (1999–2017):\n")
 print(totales_causa %>%
-        mutate(total_1999_2017 = comma(total_1999_2017)))
+        mutate(total_1999_2017 = format(total_1999_2017, big.mark = ",", scientific = FALSE)))
 
 datos_nacional <- datos %>%
   filter(causa != "All causes") %>%
