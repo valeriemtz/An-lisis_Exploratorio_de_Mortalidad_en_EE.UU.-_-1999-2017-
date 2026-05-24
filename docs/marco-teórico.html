@@ -182,9 +182,10 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="2" data-path="marco-teórico.html"><a href="marco-teórico.html"><i class="fa fa-check"></i><b>2</b> Marco teórico</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="marco-teórico.html"><a href="marco-teórico.html#prevalencia-de-las-enfermedades-crónicas-en-ee.-uu."><i class="fa fa-check"></i><b>2.1</b> Prevalencia de las enfermedades crónicas en EE. UU.</a></li>
-<li class="chapter" data-level="2.2" data-path="marco-teórico.html"><a href="marco-teórico.html#las-disparidades-geográficas-como-patrón-persistente"><i class="fa fa-check"></i><b>2.2</b> Las disparidades geográficas como patrón persistente</a></li>
-<li class="chapter" data-level="2.3" data-path="marco-teórico.html"><a href="marco-teórico.html#la-importancia-del-análisis-temporal-y-por-ranking"><i class="fa fa-check"></i><b>2.3</b> La importancia del análisis temporal y por ranking</a></li>
+<li class="chapter" data-level="2.1" data-path="marco-teórico.html"><a href="marco-teórico.html#la-tasa-ajustada-por-edad-concepto-y-fórmula"><i class="fa fa-check"></i><b>2.1</b> La tasa ajustada por edad: concepto y fórmula</a></li>
+<li class="chapter" data-level="2.2" data-path="marco-teórico.html"><a href="marco-teórico.html#prevalencia-de-las-enfermedades-crónicas-en-ee.-uu."><i class="fa fa-check"></i><b>2.2</b> Prevalencia de las enfermedades crónicas en EE. UU.</a></li>
+<li class="chapter" data-level="2.3" data-path="marco-teórico.html"><a href="marco-teórico.html#las-disparidades-geográficas-como-patrón-persistente"><i class="fa fa-check"></i><b>2.3</b> Las disparidades geográficas como patrón persistente</a></li>
+<li class="chapter" data-level="2.4" data-path="marco-teórico.html"><a href="marco-teórico.html#la-importancia-del-análisis-temporal-y-por-ranking"><i class="fa fa-check"></i><b>2.4</b> La importancia del análisis temporal y por ranking</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="metodología.html"><a href="metodología.html"><i class="fa fa-check"></i><b>3</b> Metodología</a>
 <ul>
@@ -282,8 +283,35 @@ div.csl-indent {
 literatura especializada, determinando el estado del conocimiento sobre
 las tendencias y las disparidades en mortalidad en los Estados Unidos
 entre 1999 y 2017.</p>
-<div id="prevalencia-de-las-enfermedades-crónicas-en-ee.-uu." class="section level2 hasAnchor" number="2.1">
-<h2><span class="header-section-number">2.1</span> Prevalencia de las enfermedades crónicas en EE. UU.<a href="marco-teórico.html#prevalencia-de-las-enfermedades-crónicas-en-ee.-uu." class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="la-tasa-ajustada-por-edad-concepto-y-fórmula" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> La tasa ajustada por edad: concepto y fórmula<a href="marco-teórico.html#la-tasa-ajustada-por-edad-concepto-y-fórmula" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El indicador central de este trabajo es la <strong>tasa ajustada por edad</strong>
+(<em>age-adjusted death rate</em>), cuyo propósito es eliminar el efecto de
+las diferencias en la estructura etaria entre poblaciones, permitiendo
+comparaciones válidas entre estados y a lo largo del tiempo.</p>
+<p>La fórmula estándar es la del <strong>método de estandarización directa</strong>:</p>
+<p><span class="math display">\[\text{Tasa ajustada} = \sum_{i} \left( \frac{d_i}{n_i} \right) \times w_i \times 100{,}000\]</span></p>
+<p>donde:</p>
+<ul>
+<li><span class="math inline">\(d_i\)</span> = número de muertes en el grupo de edad <span class="math inline">\(i\)</span></li>
+<li><span class="math inline">\(n_i\)</span> = población en el grupo de edad <span class="math inline">\(i\)</span></li>
+<li><span class="math inline">\(w_i\)</span> = peso del grupo de edad <span class="math inline">\(i\)</span> en la <strong>población estándar de referencia</strong> (en EE. UU. se usa la población estándar del año 2000)</li>
+<li>La suma recorre todos los grupos etarios</li>
+</ul>
+<p>El resultado se interpreta como: <em>si la población analizada tuviera la
+misma estructura de edad que la población estándar, ¿cuántas muertes
+ocurrirían por cada 100,000 habitantes?</em> Es por eso que la tasa ajustada
+<strong>no es un conteo de muertes reales</strong>: en 1999 la tasa fue 875.6 por
+100,000, pero el número real de muertes en EE. UU. ese año fue
+2,391,399, en una población de casi 280 millones.</p>
+<p>Esta distinción es fundamental para interpretar correctamente los
+gráficos de este análisis. Una tasa ajustada puede descender (mejora
+en salud pública) mientras el número absoluto de muertes sube (por
+crecimiento o envejecimiento poblacional), como ocurrió en EE. UU.
+entre 1999 y 2017.</p>
+</div>
+<div id="prevalencia-de-las-enfermedades-crónicas-en-ee.-uu." class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Prevalencia de las enfermedades crónicas en EE. UU.<a href="marco-teórico.html#prevalencia-de-las-enfermedades-crónicas-en-ee.-uu." class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Como la mayoria de las naciones desarrolladas, hace décadas Estados
 Unidos experimentó un cambio epidemiológico. Las enfermedades
 infecciosas dejaron de ser las principales causas de muerte,
@@ -307,8 +335,8 @@ relacionadas con el consumo de drogas, aunque también influyen
 accidentes de tráfico, caídas y otros eventos
 prevenible<span class="citation">(<a href="#ref-daugherty2019">Daugherty et al. 2019</a>)</span>.</p>
 </div>
-<div id="las-disparidades-geográficas-como-patrón-persistente" class="section level2 hasAnchor" number="2.2">
-<h2><span class="header-section-number">2.2</span> Las disparidades geográficas como patrón persistente<a href="marco-teórico.html#las-disparidades-geográficas-como-patrón-persistente" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="las-disparidades-geográficas-como-patrón-persistente" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Las disparidades geográficas como patrón persistente<a href="marco-teórico.html#las-disparidades-geográficas-como-patrón-persistente" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Uno de los descubrimientos más sólidos en la literatura acerca de la
 mortalidad en Estados Unidos es que hay un “gradiente geográfico” que
 perjudica de manera sistemática al sureste del país. Según la
@@ -322,8 +350,8 @@ factores. Entre ellos, se encuentran un nivel socioeconómico más bajo,
 el acceso limitado a servicios de salud y una mayor prevalencia de
 conductas de riesgo.</p>
 </div>
-<div id="la-importancia-del-análisis-temporal-y-por-ranking" class="section level2 hasAnchor" number="2.3">
-<h2><span class="header-section-number">2.3</span> La importancia del análisis temporal y por ranking<a href="marco-teórico.html#la-importancia-del-análisis-temporal-y-por-ranking" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="la-importancia-del-análisis-temporal-y-por-ranking" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> La importancia del análisis temporal y por ranking<a href="marco-teórico.html#la-importancia-del-análisis-temporal-y-por-ranking" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Se ha demostrado por medio de la literatura la existencia de cambios
 significativos en las causas de muerte a lo largo del periodo. Existe un
 aumento en enfermedades como el Alzheimer debido al envejecimiento de la

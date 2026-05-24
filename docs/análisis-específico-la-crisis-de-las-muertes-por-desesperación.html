@@ -182,9 +182,10 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="2" data-path="marco-teórico.html"><a href="marco-teórico.html"><i class="fa fa-check"></i><b>2</b> Marco teórico</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="marco-teórico.html"><a href="marco-teórico.html#prevalencia-de-las-enfermedades-crónicas-en-ee.-uu."><i class="fa fa-check"></i><b>2.1</b> Prevalencia de las enfermedades crónicas en EE. UU.</a></li>
-<li class="chapter" data-level="2.2" data-path="marco-teórico.html"><a href="marco-teórico.html#las-disparidades-geográficas-como-patrón-persistente"><i class="fa fa-check"></i><b>2.2</b> Las disparidades geográficas como patrón persistente</a></li>
-<li class="chapter" data-level="2.3" data-path="marco-teórico.html"><a href="marco-teórico.html#la-importancia-del-análisis-temporal-y-por-ranking"><i class="fa fa-check"></i><b>2.3</b> La importancia del análisis temporal y por ranking</a></li>
+<li class="chapter" data-level="2.1" data-path="marco-teórico.html"><a href="marco-teórico.html#la-tasa-ajustada-por-edad-concepto-y-fórmula"><i class="fa fa-check"></i><b>2.1</b> La tasa ajustada por edad: concepto y fórmula</a></li>
+<li class="chapter" data-level="2.2" data-path="marco-teórico.html"><a href="marco-teórico.html#prevalencia-de-las-enfermedades-crónicas-en-ee.-uu."><i class="fa fa-check"></i><b>2.2</b> Prevalencia de las enfermedades crónicas en EE. UU.</a></li>
+<li class="chapter" data-level="2.3" data-path="marco-teórico.html"><a href="marco-teórico.html#las-disparidades-geográficas-como-patrón-persistente"><i class="fa fa-check"></i><b>2.3</b> Las disparidades geográficas como patrón persistente</a></li>
+<li class="chapter" data-level="2.4" data-path="marco-teórico.html"><a href="marco-teórico.html#la-importancia-del-análisis-temporal-y-por-ranking"><i class="fa fa-check"></i><b>2.4</b> La importancia del análisis temporal y por ranking</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="metodología.html"><a href="metodología.html"><i class="fa fa-check"></i><b>3</b> Metodología</a>
 <ul>
@@ -325,23 +326,35 @@ de estudio.</p>
 <span id="cb17-39"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-39" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>)</span>
 <span id="cb17-40"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-40" tabindex="-1"></a>  )</span></code></pre></div>
 <p><img src="mortalidad-eeuu_files/figure-html/unnamed-chunk-6-1.png" width="1500" /></p>
-<p>Interpretación: La gráfica sobre la evolución de las “muertes por
-desesperación” (1999-2017) muestra un patrón preocupante: tanto el
-suicidio como las lesiones no intencionales presentan una
-tendencia ascendente en las tasas por cada 100,000 habitantes, con un
-incremento más marcado a partir de 2014. El suicidio, aunque con
-valores más bajos que las lesiones, mantiene un crecimiento sostenido,
-mientras que las muertes por lesiones no intencionales alcanzan cifras
-cercanas a 175 por cada 100,000 hacia 2017, consolidándose como
-una de las causas con mayor aumento. Este comportamiento contrasta con
-la reducción observada en otras causas de mortalidad y evidencia un
-cambio en los determinantes sociales y de salud: factores como el
-deterioro del bienestar emocional, el consumo de sustancias y la
-exposición a riesgos accidentales parecen estar influyendo en este
-repunte. En conjunto, los datos respaldan la idea de que las “<em>muertes
-por desesperación</em>” se han convertido en un desafío creciente para la
-salud pública en el período analizado.</p>
+<p>Interpretación: Lo primero que llama la atención en este gráfico es
+la asimetría de magnitudes: las lesiones no intencionales alcanzan
+cerca de 175,000 muertes absolutas anuales en 2017, mientras el
+suicidio se mantiene por debajo de 50,000. Sin embargo, leer esto como
+que el suicidio es un problema menor sería un error de interpretación:
+su crecimiento porcentual en el período es constante y no muestra
+ninguna señal de reversión.</p>
+<p>El año 2014 funciona como bisagra para ambas curvas. Antes de ese
+punto, las lesiones no intencionales ya venían creciendo, pero a un
+ritmo moderado. Después de 2014 la pendiente se pronuncia
+notablemente, coincidiendo con la irrupción del fentanilo como sustituto
+del oxycodone en el mercado ilegal de opioides. Este no es un dato
+menor: significa que la curva que vemos no obedece a más “accidentes”
+en el sentido cotidiano, sino a una epidemia de sobredosis sistémica
+que el sistema de salud tardó en reconocer y catalogar como tal.</p>
+<p>El suicidio, por su parte, responde a determinantes distintos pero no
+desvinculados: mayor precariedad económica en comunidades que perdieron
+su base industrial y un deterioro del bienestar social que <span class="citation">Daugherty et al. (<a href="#ref-daugherty2019">2019</a>)</span>
+documenta en los Apalaches y el Medio Oeste. Que ambas curvas crezcan
+en paralelo no es coincidencia —comparten el mismo sustrato de
+vulnerabilidad estructural—, lo que sugiere que intervenciones que
+traten estas causas de forma aislada probablemente sean insuficientes.</p>
 
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-daugherty2019" class="csl-entry">
+Daugherty, Jill, Dana Waltzman, Kelly Sarmiento, and Likang Xu. 2019. <span>“Traumatic Brain Injury–Related Deaths by Race/Ethnicity, Sex, Intent, and Mechanism of Injury — <span>United States</span>, 2000–2017.”</span> <em>MMWR. Morbidity and Mortality Weekly Report</em> 68 (46): 1050–56. <a href="https://doi.org/10.15585/mmwr.mm6846a2">https://doi.org/10.15585/mmwr.mm6846a2</a>.
 </div>
 </div>
             </section>

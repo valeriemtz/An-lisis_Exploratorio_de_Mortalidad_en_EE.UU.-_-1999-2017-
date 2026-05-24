@@ -19,6 +19,7 @@ objetivos-del-estudio
 objetivo-general
 objetivos-específicos
 marco-teórico
+la-tasa-ajustada-por-edad-concepto-y-fórmula
 prevalencia-de-las-enfermedades-crónicas-en-ee.-uu.
 las-disparidades-geográficas-como-patrón-persistente
 la-importancia-del-análisis-temporal-y-por-ranking

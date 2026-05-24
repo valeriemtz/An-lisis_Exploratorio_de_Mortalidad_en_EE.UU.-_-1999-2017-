@@ -182,9 +182,10 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="2" data-path="marco-teórico.html"><a href="marco-teórico.html"><i class="fa fa-check"></i><b>2</b> Marco teórico</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="marco-teórico.html"><a href="marco-teórico.html#prevalencia-de-las-enfermedades-crónicas-en-ee.-uu."><i class="fa fa-check"></i><b>2.1</b> Prevalencia de las enfermedades crónicas en EE. UU.</a></li>
-<li class="chapter" data-level="2.2" data-path="marco-teórico.html"><a href="marco-teórico.html#las-disparidades-geográficas-como-patrón-persistente"><i class="fa fa-check"></i><b>2.2</b> Las disparidades geográficas como patrón persistente</a></li>
-<li class="chapter" data-level="2.3" data-path="marco-teórico.html"><a href="marco-teórico.html#la-importancia-del-análisis-temporal-y-por-ranking"><i class="fa fa-check"></i><b>2.3</b> La importancia del análisis temporal y por ranking</a></li>
+<li class="chapter" data-level="2.1" data-path="marco-teórico.html"><a href="marco-teórico.html#la-tasa-ajustada-por-edad-concepto-y-fórmula"><i class="fa fa-check"></i><b>2.1</b> La tasa ajustada por edad: concepto y fórmula</a></li>
+<li class="chapter" data-level="2.2" data-path="marco-teórico.html"><a href="marco-teórico.html#prevalencia-de-las-enfermedades-crónicas-en-ee.-uu."><i class="fa fa-check"></i><b>2.2</b> Prevalencia de las enfermedades crónicas en EE. UU.</a></li>
+<li class="chapter" data-level="2.3" data-path="marco-teórico.html"><a href="marco-teórico.html#las-disparidades-geográficas-como-patrón-persistente"><i class="fa fa-check"></i><b>2.3</b> Las disparidades geográficas como patrón persistente</a></li>
+<li class="chapter" data-level="2.4" data-path="marco-teórico.html"><a href="marco-teórico.html#la-importancia-del-análisis-temporal-y-por-ranking"><i class="fa fa-check"></i><b>2.4</b> La importancia del análisis temporal y por ranking</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="metodología.html"><a href="metodología.html"><i class="fa fa-check"></i><b>3</b> Metodología</a>
 <ul>
@@ -401,8 +402,8 @@ plotly, DT) en R y documentos R Markdown.</p></li>
 <span id="cb3-5"><a href="metodología.html#cb3-5" tabindex="-1"></a>    <span class="at">anio =</span> <span class="fu">as.numeric</span>(year),</span>
 <span id="cb3-6"><a href="metodología.html#cb3-6" tabindex="-1"></a>    <span class="at">causa =</span> cause_name,</span>
 <span id="cb3-7"><a href="metodología.html#cb3-7" tabindex="-1"></a>    <span class="at">estado =</span> state,</span>
-<span id="cb3-8"><a href="metodología.html#cb3-8" tabindex="-1"></a>    <span class="at">muertes =</span> <span class="fu">as.numeric</span>(deaths),</span>
-<span id="cb3-9"><a href="metodología.html#cb3-9" tabindex="-1"></a>    <span class="at">tasa_ajustada =</span> <span class="fu">as.numeric</span>(age_adjusted_death_rate)</span>
+<span id="cb3-8"><a href="metodología.html#cb3-8" tabindex="-1"></a>    <span class="at">muertes =</span> <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">&quot;,&quot;</span>, <span class="st">&quot;&quot;</span>, deaths)),</span>
+<span id="cb3-9"><a href="metodología.html#cb3-9" tabindex="-1"></a>    <span class="at">tasa_ajustada =</span> <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">&quot;,&quot;</span>, <span class="st">&quot;.&quot;</span>, age_adjusted_death_rate))</span>
 <span id="cb3-10"><a href="metodología.html#cb3-10" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
 <span id="cb3-11"><a href="metodología.html#cb3-11" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
 <span id="cb3-12"><a href="metodología.html#cb3-12" tabindex="-1"></a>    estado <span class="sc">==</span> <span class="st">&quot;United States&quot;</span>,</span>

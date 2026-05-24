@@ -182,9 +182,10 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="2" data-path="marco-teórico.html"><a href="marco-teórico.html"><i class="fa fa-check"></i><b>2</b> Marco teórico</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="marco-teórico.html"><a href="marco-teórico.html#prevalencia-de-las-enfermedades-crónicas-en-ee.-uu."><i class="fa fa-check"></i><b>2.1</b> Prevalencia de las enfermedades crónicas en EE. UU.</a></li>
-<li class="chapter" data-level="2.2" data-path="marco-teórico.html"><a href="marco-teórico.html#las-disparidades-geográficas-como-patrón-persistente"><i class="fa fa-check"></i><b>2.2</b> Las disparidades geográficas como patrón persistente</a></li>
-<li class="chapter" data-level="2.3" data-path="marco-teórico.html"><a href="marco-teórico.html#la-importancia-del-análisis-temporal-y-por-ranking"><i class="fa fa-check"></i><b>2.3</b> La importancia del análisis temporal y por ranking</a></li>
+<li class="chapter" data-level="2.1" data-path="marco-teórico.html"><a href="marco-teórico.html#la-tasa-ajustada-por-edad-concepto-y-fórmula"><i class="fa fa-check"></i><b>2.1</b> La tasa ajustada por edad: concepto y fórmula</a></li>
+<li class="chapter" data-level="2.2" data-path="marco-teórico.html"><a href="marco-teórico.html#prevalencia-de-las-enfermedades-crónicas-en-ee.-uu."><i class="fa fa-check"></i><b>2.2</b> Prevalencia de las enfermedades crónicas en EE. UU.</a></li>
+<li class="chapter" data-level="2.3" data-path="marco-teórico.html"><a href="marco-teórico.html#las-disparidades-geográficas-como-patrón-persistente"><i class="fa fa-check"></i><b>2.3</b> Las disparidades geográficas como patrón persistente</a></li>
+<li class="chapter" data-level="2.4" data-path="marco-teórico.html"><a href="marco-teórico.html#la-importancia-del-análisis-temporal-y-por-ranking"><i class="fa fa-check"></i><b>2.4</b> La importancia del análisis temporal y por ranking</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="metodología.html"><a href="metodología.html"><i class="fa fa-check"></i><b>3</b> Metodología</a>
 <ul>
@@ -340,21 +341,29 @@ mortalidad.</p>
 <span id="cb15-37"><a href="análisis-de-ranking-cambios-en-la-posición-de-las-causas-de-muerte.html#cb15-37" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()</span>
 <span id="cb15-38"><a href="análisis-de-ranking-cambios-en-la-posición-de-las-causas-de-muerte.html#cb15-38" tabindex="-1"></a>  )</span></code></pre></div>
 <p><img src="mortalidad-eeuu_files/figure-html/unnamed-chunk-4-1.png" width="1500" /></p>
-<p>Interpretación: La gráfica de la evolución de las tasas de
-mortalidad ajustadas por edad entre 1999 y 2017 evidencia que las dos
-principales causas de muerte enfermedades cardíacas y cáncer
-presentan las tasas más altas, aunque ambas muestran una tendencia
-descendente sostenida, lo que sugiere avances en prevención y
-tratamiento. En contraste, las lesiones no intencionales exhiben un
-incremento progresivo, reflejando un cambio en factores sociales y
-ambientales. Otras causas como diabetes, enfermedades
-renales, influenza/neumonía y CLRD se mantienen
-relativamente estables o con ligeras disminuciones, mientras que el
-Alzheimer destaca por un aumento gradual, vinculado al
-envejecimiento poblacional. En conjunto, el análisis confirma una
-transición epidemiológica: reducción en enfermedades crónicas
-tradicionales, pero crecimiento en causas relacionadas con la longevidad
-y accidentes, lo que plantea nuevos retos para la salud pública.</p>
+<p>Interpretación: La gráfica deja ver dos dinámicas simultáneas que no
+deben leerse por separado. Por un lado, las enfermedades cardíacas
+caen de forma pronunciada —de aproximadamente 267 a 165 por 100,000—,
+lo que representa la reducción más significativa del período en
+términos absolutos; esta caída es atribuible a políticas sostenidas de
+prevención cardiovascular, expansión del acceso a estatinas y mejoras
+en la atención del infarto agudo. El cáncer, en cambio, apenas varía
+(de ~200 a ~163), señal de que los avances oncológicos compensan el
+incremento poblacional de riesgo, pero sin lograr una reducción comparable.</p>
+<p>Por otro lado, las lesiones no intencionales —que en 1999 eran la
+quinta causa— exhiben una aceleración desde 2014 que rompe la tendencia
+del resto de causas. Este quiebre no es aleatorio: coincide con el
+auge de las sobredosis por opioides sintéticos como el fentanilo en
+el mercado ilegal. Que una causa ligada a factores sociales y de
+política de drogas supere en crecimiento a todas las enfermedades
+crónicas es la señal más relevante del período y la que más debería
+orientar la respuesta de salud pública.</p>
+<p>El Alzheimer merece mención aparte: su crecimiento no obedece a un
+empeoramiento epidemiológico sino a la combinación del envejecimiento
+de los <em>baby boomers</em> y a mejoras en el diagnóstico que antes
+clasificaban estas muertes bajo otras causas. Su ascenso en el
+ranking es real, pero parte de él es un efecto estadístico que
+conviene no sobreinterpretar.</p>
 </div>
 <div id="cambios-en-el-ranking-1999-vs-2017" class="section level2 hasAnchor" number="5.2">
 <h2><span class="header-section-number">5.2</span> Cambios en el ranking: 1999 vs 2017<a href="análisis-de-ranking-cambios-en-la-posición-de-las-causas-de-muerte.html#cambios-en-el-ranking-1999-vs-2017" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -640,22 +649,25 @@ Suicide
 </tr>
 </tbody>
 </table>
-<p>Interpretacion: La tabla de cambios en el ranking de causas de
-muerte (1999-2017) evidencia transformaciones importantes en el perfil
-epidemiológico: las enfermedades cardíacas y el cáncer se
-mantienen como las dos principales causas, aunque con variaciones
-porcentuales moderadas (-10.7% y +9.0% respectivamente). En contraste,
-las lesiones no intencionales suben del puesto 5 al 3 con un
-incremento del 73.7%, y el Alzheimer asciende del 8 al 6
-con un aumento notable del 172.6%, reflejando el impacto del
-envejecimiento poblacional. Por otro lado, causas como el stroke
-bajan del 3 al 5 (-12.5%) y la influenza/neumonía del 7
-al 8 (-12.6%), mostrando menor peso relativo. Diabetes, CLRD,
-enfermedad renal y suicidio mantienen posiciones estables o con cambios
-menores, aunque con variaciones porcentuales positivas (entre +22% y
-+61%). Descenso en algunas enfermedades tradicionales, pero un
-crecimiento marcado en condiciones asociadas a la longevidad y a
-factores externos como accidentes.</p>
+<p>Interpretación: La tabla confirma que la estabilidad en el tope del
+ranking es engañosa: que las enfermedades cardíacas y el cáncer
+permanezcan en primero y segundo lugar no significa que el perfil
+epidemiológico no haya cambiado. Las cardíacas caen un 10.7% en
+muertes absolutas —la única causa del top 5 que baja— mientras que el
+cáncer sube 9%, una diferencia significativa entre dos condiciones
+que comparten el podio.</p>
+<p>El dato más revelador no es el de la causa más letal sino el del mayor
+crecimiento: el Alzheimer sube un <strong>172.6%</strong>, más del doble de muertes
+en 18 años. Esto supera con creces cualquier otra causa y plantea una
+pregunta incómoda: ¿se están destinando recursos suficientes a la
+investigación y cuidado de enfermedades neurodegenerativas, dado que
+ya representan la sexta causa y siguen escalando?</p>
+<p>Las lesiones no intencionales, con un incremento del 73.7%, también
+superan el promedio. Su salto del puesto 5 al 3 no es solo un
+reordenamiento estadístico —desplaza al stroke, que desciende con
+reducción real de muertes del 12.5%—, lo que indica que las mejoras
+en el manejo del ACV conviven con un deterioro en las condiciones que
+generan accidentes y sobredosis.</p>
 
 </div>
 </div>
