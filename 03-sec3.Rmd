@@ -1,8 +1,14 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
 # Metodología
 
 El presente estudio corresponde a un análisis exploratorio de datos
 (EDA) de corte longitudinal, basado en registros administrativos de
-mortalidad en Estados Unidos durante el periodo 1999–2017. El enfoque
+mortalidad en Estados Unidos durante el periodo 1999-2017. El enfoque
 metodológico combina estadística descriptiva, análisis de series de
 tiempo y modelado predictivo.
 
@@ -16,14 +22,14 @@ estados y años.
 
 El preprocesamiento incluyó estandarización de nombres de variables,
 corrección de formatos numéricos inconsistentes, conversión de tipos de
-datos y filtrado del periodo 1999–2017.
+datos y filtrado del periodo 1999-2017.
 
 ## Estadística descriptiva:
 
 Como punto de partida se construyeron diagramas de barras comparativos
 para analizar la distribución porcentual de las causas de muerte de
-1999 - 2017 y gráficos de líneas para identificar la evolución temporal
-de las tasas ajustadas por causa a nivel nacional. Estas visualizaciones
+1999-2017 y gráficos de líneas para identificar la evolución temporal de
+las tasas ajustadas por causa a nivel nacional. Estas visualizaciones
 permiten detectar tendencias, cambios en el ranking de causas y
 variaciones en la carga relativa de cada enfermedad a lo largo del
 período.
@@ -38,8 +44,8 @@ temporal de las series de mortalidad:
     raíz unitaria (no estacionaria). Un valor p \< 0.05 indica
     estacionariedad, requisito para la aplicación de modelos ARIMA.
 
--   ACF y PACF: Se analizaron las funciones de autocorrelación (ACF)
-    y autocorrelación parcial (PACF) para identificar patrones de
+-   ACF y PACF: Se analizaron las funciones de autocorrelación (ACF) y
+    autocorrelación parcial (PACF) para identificar patrones de
     dependencia temporal y orientar la selección de parámetros del
     modelo.
 
@@ -47,21 +53,21 @@ temporal de las series de mortalidad:
 
 Se calcularon tasas ajustadas promedio por estado para identificar
 disparidades territoriales. Se construyeron mapas coropléticos
-interactivos con `leaflet` y visualizaciones comparativas de los
-estados con mayor y menor carga de mortalidad, consistente con el
-gradiente geográfico documentado en la literatura.
+interactivos con `leaflet` y visualizaciones comparativas de los estados
+con mayor y menor carga de mortalidad, consistente con el gradiente
+geográfico documentado en la literatura.
 
 ## Modelo predictivo – ARIMA:
 
-Para proyectar tendencias futuras se implementó un modelo
-ARIMA(p,d,q), definido por tres parámetros: orden autoregresivo (p),
-el grado de diferenciación (d) y el orden de media móvil (q). La
-selección de parámetros óptimos se realizó mediante el criterio de
-información de Akaike (AIC). La validación se realizó mediante
-análisis de residuos y la prueba de Ljung-Box, cuya hipótesis nula
-establece independencia de los residuos un p-value \> 0.05 confirma que
-el modelo no dejó estructura sin capturar. Las proyecciones cubren
-2018–2022 para West Virginia.
+Para proyectar tendencias futuras se implementó un modelo ARIMA(p,d,q),
+definido por tres parámetros: orden autoregresivo (p), el grado de
+diferenciación (d) y el orden de media móvil (q). La selección de
+parámetros óptimos se realizó mediante el criterio de información de
+Akaike (AIC). La validación se realizó mediante análisis de residuos y
+la prueba de Ljung-Box, cuya hipótesis nula establece independencia de
+los residuos un p-value \> 0.05 confirma que el modelo no dejó
+estructura sin capturar. Las proyecciones cubren 2018-2022 para West
+Virginia.
 
 ## Herramientas Computacionales
 
@@ -100,8 +106,8 @@ library(htmlwidgets)
 ```
 
 El procesamiento y análisis de los datos se realizó utilizando el
-lenguaje de programación R (versión 4.4.1) y el entorno de
-desarrollo RStudio. Las principales librerías empleadas fueron:
+lenguaje de programación R (versión 4.4.1) y el entorno de desarrollo
+RStudio. Las principales librerías empleadas fueron:
 
 -   `tidyverse`: para manipulación, transformación y visualización de
     datos.
@@ -120,8 +126,8 @@ desarrollo RStudio. Las principales librerías empleadas fueron:
 -   `usmap`: para la creación de mapas coropléticos.
 
 -   `grid.`: sistema gráfico subyacente en R; `gridExtra` proporciona
-    funciones para organizar múltiples gráficos en una cuadrícula,
-    como `grid.arrange()`.
+    funciones para organizar múltiples gráficos en una cuadrícula, como
+    `grid.arrange()`.
 
 -   `leaflet`: para crear mapas interactivos con zoom, capas y ventanas
     emergentes.
@@ -148,7 +154,6 @@ El dataset original contiene las siguientes variables:
 
 ```{r tabla_variables, echo=FALSE}
 library(kableExtra)
-
 tabla_variables <- data.frame(
   `Columna original` = c("Year", "113 Cause Name", "Cause Name", "State", "Deaths", "Age-adjusted Death Rate"),
   Descripción = c("Año de registro de la defunción", 
@@ -167,8 +172,7 @@ tabla_variables <- data.frame(
   check.names = FALSE
 )
 
-tabla_variables %>%
-  kbl(
+kbl(tabla_variables,
     caption = "Variables del dataset original y su correspondencia en el análisis",
     align = "lccc",
     booktabs = TRUE) %>%

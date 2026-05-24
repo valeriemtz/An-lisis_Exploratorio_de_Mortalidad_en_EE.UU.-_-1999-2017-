@@ -119,16 +119,10 @@ interactivo y la implementación de un modelo de predicción.
 ## Dashboard Interactivo
 
 Como complemento a este análisis, se desarrolló un dashboard interactivo
-que permite explorar los datos de manera dinámica. A través de esta
-herramienta es posible visualizar la evolución temporal de las causas de
-muerte, comparar estados, consultar el ranking de causas por año y
-explorar los patrones geográficos que se discuten a lo largo de este
-informe.
+que permite explorar los datos de manera dinámica, incluyendo
+visualizaciones de evolución temporal, distribución geográfica, ranking
+de causas y modelos de predicción.
 
 <div style="border-left: 4px solid #2C3E50; padding: 12px 20px; background-color: #f8f9fa; margin: 20px 0; border-radius: 4px;">
-**🖥️ Acceder al dashboard:**
-[Análisis Exploratorio de Mortalidad en EE.UU. (1999–2017)](https://8nv3b6-valerie-mart0nez.shinyapps.io/NCHS_STeam8/){target="_blank"}
-
-*El dashboard incluye visualizaciones interactivas de evolución temporal,
-distribución geográfica, ranking de causas y modelos de predicción.*
+**Acceder al dashboard:** [Análisis Exploratorio de Mortalidad en EE.UU. (1999–2017)](https://8nv3b6-valerie-mart0nez.shinyapps.io/NCHS_STeam8/){target="_blank"}
 </div>

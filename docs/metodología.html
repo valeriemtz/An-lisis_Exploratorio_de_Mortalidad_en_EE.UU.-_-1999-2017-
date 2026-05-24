@@ -282,7 +282,7 @@ div.csl-indent {
 <h1><span class="header-section-number">3</span> Metodología<a href="metodología.html#metodología" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>El presente estudio corresponde a un análisis exploratorio de datos
 (EDA) de corte longitudinal, basado en registros administrativos de
-mortalidad en Estados Unidos durante el periodo 1999–2017. El enfoque
+mortalidad en Estados Unidos durante el periodo 1999-2017. El enfoque
 metodológico combina estadística descriptiva, análisis de series de
 tiempo y modelado predictivo.</p>
 <div id="fuente-de-datos-y-preprocesamiento" class="section level2 hasAnchor" number="3.1">
@@ -294,14 +294,14 @@ estructura etaria entre poblaciones, permitiendo comparaciones entre
 estados y años.</p>
 <p>El preprocesamiento incluyó estandarización de nombres de variables,
 corrección de formatos numéricos inconsistentes, conversión de tipos de
-datos y filtrado del periodo 1999–2017.</p>
+datos y filtrado del periodo 1999-2017.</p>
 </div>
 <div id="estadística-descriptiva" class="section level2 hasAnchor" number="3.2">
 <h2><span class="header-section-number">3.2</span> Estadística descriptiva:<a href="metodología.html#estadística-descriptiva" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Como punto de partida se construyeron diagramas de barras comparativos
 para analizar la distribución porcentual de las causas de muerte de
-1999 - 2017 y gráficos de líneas para identificar la evolución temporal
-de las tasas ajustadas por causa a nivel nacional. Estas visualizaciones
+1999-2017 y gráficos de líneas para identificar la evolución temporal de
+las tasas ajustadas por causa a nivel nacional. Estas visualizaciones
 permiten detectar tendencias, cambios en el ranking de causas y
 variaciones en la carga relativa de cada enfermedad a lo largo del
 período.</p>
@@ -315,8 +315,8 @@ temporal de las series de mortalidad:</p>
 Aumentada (ADF), cuya hipótesis nula establece que la serie tiene
 raíz unitaria (no estacionaria). Un valor p &lt; 0.05 indica
 estacionariedad, requisito para la aplicación de modelos ARIMA.</p></li>
-<li><p>ACF y PACF: Se analizaron las funciones de autocorrelación (ACF)
-y autocorrelación parcial (PACF) para identificar patrones de
+<li><p>ACF y PACF: Se analizaron las funciones de autocorrelación (ACF) y
+autocorrelación parcial (PACF) para identificar patrones de
 dependencia temporal y orientar la selección de parámetros del
 modelo.</p></li>
 </ul>
@@ -325,27 +325,27 @@ modelo.</p></li>
 <h2><span class="header-section-number">3.4</span> Análisis geográfico:<a href="metodología.html#análisis-geográfico" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Se calcularon tasas ajustadas promedio por estado para identificar
 disparidades territoriales. Se construyeron mapas coropléticos
-interactivos con <code>leaflet</code> y visualizaciones comparativas de los
-estados con mayor y menor carga de mortalidad, consistente con el
-gradiente geográfico documentado en la literatura.</p>
+interactivos con <code>leaflet</code> y visualizaciones comparativas de los estados
+con mayor y menor carga de mortalidad, consistente con el gradiente
+geográfico documentado en la literatura.</p>
 </div>
 <div id="modelo-predictivo-arima" class="section level2 hasAnchor" number="3.5">
 <h2><span class="header-section-number">3.5</span> Modelo predictivo – ARIMA:<a href="metodología.html#modelo-predictivo-arima" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Para proyectar tendencias futuras se implementó un modelo
-ARIMA(p,d,q), definido por tres parámetros: orden autoregresivo (p),
-el grado de diferenciación (d) y el orden de media móvil (q). La
-selección de parámetros óptimos se realizó mediante el criterio de
-información de Akaike (AIC). La validación se realizó mediante
-análisis de residuos y la prueba de Ljung-Box, cuya hipótesis nula
-establece independencia de los residuos un p-value &gt; 0.05 confirma que
-el modelo no dejó estructura sin capturar. Las proyecciones cubren
-2018–2022 para West Virginia.</p>
+<p>Para proyectar tendencias futuras se implementó un modelo ARIMA(p,d,q),
+definido por tres parámetros: orden autoregresivo (p), el grado de
+diferenciación (d) y el orden de media móvil (q). La selección de
+parámetros óptimos se realizó mediante el criterio de información de
+Akaike (AIC). La validación se realizó mediante análisis de residuos y
+la prueba de Ljung-Box, cuya hipótesis nula establece independencia de
+los residuos un p-value &gt; 0.05 confirma que el modelo no dejó
+estructura sin capturar. Las proyecciones cubren 2018-2022 para West
+Virginia.</p>
 </div>
 <div id="herramientas-computacionales" class="section level2 hasAnchor" number="3.6">
 <h2><span class="header-section-number">3.6</span> Herramientas Computacionales<a href="metodología.html#herramientas-computacionales" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>El procesamiento y análisis de los datos se realizó utilizando el
-lenguaje de programación R (versión 4.4.1) y el entorno de
-desarrollo RStudio. Las principales librerías empleadas fueron:</p>
+lenguaje de programación R (versión 4.4.1) y el entorno de desarrollo
+RStudio. Las principales librerías empleadas fueron:</p>
 <ul>
 <li><p><code>tidyverse</code>: para manipulación, transformación y visualización de
 datos.</p></li>
@@ -357,8 +357,8 @@ visualizaciones.</p></li>
 <li><p><code>scales</code>: para formateo de ejes numéricos.</p></li>
 <li><p><code>usmap</code>: para la creación de mapas coropléticos.</p></li>
 <li><p><code>grid.</code>: sistema gráfico subyacente en R; <code>gridExtra</code> proporciona
-funciones para organizar múltiples gráficos en una cuadrícula,
-como <code>grid.arrange()</code>.</p></li>
+funciones para organizar múltiples gráficos en una cuadrícula, como
+<code>grid.arrange()</code>.</p></li>
 <li><p><code>leaflet</code>: para crear mapas interactivos con zoom, capas y ventanas
 emergentes.</p></li>
 <li><p><code>dplyr</code>: para manipulación de datos (filtrar, seleccionar, agrupar,
