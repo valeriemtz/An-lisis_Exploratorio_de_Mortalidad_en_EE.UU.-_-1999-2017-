@@ -1,3 +1,9 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
 # Marco teórico
 
 Sustentar el análisis apoyado en la evidencia de la revisión de
@@ -8,8 +14,8 @@ entre 1999 y 2017.
 ## La tasa ajustada por edad: concepto y fórmula
 
 El indicador central de este trabajo es la tasa ajustada por edad
-(*age-adjusted death rate*), cuyo propósito es eliminar el efecto de
-las diferencias en la estructura etaria entre poblaciones, permitiendo
+(*age-adjusted death rate*), cuyo propósito es eliminar el efecto de las
+diferencias en la estructura etaria entre poblaciones, permitiendo
 comparaciones válidas entre estados y a lo largo del tiempo.
 
 La fórmula estándar es la del método de estandarización directa:
@@ -18,10 +24,11 @@ $$\text{Tasa ajustada} = \sum_{i} \left( \frac{d_i}{n_i} \right) \times w_i \tim
 
 donde:
 
-- $d_i$ = número de muertes en el grupo de edad $i$
-- $n_i$ = población en el grupo de edad $i$
-- $w_i$ = peso del grupo de edad $i$ en la población estándar de referencia (en EE. UU. se usa la población estándar del año 2000)
-- La suma recorre todos los grupos etarios
+-   $d_i$ = número de muertes en el grupo de edad $i$
+-   $n_i$ = población en el grupo de edad $i$
+-   $w_i$ = peso del grupo de edad $i$ en la población estándar de
+    referencia (en EE. UU. se usa la población estándar del año 2000)
+-   La suma recorre todos los grupos etarios
 
 Si la población analizada tuviera la misma estructura de edad que la
 población estándar, ¿cuántas muertes ocurrirían por cada 100,000
@@ -31,10 +38,10 @@ muertes en EE. UU. ese año fue 2,391,399, en una población de casi 280
 millones.
 
 Esta distinción es fundamental para interpretar correctamente los
-gráficos de este análisis. Una tasa ajustada puede descender (mejora
-en salud pública) mientras el número absoluto de muertes sube (por
-crecimiento o envejecimiento poblacional), como ocurrió en EE. UU.
-entre 1999 y 2017.
+gráficos de este análisis. Una tasa ajustada puede descender (mejora en
+salud pública) mientras el número absoluto de muertes sube (por
+crecimiento o envejecimiento poblacional), como ocurrió en EE. UU. entre
+1999 y 2017.
 
 ## Modelos de predicción utilizados
 
@@ -45,8 +52,8 @@ adecuado.
 
 ### Modelo ARIMA
 
-El modelo ARIMA(*p*, *d*, *q*) — *Autoregressive Integrated Moving
-Average* — es el estándar para el análisis de series de tiempo. Combina
+El modelo ARIMA(*p*, *d*, *q*) (*Autoregressive Integrated Moving
+Average*) es el estándar para el análisis de series de tiempo. Combina
 tres componentes: un componente autoregresivo (AR) de orden *p*, una
 diferenciación de orden *d* para lograr estacionariedad, y un componente
 de media móvil (MA) de orden *q*.
@@ -57,11 +64,11 @@ $$\tilde{y}_t = c + \phi_1\tilde{y}_{t-1} + \cdots + \phi_p\tilde{y}_{t-p} + \th
 
 donde:
 
-- $\tilde{y}_t$ = serie diferenciada $d$ veces
-- $\phi_1, \ldots, \phi_p$ = coeficientes autoregresivos
-- $\theta_1, \ldots, \theta_q$ = coeficientes de media móvil
-- $\varepsilon_t$ = término de error (ruido blanco)
-- $c$ = constante
+-   $\tilde{y}_t$ = serie diferenciada $d$ veces
+-   $\phi_1, \ldots, \phi_p$ = coeficientes autoregresivos
+-   $\theta_1, \ldots, \theta_q$ = coeficientes de media móvil
+-   $\varepsilon_t$ = término de error (ruido blanco)
+-   $c$ = constante
 
 La selección de los parámetros óptimos (*p*, *d*, *q*) se realizó
 mediante el criterio de información de Akaike (AIC), y la validez del
@@ -85,11 +92,12 @@ $$b_t = \beta^*(\ell_t - \ell_{t-1}) + (1 - \beta^*)\, b_{t-1}$$
 
 y donde:
 
-- $\ell_t$ = nivel estimado en el período $t$
-- $b_t$ = tendencia estimada en el período $t$
-- $\alpha$ = parámetro de suavizado del nivel $(0 < \alpha < 1)$
-- $\beta^*$ = parámetro de suavizado de la tendencia $(0 < \beta^* < 1)$
-- $h$ = horizonte de predicción
+-   $\ell_t$ = nivel estimado en el período $t$
+-   $b_t$ = tendencia estimada en el período $t$
+-   $\alpha$ = parámetro de suavizado del nivel $(0 < \alpha < 1)$
+-   $\beta^*$ = parámetro de suavizado de la tendencia
+    $(0 < \beta^* < 1)$
+-   $h$ = horizonte de predicción
 
 ### Modelo de Regresión Lineal con Tendencia Temporal
 
@@ -101,10 +109,10 @@ $$y_t = \beta_0 + \beta_1\, t + \varepsilon_t$$
 
 donde:
 
-- $y_t$ = tasa ajustada de mortalidad en el año $t$
-- $\beta_0$ = intercepto
-- $\beta_1$ = pendiente (cambio promedio por año)
-- $\varepsilon_t$ = término de error
+-   $y_t$ = tasa ajustada de mortalidad en el año $t$
+-   $\beta_0$ = intercepto
+-   $\beta_1$ = pendiente (cambio promedio por año)
+-   $\varepsilon_t$ = término de error
 
 Este modelo sirve como referencia base (*baseline*) para evaluar si
 modelos más complejos como ARIMA o ETS aportan una mejora real en la

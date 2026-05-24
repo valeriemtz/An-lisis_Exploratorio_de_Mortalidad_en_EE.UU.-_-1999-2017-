@@ -293,8 +293,8 @@ entre 1999 y 2017.</p>
 <div id="la-tasa-ajustada-por-edad-concepto-y-fórmula" class="section level2 hasAnchor" number="2.1">
 <h2><span class="header-section-number">2.1</span> La tasa ajustada por edad: concepto y fórmula<a href="marco-teórico.html#la-tasa-ajustada-por-edad-concepto-y-fórmula" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>El indicador central de este trabajo es la tasa ajustada por edad
-(<em>age-adjusted death rate</em>), cuyo propósito es eliminar el efecto de
-las diferencias en la estructura etaria entre poblaciones, permitiendo
+(<em>age-adjusted death rate</em>), cuyo propósito es eliminar el efecto de las
+diferencias en la estructura etaria entre poblaciones, permitiendo
 comparaciones válidas entre estados y a lo largo del tiempo.</p>
 <p>La fórmula estándar es la del método de estandarización directa:</p>
 <p><span class="math display">\[\text{Tasa ajustada} = \sum_{i} \left( \frac{d_i}{n_i} \right) \times w_i \times 100{,}000\]</span></p>
@@ -302,7 +302,8 @@ comparaciones válidas entre estados y a lo largo del tiempo.</p>
 <ul>
 <li><span class="math inline">\(d_i\)</span> = número de muertes en el grupo de edad <span class="math inline">\(i\)</span></li>
 <li><span class="math inline">\(n_i\)</span> = población en el grupo de edad <span class="math inline">\(i\)</span></li>
-<li><span class="math inline">\(w_i\)</span> = peso del grupo de edad <span class="math inline">\(i\)</span> en la población estándar de referencia (en EE. UU. se usa la población estándar del año 2000)</li>
+<li><span class="math inline">\(w_i\)</span> = peso del grupo de edad <span class="math inline">\(i\)</span> en la población estándar de
+referencia (en EE. UU. se usa la población estándar del año 2000)</li>
 <li>La suma recorre todos los grupos etarios</li>
 </ul>
 <p>Si la población analizada tuviera la misma estructura de edad que la
@@ -312,10 +313,10 @@ reales: en 1999 la tasa fue 875.6 por 100,000, pero el número real de
 muertes en EE. UU. ese año fue 2,391,399, en una población de casi 280
 millones.</p>
 <p>Esta distinción es fundamental para interpretar correctamente los
-gráficos de este análisis. Una tasa ajustada puede descender (mejora
-en salud pública) mientras el número absoluto de muertes sube (por
-crecimiento o envejecimiento poblacional), como ocurrió en EE. UU.
-entre 1999 y 2017.</p>
+gráficos de este análisis. Una tasa ajustada puede descender (mejora en
+salud pública) mientras el número absoluto de muertes sube (por
+crecimiento o envejecimiento poblacional), como ocurrió en EE. UU. entre
+1999 y 2017.</p>
 </div>
 <div id="modelos-de-predicción-utilizados" class="section level2 hasAnchor" number="2.2">
 <h2><span class="header-section-number">2.2</span> Modelos de predicción utilizados<a href="marco-teórico.html#modelos-de-predicción-utilizados" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -325,8 +326,8 @@ permitiendo comparar su desempeño y justificar la selección del más
 adecuado.</p>
 <div id="modelo-arima" class="section level3 hasAnchor" number="2.2.1">
 <h3><span class="header-section-number">2.2.1</span> Modelo ARIMA<a href="marco-teórico.html#modelo-arima" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>El modelo ARIMA(<em>p</em>, <em>d</em>, <em>q</em>) — <em>Autoregressive Integrated Moving
-Average</em> — es el estándar para el análisis de series de tiempo. Combina
+<p>El modelo ARIMA(<em>p</em>, <em>d</em>, <em>q</em>) (<em>Autoregressive Integrated Moving
+Average</em>) es el estándar para el análisis de series de tiempo. Combina
 tres componentes: un componente autoregresivo (AR) de orden <em>p</em>, una
 diferenciación de orden <em>d</em> para lograr estacionariedad, y un componente
 de media móvil (MA) de orden <em>q</em>.</p>
@@ -360,7 +361,8 @@ el modelo se reduce a su forma de suavizado exponencial con tendencia
 <li><span class="math inline">\(\ell_t\)</span> = nivel estimado en el período <span class="math inline">\(t\)</span></li>
 <li><span class="math inline">\(b_t\)</span> = tendencia estimada en el período <span class="math inline">\(t\)</span></li>
 <li><span class="math inline">\(\alpha\)</span> = parámetro de suavizado del nivel <span class="math inline">\((0 &lt; \alpha &lt; 1)\)</span></li>
-<li><span class="math inline">\(\beta^*\)</span> = parámetro de suavizado de la tendencia <span class="math inline">\((0 &lt; \beta^* &lt; 1)\)</span></li>
+<li><span class="math inline">\(\beta^*\)</span> = parámetro de suavizado de la tendencia
+<span class="math inline">\((0 &lt; \beta^* &lt; 1)\)</span></li>
 <li><span class="math inline">\(h\)</span> = horizonte de predicción</li>
 </ul>
 </div>
