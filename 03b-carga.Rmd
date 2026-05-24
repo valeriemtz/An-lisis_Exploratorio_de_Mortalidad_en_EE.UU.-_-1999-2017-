@@ -1,10 +1,10 @@
-```{r carga_datos, include=FALSE}
-library(tidyverse)
-library(janitor)
-library(scales)
+# Carga y limpieza de datos
 
+```{r carga_datos}
 datos <- read_csv("NCHS_Leading_Causes.csv")
+```
 
+```{r limpieza}
 datos <- datos %>% clean_names()
 
 datos <- datos %>%
@@ -25,6 +25,11 @@ totales_anuales <- datos %>%
   filter(causa == "All causes") %>%
   select(anio, muertes)
 
+cat("\nTotales nacionales por año:\n")
+print(totales_anuales %>%
+        arrange(anio) %>%
+        mutate(muertes = comma(muertes)))
+
 totales_causa <- datos %>%
   filter(causa != "All causes") %>%
   group_by(causa) %>%
@@ -33,6 +38,10 @@ totales_causa <- datos %>%
     .groups = "drop"
   ) %>%
   arrange(desc(total_1999_2017))
+
+cat("\nTotal acumulado por causa (1999–2017):\n")
+print(totales_causa %>%
+        mutate(total_1999_2017 = comma(total_1999_2017)))
 
 datos_nacional <- datos %>%
   filter(causa != "All causes") %>%
