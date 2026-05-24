@@ -1,6 +1,7 @@
-tab:unnamed-chunk-3
+tab:unnamed-chunk-2
+tab:unnamed-chunk-7
 tab:unnamed-chunk-8
-tab:unnamed-chunk-9
+tab:unnamed-chunk-10
 tab:unnamed-chunk-11
 tab:unnamed-chunk-12
 tab:unnamed-chunk-13
@@ -9,7 +10,6 @@ tab:unnamed-chunk-15
 tab:unnamed-chunk-16
 tab:unnamed-chunk-17
 tab:unnamed-chunk-18
-tab:unnamed-chunk-19
 introducción
 contexto-del-problema
 contexto-del-dataset

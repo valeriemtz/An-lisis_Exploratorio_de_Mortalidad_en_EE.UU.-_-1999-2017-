@@ -12,7 +12,7 @@ de estudio.
 # Definir causas
 causas <- c("Suicide", "Unintentional injuries")
 
-# Crear gráfico
+
 datos_nacional %>%
   filter(causa %in% causas) %>%
   mutate(anio = as.numeric(as.character(anio))) %>%
@@ -21,7 +21,7 @@ datos_nacional %>%
   geom_line(size = 1.2) +
   geom_point(size = 2) +
   
-  # Línea de tendencia
+  # Linea de tendencia
   geom_smooth(se = FALSE, linetype = "dashed", linewidth = 0.8) +
   
   # Línea vertical (aceleración desde 2014)

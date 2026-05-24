@@ -296,56 +296,56 @@ estacionariedad, identificación del orden óptimo, ajuste y proyección
 con intervalos de confianza.</p>
 <div id="construcción-de-las-series-de-tiempo" class="section level2 hasAnchor" number="11.1">
 <h2><span class="header-section-number">11.1</span> Construcción de las series de tiempo<a href="modelo-1-arima.html#construcción-de-las-series-de-tiempo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="modelo-1-arima.html#cb33-1" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
-<span id="cb33-2"><a href="modelo-1-arima.html#cb33-2" tabindex="-1"></a><span class="fu">library</span>(tseries)</span>
-<span id="cb33-3"><a href="modelo-1-arima.html#cb33-3" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb33-4"><a href="modelo-1-arima.html#cb33-4" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
-<span id="cb33-5"><a href="modelo-1-arima.html#cb33-5" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb33-6"><a href="modelo-1-arima.html#cb33-6" tabindex="-1"></a></span>
-<span id="cb33-7"><a href="modelo-1-arima.html#cb33-7" tabindex="-1"></a>datos_limpios <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
-<span id="cb33-8"><a href="modelo-1-arima.html#cb33-8" tabindex="-1"></a>  <span class="st">&quot;NCHS_Leading_Causes.csv&quot;</span>,</span>
-<span id="cb33-9"><a href="modelo-1-arima.html#cb33-9" tabindex="-1"></a>  <span class="at">col_types =</span> <span class="fu">cols</span>(<span class="at">.default =</span> <span class="fu">col_character</span>())</span>
-<span id="cb33-10"><a href="modelo-1-arima.html#cb33-10" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb33-11"><a href="modelo-1-arima.html#cb33-11" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb33-12"><a href="modelo-1-arima.html#cb33-12" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb33-13"><a href="modelo-1-arima.html#cb33-13" tabindex="-1"></a>    <span class="at">year  =</span> <span class="fu">as.numeric</span>(year),</span>
-<span id="cb33-14"><a href="modelo-1-arima.html#cb33-14" tabindex="-1"></a>    <span class="at">state =</span> <span class="fu">str_trim</span>(state),</span>
-<span id="cb33-15"><a href="modelo-1-arima.html#cb33-15" tabindex="-1"></a>    <span class="at">deaths                  =</span> <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">.&quot;</span>, <span class="st">&quot;&quot;</span>, deaths)),</span>
-<span id="cb33-16"><a href="modelo-1-arima.html#cb33-16" tabindex="-1"></a>    <span class="at">age_adjusted_death_rate =</span> <span class="fu">as.numeric</span>(</span>
-<span id="cb33-17"><a href="modelo-1-arima.html#cb33-17" tabindex="-1"></a>      <span class="fu">gsub</span>(<span class="st">&quot;,&quot;</span>, <span class="st">&quot;.&quot;</span>, <span class="fu">gsub</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">.&quot;</span>, <span class="st">&quot;&quot;</span>, age_adjusted_death_rate))</span>
-<span id="cb33-18"><a href="modelo-1-arima.html#cb33-18" tabindex="-1"></a>    )</span>
-<span id="cb33-19"><a href="modelo-1-arima.html#cb33-19" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb33-20"><a href="modelo-1-arima.html#cb33-20" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
-<span id="cb33-21"><a href="modelo-1-arima.html#cb33-21" tabindex="-1"></a>    state <span class="sc">!=</span> <span class="st">&quot;United States&quot;</span>,</span>
-<span id="cb33-22"><a href="modelo-1-arima.html#cb33-22" tabindex="-1"></a>    year  <span class="sc">&gt;=</span> <span class="dv">1999</span>,</span>
-<span id="cb33-23"><a href="modelo-1-arima.html#cb33-23" tabindex="-1"></a>    year  <span class="sc">&lt;=</span> <span class="dv">2017</span></span>
-<span id="cb33-24"><a href="modelo-1-arima.html#cb33-24" tabindex="-1"></a>  )</span>
-<span id="cb33-25"><a href="modelo-1-arima.html#cb33-25" tabindex="-1"></a></span>
-<span id="cb33-26"><a href="modelo-1-arima.html#cb33-26" tabindex="-1"></a><span class="co"># --- Serie 1: Tasa ajustada total – West Virginia ---</span></span>
-<span id="cb33-27"><a href="modelo-1-arima.html#cb33-27" tabindex="-1"></a>serie_wv_total <span class="ot">&lt;-</span> datos_limpios <span class="sc">%&gt;%</span></span>
-<span id="cb33-28"><a href="modelo-1-arima.html#cb33-28" tabindex="-1"></a>  <span class="fu">filter</span>(state      <span class="sc">==</span> <span class="st">&quot;West Virginia&quot;</span>,</span>
-<span id="cb33-29"><a href="modelo-1-arima.html#cb33-29" tabindex="-1"></a>         cause_name <span class="sc">==</span> <span class="st">&quot;All causes&quot;</span>,</span>
-<span id="cb33-30"><a href="modelo-1-arima.html#cb33-30" tabindex="-1"></a>         <span class="sc">!</span><span class="fu">is.na</span>(age_adjusted_death_rate)) <span class="sc">%&gt;%</span></span>
-<span id="cb33-31"><a href="modelo-1-arima.html#cb33-31" tabindex="-1"></a>  <span class="fu">arrange</span>(year) <span class="sc">%&gt;%</span></span>
-<span id="cb33-32"><a href="modelo-1-arima.html#cb33-32" tabindex="-1"></a>  <span class="fu">pull</span>(age_adjusted_death_rate)</span>
-<span id="cb33-33"><a href="modelo-1-arima.html#cb33-33" tabindex="-1"></a></span>
-<span id="cb33-34"><a href="modelo-1-arima.html#cb33-34" tabindex="-1"></a>ts_wv_total <span class="ot">&lt;-</span> <span class="fu">ts</span>(serie_wv_total, <span class="at">start =</span> <span class="dv">1999</span>, <span class="at">frequency =</span> <span class="dv">1</span>)</span>
-<span id="cb33-35"><a href="modelo-1-arima.html#cb33-35" tabindex="-1"></a></span>
-<span id="cb33-36"><a href="modelo-1-arima.html#cb33-36" tabindex="-1"></a><span class="co"># --- Serie 2: Tasa de Unintentional injuries – West Virginia ---</span></span>
-<span id="cb33-37"><a href="modelo-1-arima.html#cb33-37" tabindex="-1"></a>serie_wv_acc <span class="ot">&lt;-</span> datos_limpios <span class="sc">%&gt;%</span></span>
-<span id="cb33-38"><a href="modelo-1-arima.html#cb33-38" tabindex="-1"></a>  <span class="fu">filter</span>(state      <span class="sc">==</span> <span class="st">&quot;West Virginia&quot;</span>,</span>
-<span id="cb33-39"><a href="modelo-1-arima.html#cb33-39" tabindex="-1"></a>         cause_name <span class="sc">==</span> <span class="st">&quot;Unintentional injuries&quot;</span>,</span>
-<span id="cb33-40"><a href="modelo-1-arima.html#cb33-40" tabindex="-1"></a>         <span class="sc">!</span><span class="fu">is.na</span>(age_adjusted_death_rate)) <span class="sc">%&gt;%</span></span>
-<span id="cb33-41"><a href="modelo-1-arima.html#cb33-41" tabindex="-1"></a>  <span class="fu">arrange</span>(year) <span class="sc">%&gt;%</span></span>
-<span id="cb33-42"><a href="modelo-1-arima.html#cb33-42" tabindex="-1"></a>  <span class="fu">pull</span>(age_adjusted_death_rate)</span>
-<span id="cb33-43"><a href="modelo-1-arima.html#cb33-43" tabindex="-1"></a></span>
-<span id="cb33-44"><a href="modelo-1-arima.html#cb33-44" tabindex="-1"></a>ts_wv_acc <span class="ot">&lt;-</span> <span class="fu">ts</span>(serie_wv_acc, <span class="at">start =</span> <span class="dv">1999</span>, <span class="at">frequency =</span> <span class="dv">1</span>)</span>
-<span id="cb33-45"><a href="modelo-1-arima.html#cb33-45" tabindex="-1"></a></span>
-<span id="cb33-46"><a href="modelo-1-arima.html#cb33-46" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Serie All causes WV (1999–2017):</span><span class="sc">\n</span><span class="st">&quot;</span>);     <span class="fu">print</span>(<span class="fu">round</span>(serie_wv_total, <span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="modelo-1-arima.html#cb43-1" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
+<span id="cb43-2"><a href="modelo-1-arima.html#cb43-2" tabindex="-1"></a><span class="fu">library</span>(tseries)</span>
+<span id="cb43-3"><a href="modelo-1-arima.html#cb43-3" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb43-4"><a href="modelo-1-arima.html#cb43-4" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb43-5"><a href="modelo-1-arima.html#cb43-5" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb43-6"><a href="modelo-1-arima.html#cb43-6" tabindex="-1"></a></span>
+<span id="cb43-7"><a href="modelo-1-arima.html#cb43-7" tabindex="-1"></a>datos_limpios <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb43-8"><a href="modelo-1-arima.html#cb43-8" tabindex="-1"></a>  <span class="st">&quot;NCHS_Leading_Causes.csv&quot;</span>,</span>
+<span id="cb43-9"><a href="modelo-1-arima.html#cb43-9" tabindex="-1"></a>  <span class="at">col_types =</span> <span class="fu">cols</span>(<span class="at">.default =</span> <span class="fu">col_character</span>())</span>
+<span id="cb43-10"><a href="modelo-1-arima.html#cb43-10" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb43-11"><a href="modelo-1-arima.html#cb43-11" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb43-12"><a href="modelo-1-arima.html#cb43-12" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb43-13"><a href="modelo-1-arima.html#cb43-13" tabindex="-1"></a>    <span class="at">year  =</span> <span class="fu">as.numeric</span>(year),</span>
+<span id="cb43-14"><a href="modelo-1-arima.html#cb43-14" tabindex="-1"></a>    <span class="at">state =</span> <span class="fu">str_trim</span>(state),</span>
+<span id="cb43-15"><a href="modelo-1-arima.html#cb43-15" tabindex="-1"></a>    <span class="at">deaths                  =</span> <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">.&quot;</span>, <span class="st">&quot;&quot;</span>, deaths)),</span>
+<span id="cb43-16"><a href="modelo-1-arima.html#cb43-16" tabindex="-1"></a>    <span class="at">age_adjusted_death_rate =</span> <span class="fu">as.numeric</span>(</span>
+<span id="cb43-17"><a href="modelo-1-arima.html#cb43-17" tabindex="-1"></a>      <span class="fu">gsub</span>(<span class="st">&quot;,&quot;</span>, <span class="st">&quot;.&quot;</span>, <span class="fu">gsub</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">.&quot;</span>, <span class="st">&quot;&quot;</span>, age_adjusted_death_rate))</span>
+<span id="cb43-18"><a href="modelo-1-arima.html#cb43-18" tabindex="-1"></a>    )</span>
+<span id="cb43-19"><a href="modelo-1-arima.html#cb43-19" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb43-20"><a href="modelo-1-arima.html#cb43-20" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb43-21"><a href="modelo-1-arima.html#cb43-21" tabindex="-1"></a>    state <span class="sc">!=</span> <span class="st">&quot;United States&quot;</span>,</span>
+<span id="cb43-22"><a href="modelo-1-arima.html#cb43-22" tabindex="-1"></a>    year  <span class="sc">&gt;=</span> <span class="dv">1999</span>,</span>
+<span id="cb43-23"><a href="modelo-1-arima.html#cb43-23" tabindex="-1"></a>    year  <span class="sc">&lt;=</span> <span class="dv">2017</span></span>
+<span id="cb43-24"><a href="modelo-1-arima.html#cb43-24" tabindex="-1"></a>  )</span>
+<span id="cb43-25"><a href="modelo-1-arima.html#cb43-25" tabindex="-1"></a></span>
+<span id="cb43-26"><a href="modelo-1-arima.html#cb43-26" tabindex="-1"></a><span class="co"># --- Serie 1: Tasa ajustada total – West Virginia ---</span></span>
+<span id="cb43-27"><a href="modelo-1-arima.html#cb43-27" tabindex="-1"></a>serie_wv_total <span class="ot">&lt;-</span> datos_limpios <span class="sc">%&gt;%</span></span>
+<span id="cb43-28"><a href="modelo-1-arima.html#cb43-28" tabindex="-1"></a>  <span class="fu">filter</span>(state      <span class="sc">==</span> <span class="st">&quot;West Virginia&quot;</span>,</span>
+<span id="cb43-29"><a href="modelo-1-arima.html#cb43-29" tabindex="-1"></a>         cause_name <span class="sc">==</span> <span class="st">&quot;All causes&quot;</span>,</span>
+<span id="cb43-30"><a href="modelo-1-arima.html#cb43-30" tabindex="-1"></a>         <span class="sc">!</span><span class="fu">is.na</span>(age_adjusted_death_rate)) <span class="sc">%&gt;%</span></span>
+<span id="cb43-31"><a href="modelo-1-arima.html#cb43-31" tabindex="-1"></a>  <span class="fu">arrange</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb43-32"><a href="modelo-1-arima.html#cb43-32" tabindex="-1"></a>  <span class="fu">pull</span>(age_adjusted_death_rate)</span>
+<span id="cb43-33"><a href="modelo-1-arima.html#cb43-33" tabindex="-1"></a></span>
+<span id="cb43-34"><a href="modelo-1-arima.html#cb43-34" tabindex="-1"></a>ts_wv_total <span class="ot">&lt;-</span> <span class="fu">ts</span>(serie_wv_total, <span class="at">start =</span> <span class="dv">1999</span>, <span class="at">frequency =</span> <span class="dv">1</span>)</span>
+<span id="cb43-35"><a href="modelo-1-arima.html#cb43-35" tabindex="-1"></a></span>
+<span id="cb43-36"><a href="modelo-1-arima.html#cb43-36" tabindex="-1"></a><span class="co"># --- Serie 2: Tasa de Unintentional injuries – West Virginia ---</span></span>
+<span id="cb43-37"><a href="modelo-1-arima.html#cb43-37" tabindex="-1"></a>serie_wv_acc <span class="ot">&lt;-</span> datos_limpios <span class="sc">%&gt;%</span></span>
+<span id="cb43-38"><a href="modelo-1-arima.html#cb43-38" tabindex="-1"></a>  <span class="fu">filter</span>(state      <span class="sc">==</span> <span class="st">&quot;West Virginia&quot;</span>,</span>
+<span id="cb43-39"><a href="modelo-1-arima.html#cb43-39" tabindex="-1"></a>         cause_name <span class="sc">==</span> <span class="st">&quot;Unintentional injuries&quot;</span>,</span>
+<span id="cb43-40"><a href="modelo-1-arima.html#cb43-40" tabindex="-1"></a>         <span class="sc">!</span><span class="fu">is.na</span>(age_adjusted_death_rate)) <span class="sc">%&gt;%</span></span>
+<span id="cb43-41"><a href="modelo-1-arima.html#cb43-41" tabindex="-1"></a>  <span class="fu">arrange</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb43-42"><a href="modelo-1-arima.html#cb43-42" tabindex="-1"></a>  <span class="fu">pull</span>(age_adjusted_death_rate)</span>
+<span id="cb43-43"><a href="modelo-1-arima.html#cb43-43" tabindex="-1"></a></span>
+<span id="cb43-44"><a href="modelo-1-arima.html#cb43-44" tabindex="-1"></a>ts_wv_acc <span class="ot">&lt;-</span> <span class="fu">ts</span>(serie_wv_acc, <span class="at">start =</span> <span class="dv">1999</span>, <span class="at">frequency =</span> <span class="dv">1</span>)</span>
+<span id="cb43-45"><a href="modelo-1-arima.html#cb43-45" tabindex="-1"></a></span>
+<span id="cb43-46"><a href="modelo-1-arima.html#cb43-46" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Serie All causes WV (1999–2017):</span><span class="sc">\n</span><span class="st">&quot;</span>);     <span class="fu">print</span>(<span class="fu">round</span>(serie_wv_total, <span class="dv">1</span>))</span></code></pre></div>
 <pre><code>## Serie All causes WV (1999–2017):</code></pre>
 <pre><code>##  [1] 1012.3 1011.1 1000.9  999.0 1003.1  973.0  965.1  947.5  954.2  964.3  947.7  933.6  953.2  939.3  923.8  929.1
 ## [17]  943.4  943.3  957.1</code></pre>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="modelo-1-arima.html#cb36-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Serie Unintentional Injuries WV:</span><span class="sc">\n</span><span class="st">&quot;</span>); <span class="fu">print</span>(<span class="fu">round</span>(serie_wv_acc, <span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="modelo-1-arima.html#cb46-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Serie Unintentional Injuries WV:</span><span class="sc">\n</span><span class="st">&quot;</span>); <span class="fu">print</span>(<span class="fu">round</span>(serie_wv_acc, <span class="dv">1</span>))</span></code></pre></div>
 <pre><code>## 
 ## Serie Unintentional Injuries WV:</code></pre>
 <pre><code>##  [1]  42.0  43.2  44.7  50.9  53.7  59.0  49.6  62.4  65.8  65.5  48.2  63.7  74.8  70.8  71.7  71.0  77.9  89.7 100.3</code></pre>
@@ -356,34 +356,34 @@ con intervalos de confianza.</p>
 unitaria (no estacionaria). Un valor-p &lt; 0.05 permite rechazarla. Si la
 serie resulta no estacionaria, <code>auto.arima()</code> aplica diferenciación
 automáticamente (<code>d ≥ 1</code>).</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="modelo-1-arima.html#cb39-1" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
-<span id="cb39-2"><a href="modelo-1-arima.html#cb39-2" tabindex="-1"></a></span>
-<span id="cb39-3"><a href="modelo-1-arima.html#cb39-3" tabindex="-1"></a>adf_total <span class="ot">&lt;-</span> <span class="fu">adf.test</span>(ts_wv_total, <span class="at">alternative =</span> <span class="st">&quot;stationary&quot;</span>)</span>
-<span id="cb39-4"><a href="modelo-1-arima.html#cb39-4" tabindex="-1"></a>adf_acc   <span class="ot">&lt;-</span> <span class="fu">adf.test</span>(ts_wv_acc,   <span class="at">alternative =</span> <span class="st">&quot;stationary&quot;</span>)</span>
-<span id="cb39-5"><a href="modelo-1-arima.html#cb39-5" tabindex="-1"></a></span>
-<span id="cb39-6"><a href="modelo-1-arima.html#cb39-6" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
-<span id="cb39-7"><a href="modelo-1-arima.html#cb39-7" tabindex="-1"></a>  <span class="at">Serie             =</span> <span class="fu">c</span>(<span class="st">&quot;WV – All causes&quot;</span>,</span>
-<span id="cb39-8"><a href="modelo-1-arima.html#cb39-8" tabindex="-1"></a>                        <span class="st">&quot;WV – Unintentional injuries&quot;</span>),</span>
-<span id="cb39-9"><a href="modelo-1-arima.html#cb39-9" tabindex="-1"></a>  <span class="st">`</span><span class="at">Estadístico ADF</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">round</span>(adf_total<span class="sc">$</span>statistic, <span class="dv">4</span>),</span>
-<span id="cb39-10"><a href="modelo-1-arima.html#cb39-10" tabindex="-1"></a>                         <span class="fu">round</span>(adf_acc<span class="sc">$</span>statistic,   <span class="dv">4</span>)),</span>
-<span id="cb39-11"><a href="modelo-1-arima.html#cb39-11" tabindex="-1"></a>  <span class="st">`</span><span class="at">Valor-p</span><span class="st">`</span>         <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">round</span>(adf_total<span class="sc">$</span>p.value, <span class="dv">4</span>),</span>
-<span id="cb39-12"><a href="modelo-1-arima.html#cb39-12" tabindex="-1"></a>                         <span class="fu">round</span>(adf_acc<span class="sc">$</span>p.value,   <span class="dv">4</span>)),</span>
-<span id="cb39-13"><a href="modelo-1-arima.html#cb39-13" tabindex="-1"></a>  <span class="at">Resultado         =</span> <span class="fu">c</span>(</span>
-<span id="cb39-14"><a href="modelo-1-arima.html#cb39-14" tabindex="-1"></a>    <span class="fu">ifelse</span>(adf_total<span class="sc">$</span>p.value <span class="sc">&lt;</span> <span class="fl">0.05</span>, <span class="st">&quot;✔ Estacionaria&quot;</span>, <span class="st">&quot;✖ No estacionaria&quot;</span>),</span>
-<span id="cb39-15"><a href="modelo-1-arima.html#cb39-15" tabindex="-1"></a>    <span class="fu">ifelse</span>(adf_acc<span class="sc">$</span>p.value   <span class="sc">&lt;</span> <span class="fl">0.05</span>, <span class="st">&quot;✔ Estacionaria&quot;</span>, <span class="st">&quot;✖ No estacionaria&quot;</span>)</span>
-<span id="cb39-16"><a href="modelo-1-arima.html#cb39-16" tabindex="-1"></a>  ),</span>
-<span id="cb39-17"><a href="modelo-1-arima.html#cb39-17" tabindex="-1"></a>  <span class="at">check.names =</span> <span class="cn">FALSE</span></span>
-<span id="cb39-18"><a href="modelo-1-arima.html#cb39-18" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb39-19"><a href="modelo-1-arima.html#cb39-19" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
-<span id="cb39-20"><a href="modelo-1-arima.html#cb39-20" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Prueba Dickey-Fuller Aumentada – Series de West Virginia&quot;</span>,</span>
-<span id="cb39-21"><a href="modelo-1-arima.html#cb39-21" tabindex="-1"></a>    <span class="at">align   =</span> <span class="fu">c</span>(<span class="st">&quot;l&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>)</span>
-<span id="cb39-22"><a href="modelo-1-arima.html#cb39-22" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb39-23"><a href="modelo-1-arima.html#cb39-23" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>),</span>
-<span id="cb39-24"><a href="modelo-1-arima.html#cb39-24" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">font_size =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb39-25"><a href="modelo-1-arima.html#cb39-25" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">background =</span> <span class="st">&quot;#1D3557&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="modelo-1-arima.html#cb49-1" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb49-2"><a href="modelo-1-arima.html#cb49-2" tabindex="-1"></a></span>
+<span id="cb49-3"><a href="modelo-1-arima.html#cb49-3" tabindex="-1"></a>adf_total <span class="ot">&lt;-</span> <span class="fu">adf.test</span>(ts_wv_total, <span class="at">alternative =</span> <span class="st">&quot;stationary&quot;</span>)</span>
+<span id="cb49-4"><a href="modelo-1-arima.html#cb49-4" tabindex="-1"></a>adf_acc   <span class="ot">&lt;-</span> <span class="fu">adf.test</span>(ts_wv_acc,   <span class="at">alternative =</span> <span class="st">&quot;stationary&quot;</span>)</span>
+<span id="cb49-5"><a href="modelo-1-arima.html#cb49-5" tabindex="-1"></a></span>
+<span id="cb49-6"><a href="modelo-1-arima.html#cb49-6" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb49-7"><a href="modelo-1-arima.html#cb49-7" tabindex="-1"></a>  <span class="at">Serie             =</span> <span class="fu">c</span>(<span class="st">&quot;WV – All causes&quot;</span>,</span>
+<span id="cb49-8"><a href="modelo-1-arima.html#cb49-8" tabindex="-1"></a>                        <span class="st">&quot;WV – Unintentional injuries&quot;</span>),</span>
+<span id="cb49-9"><a href="modelo-1-arima.html#cb49-9" tabindex="-1"></a>  <span class="st">`</span><span class="at">Estadístico ADF</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">round</span>(adf_total<span class="sc">$</span>statistic, <span class="dv">4</span>),</span>
+<span id="cb49-10"><a href="modelo-1-arima.html#cb49-10" tabindex="-1"></a>                         <span class="fu">round</span>(adf_acc<span class="sc">$</span>statistic,   <span class="dv">4</span>)),</span>
+<span id="cb49-11"><a href="modelo-1-arima.html#cb49-11" tabindex="-1"></a>  <span class="st">`</span><span class="at">Valor-p</span><span class="st">`</span>         <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">round</span>(adf_total<span class="sc">$</span>p.value, <span class="dv">4</span>),</span>
+<span id="cb49-12"><a href="modelo-1-arima.html#cb49-12" tabindex="-1"></a>                         <span class="fu">round</span>(adf_acc<span class="sc">$</span>p.value,   <span class="dv">4</span>)),</span>
+<span id="cb49-13"><a href="modelo-1-arima.html#cb49-13" tabindex="-1"></a>  <span class="at">Resultado         =</span> <span class="fu">c</span>(</span>
+<span id="cb49-14"><a href="modelo-1-arima.html#cb49-14" tabindex="-1"></a>    <span class="fu">ifelse</span>(adf_total<span class="sc">$</span>p.value <span class="sc">&lt;</span> <span class="fl">0.05</span>, <span class="st">&quot;✔ Estacionaria&quot;</span>, <span class="st">&quot;✖ No estacionaria&quot;</span>),</span>
+<span id="cb49-15"><a href="modelo-1-arima.html#cb49-15" tabindex="-1"></a>    <span class="fu">ifelse</span>(adf_acc<span class="sc">$</span>p.value   <span class="sc">&lt;</span> <span class="fl">0.05</span>, <span class="st">&quot;✔ Estacionaria&quot;</span>, <span class="st">&quot;✖ No estacionaria&quot;</span>)</span>
+<span id="cb49-16"><a href="modelo-1-arima.html#cb49-16" tabindex="-1"></a>  ),</span>
+<span id="cb49-17"><a href="modelo-1-arima.html#cb49-17" tabindex="-1"></a>  <span class="at">check.names =</span> <span class="cn">FALSE</span></span>
+<span id="cb49-18"><a href="modelo-1-arima.html#cb49-18" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb49-19"><a href="modelo-1-arima.html#cb49-19" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb49-20"><a href="modelo-1-arima.html#cb49-20" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Prueba Dickey-Fuller Aumentada – Series de West Virginia&quot;</span>,</span>
+<span id="cb49-21"><a href="modelo-1-arima.html#cb49-21" tabindex="-1"></a>    <span class="at">align   =</span> <span class="fu">c</span>(<span class="st">&quot;l&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>)</span>
+<span id="cb49-22"><a href="modelo-1-arima.html#cb49-22" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb49-23"><a href="modelo-1-arima.html#cb49-23" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>),</span>
+<span id="cb49-24"><a href="modelo-1-arima.html#cb49-24" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">font_size =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb49-25"><a href="modelo-1-arima.html#cb49-25" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">background =</span> <span class="st">&quot;#1D3557&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <table class="table table-striped table-hover" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-12">Tabla 11.1: </span>Prueba Dickey-Fuller Aumentada – Series de West Virginia
+<span id="tab:unnamed-chunk-11">Tabla 11.1: </span>Prueba Dickey-Fuller Aumentada – Series de West Virginia
 </caption>
 <thead>
 <tr>
@@ -435,19 +435,19 @@ WV – Unintentional injuries
 </div>
 <div id="acf-y-pacf-identificación-visual-del-orden" class="section level2 hasAnchor" number="11.3">
 <h2><span class="header-section-number">11.3</span> ACF y PACF – identificación visual del orden<a href="modelo-1-arima.html#acf-y-pacf-identificación-visual-del-orden" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="modelo-1-arima.html#cb40-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">1</span>), <span class="at">bg =</span> <span class="st">&quot;#FAFAFA&quot;</span>)</span>
-<span id="cb40-2"><a href="modelo-1-arima.html#cb40-2" tabindex="-1"></a></span>
-<span id="cb40-3"><a href="modelo-1-arima.html#cb40-3" tabindex="-1"></a><span class="fu">acf</span>(ts_wv_total,  <span class="at">main =</span> <span class="st">&quot;ACF – WV All causes&quot;</span>,</span>
-<span id="cb40-4"><a href="modelo-1-arima.html#cb40-4" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">&quot;#1D3557&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb40-5"><a href="modelo-1-arima.html#cb40-5" tabindex="-1"></a><span class="fu">pacf</span>(ts_wv_total, <span class="at">main =</span> <span class="st">&quot;PACF – WV All causes&quot;</span>,</span>
-<span id="cb40-6"><a href="modelo-1-arima.html#cb40-6" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;#1D3557&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb40-7"><a href="modelo-1-arima.html#cb40-7" tabindex="-1"></a></span>
-<span id="cb40-8"><a href="modelo-1-arima.html#cb40-8" tabindex="-1"></a><span class="fu">acf</span>(ts_wv_acc,    <span class="at">main =</span> <span class="st">&quot;ACF – WV Unintentional Injuries&quot;</span>,</span>
-<span id="cb40-9"><a href="modelo-1-arima.html#cb40-9" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">&quot;#E63946&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb40-10"><a href="modelo-1-arima.html#cb40-10" tabindex="-1"></a><span class="fu">pacf</span>(ts_wv_acc,   <span class="at">main =</span> <span class="st">&quot;PACF – WV Unintentional Injuries&quot;</span>,</span>
-<span id="cb40-11"><a href="modelo-1-arima.html#cb40-11" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;#E63946&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="modelo-1-arima.html#cb50-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">1</span>), <span class="at">bg =</span> <span class="st">&quot;#FAFAFA&quot;</span>)</span>
+<span id="cb50-2"><a href="modelo-1-arima.html#cb50-2" tabindex="-1"></a></span>
+<span id="cb50-3"><a href="modelo-1-arima.html#cb50-3" tabindex="-1"></a><span class="fu">acf</span>(ts_wv_total,  <span class="at">main =</span> <span class="st">&quot;ACF – WV All causes&quot;</span>,</span>
+<span id="cb50-4"><a href="modelo-1-arima.html#cb50-4" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">&quot;#1D3557&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb50-5"><a href="modelo-1-arima.html#cb50-5" tabindex="-1"></a><span class="fu">pacf</span>(ts_wv_total, <span class="at">main =</span> <span class="st">&quot;PACF – WV All causes&quot;</span>,</span>
+<span id="cb50-6"><a href="modelo-1-arima.html#cb50-6" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;#1D3557&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb50-7"><a href="modelo-1-arima.html#cb50-7" tabindex="-1"></a></span>
+<span id="cb50-8"><a href="modelo-1-arima.html#cb50-8" tabindex="-1"></a><span class="fu">acf</span>(ts_wv_acc,    <span class="at">main =</span> <span class="st">&quot;ACF – WV Unintentional Injuries&quot;</span>,</span>
+<span id="cb50-9"><a href="modelo-1-arima.html#cb50-9" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">&quot;#E63946&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb50-10"><a href="modelo-1-arima.html#cb50-10" tabindex="-1"></a><span class="fu">pacf</span>(ts_wv_acc,   <span class="at">main =</span> <span class="st">&quot;PACF – WV Unintentional Injuries&quot;</span>,</span>
+<span id="cb50-11"><a href="modelo-1-arima.html#cb50-11" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;#E63946&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p><img src="mortalidad-eeuu_files/figure-html/arima_acf-1.png" width="1500" /></p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="modelo-1-arima.html#cb41-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="modelo-1-arima.html#cb51-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
 <p><em>Las funciones ACF y PACF permiten identificar la estructura de
 dependencia temporal: un corte abrupto en el PACF tras el lag 1 sugiere
 un componente ARIMA(1); un corte similar en el ACF, un MA(1). Estos
@@ -455,35 +455,35 @@ patrones orientan la selección automática del modelo.</em></p>
 </div>
 <div id="selección-automática-del-modelo" class="section level2 hasAnchor" number="11.4">
 <h2><span class="header-section-number">11.4</span> Selección automática del modelo<a href="modelo-1-arima.html#selección-automática-del-modelo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="modelo-1-arima.html#cb42-1" tabindex="-1"></a>modelo_total <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(ts_wv_total,</span>
-<span id="cb42-2"><a href="modelo-1-arima.html#cb42-2" tabindex="-1"></a>                            <span class="at">stepwise      =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb42-3"><a href="modelo-1-arima.html#cb42-3" tabindex="-1"></a>                            <span class="at">approximation =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb42-4"><a href="modelo-1-arima.html#cb42-4" tabindex="-1"></a>                            <span class="at">trace         =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb42-5"><a href="modelo-1-arima.html#cb42-5" tabindex="-1"></a></span>
-<span id="cb42-6"><a href="modelo-1-arima.html#cb42-6" tabindex="-1"></a>modelo_acc   <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(ts_wv_acc,</span>
-<span id="cb42-7"><a href="modelo-1-arima.html#cb42-7" tabindex="-1"></a>                            <span class="at">stepwise      =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb42-8"><a href="modelo-1-arima.html#cb42-8" tabindex="-1"></a>                            <span class="at">approximation =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb42-9"><a href="modelo-1-arima.html#cb42-9" tabindex="-1"></a>                            <span class="at">trace         =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb42-10"><a href="modelo-1-arima.html#cb42-10" tabindex="-1"></a></span>
-<span id="cb42-11"><a href="modelo-1-arima.html#cb42-11" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
-<span id="cb42-12"><a href="modelo-1-arima.html#cb42-12" tabindex="-1"></a>  <span class="at">Serie    =</span> <span class="fu">c</span>(<span class="st">&quot;WV – All causes&quot;</span>,</span>
-<span id="cb42-13"><a href="modelo-1-arima.html#cb42-13" tabindex="-1"></a>               <span class="st">&quot;WV – Unintentional injuries&quot;</span>),</span>
-<span id="cb42-14"><a href="modelo-1-arima.html#cb42-14" tabindex="-1"></a>  <span class="at">Modelo   =</span> <span class="fu">c</span>(<span class="fu">as.character</span>(modelo_total),</span>
-<span id="cb42-15"><a href="modelo-1-arima.html#cb42-15" tabindex="-1"></a>               <span class="fu">as.character</span>(modelo_acc)),</span>
-<span id="cb42-16"><a href="modelo-1-arima.html#cb42-16" tabindex="-1"></a>  <span class="at">AIC      =</span> <span class="fu">c</span>(<span class="fu">round</span>(<span class="fu">AIC</span>(modelo_total), <span class="dv">2</span>),</span>
-<span id="cb42-17"><a href="modelo-1-arima.html#cb42-17" tabindex="-1"></a>               <span class="fu">round</span>(<span class="fu">AIC</span>(modelo_acc),   <span class="dv">2</span>)),</span>
-<span id="cb42-18"><a href="modelo-1-arima.html#cb42-18" tabindex="-1"></a>  <span class="st">`</span><span class="at">Sigma²</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">round</span>(modelo_total<span class="sc">$</span>sigma2, <span class="dv">4</span>),</span>
-<span id="cb42-19"><a href="modelo-1-arima.html#cb42-19" tabindex="-1"></a>               <span class="fu">round</span>(modelo_acc<span class="sc">$</span>sigma2,   <span class="dv">4</span>)),</span>
-<span id="cb42-20"><a href="modelo-1-arima.html#cb42-20" tabindex="-1"></a>  <span class="at">check.names =</span> <span class="cn">FALSE</span></span>
-<span id="cb42-21"><a href="modelo-1-arima.html#cb42-21" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb42-22"><a href="modelo-1-arima.html#cb42-22" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Modelos ARIMA seleccionados por criterio AIC mínimo&quot;</span>,</span>
-<span id="cb42-23"><a href="modelo-1-arima.html#cb42-23" tabindex="-1"></a>        <span class="at">align   =</span> <span class="fu">c</span>(<span class="st">&quot;l&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb42-24"><a href="modelo-1-arima.html#cb42-24" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>),</span>
-<span id="cb42-25"><a href="modelo-1-arima.html#cb42-25" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">font_size =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb42-26"><a href="modelo-1-arima.html#cb42-26" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">background =</span> <span class="st">&quot;#1D3557&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="modelo-1-arima.html#cb52-1" tabindex="-1"></a>modelo_total <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(ts_wv_total,</span>
+<span id="cb52-2"><a href="modelo-1-arima.html#cb52-2" tabindex="-1"></a>                            <span class="at">stepwise      =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb52-3"><a href="modelo-1-arima.html#cb52-3" tabindex="-1"></a>                            <span class="at">approximation =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb52-4"><a href="modelo-1-arima.html#cb52-4" tabindex="-1"></a>                            <span class="at">trace         =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb52-5"><a href="modelo-1-arima.html#cb52-5" tabindex="-1"></a></span>
+<span id="cb52-6"><a href="modelo-1-arima.html#cb52-6" tabindex="-1"></a>modelo_acc   <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(ts_wv_acc,</span>
+<span id="cb52-7"><a href="modelo-1-arima.html#cb52-7" tabindex="-1"></a>                            <span class="at">stepwise      =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb52-8"><a href="modelo-1-arima.html#cb52-8" tabindex="-1"></a>                            <span class="at">approximation =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb52-9"><a href="modelo-1-arima.html#cb52-9" tabindex="-1"></a>                            <span class="at">trace         =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb52-10"><a href="modelo-1-arima.html#cb52-10" tabindex="-1"></a></span>
+<span id="cb52-11"><a href="modelo-1-arima.html#cb52-11" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb52-12"><a href="modelo-1-arima.html#cb52-12" tabindex="-1"></a>  <span class="at">Serie    =</span> <span class="fu">c</span>(<span class="st">&quot;WV – All causes&quot;</span>,</span>
+<span id="cb52-13"><a href="modelo-1-arima.html#cb52-13" tabindex="-1"></a>               <span class="st">&quot;WV – Unintentional injuries&quot;</span>),</span>
+<span id="cb52-14"><a href="modelo-1-arima.html#cb52-14" tabindex="-1"></a>  <span class="at">Modelo   =</span> <span class="fu">c</span>(<span class="fu">as.character</span>(modelo_total),</span>
+<span id="cb52-15"><a href="modelo-1-arima.html#cb52-15" tabindex="-1"></a>               <span class="fu">as.character</span>(modelo_acc)),</span>
+<span id="cb52-16"><a href="modelo-1-arima.html#cb52-16" tabindex="-1"></a>  <span class="at">AIC      =</span> <span class="fu">c</span>(<span class="fu">round</span>(<span class="fu">AIC</span>(modelo_total), <span class="dv">2</span>),</span>
+<span id="cb52-17"><a href="modelo-1-arima.html#cb52-17" tabindex="-1"></a>               <span class="fu">round</span>(<span class="fu">AIC</span>(modelo_acc),   <span class="dv">2</span>)),</span>
+<span id="cb52-18"><a href="modelo-1-arima.html#cb52-18" tabindex="-1"></a>  <span class="st">`</span><span class="at">Sigma²</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">round</span>(modelo_total<span class="sc">$</span>sigma2, <span class="dv">4</span>),</span>
+<span id="cb52-19"><a href="modelo-1-arima.html#cb52-19" tabindex="-1"></a>               <span class="fu">round</span>(modelo_acc<span class="sc">$</span>sigma2,   <span class="dv">4</span>)),</span>
+<span id="cb52-20"><a href="modelo-1-arima.html#cb52-20" tabindex="-1"></a>  <span class="at">check.names =</span> <span class="cn">FALSE</span></span>
+<span id="cb52-21"><a href="modelo-1-arima.html#cb52-21" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb52-22"><a href="modelo-1-arima.html#cb52-22" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Modelos ARIMA seleccionados por criterio AIC mínimo&quot;</span>,</span>
+<span id="cb52-23"><a href="modelo-1-arima.html#cb52-23" tabindex="-1"></a>        <span class="at">align   =</span> <span class="fu">c</span>(<span class="st">&quot;l&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb52-24"><a href="modelo-1-arima.html#cb52-24" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>),</span>
+<span id="cb52-25"><a href="modelo-1-arima.html#cb52-25" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">font_size =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb52-26"><a href="modelo-1-arima.html#cb52-26" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">background =</span> <span class="st">&quot;#1D3557&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <table class="table table-striped table-hover" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-13">Tabla 11.2: </span>Modelos ARIMA seleccionados por criterio AIC mínimo
+<span id="tab:unnamed-chunk-12">Tabla 11.2: </span>Modelos ARIMA seleccionados por criterio AIC mínimo
 </caption>
 <thead>
 <tr>
@@ -532,7 +532,7 @@ ARIMA(0,1,0) with drift
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="modelo-1-arima.html#cb43-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">--- Resumen modelo All causes ---</span><span class="sc">\n</span><span class="st">&quot;</span>);          <span class="fu">summary</span>(modelo_total)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="modelo-1-arima.html#cb53-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">--- Resumen modelo All causes ---</span><span class="sc">\n</span><span class="st">&quot;</span>);          <span class="fu">summary</span>(modelo_total)</span></code></pre></div>
 <pre><code>## 
 ## --- Resumen modelo All causes ---</code></pre>
 <pre><code>## Series: ts_wv_total 
@@ -544,7 +544,7 @@ ARIMA(0,1,0) with drift
 ## Training set error measures:
 ##                     ME     RMSE      MAE        MPE     MAPE      MASE        ACF1
 ## Training set -2.851984 13.11292 10.73749 -0.2992174 1.124755 0.9520927 -0.08201026</code></pre>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="modelo-1-arima.html#cb46-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">--- Resumen modelo Unintentional injuries ---</span><span class="sc">\n</span><span class="st">&quot;</span>); <span class="fu">summary</span>(modelo_acc)</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="modelo-1-arima.html#cb56-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">--- Resumen modelo Unintentional injuries ---</span><span class="sc">\n</span><span class="st">&quot;</span>); <span class="fu">summary</span>(modelo_acc)</span></code></pre></div>
 <pre><code>## 
 ## --- Resumen modelo Unintentional injuries ---</code></pre>
 <pre><code>## Series: ts_wv_acc 
@@ -564,9 +564,9 @@ ARIMA(0,1,0) with drift
 </div>
 <div id="diagnóstico-de-residuos" class="section level2 hasAnchor" number="11.5">
 <h2><span class="header-section-number">11.5</span> Diagnóstico de residuos<a href="modelo-1-arima.html#diagnóstico-de-residuos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="modelo-1-arima.html#cb49-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">bg =</span> <span class="st">&quot;#FAFAFA&quot;</span>)</span>
-<span id="cb49-2"><a href="modelo-1-arima.html#cb49-2" tabindex="-1"></a></span>
-<span id="cb49-3"><a href="modelo-1-arima.html#cb49-3" tabindex="-1"></a><span class="fu">checkresiduals</span>(modelo_total, <span class="at">plot =</span> <span class="cn">TRUE</span>, <span class="at">main =</span> <span class="st">&quot;Residuos – WV All causes&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="modelo-1-arima.html#cb59-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">bg =</span> <span class="st">&quot;#FAFAFA&quot;</span>)</span>
+<span id="cb59-2"><a href="modelo-1-arima.html#cb59-2" tabindex="-1"></a></span>
+<span id="cb59-3"><a href="modelo-1-arima.html#cb59-3" tabindex="-1"></a><span class="fu">checkresiduals</span>(modelo_total, <span class="at">plot =</span> <span class="cn">TRUE</span>, <span class="at">main =</span> <span class="st">&quot;Residuos – WV All causes&quot;</span>)</span></code></pre></div>
 <p><img src="mortalidad-eeuu_files/figure-html/arima_diagnostico-1.png" width="1500" /></p>
 <pre><code>## 
 ##  Ljung-Box test
@@ -575,7 +575,7 @@ ARIMA(0,1,0) with drift
 ## Q* = 2.3798, df = 4, p-value = 0.6663
 ## 
 ## Model df: 0.   Total lags used: 4</code></pre>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="modelo-1-arima.html#cb51-1" tabindex="-1"></a><span class="fu">checkresiduals</span>(modelo_acc,   <span class="at">plot =</span> <span class="cn">TRUE</span>, <span class="at">main =</span> <span class="st">&quot;Residuos – WV Unintentional Injuries&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="modelo-1-arima.html#cb61-1" tabindex="-1"></a><span class="fu">checkresiduals</span>(modelo_acc,   <span class="at">plot =</span> <span class="cn">TRUE</span>, <span class="at">main =</span> <span class="st">&quot;Residuos – WV Unintentional Injuries&quot;</span>)</span></code></pre></div>
 <p><img src="mortalidad-eeuu_files/figure-html/arima_diagnostico-2.png" width="1500" /></p>
 <pre><code>## 
 ##  Ljung-Box test
@@ -584,7 +584,7 @@ ARIMA(0,1,0) with drift
 ## Q* = 6.3866, df = 4, p-value = 0.1721
 ## 
 ## Model df: 0.   Total lags used: 4</code></pre>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="modelo-1-arima.html#cb53-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="modelo-1-arima.html#cb63-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
 <p><em>Los residuos de ambos modelos se comportan como ruido blanco: oscilan
 alrededor de cero sin patrones, la ACF no muestra autocorrelación
 significativa y el histograma se aproxima a una distribución normal. La
@@ -593,113 +593,113 @@ encima de 0.05.</em></p>
 </div>
 <div id="proyecciones-arima-west-virginia-20182022" class="section level2 hasAnchor" number="11.6">
 <h2><span class="header-section-number">11.6</span> Proyecciones ARIMA – West Virginia (2018–2022)<a href="modelo-1-arima.html#proyecciones-arima-west-virginia-20182022" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="modelo-1-arima.html#cb54-1" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb54-2"><a href="modelo-1-arima.html#cb54-2" tabindex="-1"></a></span>
-<span id="cb54-3"><a href="modelo-1-arima.html#cb54-3" tabindex="-1"></a>horizonte    <span class="ot">&lt;-</span> <span class="dv">5</span></span>
-<span id="cb54-4"><a href="modelo-1-arima.html#cb54-4" tabindex="-1"></a>pred_total   <span class="ot">&lt;-</span> <span class="fu">forecast</span>(modelo_total, <span class="at">h =</span> horizonte, <span class="at">level =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">95</span>))</span>
-<span id="cb54-5"><a href="modelo-1-arima.html#cb54-5" tabindex="-1"></a>pred_acc     <span class="ot">&lt;-</span> <span class="fu">forecast</span>(modelo_acc,   <span class="at">h =</span> horizonte, <span class="at">level =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">95</span>))</span>
-<span id="cb54-6"><a href="modelo-1-arima.html#cb54-6" tabindex="-1"></a></span>
-<span id="cb54-7"><a href="modelo-1-arima.html#cb54-7" tabindex="-1"></a><span class="co"># Función para construir data frames de pronóstico</span></span>
-<span id="cb54-8"><a href="modelo-1-arima.html#cb54-8" tabindex="-1"></a>build_fc <span class="ot">&lt;-</span> <span class="cf">function</span>(serie_orig, pred_obj, inicio) {</span>
-<span id="cb54-9"><a href="modelo-1-arima.html#cb54-9" tabindex="-1"></a>  anios_hist <span class="ot">&lt;-</span> <span class="fu">seq</span>(inicio, inicio <span class="sc">+</span> <span class="fu">length</span>(serie_orig) <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb54-10"><a href="modelo-1-arima.html#cb54-10" tabindex="-1"></a>  anios_fut  <span class="ot">&lt;-</span> <span class="fu">seq</span>(inicio <span class="sc">+</span> <span class="fu">length</span>(serie_orig),</span>
-<span id="cb54-11"><a href="modelo-1-arima.html#cb54-11" tabindex="-1"></a>                    inicio <span class="sc">+</span> <span class="fu">length</span>(serie_orig) <span class="sc">+</span> horizonte <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb54-12"><a href="modelo-1-arima.html#cb54-12" tabindex="-1"></a>  <span class="fu">list</span>(</span>
-<span id="cb54-13"><a href="modelo-1-arima.html#cb54-13" tabindex="-1"></a>    <span class="at">hist =</span> <span class="fu">data.frame</span>(<span class="at">year  =</span> anios_hist,</span>
-<span id="cb54-14"><a href="modelo-1-arima.html#cb54-14" tabindex="-1"></a>                      <span class="at">valor =</span> <span class="fu">as.numeric</span>(serie_orig)),</span>
-<span id="cb54-15"><a href="modelo-1-arima.html#cb54-15" tabindex="-1"></a>    <span class="at">fut  =</span> <span class="fu">data.frame</span>(<span class="at">year  =</span> anios_fut,</span>
-<span id="cb54-16"><a href="modelo-1-arima.html#cb54-16" tabindex="-1"></a>                      <span class="at">valor =</span> <span class="fu">as.numeric</span>(pred_obj<span class="sc">$</span>mean),</span>
-<span id="cb54-17"><a href="modelo-1-arima.html#cb54-17" tabindex="-1"></a>                      <span class="at">lo80  =</span> <span class="fu">as.numeric</span>(pred_obj<span class="sc">$</span>lower[, <span class="dv">1</span>]),</span>
-<span id="cb54-18"><a href="modelo-1-arima.html#cb54-18" tabindex="-1"></a>                      <span class="at">hi80  =</span> <span class="fu">as.numeric</span>(pred_obj<span class="sc">$</span>upper[, <span class="dv">1</span>]),</span>
-<span id="cb54-19"><a href="modelo-1-arima.html#cb54-19" tabindex="-1"></a>                      <span class="at">lo95  =</span> <span class="fu">as.numeric</span>(pred_obj<span class="sc">$</span>lower[, <span class="dv">2</span>]),</span>
-<span id="cb54-20"><a href="modelo-1-arima.html#cb54-20" tabindex="-1"></a>                      <span class="at">hi95  =</span> <span class="fu">as.numeric</span>(pred_obj<span class="sc">$</span>upper[, <span class="dv">2</span>]))</span>
-<span id="cb54-21"><a href="modelo-1-arima.html#cb54-21" tabindex="-1"></a>  )</span>
-<span id="cb54-22"><a href="modelo-1-arima.html#cb54-22" tabindex="-1"></a>}</span>
-<span id="cb54-23"><a href="modelo-1-arima.html#cb54-23" tabindex="-1"></a></span>
-<span id="cb54-24"><a href="modelo-1-arima.html#cb54-24" tabindex="-1"></a>d_tot <span class="ot">&lt;-</span> <span class="fu">build_fc</span>(serie_wv_total, pred_total, <span class="dv">1999</span>)</span>
-<span id="cb54-25"><a href="modelo-1-arima.html#cb54-25" tabindex="-1"></a>d_acc <span class="ot">&lt;-</span> <span class="fu">build_fc</span>(serie_wv_acc,   pred_acc,   <span class="dv">1999</span>)</span>
-<span id="cb54-26"><a href="modelo-1-arima.html#cb54-26" tabindex="-1"></a></span>
-<span id="cb54-27"><a href="modelo-1-arima.html#cb54-27" tabindex="-1"></a><span class="co"># ── Gráfico 1 – Tasa total ────────────────────────────────────────────────</span></span>
-<span id="cb54-28"><a href="modelo-1-arima.html#cb54-28" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb54-29"><a href="modelo-1-arima.html#cb54-29" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> d_tot<span class="sc">$</span>fut,</span>
-<span id="cb54-30"><a href="modelo-1-arima.html#cb54-30" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">ymin =</span> lo95, <span class="at">ymax =</span> hi95),</span>
-<span id="cb54-31"><a href="modelo-1-arima.html#cb54-31" tabindex="-1"></a>              <span class="at">fill =</span> <span class="st">&quot;#A8DADC&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.35</span>) <span class="sc">+</span></span>
-<span id="cb54-32"><a href="modelo-1-arima.html#cb54-32" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> d_tot<span class="sc">$</span>fut,</span>
-<span id="cb54-33"><a href="modelo-1-arima.html#cb54-33" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">ymin =</span> lo80, <span class="at">ymax =</span> hi80),</span>
-<span id="cb54-34"><a href="modelo-1-arima.html#cb54-34" tabindex="-1"></a>              <span class="at">fill =</span> <span class="st">&quot;#457B9D&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.40</span>) <span class="sc">+</span></span>
-<span id="cb54-35"><a href="modelo-1-arima.html#cb54-35" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> d_tot<span class="sc">$</span>hist,</span>
-<span id="cb54-36"><a href="modelo-1-arima.html#cb54-36" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> valor),</span>
-<span id="cb54-37"><a href="modelo-1-arima.html#cb54-37" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">&quot;#1D3557&quot;</span>, <span class="at">linewidth =</span> <span class="fl">1.3</span>) <span class="sc">+</span></span>
-<span id="cb54-38"><a href="modelo-1-arima.html#cb54-38" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> d_tot<span class="sc">$</span>hist,</span>
-<span id="cb54-39"><a href="modelo-1-arima.html#cb54-39" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> valor),</span>
-<span id="cb54-40"><a href="modelo-1-arima.html#cb54-40" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;#1D3557&quot;</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb54-41"><a href="modelo-1-arima.html#cb54-41" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> d_tot<span class="sc">$</span>fut,</span>
-<span id="cb54-42"><a href="modelo-1-arima.html#cb54-42" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> valor),</span>
-<span id="cb54-43"><a href="modelo-1-arima.html#cb54-43" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">&quot;#457B9D&quot;</span>, <span class="at">linewidth =</span> <span class="fl">1.3</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
-<span id="cb54-44"><a href="modelo-1-arima.html#cb54-44" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> d_tot<span class="sc">$</span>fut,</span>
-<span id="cb54-45"><a href="modelo-1-arima.html#cb54-45" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> valor),</span>
-<span id="cb54-46"><a href="modelo-1-arima.html#cb54-46" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;#457B9D&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">shape =</span> <span class="dv">17</span>) <span class="sc">+</span></span>
-<span id="cb54-47"><a href="modelo-1-arima.html#cb54-47" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">2017.5</span>, <span class="at">linetype =</span> <span class="st">&quot;dotted&quot;</span>,</span>
-<span id="cb54-48"><a href="modelo-1-arima.html#cb54-48" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;gray50&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb54-49"><a href="modelo-1-arima.html#cb54-49" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="fl">2017.7</span>,</span>
-<span id="cb54-50"><a href="modelo-1-arima.html#cb54-50" tabindex="-1"></a>           <span class="at">y    =</span> <span class="fu">max</span>(d_tot<span class="sc">$</span>hist<span class="sc">$</span>valor) <span class="sc">*</span> <span class="fl">0.99</span>,</span>
-<span id="cb54-51"><a href="modelo-1-arima.html#cb54-51" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">&quot;→ Proyección&quot;</span>, <span class="at">hjust =</span> <span class="dv">0</span>,</span>
-<span id="cb54-52"><a href="modelo-1-arima.html#cb54-52" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">&quot;gray40&quot;</span>, <span class="at">fontface =</span> <span class="st">&quot;italic&quot;</span>, <span class="at">size =</span> <span class="fl">3.5</span>) <span class="sc">+</span></span>
-<span id="cb54-53"><a href="modelo-1-arima.html#cb54-53" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1999</span>, <span class="dv">2022</span>, <span class="at">by =</span> <span class="dv">2</span>)) <span class="sc">+</span></span>
-<span id="cb54-54"><a href="modelo-1-arima.html#cb54-54" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> comma) <span class="sc">+</span></span>
-<span id="cb54-55"><a href="modelo-1-arima.html#cb54-55" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title    =</span> <span class="st">&quot;Proyección ARIMA – Tasa ajustada total (All causes)&quot;</span>,</span>
-<span id="cb54-56"><a href="modelo-1-arima.html#cb54-56" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;West Virginia · Horizonte 2018–2022&quot;</span>,</span>
-<span id="cb54-57"><a href="modelo-1-arima.html#cb54-57" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Año&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Tasa por 100,000 hab.&quot;</span>,</span>
-<span id="cb54-58"><a href="modelo-1-arima.html#cb54-58" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;Bandas: IC 80% (oscuro) e IC 95% (claro)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb54-59"><a href="modelo-1-arima.html#cb54-59" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb54-60"><a href="modelo-1-arima.html#cb54-60" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title    =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
-<span id="cb54-61"><a href="modelo-1-arima.html#cb54-61" tabindex="-1"></a>        <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;gray40&quot;</span>),</span>
-<span id="cb54-62"><a href="modelo-1-arima.html#cb54-62" tabindex="-1"></a>        <span class="at">axis.text.x   =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
-<span id="cb54-63"><a href="modelo-1-arima.html#cb54-63" tabindex="-1"></a>        <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span>
-<span id="cb54-64"><a href="modelo-1-arima.html#cb54-64" tabindex="-1"></a></span>
-<span id="cb54-65"><a href="modelo-1-arima.html#cb54-65" tabindex="-1"></a><span class="co"># ── Gráfico 2 – Unintentional injuries ───────────────────────────────────</span></span>
-<span id="cb54-66"><a href="modelo-1-arima.html#cb54-66" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb54-67"><a href="modelo-1-arima.html#cb54-67" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> d_acc<span class="sc">$</span>fut,</span>
-<span id="cb54-68"><a href="modelo-1-arima.html#cb54-68" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">ymin =</span> lo95, <span class="at">ymax =</span> hi95),</span>
-<span id="cb54-69"><a href="modelo-1-arima.html#cb54-69" tabindex="-1"></a>              <span class="at">fill =</span> <span class="st">&quot;#FFCDD2&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.40</span>) <span class="sc">+</span></span>
-<span id="cb54-70"><a href="modelo-1-arima.html#cb54-70" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> d_acc<span class="sc">$</span>fut,</span>
-<span id="cb54-71"><a href="modelo-1-arima.html#cb54-71" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">ymin =</span> lo80, <span class="at">ymax =</span> hi80),</span>
-<span id="cb54-72"><a href="modelo-1-arima.html#cb54-72" tabindex="-1"></a>              <span class="at">fill =</span> <span class="st">&quot;#E63946&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.35</span>) <span class="sc">+</span></span>
-<span id="cb54-73"><a href="modelo-1-arima.html#cb54-73" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> d_acc<span class="sc">$</span>hist,</span>
-<span id="cb54-74"><a href="modelo-1-arima.html#cb54-74" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> valor),</span>
-<span id="cb54-75"><a href="modelo-1-arima.html#cb54-75" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">&quot;#B71C1C&quot;</span>, <span class="at">linewidth =</span> <span class="fl">1.3</span>) <span class="sc">+</span></span>
-<span id="cb54-76"><a href="modelo-1-arima.html#cb54-76" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> d_acc<span class="sc">$</span>hist,</span>
-<span id="cb54-77"><a href="modelo-1-arima.html#cb54-77" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> valor),</span>
-<span id="cb54-78"><a href="modelo-1-arima.html#cb54-78" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;#B71C1C&quot;</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb54-79"><a href="modelo-1-arima.html#cb54-79" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> d_acc<span class="sc">$</span>fut,</span>
-<span id="cb54-80"><a href="modelo-1-arima.html#cb54-80" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> valor),</span>
-<span id="cb54-81"><a href="modelo-1-arima.html#cb54-81" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">&quot;#E63946&quot;</span>, <span class="at">linewidth =</span> <span class="fl">1.3</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
-<span id="cb54-82"><a href="modelo-1-arima.html#cb54-82" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> d_acc<span class="sc">$</span>fut,</span>
-<span id="cb54-83"><a href="modelo-1-arima.html#cb54-83" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> valor),</span>
-<span id="cb54-84"><a href="modelo-1-arima.html#cb54-84" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;#E63946&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">shape =</span> <span class="dv">17</span>) <span class="sc">+</span></span>
-<span id="cb54-85"><a href="modelo-1-arima.html#cb54-85" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">2017.5</span>, <span class="at">linetype =</span> <span class="st">&quot;dotted&quot;</span>,</span>
-<span id="cb54-86"><a href="modelo-1-arima.html#cb54-86" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;gray50&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb54-87"><a href="modelo-1-arima.html#cb54-87" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="dv">2014</span>,</span>
-<span id="cb54-88"><a href="modelo-1-arima.html#cb54-88" tabindex="-1"></a>           <span class="at">y    =</span> <span class="fu">min</span>(d_acc<span class="sc">$</span>hist<span class="sc">$</span>valor) <span class="sc">*</span> <span class="fl">1.04</span>,</span>
-<span id="cb54-89"><a href="modelo-1-arima.html#cb54-89" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">&quot;Aceleración</span><span class="sc">\n</span><span class="st">desde 2014&quot;</span>,</span>
-<span id="cb54-90"><a href="modelo-1-arima.html#cb54-90" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">&quot;#B71C1C&quot;</span>, <span class="at">fontface =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">size =</span> <span class="fl">3.3</span>) <span class="sc">+</span></span>
-<span id="cb54-91"><a href="modelo-1-arima.html#cb54-91" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;segment&quot;</span>, <span class="at">x =</span> <span class="dv">2014</span>, <span class="at">xend =</span> <span class="dv">2014</span>,</span>
-<span id="cb54-92"><a href="modelo-1-arima.html#cb54-92" tabindex="-1"></a>           <span class="at">y    =</span> <span class="fu">min</span>(d_acc<span class="sc">$</span>hist<span class="sc">$</span>valor) <span class="sc">*</span> <span class="fl">1.10</span>,</span>
-<span id="cb54-93"><a href="modelo-1-arima.html#cb54-93" tabindex="-1"></a>           <span class="at">yend =</span> d_acc<span class="sc">$</span>hist<span class="sc">$</span>valor[d_acc<span class="sc">$</span>hist<span class="sc">$</span>year <span class="sc">==</span> <span class="dv">2014</span>] <span class="sc">*</span> <span class="fl">0.98</span>,</span>
-<span id="cb54-94"><a href="modelo-1-arima.html#cb54-94" tabindex="-1"></a>           <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.2</span>, <span class="st">&quot;cm&quot;</span>)), <span class="at">color =</span> <span class="st">&quot;#B71C1C&quot;</span>) <span class="sc">+</span></span>
-<span id="cb54-95"><a href="modelo-1-arima.html#cb54-95" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1999</span>, <span class="dv">2022</span>, <span class="at">by =</span> <span class="dv">2</span>)) <span class="sc">+</span></span>
-<span id="cb54-96"><a href="modelo-1-arima.html#cb54-96" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> comma) <span class="sc">+</span></span>
-<span id="cb54-97"><a href="modelo-1-arima.html#cb54-97" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title    =</span> <span class="st">&quot;Proyección ARIMA – Unintentional Injuries&quot;</span>,</span>
-<span id="cb54-98"><a href="modelo-1-arima.html#cb54-98" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;West Virginia · La causa de mayor crecimiento y mayor riesgo proyectado&quot;</span>,</span>
-<span id="cb54-99"><a href="modelo-1-arima.html#cb54-99" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Año&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Tasa por 100,000 hab.&quot;</span>,</span>
-<span id="cb54-100"><a href="modelo-1-arima.html#cb54-100" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;Bandas: IC 80% (oscuro) e IC 95% (claro)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb54-101"><a href="modelo-1-arima.html#cb54-101" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb54-102"><a href="modelo-1-arima.html#cb54-102" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title    =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
-<span id="cb54-103"><a href="modelo-1-arima.html#cb54-103" tabindex="-1"></a>        <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;gray40&quot;</span>),</span>
-<span id="cb54-104"><a href="modelo-1-arima.html#cb54-104" tabindex="-1"></a>        <span class="at">axis.text.x   =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
-<span id="cb54-105"><a href="modelo-1-arima.html#cb54-105" tabindex="-1"></a>        <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span>
-<span id="cb54-106"><a href="modelo-1-arima.html#cb54-106" tabindex="-1"></a></span>
-<span id="cb54-107"><a href="modelo-1-arima.html#cb54-107" tabindex="-1"></a>p1 <span class="sc">/</span> p2</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="modelo-1-arima.html#cb64-1" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb64-2"><a href="modelo-1-arima.html#cb64-2" tabindex="-1"></a></span>
+<span id="cb64-3"><a href="modelo-1-arima.html#cb64-3" tabindex="-1"></a>horizonte    <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb64-4"><a href="modelo-1-arima.html#cb64-4" tabindex="-1"></a>pred_total   <span class="ot">&lt;-</span> <span class="fu">forecast</span>(modelo_total, <span class="at">h =</span> horizonte, <span class="at">level =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">95</span>))</span>
+<span id="cb64-5"><a href="modelo-1-arima.html#cb64-5" tabindex="-1"></a>pred_acc     <span class="ot">&lt;-</span> <span class="fu">forecast</span>(modelo_acc,   <span class="at">h =</span> horizonte, <span class="at">level =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">95</span>))</span>
+<span id="cb64-6"><a href="modelo-1-arima.html#cb64-6" tabindex="-1"></a></span>
+<span id="cb64-7"><a href="modelo-1-arima.html#cb64-7" tabindex="-1"></a><span class="co"># Función para construir data frames de pronóstico</span></span>
+<span id="cb64-8"><a href="modelo-1-arima.html#cb64-8" tabindex="-1"></a>build_fc <span class="ot">&lt;-</span> <span class="cf">function</span>(serie_orig, pred_obj, inicio) {</span>
+<span id="cb64-9"><a href="modelo-1-arima.html#cb64-9" tabindex="-1"></a>  anios_hist <span class="ot">&lt;-</span> <span class="fu">seq</span>(inicio, inicio <span class="sc">+</span> <span class="fu">length</span>(serie_orig) <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb64-10"><a href="modelo-1-arima.html#cb64-10" tabindex="-1"></a>  anios_fut  <span class="ot">&lt;-</span> <span class="fu">seq</span>(inicio <span class="sc">+</span> <span class="fu">length</span>(serie_orig),</span>
+<span id="cb64-11"><a href="modelo-1-arima.html#cb64-11" tabindex="-1"></a>                    inicio <span class="sc">+</span> <span class="fu">length</span>(serie_orig) <span class="sc">+</span> horizonte <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb64-12"><a href="modelo-1-arima.html#cb64-12" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb64-13"><a href="modelo-1-arima.html#cb64-13" tabindex="-1"></a>    <span class="at">hist =</span> <span class="fu">data.frame</span>(<span class="at">year  =</span> anios_hist,</span>
+<span id="cb64-14"><a href="modelo-1-arima.html#cb64-14" tabindex="-1"></a>                      <span class="at">valor =</span> <span class="fu">as.numeric</span>(serie_orig)),</span>
+<span id="cb64-15"><a href="modelo-1-arima.html#cb64-15" tabindex="-1"></a>    <span class="at">fut  =</span> <span class="fu">data.frame</span>(<span class="at">year  =</span> anios_fut,</span>
+<span id="cb64-16"><a href="modelo-1-arima.html#cb64-16" tabindex="-1"></a>                      <span class="at">valor =</span> <span class="fu">as.numeric</span>(pred_obj<span class="sc">$</span>mean),</span>
+<span id="cb64-17"><a href="modelo-1-arima.html#cb64-17" tabindex="-1"></a>                      <span class="at">lo80  =</span> <span class="fu">as.numeric</span>(pred_obj<span class="sc">$</span>lower[, <span class="dv">1</span>]),</span>
+<span id="cb64-18"><a href="modelo-1-arima.html#cb64-18" tabindex="-1"></a>                      <span class="at">hi80  =</span> <span class="fu">as.numeric</span>(pred_obj<span class="sc">$</span>upper[, <span class="dv">1</span>]),</span>
+<span id="cb64-19"><a href="modelo-1-arima.html#cb64-19" tabindex="-1"></a>                      <span class="at">lo95  =</span> <span class="fu">as.numeric</span>(pred_obj<span class="sc">$</span>lower[, <span class="dv">2</span>]),</span>
+<span id="cb64-20"><a href="modelo-1-arima.html#cb64-20" tabindex="-1"></a>                      <span class="at">hi95  =</span> <span class="fu">as.numeric</span>(pred_obj<span class="sc">$</span>upper[, <span class="dv">2</span>]))</span>
+<span id="cb64-21"><a href="modelo-1-arima.html#cb64-21" tabindex="-1"></a>  )</span>
+<span id="cb64-22"><a href="modelo-1-arima.html#cb64-22" tabindex="-1"></a>}</span>
+<span id="cb64-23"><a href="modelo-1-arima.html#cb64-23" tabindex="-1"></a></span>
+<span id="cb64-24"><a href="modelo-1-arima.html#cb64-24" tabindex="-1"></a>d_tot <span class="ot">&lt;-</span> <span class="fu">build_fc</span>(serie_wv_total, pred_total, <span class="dv">1999</span>)</span>
+<span id="cb64-25"><a href="modelo-1-arima.html#cb64-25" tabindex="-1"></a>d_acc <span class="ot">&lt;-</span> <span class="fu">build_fc</span>(serie_wv_acc,   pred_acc,   <span class="dv">1999</span>)</span>
+<span id="cb64-26"><a href="modelo-1-arima.html#cb64-26" tabindex="-1"></a></span>
+<span id="cb64-27"><a href="modelo-1-arima.html#cb64-27" tabindex="-1"></a><span class="co"># ── Gráfico 1 – Tasa total ────────────────────────────────────────────────</span></span>
+<span id="cb64-28"><a href="modelo-1-arima.html#cb64-28" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb64-29"><a href="modelo-1-arima.html#cb64-29" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> d_tot<span class="sc">$</span>fut,</span>
+<span id="cb64-30"><a href="modelo-1-arima.html#cb64-30" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">ymin =</span> lo95, <span class="at">ymax =</span> hi95),</span>
+<span id="cb64-31"><a href="modelo-1-arima.html#cb64-31" tabindex="-1"></a>              <span class="at">fill =</span> <span class="st">&quot;#A8DADC&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.35</span>) <span class="sc">+</span></span>
+<span id="cb64-32"><a href="modelo-1-arima.html#cb64-32" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> d_tot<span class="sc">$</span>fut,</span>
+<span id="cb64-33"><a href="modelo-1-arima.html#cb64-33" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">ymin =</span> lo80, <span class="at">ymax =</span> hi80),</span>
+<span id="cb64-34"><a href="modelo-1-arima.html#cb64-34" tabindex="-1"></a>              <span class="at">fill =</span> <span class="st">&quot;#457B9D&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.40</span>) <span class="sc">+</span></span>
+<span id="cb64-35"><a href="modelo-1-arima.html#cb64-35" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> d_tot<span class="sc">$</span>hist,</span>
+<span id="cb64-36"><a href="modelo-1-arima.html#cb64-36" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> valor),</span>
+<span id="cb64-37"><a href="modelo-1-arima.html#cb64-37" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">&quot;#1D3557&quot;</span>, <span class="at">linewidth =</span> <span class="fl">1.3</span>) <span class="sc">+</span></span>
+<span id="cb64-38"><a href="modelo-1-arima.html#cb64-38" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> d_tot<span class="sc">$</span>hist,</span>
+<span id="cb64-39"><a href="modelo-1-arima.html#cb64-39" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> valor),</span>
+<span id="cb64-40"><a href="modelo-1-arima.html#cb64-40" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;#1D3557&quot;</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb64-41"><a href="modelo-1-arima.html#cb64-41" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> d_tot<span class="sc">$</span>fut,</span>
+<span id="cb64-42"><a href="modelo-1-arima.html#cb64-42" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> valor),</span>
+<span id="cb64-43"><a href="modelo-1-arima.html#cb64-43" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">&quot;#457B9D&quot;</span>, <span class="at">linewidth =</span> <span class="fl">1.3</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb64-44"><a href="modelo-1-arima.html#cb64-44" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> d_tot<span class="sc">$</span>fut,</span>
+<span id="cb64-45"><a href="modelo-1-arima.html#cb64-45" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> valor),</span>
+<span id="cb64-46"><a href="modelo-1-arima.html#cb64-46" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;#457B9D&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">shape =</span> <span class="dv">17</span>) <span class="sc">+</span></span>
+<span id="cb64-47"><a href="modelo-1-arima.html#cb64-47" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">2017.5</span>, <span class="at">linetype =</span> <span class="st">&quot;dotted&quot;</span>,</span>
+<span id="cb64-48"><a href="modelo-1-arima.html#cb64-48" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;gray50&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb64-49"><a href="modelo-1-arima.html#cb64-49" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="fl">2017.7</span>,</span>
+<span id="cb64-50"><a href="modelo-1-arima.html#cb64-50" tabindex="-1"></a>           <span class="at">y    =</span> <span class="fu">max</span>(d_tot<span class="sc">$</span>hist<span class="sc">$</span>valor) <span class="sc">*</span> <span class="fl">0.99</span>,</span>
+<span id="cb64-51"><a href="modelo-1-arima.html#cb64-51" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">&quot;→ Proyección&quot;</span>, <span class="at">hjust =</span> <span class="dv">0</span>,</span>
+<span id="cb64-52"><a href="modelo-1-arima.html#cb64-52" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">&quot;gray40&quot;</span>, <span class="at">fontface =</span> <span class="st">&quot;italic&quot;</span>, <span class="at">size =</span> <span class="fl">3.5</span>) <span class="sc">+</span></span>
+<span id="cb64-53"><a href="modelo-1-arima.html#cb64-53" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1999</span>, <span class="dv">2022</span>, <span class="at">by =</span> <span class="dv">2</span>)) <span class="sc">+</span></span>
+<span id="cb64-54"><a href="modelo-1-arima.html#cb64-54" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> comma) <span class="sc">+</span></span>
+<span id="cb64-55"><a href="modelo-1-arima.html#cb64-55" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title    =</span> <span class="st">&quot;Proyección ARIMA – Tasa ajustada total (All causes)&quot;</span>,</span>
+<span id="cb64-56"><a href="modelo-1-arima.html#cb64-56" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;West Virginia · Horizonte 2018–2022&quot;</span>,</span>
+<span id="cb64-57"><a href="modelo-1-arima.html#cb64-57" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Año&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Tasa por 100,000 hab.&quot;</span>,</span>
+<span id="cb64-58"><a href="modelo-1-arima.html#cb64-58" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;Bandas: IC 80% (oscuro) e IC 95% (claro)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb64-59"><a href="modelo-1-arima.html#cb64-59" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb64-60"><a href="modelo-1-arima.html#cb64-60" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title    =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb64-61"><a href="modelo-1-arima.html#cb64-61" tabindex="-1"></a>        <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;gray40&quot;</span>),</span>
+<span id="cb64-62"><a href="modelo-1-arima.html#cb64-62" tabindex="-1"></a>        <span class="at">axis.text.x   =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
+<span id="cb64-63"><a href="modelo-1-arima.html#cb64-63" tabindex="-1"></a>        <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb64-64"><a href="modelo-1-arima.html#cb64-64" tabindex="-1"></a></span>
+<span id="cb64-65"><a href="modelo-1-arima.html#cb64-65" tabindex="-1"></a><span class="co"># ── Gráfico 2 – Unintentional injuries ───────────────────────────────────</span></span>
+<span id="cb64-66"><a href="modelo-1-arima.html#cb64-66" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb64-67"><a href="modelo-1-arima.html#cb64-67" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> d_acc<span class="sc">$</span>fut,</span>
+<span id="cb64-68"><a href="modelo-1-arima.html#cb64-68" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">ymin =</span> lo95, <span class="at">ymax =</span> hi95),</span>
+<span id="cb64-69"><a href="modelo-1-arima.html#cb64-69" tabindex="-1"></a>              <span class="at">fill =</span> <span class="st">&quot;#FFCDD2&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.40</span>) <span class="sc">+</span></span>
+<span id="cb64-70"><a href="modelo-1-arima.html#cb64-70" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> d_acc<span class="sc">$</span>fut,</span>
+<span id="cb64-71"><a href="modelo-1-arima.html#cb64-71" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">ymin =</span> lo80, <span class="at">ymax =</span> hi80),</span>
+<span id="cb64-72"><a href="modelo-1-arima.html#cb64-72" tabindex="-1"></a>              <span class="at">fill =</span> <span class="st">&quot;#E63946&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.35</span>) <span class="sc">+</span></span>
+<span id="cb64-73"><a href="modelo-1-arima.html#cb64-73" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> d_acc<span class="sc">$</span>hist,</span>
+<span id="cb64-74"><a href="modelo-1-arima.html#cb64-74" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> valor),</span>
+<span id="cb64-75"><a href="modelo-1-arima.html#cb64-75" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">&quot;#B71C1C&quot;</span>, <span class="at">linewidth =</span> <span class="fl">1.3</span>) <span class="sc">+</span></span>
+<span id="cb64-76"><a href="modelo-1-arima.html#cb64-76" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> d_acc<span class="sc">$</span>hist,</span>
+<span id="cb64-77"><a href="modelo-1-arima.html#cb64-77" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> valor),</span>
+<span id="cb64-78"><a href="modelo-1-arima.html#cb64-78" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;#B71C1C&quot;</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb64-79"><a href="modelo-1-arima.html#cb64-79" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> d_acc<span class="sc">$</span>fut,</span>
+<span id="cb64-80"><a href="modelo-1-arima.html#cb64-80" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> valor),</span>
+<span id="cb64-81"><a href="modelo-1-arima.html#cb64-81" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">&quot;#E63946&quot;</span>, <span class="at">linewidth =</span> <span class="fl">1.3</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb64-82"><a href="modelo-1-arima.html#cb64-82" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> d_acc<span class="sc">$</span>fut,</span>
+<span id="cb64-83"><a href="modelo-1-arima.html#cb64-83" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> valor),</span>
+<span id="cb64-84"><a href="modelo-1-arima.html#cb64-84" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;#E63946&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">shape =</span> <span class="dv">17</span>) <span class="sc">+</span></span>
+<span id="cb64-85"><a href="modelo-1-arima.html#cb64-85" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">2017.5</span>, <span class="at">linetype =</span> <span class="st">&quot;dotted&quot;</span>,</span>
+<span id="cb64-86"><a href="modelo-1-arima.html#cb64-86" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;gray50&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb64-87"><a href="modelo-1-arima.html#cb64-87" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="dv">2014</span>,</span>
+<span id="cb64-88"><a href="modelo-1-arima.html#cb64-88" tabindex="-1"></a>           <span class="at">y    =</span> <span class="fu">min</span>(d_acc<span class="sc">$</span>hist<span class="sc">$</span>valor) <span class="sc">*</span> <span class="fl">1.04</span>,</span>
+<span id="cb64-89"><a href="modelo-1-arima.html#cb64-89" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">&quot;Aceleración</span><span class="sc">\n</span><span class="st">desde 2014&quot;</span>,</span>
+<span id="cb64-90"><a href="modelo-1-arima.html#cb64-90" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">&quot;#B71C1C&quot;</span>, <span class="at">fontface =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">size =</span> <span class="fl">3.3</span>) <span class="sc">+</span></span>
+<span id="cb64-91"><a href="modelo-1-arima.html#cb64-91" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;segment&quot;</span>, <span class="at">x =</span> <span class="dv">2014</span>, <span class="at">xend =</span> <span class="dv">2014</span>,</span>
+<span id="cb64-92"><a href="modelo-1-arima.html#cb64-92" tabindex="-1"></a>           <span class="at">y    =</span> <span class="fu">min</span>(d_acc<span class="sc">$</span>hist<span class="sc">$</span>valor) <span class="sc">*</span> <span class="fl">1.10</span>,</span>
+<span id="cb64-93"><a href="modelo-1-arima.html#cb64-93" tabindex="-1"></a>           <span class="at">yend =</span> d_acc<span class="sc">$</span>hist<span class="sc">$</span>valor[d_acc<span class="sc">$</span>hist<span class="sc">$</span>year <span class="sc">==</span> <span class="dv">2014</span>] <span class="sc">*</span> <span class="fl">0.98</span>,</span>
+<span id="cb64-94"><a href="modelo-1-arima.html#cb64-94" tabindex="-1"></a>           <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.2</span>, <span class="st">&quot;cm&quot;</span>)), <span class="at">color =</span> <span class="st">&quot;#B71C1C&quot;</span>) <span class="sc">+</span></span>
+<span id="cb64-95"><a href="modelo-1-arima.html#cb64-95" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1999</span>, <span class="dv">2022</span>, <span class="at">by =</span> <span class="dv">2</span>)) <span class="sc">+</span></span>
+<span id="cb64-96"><a href="modelo-1-arima.html#cb64-96" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> comma) <span class="sc">+</span></span>
+<span id="cb64-97"><a href="modelo-1-arima.html#cb64-97" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title    =</span> <span class="st">&quot;Proyección ARIMA – Unintentional Injuries&quot;</span>,</span>
+<span id="cb64-98"><a href="modelo-1-arima.html#cb64-98" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;West Virginia · La causa de mayor crecimiento y mayor riesgo proyectado&quot;</span>,</span>
+<span id="cb64-99"><a href="modelo-1-arima.html#cb64-99" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Año&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Tasa por 100,000 hab.&quot;</span>,</span>
+<span id="cb64-100"><a href="modelo-1-arima.html#cb64-100" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;Bandas: IC 80% (oscuro) e IC 95% (claro)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb64-101"><a href="modelo-1-arima.html#cb64-101" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb64-102"><a href="modelo-1-arima.html#cb64-102" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title    =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb64-103"><a href="modelo-1-arima.html#cb64-103" tabindex="-1"></a>        <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;gray40&quot;</span>),</span>
+<span id="cb64-104"><a href="modelo-1-arima.html#cb64-104" tabindex="-1"></a>        <span class="at">axis.text.x   =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
+<span id="cb64-105"><a href="modelo-1-arima.html#cb64-105" tabindex="-1"></a>        <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb64-106"><a href="modelo-1-arima.html#cb64-106" tabindex="-1"></a></span>
+<span id="cb64-107"><a href="modelo-1-arima.html#cb64-107" tabindex="-1"></a>p1 <span class="sc">/</span> p2</span></code></pre></div>
 <p><img src="mortalidad-eeuu_files/figure-html/arima_forecast-1.png" width="1650" /></p>
 <p>Las proyecciones muestran trayectorias divergentes. All causes se
 mantiene estable alrededor de 957 por 100,000 habitantes, reflejando que
@@ -712,32 +712,32 @@ el corto plazo.</p>
 </div>
 <div id="tabla-de-valores-proyectados" class="section level2 hasAnchor" number="11.7">
 <h2><span class="header-section-number">11.7</span> Tabla de valores proyectados<a href="modelo-1-arima.html#tabla-de-valores-proyectados" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="modelo-1-arima.html#cb55-1" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
-<span id="cb55-2"><a href="modelo-1-arima.html#cb55-2" tabindex="-1"></a>  <span class="st">`</span><span class="at">Año</span><span class="st">`</span>                          <span class="ot">=</span> <span class="dv">2018</span><span class="sc">:</span><span class="dv">2022</span>,</span>
-<span id="cb55-3"><a href="modelo-1-arima.html#cb55-3" tabindex="-1"></a>  <span class="st">`</span><span class="at">WV total (pred.)</span><span class="st">`</span>             <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">as.numeric</span>(pred_total<span class="sc">$</span>mean), <span class="dv">1</span>),</span>
-<span id="cb55-4"><a href="modelo-1-arima.html#cb55-4" tabindex="-1"></a>  <span class="st">`</span><span class="at">IC 95% inf. (total)</span><span class="st">`</span>          <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">as.numeric</span>(pred_total<span class="sc">$</span>lower[, <span class="dv">2</span>]), <span class="dv">1</span>),</span>
-<span id="cb55-5"><a href="modelo-1-arima.html#cb55-5" tabindex="-1"></a>  <span class="st">`</span><span class="at">IC 95% sup. (total)</span><span class="st">`</span>          <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">as.numeric</span>(pred_total<span class="sc">$</span>upper[, <span class="dv">2</span>]), <span class="dv">1</span>),</span>
-<span id="cb55-6"><a href="modelo-1-arima.html#cb55-6" tabindex="-1"></a>  <span class="st">`</span><span class="at">Unint. Inj. (pred.)</span><span class="st">`</span>          <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">as.numeric</span>(pred_acc<span class="sc">$</span>mean), <span class="dv">1</span>),</span>
-<span id="cb55-7"><a href="modelo-1-arima.html#cb55-7" tabindex="-1"></a>  <span class="st">`</span><span class="at">IC 95% inf. (Unint.)</span><span class="st">`</span>         <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">as.numeric</span>(pred_acc<span class="sc">$</span>lower[, <span class="dv">2</span>]), <span class="dv">1</span>),</span>
-<span id="cb55-8"><a href="modelo-1-arima.html#cb55-8" tabindex="-1"></a>  <span class="st">`</span><span class="at">IC 95% sup. (Unint.)</span><span class="st">`</span>         <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">as.numeric</span>(pred_acc<span class="sc">$</span>upper[, <span class="dv">2</span>]), <span class="dv">1</span>),</span>
-<span id="cb55-9"><a href="modelo-1-arima.html#cb55-9" tabindex="-1"></a>  <span class="at">check.names =</span> <span class="cn">FALSE</span></span>
-<span id="cb55-10"><a href="modelo-1-arima.html#cb55-10" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb55-11"><a href="modelo-1-arima.html#cb55-11" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
-<span id="cb55-12"><a href="modelo-1-arima.html#cb55-12" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Valores proyectados por ARIMA – West Virginia (2018–2022)&quot;</span>,</span>
-<span id="cb55-13"><a href="modelo-1-arima.html#cb55-13" tabindex="-1"></a>    <span class="at">align   =</span> <span class="fu">rep</span>(<span class="st">&quot;c&quot;</span>, <span class="dv">7</span>)</span>
-<span id="cb55-14"><a href="modelo-1-arima.html#cb55-14" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb55-15"><a href="modelo-1-arima.html#cb55-15" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>),</span>
-<span id="cb55-16"><a href="modelo-1-arima.html#cb55-16" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">TRUE</span>, <span class="at">font_size =</span> <span class="dv">11</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb55-17"><a href="modelo-1-arima.html#cb55-17" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">background =</span> <span class="st">&quot;#1D3557&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb55-18"><a href="modelo-1-arima.html#cb55-18" tabindex="-1"></a>  <span class="fu">add_header_above</span>(</span>
-<span id="cb55-19"><a href="modelo-1-arima.html#cb55-19" tabindex="-1"></a>    <span class="fu">c</span>(<span class="st">&quot; &quot;</span> <span class="ot">=</span> <span class="dv">1</span>,</span>
-<span id="cb55-20"><a href="modelo-1-arima.html#cb55-20" tabindex="-1"></a>      <span class="st">&quot;Tasa ajustada – All causes&quot;</span>             <span class="ot">=</span> <span class="dv">3</span>,</span>
-<span id="cb55-21"><a href="modelo-1-arima.html#cb55-21" tabindex="-1"></a>      <span class="st">&quot;Tasa ajustada – Unintentional injuries&quot;</span> <span class="ot">=</span> <span class="dv">3</span>),</span>
-<span id="cb55-22"><a href="modelo-1-arima.html#cb55-22" tabindex="-1"></a>    <span class="at">background =</span> <span class="st">&quot;#457B9D&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span></span>
-<span id="cb55-23"><a href="modelo-1-arima.html#cb55-23" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="modelo-1-arima.html#cb65-1" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb65-2"><a href="modelo-1-arima.html#cb65-2" tabindex="-1"></a>  <span class="st">`</span><span class="at">Año</span><span class="st">`</span>                          <span class="ot">=</span> <span class="dv">2018</span><span class="sc">:</span><span class="dv">2022</span>,</span>
+<span id="cb65-3"><a href="modelo-1-arima.html#cb65-3" tabindex="-1"></a>  <span class="st">`</span><span class="at">WV total (pred.)</span><span class="st">`</span>             <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">as.numeric</span>(pred_total<span class="sc">$</span>mean), <span class="dv">1</span>),</span>
+<span id="cb65-4"><a href="modelo-1-arima.html#cb65-4" tabindex="-1"></a>  <span class="st">`</span><span class="at">IC 95% inf. (total)</span><span class="st">`</span>          <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">as.numeric</span>(pred_total<span class="sc">$</span>lower[, <span class="dv">2</span>]), <span class="dv">1</span>),</span>
+<span id="cb65-5"><a href="modelo-1-arima.html#cb65-5" tabindex="-1"></a>  <span class="st">`</span><span class="at">IC 95% sup. (total)</span><span class="st">`</span>          <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">as.numeric</span>(pred_total<span class="sc">$</span>upper[, <span class="dv">2</span>]), <span class="dv">1</span>),</span>
+<span id="cb65-6"><a href="modelo-1-arima.html#cb65-6" tabindex="-1"></a>  <span class="st">`</span><span class="at">Unint. Inj. (pred.)</span><span class="st">`</span>          <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">as.numeric</span>(pred_acc<span class="sc">$</span>mean), <span class="dv">1</span>),</span>
+<span id="cb65-7"><a href="modelo-1-arima.html#cb65-7" tabindex="-1"></a>  <span class="st">`</span><span class="at">IC 95% inf. (Unint.)</span><span class="st">`</span>         <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">as.numeric</span>(pred_acc<span class="sc">$</span>lower[, <span class="dv">2</span>]), <span class="dv">1</span>),</span>
+<span id="cb65-8"><a href="modelo-1-arima.html#cb65-8" tabindex="-1"></a>  <span class="st">`</span><span class="at">IC 95% sup. (Unint.)</span><span class="st">`</span>         <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">as.numeric</span>(pred_acc<span class="sc">$</span>upper[, <span class="dv">2</span>]), <span class="dv">1</span>),</span>
+<span id="cb65-9"><a href="modelo-1-arima.html#cb65-9" tabindex="-1"></a>  <span class="at">check.names =</span> <span class="cn">FALSE</span></span>
+<span id="cb65-10"><a href="modelo-1-arima.html#cb65-10" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb65-11"><a href="modelo-1-arima.html#cb65-11" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb65-12"><a href="modelo-1-arima.html#cb65-12" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Valores proyectados por ARIMA – West Virginia (2018–2022)&quot;</span>,</span>
+<span id="cb65-13"><a href="modelo-1-arima.html#cb65-13" tabindex="-1"></a>    <span class="at">align   =</span> <span class="fu">rep</span>(<span class="st">&quot;c&quot;</span>, <span class="dv">7</span>)</span>
+<span id="cb65-14"><a href="modelo-1-arima.html#cb65-14" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb65-15"><a href="modelo-1-arima.html#cb65-15" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>),</span>
+<span id="cb65-16"><a href="modelo-1-arima.html#cb65-16" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">TRUE</span>, <span class="at">font_size =</span> <span class="dv">11</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb65-17"><a href="modelo-1-arima.html#cb65-17" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">background =</span> <span class="st">&quot;#1D3557&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb65-18"><a href="modelo-1-arima.html#cb65-18" tabindex="-1"></a>  <span class="fu">add_header_above</span>(</span>
+<span id="cb65-19"><a href="modelo-1-arima.html#cb65-19" tabindex="-1"></a>    <span class="fu">c</span>(<span class="st">&quot; &quot;</span> <span class="ot">=</span> <span class="dv">1</span>,</span>
+<span id="cb65-20"><a href="modelo-1-arima.html#cb65-20" tabindex="-1"></a>      <span class="st">&quot;Tasa ajustada – All causes&quot;</span>             <span class="ot">=</span> <span class="dv">3</span>,</span>
+<span id="cb65-21"><a href="modelo-1-arima.html#cb65-21" tabindex="-1"></a>      <span class="st">&quot;Tasa ajustada – Unintentional injuries&quot;</span> <span class="ot">=</span> <span class="dv">3</span>),</span>
+<span id="cb65-22"><a href="modelo-1-arima.html#cb65-22" tabindex="-1"></a>    <span class="at">background =</span> <span class="st">&quot;#457B9D&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span></span>
+<span id="cb65-23"><a href="modelo-1-arima.html#cb65-23" tabindex="-1"></a>  )</span></code></pre></div>
 <table class="table table-striped table-hover" style="font-size: 11px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-14">Tabla 11.3: </span>Valores proyectados por ARIMA – West Virginia (2018–2022)
+<span id="tab:unnamed-chunk-13">Tabla 11.3: </span>Valores proyectados por ARIMA – West Virginia (2018–2022)
 </caption>
 <thead>
 <tr>

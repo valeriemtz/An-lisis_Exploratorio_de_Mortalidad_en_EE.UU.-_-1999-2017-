@@ -1,15 +1,66 @@
 # Evolución de la tasa ajustada de mortalidad anual
 
-```{r, echo=TRUE, results="hide", warning=FALSE, message=FALSE}
+```{r carga-datos, echo=TRUE, warning=FALSE, message=FALSE}
 library(tidyverse)
+library(janitor)
 library(scales)
 
+datos <- read_csv("NCHS_Leading_Causes.csv")
+
+datos <- datos %>% clean_names()
+
+datos <- datos %>%
+  mutate(
+    anio          = as.numeric(year),
+    causa         = cause_name,
+    estado        = state,
+    muertes       = as.numeric(gsub("\\.", "", deaths)),
+    tasa_ajustada = as.numeric(gsub(",", ".", age_adjusted_death_rate))
+  ) %>%
+  filter(
+    estado == "United States",
+    anio >= 1999 & anio <= 2017
+  ) %>%
+  select(anio, causa, muertes, tasa_ajustada)
+```
+
+```{r totales-anuales, echo=TRUE, warning=FALSE, message=FALSE}
+totales_anuales <- datos %>%
+  filter(causa == "All causes") %>%
+  select(anio, muertes)
+
+cat("\nTotales nacionales por año:\n")
+print(totales_anuales %>%
+        arrange(anio) %>%
+        mutate(muertes = comma(muertes)))
+```
+
+```{r totales-causa, echo=TRUE, warning=FALSE, message=FALSE}
+totales_causa <- datos %>%
+  filter(causa != "All causes") %>%
+  group_by(causa) %>%
+  summarise(
+    total_1999_2017 = sum(muertes, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  arrange(desc(total_1999_2017))
+
+cat("\nTotal acumulado por causa (1999-2017):\n")
+print(totales_causa %>%
+        mutate(total_1999_2017 = comma(total_1999_2017)))
+```
+
+```{r datos-nacional, echo=TRUE, warning=FALSE, message=FALSE}
+datos_nacional <- datos %>%
+  filter(causa != "All causes") %>%
+  group_by(anio, causa) %>%
+  summarise(muertes = sum(muertes, na.rm = TRUE), .groups = "drop")
+```
+
+```{r grafico-tasa, echo=TRUE, warning=FALSE, message=FALSE}
 total_anual <- datos %>%
   filter(causa == "All causes") %>%
   arrange(anio)
-
-# Ver resultado
-print(total_anual)
 
 ggplot(total_anual, aes(x = anio, y = tasa_ajustada)) +
   geom_line(color = "#2C3E50", linewidth = 1) +
@@ -40,8 +91,8 @@ en salud pública: mayor cobertura de tratamientos cardiovasculares,
 campañas de prevención del tabaquismo y avances en oncología. Sin
 embargo, la tendencia no es lineal: se observa una desaceleración del
 descenso entre 2013 y 2017, período que coincide con el agravamiento
-de la crisis de opioides y el aumento de suicidios las llamadas
-"muertes por desesperación", factores que frenaron parcialmente las
+de la crisis de opioides y el aumento de suicidios —las llamadas
+"muertes por desesperación"—, factores que frenaron parcialmente las
 ganancias logradas en otras causas. La línea de tendencia lineal
 confirma la dirección general descendente, pero oculta esta
 heterogeneidad por subperíodos que sí es visible en el análisis por
