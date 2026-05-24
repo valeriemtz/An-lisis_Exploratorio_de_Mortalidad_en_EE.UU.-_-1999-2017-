@@ -1,0 +1,41 @@
+```{r carga_datos, include=FALSE}
+library(tidyverse)
+library(janitor)
+library(scales)
+
+datos <- read_csv("NCHS_Leading_Causes.csv")
+
+datos <- datos %>% clean_names()
+
+datos <- datos %>%
+  mutate(
+    anio = as.numeric(year),
+    causa = cause_name,
+    estado = state,
+    muertes = as.numeric(gsub(",", "", deaths)),
+    tasa_ajustada = as.numeric(gsub(",", ".", age_adjusted_death_rate))
+  ) %>%
+  filter(
+    estado == "United States",
+    anio >= 1999 & anio <= 2017
+  ) %>%
+  select(anio, causa, muertes, tasa_ajustada)
+
+totales_anuales <- datos %>%
+  filter(causa == "All causes") %>%
+  select(anio, muertes)
+
+totales_causa <- datos %>%
+  filter(causa != "All causes") %>%
+  group_by(causa) %>%
+  summarise(
+    total_1999_2017 = sum(muertes, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  arrange(desc(total_1999_2017))
+
+datos_nacional <- datos %>%
+  filter(causa != "All causes") %>%
+  group_by(anio, causa) %>%
+  summarise(muertes = sum(muertes, na.rm = TRUE), .groups = "drop")
+```

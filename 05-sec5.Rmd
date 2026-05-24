@@ -64,31 +64,23 @@ ggplot(datos_tasas_nac, aes(x = anio, y = tasa_nac, color = causa)) +
   )
 ```
 
-Interpretación: La gráfica deja ver dos dinámicas simultáneas que no
+Interpretación: La gráfica deja ver dos dinámicas simultánea que no
 deben leerse por separado. Por un lado, las enfermedades cardíacas
-caen de forma pronunciada —de aproximadamente 267 a 165 por 100,000—,
+caen de forma pronunciada de aproximadamente 267 a 165 por 100,000,
 lo que representa la reducción más significativa del período en
 términos absolutos; esta caída es atribuible a políticas sostenidas de
 prevención cardiovascular, expansión del acceso a estatinas y mejoras
-en la atención del infarto agudo. El cáncer, en cambio, apenas varía
-(de ~200 a ~163), señal de que los avances oncológicos compensan el
-incremento poblacional de riesgo, pero sin lograr una reducción comparable.
+en la atención del infarto agudo.
 
-Por otro lado, las lesiones no intencionales —que en 1999 eran la
-quinta causa— exhiben una aceleración desde 2014 que rompe la tendencia
-del resto de causas. Este quiebre no es aleatorio: coincide con el
-auge de las sobredosis por opioides sintéticos como el fentanilo en
-el mercado ilegal. Que una causa ligada a factores sociales y de
-política de drogas supere en crecimiento a todas las enfermedades
-crónicas es la señal más relevante del período y la que más debería
-orientar la respuesta de salud pública.
+El cáncer, en cambio, apenas varía (de ~200 a ~163), señal de que los avances oncológicos compensan el
+incremento poblacional de riesgo, pero sin lograr una reducción comparable. Por otro lado, las lesiones no intencionales que en 1999 eran la 5ta causa muestran una aceleración desde 2014 que rompe la tendencia
+del resto de causas.Este quiebre no es aleatorio, coincide con el auge de las sobredosis por opioides sintéticos como el fentanilo en el mercado ilegal. Que una causa ligada a factores sociales y de política de drogas supere en crecimiento a todas las enfermedades crónicas es la señal más relevante del período y la que más debería orientar la respuesta de salud pública.
 
-El Alzheimer merece mención aparte: su crecimiento no obedece a un
+El Alzheimer merece mención aparte, su crecimiento no obedece a un
 empeoramiento epidemiológico sino a la combinación del envejecimiento
-de los *baby boomers* y a mejoras en el diagnóstico que antes
+de los baby boomers y a mejoras en el diagnóstico que antes
 clasificaban estas muertes bajo otras causas. Su ascenso en el
-ranking es real, pero parte de él es un efecto estadístico que
-conviene no sobreinterpretar.
+ranking es real.
 
 ## Cambios en el ranking: 1999 vs 2017
 ```{r, echo=TRUE, warning=FALSE, message=FALSE}
@@ -181,15 +173,15 @@ tabla_cambios %>%
 ```
 
 Interpretación: La tabla confirma que la estabilidad en el tope del
-ranking es engañosa: que las enfermedades cardíacas y el cáncer
+ranking es engañosa, las enfermedades cardíacas y el cáncer
 permanezcan en primero y segundo lugar no significa que el perfil
 epidemiológico no haya cambiado. Las cardíacas caen un 10.7% en
-muertes absolutas —la única causa del top 5 que baja— mientras que el
+muertes absolutas la única causa del top 5 que baja mientras que el
 cáncer sube 9%, una diferencia significativa entre dos condiciones
 que comparten el podio.
 
 El dato más revelador no es el de la causa más letal sino el del mayor
-crecimiento: el Alzheimer sube un **172.6%**, más del doble de muertes
+crecimiento: el Alzheimer sube un 172.6%, más del doble de muertes
 en 18 años. Esto supera con creces cualquier otra causa y plantea una
 pregunta incómoda: ¿se están destinando recursos suficientes a la
 investigación y cuidado de enfermedades neurodegenerativas, dado que
@@ -198,6 +190,6 @@ ya representan la sexta causa y siguen escalando?
 Las lesiones no intencionales, con un incremento del 73.7%, también
 superan el promedio. Su salto del puesto 5 al 3 no es solo un
 reordenamiento estadístico —desplaza al stroke, que desciende con
-reducción real de muertes del 12.5%—, lo que indica que las mejoras
+reducción real de muertes del 12.5%, lo que indica que las mejoras
 en el manejo del ACV conviven con un deterioro en las condiciones que
 generan accidentes y sobredosis.

@@ -77,7 +77,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r librerias}
+```{r librerias, include=FALSE}
 # librerías necesarias
 library(tidyverse)
 library(skimr)
@@ -142,104 +142,11 @@ desarrollo RStudio. Las principales librerías empleadas fueron:
 -   `htmlwidgets`: para utilizar widgets de JavaScript (como leaflet,
     plotly, DT) en R y documentos R Markdown.
 
-## Carga y limpieza de datos
-
-```{r carga_datos}
-
-datos <- read_csv("NCHS_Leading_Causes.csv")
-```
-
-```{r limpieza}
-datos <- datos %>% clean_names()
-
-datos <- datos %>%
-  mutate(
-    anio = as.numeric(year),
-    causa = cause_name,
-    estado = state,
-    muertes = as.numeric(gsub(",", "", deaths)),
-    tasa_ajustada = as.numeric(gsub(",", ".", age_adjusted_death_rate))
-  ) %>%
-  filter(
-    estado == "United States",
-    anio >= 1999 & anio <= 2017
-  ) %>%
-  select(anio, causa, muertes, tasa_ajustada)
-
-totales_anuales <- datos %>%
-  filter(causa == "All causes") %>%
-  select(anio, muertes)
-
-cat("\nTotales nacionales por año:\n")
-print(totales_anuales %>%
-        mutate(muertes = comma(muertes)))
-
-totales_causa <- datos %>%
-  filter(causa != "All causes") %>%
-  group_by(causa) %>%
-  summarise(
-    total_1999_2017 = sum(muertes, na.rm = TRUE),
-    .groups = "drop"
-  ) %>%
-  arrange(desc(total_1999_2017))
-
-cat("\nTotal acumulado por causa (1999–2017):\n")
-print(totales_causa %>%
-        mutate(total_1999_2017 = comma(total_1999_2017)))
-```
-
-```{r, echo=TRUE, warning=FALSE, message=FALSE}
-datos_comp <- datos %>%
-  filter(anio %in% c(1999, 2017),
-         causa != "All causes") %>%
-  group_by(anio) %>%
-  mutate(
-    total_anual = sum(muertes),
-    porcentaje = (muertes / total_anual) * 100
-  ) %>%
-  ungroup()
-
-orden_causas <- datos_comp %>%
-  filter(anio == 2017) %>%
-  arrange(desc(porcentaje)) %>%
-  pull(causa)
-
-datos_comp$causa <- factor(datos_comp$causa, levels = orden_causas)
-
-ggplot(datos_comp, aes(x = causa,
-                       y = porcentaje,
-                       fill = factor(anio))) +
-  geom_col(position = position_dodge(width = 0.8)) +
-  geom_text(aes(label = paste0(round(porcentaje,1), "%")),
-            position = position_dodge(width = 0.8),
-            hjust = -0.2,
-            size = 3) +
-  coord_flip() +
-  scale_y_continuous(labels = function(x) paste0(x, "%"),
-                     expand = expansion(mult = c(0, 0.1))) +
-  scale_fill_brewer(palette = "Blues") +
-  labs(title = "Comparación porcentual de muertes por causa",
-       subtitle = "1999 vs 2017 – Total Nacional",
-       x = "Causa de muerte",
-       y = "Porcentaje del total anual",
-       fill = "Año") +
-  theme_minimal(base_size = 12)
-```
-
-Interpretación: El gráfico muestra cómo han cambiado las principales
-causas de muerte entre 1999 y 2017 mientras enfermedades como suicidio,
-diabetes, enfermedad renal y respiratorias crónicas bajaron en
-proporción, otras como influenza, neumonía, accidentes, derrames
-cerebrales y especialmente Alzheimer aumentaron, reflejando el impacto
-del envejecimiento poblacional; cáncer se mantuvo estable alrededor del
-29%, pero las enfermedades cardíacas crecieron fuertemente de 31.1% a
-38.1%, consolidándose como la principal causa de muerte en 2017.
-
 ## Variables del Dataset
 
 El dataset original contiene las siguientes variables:
 
-```{r, echo=FALSE}
+```{r tabla_variables, echo=FALSE}
 library(kableExtra)
 
 tabla_variables <- data.frame(
@@ -263,10 +170,8 @@ tabla_variables <- data.frame(
 tabla_variables %>%
   kbl(
     caption = "Variables del dataset original y su correspondencia en el análisis",
-    
-       
-        align = "lccc",
-      booktabs = TRUE) %>%
+    align = "lccc",
+    booktabs = TRUE) %>%
   kable_styling(
     bootstrap_options = c("striped", "hover"), 
     full_width = FALSE, 
@@ -281,8 +186,7 @@ tabla_variables %>%
 ```
 
 Para facilitar el análisis, las variables fueron renombradas en el
-entorno de trabajo
-como: `anio`, `causa_codigo`, `causa`, `estado`, `muertes` y `tasa_ajustada`.
-No se incluyen variables demográficas como sexo o grupo etario, por lo
-que el análisis se centra en las dimensiones temporal, geográfica y de
-ranking.
+entorno de trabajo como: `anio`, `causa_codigo`, `causa`, `estado`,
+`muertes` y `tasa_ajustada`. No se incluyen variables demográficas como
+sexo o grupo etario, por lo que el análisis se centra en las dimensiones
+temporal, geográfica y de ranking.

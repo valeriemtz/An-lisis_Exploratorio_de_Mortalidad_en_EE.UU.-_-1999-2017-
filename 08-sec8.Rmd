@@ -124,7 +124,7 @@ ggplot(tasas_semestre, aes(x = semestre_periodo,
 ```
 
 Los boxplots revelan algo más preciso que las series de tiempo: la
-**dispersión dentro de cada subperíodo**. Heart disease y Cancer no solo
+dispersión dentro de cada subperíodo. Heart disease y Cancer no solo
 bajan de mediana entre el primer (1999–2008) y el segundo período
 (2009–2017), sino que también reducen su variabilidad, lo que indica
 que la mejora es consistente entre años, no impulsada por un par de
@@ -196,7 +196,7 @@ evolución temporal, algo que los gráficos de líneas individuales no
 logran. Las enfermedades cardíacas y el cáncer dominan con celdas
 persistentemente oscuras, superando 600,000 muertes anuales cada una,
 pero si se observa con atención, las celdas de cardíacas se
-**aclaran** ligeramente de izquierda a derecha, lo que traduce la caída
+aclaran ligeramente de izquierda a derecha, lo que traduce la caída
 de la tasa ajustada en volumen absoluto controlado.
 
 El Alzheimer presenta el patrón opuesto: sus celdas se oscurecen

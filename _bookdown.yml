@@ -13,6 +13,7 @@ rmd_files: [
   "01-sec1.Rmd",
   "02-sec2.Rmd",
   "03-sec3.Rmd",
+  "03b-carga.Rmd",
   "04-sec4.Rmd",
   "05-sec5.Rmd",
   "06-sec6.Rmd",

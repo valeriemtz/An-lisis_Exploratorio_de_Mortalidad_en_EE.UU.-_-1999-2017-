@@ -7,12 +7,12 @@ entre 1999 y 2017.
 
 ## La tasa ajustada por edad: concepto y fórmula
 
-El indicador central de este trabajo es la **tasa ajustada por edad**
+El indicador central de este trabajo es la tasa ajustada por edad
 (*age-adjusted death rate*), cuyo propósito es eliminar el efecto de
 las diferencias en la estructura etaria entre poblaciones, permitiendo
 comparaciones válidas entre estados y a lo largo del tiempo.
 
-La fórmula estándar es la del **método de estandarización directa**:
+La fórmula estándar es la del método de estandarización directa:
 
 $$\text{Tasa ajustada} = \sum_{i} \left( \frac{d_i}{n_i} \right) \times w_i \times 100{,}000$$
 
@@ -20,13 +20,13 @@ donde:
 
 - $d_i$ = número de muertes en el grupo de edad $i$
 - $n_i$ = población en el grupo de edad $i$
-- $w_i$ = peso del grupo de edad $i$ en la **población estándar de referencia** (en EE. UU. se usa la población estándar del año 2000)
+- $w_i$ = peso del grupo de edad $i$ en la población estándar de referencia (en EE. UU. se usa la población estándar del año 2000)
 - La suma recorre todos los grupos etarios
 
-El resultado se interpreta como: *si la población analizada tuviera la
+*si la población analizada tuviera la
 misma estructura de edad que la población estándar, ¿cuántas muertes
 ocurrirían por cada 100,000 habitantes?* Es por eso que la tasa ajustada
-**no es un conteo de muertes reales**: en 1999 la tasa fue 875.6 por
+no es un conteo de muertes reales: en 1999 la tasa fue 875.6 por
 100,000, pero el número real de muertes en EE. UU. ese año fue
 2,391,399, en una población de casi 280 millones.
 

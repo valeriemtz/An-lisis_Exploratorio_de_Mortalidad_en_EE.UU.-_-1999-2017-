@@ -52,10 +52,10 @@ datos_nacional %>%
 ```
 
 Interpretación: Lo primero que llama la atención en este gráfico es
-la asimetría de magnitudes: las lesiones no intencionales alcanzan
+la asimetría de magnitudes porque las lesiones no intencionales alcanzan
 cerca de 175,000 muertes absolutas anuales en 2017, mientras el
 suicidio se mantiene por debajo de 50,000. Sin embargo, leer esto como
-que el suicidio es un problema menor sería un error de interpretación:
+que el suicidio es un problema menor sería un error:
 su crecimiento porcentual en el período es constante y no muestra
 ninguna señal de reversión.
 
@@ -72,6 +72,6 @@ El suicidio, por su parte, responde a determinantes distintos pero no
 desvinculados: mayor precariedad económica en comunidades que perdieron
 su base industrial y un deterioro del bienestar social que @daugherty2019
 documenta en los Apalaches y el Medio Oeste. Que ambas curvas crezcan
-en paralelo no es coincidencia —comparten el mismo sustrato de
-vulnerabilidad estructural—, lo que sugiere que intervenciones que
+en paralelo no es coincidencia comparten el mismo estado de
+vulnerabilidad estructural, lo que sugiere que intervenciones que
 traten estas causas de forma aislada probablemente sean insuficientes.
