@@ -30,6 +30,7 @@ análisis-geográfico
 modelo-predictivo-arima
 herramientas-computacionales
 variables-del-dataset
+carga-y-limpieza-de-datos
 evolución-de-la-tasa-ajustada-de-mortalidad-anual
 análisis-de-ranking-cambios-en-la-posición-de-las-causas-de-muerte
 ranking-de-causas-por-año
