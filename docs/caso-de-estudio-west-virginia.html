@@ -195,8 +195,7 @@ div.csl-indent {
 <li class="chapter" data-level="3.4" data-path="metodología.html"><a href="metodología.html#análisis-geográfico"><i class="fa fa-check"></i><b>3.4</b> Análisis geográfico:</a></li>
 <li class="chapter" data-level="3.5" data-path="metodología.html"><a href="metodología.html#modelo-predictivo-arima"><i class="fa fa-check"></i><b>3.5</b> Modelo predictivo – ARIMA:</a></li>
 <li class="chapter" data-level="3.6" data-path="metodología.html"><a href="metodología.html#herramientas-computacionales"><i class="fa fa-check"></i><b>3.6</b> Herramientas Computacionales</a></li>
-<li class="chapter" data-level="3.7" data-path="metodología.html"><a href="metodología.html#carga-y-limpieza-de-datos"><i class="fa fa-check"></i><b>3.7</b> Carga y limpieza de datos</a></li>
-<li class="chapter" data-level="3.8" data-path="metodología.html"><a href="metodología.html#variables-del-dataset"><i class="fa fa-check"></i><b>3.8</b> Variables del Dataset</a></li>
+<li class="chapter" data-level="3.7" data-path="metodología.html"><a href="metodología.html#variables-del-dataset"><i class="fa fa-check"></i><b>3.7</b> Variables del Dataset</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html"><i class="fa fa-check"></i><b>4</b> Evolución de la tasa ajustada de mortalidad anual</a></li>
 <li class="chapter" data-level="5" data-path="análisis-de-ranking-cambios-en-la-posición-de-las-causas-de-muerte.html"><a href="análisis-de-ranking-cambios-en-la-posición-de-las-causas-de-muerte.html"><i class="fa fa-check"></i><b>5</b> Análisis de Ranking: Cambios en la Posición de las Causas de Muerte</a>
@@ -297,85 +296,85 @@ resto del país.</p>
 West Virginia a lo largo del período, destacando la causa que presenta
 el comportamiento más atípico: las lesiones no intencionales
 (Unintentional Injuries).</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="caso-de-estudio-west-virginia.html#cb30-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb30-2"><a href="caso-de-estudio-west-virginia.html#cb30-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb30-3"><a href="caso-de-estudio-west-virginia.html#cb30-3" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
-<span id="cb30-4"><a href="caso-de-estudio-west-virginia.html#cb30-4" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb30-5"><a href="caso-de-estudio-west-virginia.html#cb30-5" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
-<span id="cb30-6"><a href="caso-de-estudio-west-virginia.html#cb30-6" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb30-7"><a href="caso-de-estudio-west-virginia.html#cb30-7" tabindex="-1"></a></span>
-<span id="cb30-8"><a href="caso-de-estudio-west-virginia.html#cb30-8" tabindex="-1"></a>datos_limpios <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;NCHS_Leading_Causes.csv&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb30-9"><a href="caso-de-estudio-west-virginia.html#cb30-9" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb30-10"><a href="caso-de-estudio-west-virginia.html#cb30-10" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb30-11"><a href="caso-de-estudio-west-virginia.html#cb30-11" tabindex="-1"></a>    <span class="at">year                     =</span> <span class="fu">as.numeric</span>(year),</span>
-<span id="cb30-12"><a href="caso-de-estudio-west-virginia.html#cb30-12" tabindex="-1"></a>    <span class="at">state                    =</span> <span class="fu">str_trim</span>(state),</span>
-<span id="cb30-13"><a href="caso-de-estudio-west-virginia.html#cb30-13" tabindex="-1"></a>    <span class="at">deaths                   =</span> <span class="fu">as.numeric</span>(deaths),</span>
-<span id="cb30-14"><a href="caso-de-estudio-west-virginia.html#cb30-14" tabindex="-1"></a>    <span class="at">age_adjusted_death_rate  =</span> <span class="fu">as.numeric</span>(age_adjusted_death_rate)</span>
-<span id="cb30-15"><a href="caso-de-estudio-west-virginia.html#cb30-15" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb30-16"><a href="caso-de-estudio-west-virginia.html#cb30-16" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
-<span id="cb30-17"><a href="caso-de-estudio-west-virginia.html#cb30-17" tabindex="-1"></a>    state <span class="sc">!=</span> <span class="st">&quot;United States&quot;</span>,</span>
-<span id="cb30-18"><a href="caso-de-estudio-west-virginia.html#cb30-18" tabindex="-1"></a>    year  <span class="sc">&gt;=</span> <span class="dv">1999</span>,</span>
-<span id="cb30-19"><a href="caso-de-estudio-west-virginia.html#cb30-19" tabindex="-1"></a>    year  <span class="sc">&lt;=</span> <span class="dv">2017</span></span>
-<span id="cb30-20"><a href="caso-de-estudio-west-virginia.html#cb30-20" tabindex="-1"></a>  )</span>
-<span id="cb30-21"><a href="caso-de-estudio-west-virginia.html#cb30-21" tabindex="-1"></a></span>
-<span id="cb30-22"><a href="caso-de-estudio-west-virginia.html#cb30-22" tabindex="-1"></a><span class="co"># Datos estatales de West Virginia – todas las causas </span></span>
-<span id="cb30-23"><a href="caso-de-estudio-west-virginia.html#cb30-23" tabindex="-1"></a>wv_causas <span class="ot">&lt;-</span> datos_limpios <span class="sc">%&gt;%</span></span>
-<span id="cb30-24"><a href="caso-de-estudio-west-virginia.html#cb30-24" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
-<span id="cb30-25"><a href="caso-de-estudio-west-virginia.html#cb30-25" tabindex="-1"></a>    state      <span class="sc">==</span> <span class="st">&quot;West Virginia&quot;</span>,</span>
-<span id="cb30-26"><a href="caso-de-estudio-west-virginia.html#cb30-26" tabindex="-1"></a>    cause_name <span class="sc">!=</span> <span class="st">&quot;All causes&quot;</span>,</span>
-<span id="cb30-27"><a href="caso-de-estudio-west-virginia.html#cb30-27" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(age_adjusted_death_rate)</span>
-<span id="cb30-28"><a href="caso-de-estudio-west-virginia.html#cb30-28" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb30-29"><a href="caso-de-estudio-west-virginia.html#cb30-29" tabindex="-1"></a>  <span class="fu">arrange</span>(year) <span class="sc">%&gt;%</span></span>
-<span id="cb30-30"><a href="caso-de-estudio-west-virginia.html#cb30-30" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb30-31"><a href="caso-de-estudio-west-virginia.html#cb30-31" tabindex="-1"></a>    <span class="at">destacar =</span> <span class="fu">ifelse</span>(</span>
-<span id="cb30-32"><a href="caso-de-estudio-west-virginia.html#cb30-32" tabindex="-1"></a>      cause_name <span class="sc">==</span> <span class="st">&quot;Unintentional injuries&quot;</span>,</span>
-<span id="cb30-33"><a href="caso-de-estudio-west-virginia.html#cb30-33" tabindex="-1"></a>      <span class="st">&quot;Unintentional injuries&quot;</span>,</span>
-<span id="cb30-34"><a href="caso-de-estudio-west-virginia.html#cb30-34" tabindex="-1"></a>      <span class="st">&quot;Otras causas&quot;</span></span>
-<span id="cb30-35"><a href="caso-de-estudio-west-virginia.html#cb30-35" tabindex="-1"></a>    )</span>
-<span id="cb30-36"><a href="caso-de-estudio-west-virginia.html#cb30-36" tabindex="-1"></a>  )</span>
-<span id="cb30-37"><a href="caso-de-estudio-west-virginia.html#cb30-37" tabindex="-1"></a></span>
-<span id="cb30-38"><a href="caso-de-estudio-west-virginia.html#cb30-38" tabindex="-1"></a><span class="fu">ggplot</span>(wv_causas,</span>
-<span id="cb30-39"><a href="caso-de-estudio-west-virginia.html#cb30-39" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x     =</span> year,</span>
-<span id="cb30-40"><a href="caso-de-estudio-west-virginia.html#cb30-40" tabindex="-1"></a>           <span class="at">y     =</span> age_adjusted_death_rate,</span>
-<span id="cb30-41"><a href="caso-de-estudio-west-virginia.html#cb30-41" tabindex="-1"></a>           <span class="at">group =</span> cause_name,</span>
-<span id="cb30-42"><a href="caso-de-estudio-west-virginia.html#cb30-42" tabindex="-1"></a>           <span class="at">color =</span> destacar)) <span class="sc">+</span></span>
-<span id="cb30-43"><a href="caso-de-estudio-west-virginia.html#cb30-43" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data      =</span> <span class="fu">subset</span>(wv_causas, destacar <span class="sc">==</span> <span class="st">&quot;Otras causas&quot;</span>),</span>
-<span id="cb30-44"><a href="caso-de-estudio-west-virginia.html#cb30-44" tabindex="-1"></a>            <span class="at">linewidth =</span> <span class="fl">0.9</span>, <span class="at">alpha =</span> <span class="fl">0.45</span>) <span class="sc">+</span></span>
-<span id="cb30-45"><a href="caso-de-estudio-west-virginia.html#cb30-45" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data      =</span> <span class="fu">subset</span>(wv_causas, destacar <span class="sc">==</span> <span class="st">&quot;Unintentional injuries&quot;</span>),</span>
-<span id="cb30-46"><a href="caso-de-estudio-west-virginia.html#cb30-46" tabindex="-1"></a>            <span class="at">linewidth =</span> <span class="fl">2.0</span>) <span class="sc">+</span></span>
-<span id="cb30-47"><a href="caso-de-estudio-west-virginia.html#cb30-47" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data  =</span> <span class="fu">subset</span>(wv_causas, destacar <span class="sc">==</span> <span class="st">&quot;Unintentional injuries&quot;</span>),</span>
-<span id="cb30-48"><a href="caso-de-estudio-west-virginia.html#cb30-48" tabindex="-1"></a>             <span class="at">size  =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
-<span id="cb30-49"><a href="caso-de-estudio-west-virginia.html#cb30-49" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">2014</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>,</span>
-<span id="cb30-50"><a href="caso-de-estudio-west-virginia.html#cb30-50" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;#D62828&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb30-51"><a href="caso-de-estudio-west-virginia.html#cb30-51" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="fl">2014.2</span>, <span class="at">y =</span> <span class="dv">15</span>,</span>
-<span id="cb30-52"><a href="caso-de-estudio-west-virginia.html#cb30-52" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">&quot;2014: punto de</span><span class="sc">\n</span><span class="st">aceleración&quot;</span>,</span>
-<span id="cb30-53"><a href="caso-de-estudio-west-virginia.html#cb30-53" tabindex="-1"></a>           <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">&quot;#D62828&quot;</span>,</span>
-<span id="cb30-54"><a href="caso-de-estudio-west-virginia.html#cb30-54" tabindex="-1"></a>           <span class="at">fontface =</span> <span class="st">&quot;italic&quot;</span>, <span class="at">size =</span> <span class="fl">3.3</span>) <span class="sc">+</span></span>
-<span id="cb30-55"><a href="caso-de-estudio-west-virginia.html#cb30-55" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(</span>
-<span id="cb30-56"><a href="caso-de-estudio-west-virginia.html#cb30-56" tabindex="-1"></a>    <span class="st">&quot;Unintentional injuries&quot;</span> <span class="ot">=</span> <span class="st">&quot;#D62828&quot;</span>,</span>
-<span id="cb30-57"><a href="caso-de-estudio-west-virginia.html#cb30-57" tabindex="-1"></a>    <span class="st">&quot;Otras causas&quot;</span>           <span class="ot">=</span> <span class="st">&quot;#9AA0A6&quot;</span></span>
-<span id="cb30-58"><a href="caso-de-estudio-west-virginia.html#cb30-58" tabindex="-1"></a>  )) <span class="sc">+</span></span>
-<span id="cb30-59"><a href="caso-de-estudio-west-virginia.html#cb30-59" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1999</span>, <span class="dv">2017</span>, <span class="at">by =</span> <span class="dv">2</span>),</span>
-<span id="cb30-60"><a href="caso-de-estudio-west-virginia.html#cb30-60" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">1999</span>, <span class="dv">2017</span>)) <span class="sc">+</span></span>
-<span id="cb30-61"><a href="caso-de-estudio-west-virginia.html#cb30-61" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> comma) <span class="sc">+</span></span>
-<span id="cb30-62"><a href="caso-de-estudio-west-virginia.html#cb30-62" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb30-63"><a href="caso-de-estudio-west-virginia.html#cb30-63" tabindex="-1"></a>    <span class="at">title    =</span> <span class="st">&quot;Evolución de las causas de muerte en West Virginia (1999–2017)&quot;</span>,</span>
-<span id="cb30-64"><a href="caso-de-estudio-west-virginia.html#cb30-64" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Las lesiones no intencionales (rojo) son la causa de mayor crecimiento desde 2014&quot;</span>,</span>
-<span id="cb30-65"><a href="caso-de-estudio-west-virginia.html#cb30-65" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Año&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Tasa ajustada por 100,000 hab.&quot;</span>,</span>
-<span id="cb30-66"><a href="caso-de-estudio-west-virginia.html#cb30-66" tabindex="-1"></a>    <span class="at">color   =</span> <span class="st">&quot;&quot;</span></span>
-<span id="cb30-67"><a href="caso-de-estudio-west-virginia.html#cb30-67" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb30-68"><a href="caso-de-estudio-west-virginia.html#cb30-68" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
-<span id="cb30-69"><a href="caso-de-estudio-west-virginia.html#cb30-69" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb30-70"><a href="caso-de-estudio-west-virginia.html#cb30-70" tabindex="-1"></a>    <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;#F4F6F8&quot;</span>, <span class="at">color =</span> <span class="cn">NA</span>),</span>
-<span id="cb30-71"><a href="caso-de-estudio-west-virginia.html#cb30-71" tabindex="-1"></a>    <span class="at">plot.background  =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;#F4F6F8&quot;</span>, <span class="at">color =</span> <span class="cn">NA</span>),</span>
-<span id="cb30-72"><a href="caso-de-estudio-west-virginia.html#cb30-72" tabindex="-1"></a>    <span class="at">panel.grid.major =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>),</span>
-<span id="cb30-73"><a href="caso-de-estudio-west-virginia.html#cb30-73" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb30-74"><a href="caso-de-estudio-west-virginia.html#cb30-74" tabindex="-1"></a>    <span class="at">legend.position  =</span> <span class="st">&quot;top&quot;</span>,</span>
-<span id="cb30-75"><a href="caso-de-estudio-west-virginia.html#cb30-75" tabindex="-1"></a>    <span class="at">plot.title       =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">size =</span> <span class="dv">14</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
-<span id="cb30-76"><a href="caso-de-estudio-west-virginia.html#cb30-76" tabindex="-1"></a>    <span class="at">plot.subtitle    =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&quot;#D62828&quot;</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>,</span>
-<span id="cb30-77"><a href="caso-de-estudio-west-virginia.html#cb30-77" tabindex="-1"></a>                                    <span class="at">size =</span> <span class="dv">10</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
-<span id="cb30-78"><a href="caso-de-estudio-west-virginia.html#cb30-78" tabindex="-1"></a>    <span class="at">axis.text.x      =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>)</span>
-<span id="cb30-79"><a href="caso-de-estudio-west-virginia.html#cb30-79" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="caso-de-estudio-west-virginia.html#cb19-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb19-2"><a href="caso-de-estudio-west-virginia.html#cb19-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb19-3"><a href="caso-de-estudio-west-virginia.html#cb19-3" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb19-4"><a href="caso-de-estudio-west-virginia.html#cb19-4" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb19-5"><a href="caso-de-estudio-west-virginia.html#cb19-5" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb19-6"><a href="caso-de-estudio-west-virginia.html#cb19-6" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb19-7"><a href="caso-de-estudio-west-virginia.html#cb19-7" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="caso-de-estudio-west-virginia.html#cb19-8" tabindex="-1"></a>datos_limpios <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;NCHS_Leading_Causes.csv&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-9"><a href="caso-de-estudio-west-virginia.html#cb19-9" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb19-10"><a href="caso-de-estudio-west-virginia.html#cb19-10" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb19-11"><a href="caso-de-estudio-west-virginia.html#cb19-11" tabindex="-1"></a>    <span class="at">year                     =</span> <span class="fu">as.numeric</span>(year),</span>
+<span id="cb19-12"><a href="caso-de-estudio-west-virginia.html#cb19-12" tabindex="-1"></a>    <span class="at">state                    =</span> <span class="fu">str_trim</span>(state),</span>
+<span id="cb19-13"><a href="caso-de-estudio-west-virginia.html#cb19-13" tabindex="-1"></a>    <span class="at">deaths                   =</span> <span class="fu">as.numeric</span>(deaths),</span>
+<span id="cb19-14"><a href="caso-de-estudio-west-virginia.html#cb19-14" tabindex="-1"></a>    <span class="at">age_adjusted_death_rate  =</span> <span class="fu">as.numeric</span>(age_adjusted_death_rate)</span>
+<span id="cb19-15"><a href="caso-de-estudio-west-virginia.html#cb19-15" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb19-16"><a href="caso-de-estudio-west-virginia.html#cb19-16" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb19-17"><a href="caso-de-estudio-west-virginia.html#cb19-17" tabindex="-1"></a>    state <span class="sc">!=</span> <span class="st">&quot;United States&quot;</span>,</span>
+<span id="cb19-18"><a href="caso-de-estudio-west-virginia.html#cb19-18" tabindex="-1"></a>    year  <span class="sc">&gt;=</span> <span class="dv">1999</span>,</span>
+<span id="cb19-19"><a href="caso-de-estudio-west-virginia.html#cb19-19" tabindex="-1"></a>    year  <span class="sc">&lt;=</span> <span class="dv">2017</span></span>
+<span id="cb19-20"><a href="caso-de-estudio-west-virginia.html#cb19-20" tabindex="-1"></a>  )</span>
+<span id="cb19-21"><a href="caso-de-estudio-west-virginia.html#cb19-21" tabindex="-1"></a></span>
+<span id="cb19-22"><a href="caso-de-estudio-west-virginia.html#cb19-22" tabindex="-1"></a><span class="co"># Datos estatales de West Virginia – todas las causas </span></span>
+<span id="cb19-23"><a href="caso-de-estudio-west-virginia.html#cb19-23" tabindex="-1"></a>wv_causas <span class="ot">&lt;-</span> datos_limpios <span class="sc">%&gt;%</span></span>
+<span id="cb19-24"><a href="caso-de-estudio-west-virginia.html#cb19-24" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb19-25"><a href="caso-de-estudio-west-virginia.html#cb19-25" tabindex="-1"></a>    state      <span class="sc">==</span> <span class="st">&quot;West Virginia&quot;</span>,</span>
+<span id="cb19-26"><a href="caso-de-estudio-west-virginia.html#cb19-26" tabindex="-1"></a>    cause_name <span class="sc">!=</span> <span class="st">&quot;All causes&quot;</span>,</span>
+<span id="cb19-27"><a href="caso-de-estudio-west-virginia.html#cb19-27" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(age_adjusted_death_rate)</span>
+<span id="cb19-28"><a href="caso-de-estudio-west-virginia.html#cb19-28" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb19-29"><a href="caso-de-estudio-west-virginia.html#cb19-29" tabindex="-1"></a>  <span class="fu">arrange</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb19-30"><a href="caso-de-estudio-west-virginia.html#cb19-30" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb19-31"><a href="caso-de-estudio-west-virginia.html#cb19-31" tabindex="-1"></a>    <span class="at">destacar =</span> <span class="fu">ifelse</span>(</span>
+<span id="cb19-32"><a href="caso-de-estudio-west-virginia.html#cb19-32" tabindex="-1"></a>      cause_name <span class="sc">==</span> <span class="st">&quot;Unintentional injuries&quot;</span>,</span>
+<span id="cb19-33"><a href="caso-de-estudio-west-virginia.html#cb19-33" tabindex="-1"></a>      <span class="st">&quot;Unintentional injuries&quot;</span>,</span>
+<span id="cb19-34"><a href="caso-de-estudio-west-virginia.html#cb19-34" tabindex="-1"></a>      <span class="st">&quot;Otras causas&quot;</span></span>
+<span id="cb19-35"><a href="caso-de-estudio-west-virginia.html#cb19-35" tabindex="-1"></a>    )</span>
+<span id="cb19-36"><a href="caso-de-estudio-west-virginia.html#cb19-36" tabindex="-1"></a>  )</span>
+<span id="cb19-37"><a href="caso-de-estudio-west-virginia.html#cb19-37" tabindex="-1"></a></span>
+<span id="cb19-38"><a href="caso-de-estudio-west-virginia.html#cb19-38" tabindex="-1"></a><span class="fu">ggplot</span>(wv_causas,</span>
+<span id="cb19-39"><a href="caso-de-estudio-west-virginia.html#cb19-39" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x     =</span> year,</span>
+<span id="cb19-40"><a href="caso-de-estudio-west-virginia.html#cb19-40" tabindex="-1"></a>           <span class="at">y     =</span> age_adjusted_death_rate,</span>
+<span id="cb19-41"><a href="caso-de-estudio-west-virginia.html#cb19-41" tabindex="-1"></a>           <span class="at">group =</span> cause_name,</span>
+<span id="cb19-42"><a href="caso-de-estudio-west-virginia.html#cb19-42" tabindex="-1"></a>           <span class="at">color =</span> destacar)) <span class="sc">+</span></span>
+<span id="cb19-43"><a href="caso-de-estudio-west-virginia.html#cb19-43" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data      =</span> <span class="fu">subset</span>(wv_causas, destacar <span class="sc">==</span> <span class="st">&quot;Otras causas&quot;</span>),</span>
+<span id="cb19-44"><a href="caso-de-estudio-west-virginia.html#cb19-44" tabindex="-1"></a>            <span class="at">linewidth =</span> <span class="fl">0.9</span>, <span class="at">alpha =</span> <span class="fl">0.45</span>) <span class="sc">+</span></span>
+<span id="cb19-45"><a href="caso-de-estudio-west-virginia.html#cb19-45" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data      =</span> <span class="fu">subset</span>(wv_causas, destacar <span class="sc">==</span> <span class="st">&quot;Unintentional injuries&quot;</span>),</span>
+<span id="cb19-46"><a href="caso-de-estudio-west-virginia.html#cb19-46" tabindex="-1"></a>            <span class="at">linewidth =</span> <span class="fl">2.0</span>) <span class="sc">+</span></span>
+<span id="cb19-47"><a href="caso-de-estudio-west-virginia.html#cb19-47" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data  =</span> <span class="fu">subset</span>(wv_causas, destacar <span class="sc">==</span> <span class="st">&quot;Unintentional injuries&quot;</span>),</span>
+<span id="cb19-48"><a href="caso-de-estudio-west-virginia.html#cb19-48" tabindex="-1"></a>             <span class="at">size  =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb19-49"><a href="caso-de-estudio-west-virginia.html#cb19-49" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">2014</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>,</span>
+<span id="cb19-50"><a href="caso-de-estudio-west-virginia.html#cb19-50" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;#D62828&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb19-51"><a href="caso-de-estudio-west-virginia.html#cb19-51" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="fl">2014.2</span>, <span class="at">y =</span> <span class="dv">15</span>,</span>
+<span id="cb19-52"><a href="caso-de-estudio-west-virginia.html#cb19-52" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">&quot;2014: punto de</span><span class="sc">\n</span><span class="st">aceleración&quot;</span>,</span>
+<span id="cb19-53"><a href="caso-de-estudio-west-virginia.html#cb19-53" tabindex="-1"></a>           <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">&quot;#D62828&quot;</span>,</span>
+<span id="cb19-54"><a href="caso-de-estudio-west-virginia.html#cb19-54" tabindex="-1"></a>           <span class="at">fontface =</span> <span class="st">&quot;italic&quot;</span>, <span class="at">size =</span> <span class="fl">3.3</span>) <span class="sc">+</span></span>
+<span id="cb19-55"><a href="caso-de-estudio-west-virginia.html#cb19-55" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb19-56"><a href="caso-de-estudio-west-virginia.html#cb19-56" tabindex="-1"></a>    <span class="st">&quot;Unintentional injuries&quot;</span> <span class="ot">=</span> <span class="st">&quot;#D62828&quot;</span>,</span>
+<span id="cb19-57"><a href="caso-de-estudio-west-virginia.html#cb19-57" tabindex="-1"></a>    <span class="st">&quot;Otras causas&quot;</span>           <span class="ot">=</span> <span class="st">&quot;#9AA0A6&quot;</span></span>
+<span id="cb19-58"><a href="caso-de-estudio-west-virginia.html#cb19-58" tabindex="-1"></a>  )) <span class="sc">+</span></span>
+<span id="cb19-59"><a href="caso-de-estudio-west-virginia.html#cb19-59" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1999</span>, <span class="dv">2017</span>, <span class="at">by =</span> <span class="dv">2</span>),</span>
+<span id="cb19-60"><a href="caso-de-estudio-west-virginia.html#cb19-60" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">1999</span>, <span class="dv">2017</span>)) <span class="sc">+</span></span>
+<span id="cb19-61"><a href="caso-de-estudio-west-virginia.html#cb19-61" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> comma) <span class="sc">+</span></span>
+<span id="cb19-62"><a href="caso-de-estudio-west-virginia.html#cb19-62" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb19-63"><a href="caso-de-estudio-west-virginia.html#cb19-63" tabindex="-1"></a>    <span class="at">title    =</span> <span class="st">&quot;Evolución de las causas de muerte en West Virginia (1999–2017)&quot;</span>,</span>
+<span id="cb19-64"><a href="caso-de-estudio-west-virginia.html#cb19-64" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Las lesiones no intencionales (rojo) son la causa de mayor crecimiento desde 2014&quot;</span>,</span>
+<span id="cb19-65"><a href="caso-de-estudio-west-virginia.html#cb19-65" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Año&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Tasa ajustada por 100,000 hab.&quot;</span>,</span>
+<span id="cb19-66"><a href="caso-de-estudio-west-virginia.html#cb19-66" tabindex="-1"></a>    <span class="at">color   =</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb19-67"><a href="caso-de-estudio-west-virginia.html#cb19-67" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb19-68"><a href="caso-de-estudio-west-virginia.html#cb19-68" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
+<span id="cb19-69"><a href="caso-de-estudio-west-virginia.html#cb19-69" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb19-70"><a href="caso-de-estudio-west-virginia.html#cb19-70" tabindex="-1"></a>    <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;#F4F6F8&quot;</span>, <span class="at">color =</span> <span class="cn">NA</span>),</span>
+<span id="cb19-71"><a href="caso-de-estudio-west-virginia.html#cb19-71" tabindex="-1"></a>    <span class="at">plot.background  =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;#F4F6F8&quot;</span>, <span class="at">color =</span> <span class="cn">NA</span>),</span>
+<span id="cb19-72"><a href="caso-de-estudio-west-virginia.html#cb19-72" tabindex="-1"></a>    <span class="at">panel.grid.major =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>),</span>
+<span id="cb19-73"><a href="caso-de-estudio-west-virginia.html#cb19-73" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb19-74"><a href="caso-de-estudio-west-virginia.html#cb19-74" tabindex="-1"></a>    <span class="at">legend.position  =</span> <span class="st">&quot;top&quot;</span>,</span>
+<span id="cb19-75"><a href="caso-de-estudio-west-virginia.html#cb19-75" tabindex="-1"></a>    <span class="at">plot.title       =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">size =</span> <span class="dv">14</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb19-76"><a href="caso-de-estudio-west-virginia.html#cb19-76" tabindex="-1"></a>    <span class="at">plot.subtitle    =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&quot;#D62828&quot;</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>,</span>
+<span id="cb19-77"><a href="caso-de-estudio-west-virginia.html#cb19-77" tabindex="-1"></a>                                    <span class="at">size =</span> <span class="dv">10</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb19-78"><a href="caso-de-estudio-west-virginia.html#cb19-78" tabindex="-1"></a>    <span class="at">axis.text.x      =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>)</span>
+<span id="cb19-79"><a href="caso-de-estudio-west-virginia.html#cb19-79" tabindex="-1"></a>  )</span></code></pre></div>
 <p><img src="mortalidad-eeuu_files/figure-html/wv_series_causas-1.png" width="1500" /></p>
 <p>Mientras la mayoría de las causas en West Virginia muestran una
 tendencia descendente o estable, las lesiones no intencionales
@@ -457,72 +456,72 @@ servicios de salud específicos</p>
 <p>Para cuantificar el cambio absoluto en cada causa entre el inicio y
 el final del período, se compara directamente el número de muertes en
 West Virginia en 1999 y 2017.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="caso-de-estudio-west-virginia.html#cb31-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb31-2"><a href="caso-de-estudio-west-virginia.html#cb31-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb31-3"><a href="caso-de-estudio-west-virginia.html#cb31-3" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
-<span id="cb31-4"><a href="caso-de-estudio-west-virginia.html#cb31-4" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb31-5"><a href="caso-de-estudio-west-virginia.html#cb31-5" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
-<span id="cb31-6"><a href="caso-de-estudio-west-virginia.html#cb31-6" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb31-7"><a href="caso-de-estudio-west-virginia.html#cb31-7" tabindex="-1"></a></span>
-<span id="cb31-8"><a href="caso-de-estudio-west-virginia.html#cb31-8" tabindex="-1"></a>datos_limpios <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
-<span id="cb31-9"><a href="caso-de-estudio-west-virginia.html#cb31-9" tabindex="-1"></a>  <span class="st">&quot;NCHS_Leading_Causes.csv&quot;</span>,</span>
-<span id="cb31-10"><a href="caso-de-estudio-west-virginia.html#cb31-10" tabindex="-1"></a>  <span class="at">col_types =</span> <span class="fu">cols</span>(<span class="at">.default =</span> <span class="fu">col_character</span>())</span>
-<span id="cb31-11"><a href="caso-de-estudio-west-virginia.html#cb31-11" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb31-12"><a href="caso-de-estudio-west-virginia.html#cb31-12" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb31-13"><a href="caso-de-estudio-west-virginia.html#cb31-13" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb31-14"><a href="caso-de-estudio-west-virginia.html#cb31-14" tabindex="-1"></a>    <span class="at">year                    =</span> <span class="fu">as.numeric</span>(year),</span>
-<span id="cb31-15"><a href="caso-de-estudio-west-virginia.html#cb31-15" tabindex="-1"></a>    <span class="at">state                   =</span> <span class="fu">str_trim</span>(state),</span>
-<span id="cb31-16"><a href="caso-de-estudio-west-virginia.html#cb31-16" tabindex="-1"></a>    <span class="at">deaths                  =</span> <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">.&quot;</span>, <span class="st">&quot;&quot;</span>, deaths)),</span>
-<span id="cb31-17"><a href="caso-de-estudio-west-virginia.html#cb31-17" tabindex="-1"></a>    <span class="at">age_adjusted_death_rate =</span> <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">&quot;,&quot;</span>, <span class="st">&quot;.&quot;</span>, age_adjusted_death_rate))</span>
-<span id="cb31-18"><a href="caso-de-estudio-west-virginia.html#cb31-18" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb31-19"><a href="caso-de-estudio-west-virginia.html#cb31-19" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
-<span id="cb31-20"><a href="caso-de-estudio-west-virginia.html#cb31-20" tabindex="-1"></a>    state <span class="sc">!=</span> <span class="st">&quot;United States&quot;</span>,</span>
-<span id="cb31-21"><a href="caso-de-estudio-west-virginia.html#cb31-21" tabindex="-1"></a>    year  <span class="sc">&gt;=</span> <span class="dv">1999</span>,</span>
-<span id="cb31-22"><a href="caso-de-estudio-west-virginia.html#cb31-22" tabindex="-1"></a>    year  <span class="sc">&lt;=</span> <span class="dv">2017</span></span>
-<span id="cb31-23"><a href="caso-de-estudio-west-virginia.html#cb31-23" tabindex="-1"></a>  )</span>
-<span id="cb31-24"><a href="caso-de-estudio-west-virginia.html#cb31-24" tabindex="-1"></a></span>
-<span id="cb31-25"><a href="caso-de-estudio-west-virginia.html#cb31-25" tabindex="-1"></a>wv_comp <span class="ot">&lt;-</span> datos_limpios <span class="sc">%&gt;%</span></span>
-<span id="cb31-26"><a href="caso-de-estudio-west-virginia.html#cb31-26" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
-<span id="cb31-27"><a href="caso-de-estudio-west-virginia.html#cb31-27" tabindex="-1"></a>    state      <span class="sc">==</span> <span class="st">&quot;West Virginia&quot;</span>,</span>
-<span id="cb31-28"><a href="caso-de-estudio-west-virginia.html#cb31-28" tabindex="-1"></a>    year       <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1999</span>, <span class="dv">2017</span>),</span>
-<span id="cb31-29"><a href="caso-de-estudio-west-virginia.html#cb31-29" tabindex="-1"></a>    cause_name <span class="sc">!=</span> <span class="st">&quot;All causes&quot;</span>,</span>
-<span id="cb31-30"><a href="caso-de-estudio-west-virginia.html#cb31-30" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(deaths)</span>
-<span id="cb31-31"><a href="caso-de-estudio-west-virginia.html#cb31-31" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb31-32"><a href="caso-de-estudio-west-virginia.html#cb31-32" tabindex="-1"></a>  <span class="fu">select</span>(year, cause_name, deaths) <span class="sc">%&gt;%</span></span>
-<span id="cb31-33"><a href="caso-de-estudio-west-virginia.html#cb31-33" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">factor</span>(year))</span>
-<span id="cb31-34"><a href="caso-de-estudio-west-virginia.html#cb31-34" tabindex="-1"></a></span>
-<span id="cb31-35"><a href="caso-de-estudio-west-virginia.html#cb31-35" tabindex="-1"></a>orden_causas_wv <span class="ot">&lt;-</span> wv_comp <span class="sc">%&gt;%</span></span>
-<span id="cb31-36"><a href="caso-de-estudio-west-virginia.html#cb31-36" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2017</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb31-37"><a href="caso-de-estudio-west-virginia.html#cb31-37" tabindex="-1"></a>  <span class="fu">arrange</span>(deaths) <span class="sc">%&gt;%</span></span>
-<span id="cb31-38"><a href="caso-de-estudio-west-virginia.html#cb31-38" tabindex="-1"></a>  <span class="fu">pull</span>(cause_name)</span>
-<span id="cb31-39"><a href="caso-de-estudio-west-virginia.html#cb31-39" tabindex="-1"></a></span>
-<span id="cb31-40"><a href="caso-de-estudio-west-virginia.html#cb31-40" tabindex="-1"></a>wv_comp <span class="ot">&lt;-</span> wv_comp <span class="sc">%&gt;%</span></span>
-<span id="cb31-41"><a href="caso-de-estudio-west-virginia.html#cb31-41" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cause_name =</span> <span class="fu">factor</span>(cause_name, <span class="at">levels =</span> orden_causas_wv))</span>
-<span id="cb31-42"><a href="caso-de-estudio-west-virginia.html#cb31-42" tabindex="-1"></a></span>
-<span id="cb31-43"><a href="caso-de-estudio-west-virginia.html#cb31-43" tabindex="-1"></a><span class="fu">ggplot</span>(wv_comp,</span>
-<span id="cb31-44"><a href="caso-de-estudio-west-virginia.html#cb31-44" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> cause_name, <span class="at">y =</span> deaths, <span class="at">fill =</span> year)) <span class="sc">+</span></span>
-<span id="cb31-45"><a href="caso-de-estudio-west-virginia.html#cb31-45" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>, <span class="at">width =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb31-46"><a href="caso-de-estudio-west-virginia.html#cb31-46" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">comma</span>(deaths)),</span>
-<span id="cb31-47"><a href="caso-de-estudio-west-virginia.html#cb31-47" tabindex="-1"></a>            <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="fl">0.7</span>),</span>
-<span id="cb31-48"><a href="caso-de-estudio-west-virginia.html#cb31-48" tabindex="-1"></a>            <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.1</span>, <span class="at">size =</span> <span class="fl">3.2</span>, <span class="at">fontface =</span> <span class="st">&quot;bold&quot;</span>) <span class="sc">+</span></span>
-<span id="cb31-49"><a href="caso-de-estudio-west-virginia.html#cb31-49" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb31-50"><a href="caso-de-estudio-west-virginia.html#cb31-50" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;1999&quot;</span> <span class="ot">=</span> <span class="st">&quot;#457B9D&quot;</span>, <span class="st">&quot;2017&quot;</span> <span class="ot">=</span> <span class="st">&quot;#1D3557&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb31-51"><a href="caso-de-estudio-west-virginia.html#cb31-51" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> comma,</span>
-<span id="cb31-52"><a href="caso-de-estudio-west-virginia.html#cb31-52" tabindex="-1"></a>                     <span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.22</span>))) <span class="sc">+</span></span>
-<span id="cb31-53"><a href="caso-de-estudio-west-virginia.html#cb31-53" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb31-54"><a href="caso-de-estudio-west-virginia.html#cb31-54" tabindex="-1"></a>    <span class="at">title    =</span> <span class="st">&quot;West Virginia – Muertes por causa: 1999 vs. 2017&quot;</span>,</span>
-<span id="cb31-55"><a href="caso-de-estudio-west-virginia.html#cb31-55" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Unintentional injuries es la única causa con crecimiento pronunciado y sostenido&quot;</span>,</span>
-<span id="cb31-56"><a href="caso-de-estudio-west-virginia.html#cb31-56" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;Número de muertes&quot;</span>,</span>
-<span id="cb31-57"><a href="caso-de-estudio-west-virginia.html#cb31-57" tabindex="-1"></a>    <span class="at">fill    =</span> <span class="st">&quot;Año&quot;</span></span>
-<span id="cb31-58"><a href="caso-de-estudio-west-virginia.html#cb31-58" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb31-59"><a href="caso-de-estudio-west-virginia.html#cb31-59" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
-<span id="cb31-60"><a href="caso-de-estudio-west-virginia.html#cb31-60" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb31-61"><a href="caso-de-estudio-west-virginia.html#cb31-61" tabindex="-1"></a>    <span class="at">plot.title         =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">13</span>),</span>
-<span id="cb31-62"><a href="caso-de-estudio-west-virginia.html#cb31-62" tabindex="-1"></a>    <span class="at">plot.subtitle      =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="fl">9.5</span>, <span class="at">color =</span> <span class="st">&quot;gray40&quot;</span>),</span>
-<span id="cb31-63"><a href="caso-de-estudio-west-virginia.html#cb31-63" tabindex="-1"></a>    <span class="at">legend.position    =</span> <span class="st">&quot;top&quot;</span>,</span>
-<span id="cb31-64"><a href="caso-de-estudio-west-virginia.html#cb31-64" tabindex="-1"></a>    <span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb31-65"><a href="caso-de-estudio-west-virginia.html#cb31-65" tabindex="-1"></a>    <span class="at">axis.text.y        =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>)</span>
-<span id="cb31-66"><a href="caso-de-estudio-west-virginia.html#cb31-66" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="caso-de-estudio-west-virginia.html#cb20-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb20-2"><a href="caso-de-estudio-west-virginia.html#cb20-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb20-3"><a href="caso-de-estudio-west-virginia.html#cb20-3" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb20-4"><a href="caso-de-estudio-west-virginia.html#cb20-4" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb20-5"><a href="caso-de-estudio-west-virginia.html#cb20-5" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb20-6"><a href="caso-de-estudio-west-virginia.html#cb20-6" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb20-7"><a href="caso-de-estudio-west-virginia.html#cb20-7" tabindex="-1"></a></span>
+<span id="cb20-8"><a href="caso-de-estudio-west-virginia.html#cb20-8" tabindex="-1"></a>datos_limpios <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb20-9"><a href="caso-de-estudio-west-virginia.html#cb20-9" tabindex="-1"></a>  <span class="st">&quot;NCHS_Leading_Causes.csv&quot;</span>,</span>
+<span id="cb20-10"><a href="caso-de-estudio-west-virginia.html#cb20-10" tabindex="-1"></a>  <span class="at">col_types =</span> <span class="fu">cols</span>(<span class="at">.default =</span> <span class="fu">col_character</span>())</span>
+<span id="cb20-11"><a href="caso-de-estudio-west-virginia.html#cb20-11" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-12"><a href="caso-de-estudio-west-virginia.html#cb20-12" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb20-13"><a href="caso-de-estudio-west-virginia.html#cb20-13" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb20-14"><a href="caso-de-estudio-west-virginia.html#cb20-14" tabindex="-1"></a>    <span class="at">year                    =</span> <span class="fu">as.numeric</span>(year),</span>
+<span id="cb20-15"><a href="caso-de-estudio-west-virginia.html#cb20-15" tabindex="-1"></a>    <span class="at">state                   =</span> <span class="fu">str_trim</span>(state),</span>
+<span id="cb20-16"><a href="caso-de-estudio-west-virginia.html#cb20-16" tabindex="-1"></a>    <span class="at">deaths                  =</span> <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">.&quot;</span>, <span class="st">&quot;&quot;</span>, deaths)),</span>
+<span id="cb20-17"><a href="caso-de-estudio-west-virginia.html#cb20-17" tabindex="-1"></a>    <span class="at">age_adjusted_death_rate =</span> <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">&quot;,&quot;</span>, <span class="st">&quot;.&quot;</span>, age_adjusted_death_rate))</span>
+<span id="cb20-18"><a href="caso-de-estudio-west-virginia.html#cb20-18" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb20-19"><a href="caso-de-estudio-west-virginia.html#cb20-19" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb20-20"><a href="caso-de-estudio-west-virginia.html#cb20-20" tabindex="-1"></a>    state <span class="sc">!=</span> <span class="st">&quot;United States&quot;</span>,</span>
+<span id="cb20-21"><a href="caso-de-estudio-west-virginia.html#cb20-21" tabindex="-1"></a>    year  <span class="sc">&gt;=</span> <span class="dv">1999</span>,</span>
+<span id="cb20-22"><a href="caso-de-estudio-west-virginia.html#cb20-22" tabindex="-1"></a>    year  <span class="sc">&lt;=</span> <span class="dv">2017</span></span>
+<span id="cb20-23"><a href="caso-de-estudio-west-virginia.html#cb20-23" tabindex="-1"></a>  )</span>
+<span id="cb20-24"><a href="caso-de-estudio-west-virginia.html#cb20-24" tabindex="-1"></a></span>
+<span id="cb20-25"><a href="caso-de-estudio-west-virginia.html#cb20-25" tabindex="-1"></a>wv_comp <span class="ot">&lt;-</span> datos_limpios <span class="sc">%&gt;%</span></span>
+<span id="cb20-26"><a href="caso-de-estudio-west-virginia.html#cb20-26" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb20-27"><a href="caso-de-estudio-west-virginia.html#cb20-27" tabindex="-1"></a>    state      <span class="sc">==</span> <span class="st">&quot;West Virginia&quot;</span>,</span>
+<span id="cb20-28"><a href="caso-de-estudio-west-virginia.html#cb20-28" tabindex="-1"></a>    year       <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1999</span>, <span class="dv">2017</span>),</span>
+<span id="cb20-29"><a href="caso-de-estudio-west-virginia.html#cb20-29" tabindex="-1"></a>    cause_name <span class="sc">!=</span> <span class="st">&quot;All causes&quot;</span>,</span>
+<span id="cb20-30"><a href="caso-de-estudio-west-virginia.html#cb20-30" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(deaths)</span>
+<span id="cb20-31"><a href="caso-de-estudio-west-virginia.html#cb20-31" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb20-32"><a href="caso-de-estudio-west-virginia.html#cb20-32" tabindex="-1"></a>  <span class="fu">select</span>(year, cause_name, deaths) <span class="sc">%&gt;%</span></span>
+<span id="cb20-33"><a href="caso-de-estudio-west-virginia.html#cb20-33" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">factor</span>(year))</span>
+<span id="cb20-34"><a href="caso-de-estudio-west-virginia.html#cb20-34" tabindex="-1"></a></span>
+<span id="cb20-35"><a href="caso-de-estudio-west-virginia.html#cb20-35" tabindex="-1"></a>orden_causas_wv <span class="ot">&lt;-</span> wv_comp <span class="sc">%&gt;%</span></span>
+<span id="cb20-36"><a href="caso-de-estudio-west-virginia.html#cb20-36" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2017</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-37"><a href="caso-de-estudio-west-virginia.html#cb20-37" tabindex="-1"></a>  <span class="fu">arrange</span>(deaths) <span class="sc">%&gt;%</span></span>
+<span id="cb20-38"><a href="caso-de-estudio-west-virginia.html#cb20-38" tabindex="-1"></a>  <span class="fu">pull</span>(cause_name)</span>
+<span id="cb20-39"><a href="caso-de-estudio-west-virginia.html#cb20-39" tabindex="-1"></a></span>
+<span id="cb20-40"><a href="caso-de-estudio-west-virginia.html#cb20-40" tabindex="-1"></a>wv_comp <span class="ot">&lt;-</span> wv_comp <span class="sc">%&gt;%</span></span>
+<span id="cb20-41"><a href="caso-de-estudio-west-virginia.html#cb20-41" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cause_name =</span> <span class="fu">factor</span>(cause_name, <span class="at">levels =</span> orden_causas_wv))</span>
+<span id="cb20-42"><a href="caso-de-estudio-west-virginia.html#cb20-42" tabindex="-1"></a></span>
+<span id="cb20-43"><a href="caso-de-estudio-west-virginia.html#cb20-43" tabindex="-1"></a><span class="fu">ggplot</span>(wv_comp,</span>
+<span id="cb20-44"><a href="caso-de-estudio-west-virginia.html#cb20-44" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> cause_name, <span class="at">y =</span> deaths, <span class="at">fill =</span> year)) <span class="sc">+</span></span>
+<span id="cb20-45"><a href="caso-de-estudio-west-virginia.html#cb20-45" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>, <span class="at">width =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb20-46"><a href="caso-de-estudio-west-virginia.html#cb20-46" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">comma</span>(deaths)),</span>
+<span id="cb20-47"><a href="caso-de-estudio-west-virginia.html#cb20-47" tabindex="-1"></a>            <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="fl">0.7</span>),</span>
+<span id="cb20-48"><a href="caso-de-estudio-west-virginia.html#cb20-48" tabindex="-1"></a>            <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.1</span>, <span class="at">size =</span> <span class="fl">3.2</span>, <span class="at">fontface =</span> <span class="st">&quot;bold&quot;</span>) <span class="sc">+</span></span>
+<span id="cb20-49"><a href="caso-de-estudio-west-virginia.html#cb20-49" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb20-50"><a href="caso-de-estudio-west-virginia.html#cb20-50" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;1999&quot;</span> <span class="ot">=</span> <span class="st">&quot;#457B9D&quot;</span>, <span class="st">&quot;2017&quot;</span> <span class="ot">=</span> <span class="st">&quot;#1D3557&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb20-51"><a href="caso-de-estudio-west-virginia.html#cb20-51" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> comma,</span>
+<span id="cb20-52"><a href="caso-de-estudio-west-virginia.html#cb20-52" tabindex="-1"></a>                     <span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.22</span>))) <span class="sc">+</span></span>
+<span id="cb20-53"><a href="caso-de-estudio-west-virginia.html#cb20-53" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb20-54"><a href="caso-de-estudio-west-virginia.html#cb20-54" tabindex="-1"></a>    <span class="at">title    =</span> <span class="st">&quot;West Virginia – Muertes por causa: 1999 vs. 2017&quot;</span>,</span>
+<span id="cb20-55"><a href="caso-de-estudio-west-virginia.html#cb20-55" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Unintentional injuries es la única causa con crecimiento pronunciado y sostenido&quot;</span>,</span>
+<span id="cb20-56"><a href="caso-de-estudio-west-virginia.html#cb20-56" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;Número de muertes&quot;</span>,</span>
+<span id="cb20-57"><a href="caso-de-estudio-west-virginia.html#cb20-57" tabindex="-1"></a>    <span class="at">fill    =</span> <span class="st">&quot;Año&quot;</span></span>
+<span id="cb20-58"><a href="caso-de-estudio-west-virginia.html#cb20-58" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb20-59"><a href="caso-de-estudio-west-virginia.html#cb20-59" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
+<span id="cb20-60"><a href="caso-de-estudio-west-virginia.html#cb20-60" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb20-61"><a href="caso-de-estudio-west-virginia.html#cb20-61" tabindex="-1"></a>    <span class="at">plot.title         =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">13</span>),</span>
+<span id="cb20-62"><a href="caso-de-estudio-west-virginia.html#cb20-62" tabindex="-1"></a>    <span class="at">plot.subtitle      =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="fl">9.5</span>, <span class="at">color =</span> <span class="st">&quot;gray40&quot;</span>),</span>
+<span id="cb20-63"><a href="caso-de-estudio-west-virginia.html#cb20-63" tabindex="-1"></a>    <span class="at">legend.position    =</span> <span class="st">&quot;top&quot;</span>,</span>
+<span id="cb20-64"><a href="caso-de-estudio-west-virginia.html#cb20-64" tabindex="-1"></a>    <span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb20-65"><a href="caso-de-estudio-west-virginia.html#cb20-65" tabindex="-1"></a>    <span class="at">axis.text.y        =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>)</span>
+<span id="cb20-66"><a href="caso-de-estudio-west-virginia.html#cb20-66" tabindex="-1"></a>  )</span></code></pre></div>
 <p><img src="mortalidad-eeuu_files/figure-html/wv_comparacion_barras-1.png" width="1500" /></p>
 </div>
 <div id="west-virginia-vs.-promedio-nacional-19992017" class="section level2 hasAnchor" number="9.4">
@@ -533,143 +532,143 @@ estructuralmente estable? La comparación se establece entre la tasa
 ajustada de West Virginia y el promedio de todos los estados, que es
 la referencia metodológicamente correcta para evaluar disparidades
 territoriales <span class="citation">(<a href="#ref-james2018">James, Cossman, and Wolf 2018</a>)</span>.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="caso-de-estudio-west-virginia.html#cb32-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb32-2"><a href="caso-de-estudio-west-virginia.html#cb32-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb32-3"><a href="caso-de-estudio-west-virginia.html#cb32-3" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
-<span id="cb32-4"><a href="caso-de-estudio-west-virginia.html#cb32-4" tabindex="-1"></a></span>
-<span id="cb32-5"><a href="caso-de-estudio-west-virginia.html#cb32-5" tabindex="-1"></a><span class="co"># Serie West Virginia – All causes</span></span>
-<span id="cb32-6"><a href="caso-de-estudio-west-virginia.html#cb32-6" tabindex="-1"></a>wv_total <span class="ot">&lt;-</span> datos_limpios <span class="sc">%&gt;%</span></span>
-<span id="cb32-7"><a href="caso-de-estudio-west-virginia.html#cb32-7" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
-<span id="cb32-8"><a href="caso-de-estudio-west-virginia.html#cb32-8" tabindex="-1"></a>    state      <span class="sc">==</span> <span class="st">&quot;West Virginia&quot;</span>,</span>
-<span id="cb32-9"><a href="caso-de-estudio-west-virginia.html#cb32-9" tabindex="-1"></a>    cause_name <span class="sc">==</span> <span class="st">&quot;All causes&quot;</span>,</span>
-<span id="cb32-10"><a href="caso-de-estudio-west-virginia.html#cb32-10" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(age_adjusted_death_rate)</span>
-<span id="cb32-11"><a href="caso-de-estudio-west-virginia.html#cb32-11" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb32-12"><a href="caso-de-estudio-west-virginia.html#cb32-12" tabindex="-1"></a>  <span class="fu">arrange</span>(year) <span class="sc">%&gt;%</span></span>
-<span id="cb32-13"><a href="caso-de-estudio-west-virginia.html#cb32-13" tabindex="-1"></a>  <span class="fu">select</span>(year, age_adjusted_death_rate) <span class="sc">%&gt;%</span></span>
-<span id="cb32-14"><a href="caso-de-estudio-west-virginia.html#cb32-14" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">serie =</span> <span class="st">&quot;West Virginia&quot;</span>)</span>
-<span id="cb32-15"><a href="caso-de-estudio-west-virginia.html#cb32-15" tabindex="-1"></a></span>
-<span id="cb32-16"><a href="caso-de-estudio-west-virginia.html#cb32-16" tabindex="-1"></a><span class="co"># Promedio de los 50 estados + DC (excluye el agregado nacional)</span></span>
-<span id="cb32-17"><a href="caso-de-estudio-west-virginia.html#cb32-17" tabindex="-1"></a>promedio_nac <span class="ot">&lt;-</span> datos_limpios <span class="sc">%&gt;%</span></span>
-<span id="cb32-18"><a href="caso-de-estudio-west-virginia.html#cb32-18" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
-<span id="cb32-19"><a href="caso-de-estudio-west-virginia.html#cb32-19" tabindex="-1"></a>    state      <span class="sc">!=</span> <span class="st">&quot;United States&quot;</span>,</span>
-<span id="cb32-20"><a href="caso-de-estudio-west-virginia.html#cb32-20" tabindex="-1"></a>    cause_name <span class="sc">==</span> <span class="st">&quot;All causes&quot;</span>,</span>
-<span id="cb32-21"><a href="caso-de-estudio-west-virginia.html#cb32-21" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(age_adjusted_death_rate)</span>
-<span id="cb32-22"><a href="caso-de-estudio-west-virginia.html#cb32-22" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb32-23"><a href="caso-de-estudio-west-virginia.html#cb32-23" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
-<span id="cb32-24"><a href="caso-de-estudio-west-virginia.html#cb32-24" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb32-25"><a href="caso-de-estudio-west-virginia.html#cb32-25" tabindex="-1"></a>    <span class="at">age_adjusted_death_rate =</span> <span class="fu">mean</span>(age_adjusted_death_rate, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb32-26"><a href="caso-de-estudio-west-virginia.html#cb32-26" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span></span>
-<span id="cb32-27"><a href="caso-de-estudio-west-virginia.html#cb32-27" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb32-28"><a href="caso-de-estudio-west-virginia.html#cb32-28" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">serie =</span> <span class="st">&quot;Promedio Nacional&quot;</span>)</span>
-<span id="cb32-29"><a href="caso-de-estudio-west-virginia.html#cb32-29" tabindex="-1"></a></span>
-<span id="cb32-30"><a href="caso-de-estudio-west-virginia.html#cb32-30" tabindex="-1"></a><span class="co"># Calcular brecha por año</span></span>
-<span id="cb32-31"><a href="caso-de-estudio-west-virginia.html#cb32-31" tabindex="-1"></a>brecha_df <span class="ot">&lt;-</span> wv_total <span class="sc">%&gt;%</span></span>
-<span id="cb32-32"><a href="caso-de-estudio-west-virginia.html#cb32-32" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
-<span id="cb32-33"><a href="caso-de-estudio-west-virginia.html#cb32-33" tabindex="-1"></a>    promedio_nac <span class="sc">%&gt;%</span> <span class="fu">select</span>(year, <span class="at">tasa_nac =</span> age_adjusted_death_rate),</span>
-<span id="cb32-34"><a href="caso-de-estudio-west-virginia.html#cb32-34" tabindex="-1"></a>    <span class="at">by =</span> <span class="st">&quot;year&quot;</span></span>
-<span id="cb32-35"><a href="caso-de-estudio-west-virginia.html#cb32-35" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb32-36"><a href="caso-de-estudio-west-virginia.html#cb32-36" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">brecha =</span> age_adjusted_death_rate <span class="sc">-</span> tasa_nac)</span>
-<span id="cb32-37"><a href="caso-de-estudio-west-virginia.html#cb32-37" tabindex="-1"></a></span>
-<span id="cb32-38"><a href="caso-de-estudio-west-virginia.html#cb32-38" tabindex="-1"></a>brecha_promedio <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">mean</span>(brecha_df<span class="sc">$</span>brecha, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">1</span>)</span>
-<span id="cb32-39"><a href="caso-de-estudio-west-virginia.html#cb32-39" tabindex="-1"></a>brecha_inicio   <span class="ot">&lt;-</span> <span class="fu">round</span>(brecha_df<span class="sc">$</span>brecha[brecha_df<span class="sc">$</span>year <span class="sc">==</span> <span class="dv">1999</span>], <span class="dv">1</span>)</span>
-<span id="cb32-40"><a href="caso-de-estudio-west-virginia.html#cb32-40" tabindex="-1"></a>brecha_final    <span class="ot">&lt;-</span> <span class="fu">round</span>(brecha_df<span class="sc">$</span>brecha[brecha_df<span class="sc">$</span>year <span class="sc">==</span> <span class="dv">2017</span>], <span class="dv">1</span>)</span>
-<span id="cb32-41"><a href="caso-de-estudio-west-virginia.html#cb32-41" tabindex="-1"></a></span>
-<span id="cb32-42"><a href="caso-de-estudio-west-virginia.html#cb32-42" tabindex="-1"></a><span class="co"># Unir series</span></span>
-<span id="cb32-43"><a href="caso-de-estudio-west-virginia.html#cb32-43" tabindex="-1"></a>ambas_series <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
-<span id="cb32-44"><a href="caso-de-estudio-west-virginia.html#cb32-44" tabindex="-1"></a>  wv_total    <span class="sc">%&gt;%</span> <span class="fu">select</span>(year, age_adjusted_death_rate, serie),</span>
-<span id="cb32-45"><a href="caso-de-estudio-west-virginia.html#cb32-45" tabindex="-1"></a>  promedio_nac <span class="sc">%&gt;%</span> <span class="fu">select</span>(year, age_adjusted_death_rate, serie)</span>
-<span id="cb32-46"><a href="caso-de-estudio-west-virginia.html#cb32-46" tabindex="-1"></a>)</span>
-<span id="cb32-47"><a href="caso-de-estudio-west-virginia.html#cb32-47" tabindex="-1"></a></span>
-<span id="cb32-48"><a href="caso-de-estudio-west-virginia.html#cb32-48" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb32-49"><a href="caso-de-estudio-west-virginia.html#cb32-49" tabindex="-1"></a></span>
-<span id="cb32-50"><a href="caso-de-estudio-west-virginia.html#cb32-50" tabindex="-1"></a>  <span class="co"># Área de brecha sombreada</span></span>
-<span id="cb32-51"><a href="caso-de-estudio-west-virginia.html#cb32-51" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(</span>
-<span id="cb32-52"><a href="caso-de-estudio-west-virginia.html#cb32-52" tabindex="-1"></a>    <span class="at">data  =</span> brecha_df,</span>
-<span id="cb32-53"><a href="caso-de-estudio-west-virginia.html#cb32-53" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">ymin =</span> tasa_nac, <span class="at">ymax =</span> age_adjusted_death_rate),</span>
-<span id="cb32-54"><a href="caso-de-estudio-west-virginia.html#cb32-54" tabindex="-1"></a>    <span class="at">fill  =</span> <span class="st">&quot;#E63946&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.13</span></span>
-<span id="cb32-55"><a href="caso-de-estudio-west-virginia.html#cb32-55" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb32-56"><a href="caso-de-estudio-west-virginia.html#cb32-56" tabindex="-1"></a></span>
-<span id="cb32-57"><a href="caso-de-estudio-west-virginia.html#cb32-57" tabindex="-1"></a>  <span class="co"># Líneas de las dos series</span></span>
-<span id="cb32-58"><a href="caso-de-estudio-west-virginia.html#cb32-58" tabindex="-1"></a>  <span class="fu">geom_line</span>(</span>
-<span id="cb32-59"><a href="caso-de-estudio-west-virginia.html#cb32-59" tabindex="-1"></a>    <span class="at">data =</span> ambas_series,</span>
-<span id="cb32-60"><a href="caso-de-estudio-west-virginia.html#cb32-60" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> age_adjusted_death_rate,</span>
-<span id="cb32-61"><a href="caso-de-estudio-west-virginia.html#cb32-61" tabindex="-1"></a>        <span class="at">color =</span> serie, <span class="at">linetype =</span> serie),</span>
-<span id="cb32-62"><a href="caso-de-estudio-west-virginia.html#cb32-62" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="fl">1.4</span></span>
-<span id="cb32-63"><a href="caso-de-estudio-west-virginia.html#cb32-63" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb32-64"><a href="caso-de-estudio-west-virginia.html#cb32-64" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
-<span id="cb32-65"><a href="caso-de-estudio-west-virginia.html#cb32-65" tabindex="-1"></a>    <span class="at">data =</span> ambas_series,</span>
-<span id="cb32-66"><a href="caso-de-estudio-west-virginia.html#cb32-66" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> age_adjusted_death_rate, <span class="at">color =</span> serie),</span>
-<span id="cb32-67"><a href="caso-de-estudio-west-virginia.html#cb32-67" tabindex="-1"></a>    <span class="at">size =</span> <span class="fl">2.2</span></span>
-<span id="cb32-68"><a href="caso-de-estudio-west-virginia.html#cb32-68" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb32-69"><a href="caso-de-estudio-west-virginia.html#cb32-69" tabindex="-1"></a></span>
-<span id="cb32-70"><a href="caso-de-estudio-west-virginia.html#cb32-70" tabindex="-1"></a>  <span class="co"># Anotación de la brecha persistente</span></span>
-<span id="cb32-71"><a href="caso-de-estudio-west-virginia.html#cb32-71" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>,</span>
-<span id="cb32-72"><a href="caso-de-estudio-west-virginia.html#cb32-72" tabindex="-1"></a>           <span class="at">x     =</span> <span class="dv">2008</span>,</span>
-<span id="cb32-73"><a href="caso-de-estudio-west-virginia.html#cb32-73" tabindex="-1"></a>           <span class="at">y     =</span> <span class="fu">mean</span>(wv_total<span class="sc">$</span>age_adjusted_death_rate) <span class="sc">-</span> <span class="dv">130</span>,</span>
-<span id="cb32-74"><a href="caso-de-estudio-west-virginia.html#cb32-74" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">&quot;Brecha promedio:</span><span class="sc">\n</span><span class="st">+&quot;</span>, brecha_promedio,</span>
-<span id="cb32-75"><a href="caso-de-estudio-west-virginia.html#cb32-75" tabindex="-1"></a>                          <span class="st">&quot; por 100,000 hab.</span><span class="sc">\n</span><span class="st">(persistente 1999–2017)&quot;</span>),</span>
-<span id="cb32-76"><a href="caso-de-estudio-west-virginia.html#cb32-76" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">&quot;#E63946&quot;</span>, <span class="at">fontface =</span> <span class="st">&quot;bold&quot;</span>,</span>
-<span id="cb32-77"><a href="caso-de-estudio-west-virginia.html#cb32-77" tabindex="-1"></a>           <span class="at">size  =</span> <span class="fl">3.6</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb32-78"><a href="caso-de-estudio-west-virginia.html#cb32-78" tabindex="-1"></a></span>
-<span id="cb32-79"><a href="caso-de-estudio-west-virginia.html#cb32-79" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(</span>
-<span id="cb32-80"><a href="caso-de-estudio-west-virginia.html#cb32-80" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;West Virginia&quot;</span>     <span class="ot">=</span> <span class="st">&quot;#E63946&quot;</span>,</span>
-<span id="cb32-81"><a href="caso-de-estudio-west-virginia.html#cb32-81" tabindex="-1"></a>               <span class="st">&quot;Promedio Nacional&quot;</span> <span class="ot">=</span> <span class="st">&quot;#1D3557&quot;</span>)</span>
-<span id="cb32-82"><a href="caso-de-estudio-west-virginia.html#cb32-82" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb32-83"><a href="caso-de-estudio-west-virginia.html#cb32-83" tabindex="-1"></a>  <span class="fu">scale_linetype_manual</span>(</span>
-<span id="cb32-84"><a href="caso-de-estudio-west-virginia.html#cb32-84" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;West Virginia&quot;</span>     <span class="ot">=</span> <span class="st">&quot;solid&quot;</span>,</span>
-<span id="cb32-85"><a href="caso-de-estudio-west-virginia.html#cb32-85" tabindex="-1"></a>               <span class="st">&quot;Promedio Nacional&quot;</span> <span class="ot">=</span> <span class="st">&quot;dashed&quot;</span>)</span>
-<span id="cb32-86"><a href="caso-de-estudio-west-virginia.html#cb32-86" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb32-87"><a href="caso-de-estudio-west-virginia.html#cb32-87" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1999</span>, <span class="dv">2017</span>, <span class="at">by =</span> <span class="dv">2</span>)) <span class="sc">+</span></span>
-<span id="cb32-88"><a href="caso-de-estudio-west-virginia.html#cb32-88" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> comma) <span class="sc">+</span></span>
-<span id="cb32-89"><a href="caso-de-estudio-west-virginia.html#cb32-89" tabindex="-1"></a></span>
-<span id="cb32-90"><a href="caso-de-estudio-west-virginia.html#cb32-90" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb32-91"><a href="caso-de-estudio-west-virginia.html#cb32-91" tabindex="-1"></a>    <span class="at">title    =</span> <span class="st">&quot;West Virginia vs. Promedio Nacional&quot;</span>,</span>
-<span id="cb32-92"><a href="caso-de-estudio-west-virginia.html#cb32-92" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Evolución de la tasa ajustada de mortalidad – todas las causas (1999–2017)&quot;</span>,</span>
-<span id="cb32-93"><a href="caso-de-estudio-west-virginia.html#cb32-93" tabindex="-1"></a>    <span class="at">x        =</span> <span class="st">&quot;Año&quot;</span>,</span>
-<span id="cb32-94"><a href="caso-de-estudio-west-virginia.html#cb32-94" tabindex="-1"></a>    <span class="at">y        =</span> <span class="st">&quot;Tasa por 100,000 hab.&quot;</span>,</span>
-<span id="cb32-95"><a href="caso-de-estudio-west-virginia.html#cb32-95" tabindex="-1"></a>    <span class="at">color    =</span> <span class="cn">NULL</span>, <span class="at">linetype =</span> <span class="cn">NULL</span></span>
-<span id="cb32-96"><a href="caso-de-estudio-west-virginia.html#cb32-96" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb32-97"><a href="caso-de-estudio-west-virginia.html#cb32-97" tabindex="-1"></a></span>
-<span id="cb32-98"><a href="caso-de-estudio-west-virginia.html#cb32-98" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
-<span id="cb32-99"><a href="caso-de-estudio-west-virginia.html#cb32-99" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb32-100"><a href="caso-de-estudio-west-virginia.html#cb32-100" tabindex="-1"></a>    <span class="at">legend.position  =</span> <span class="st">&quot;top&quot;</span>,</span>
-<span id="cb32-101"><a href="caso-de-estudio-west-virginia.html#cb32-101" tabindex="-1"></a>    <span class="at">legend.text      =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
-<span id="cb32-102"><a href="caso-de-estudio-west-virginia.html#cb32-102" tabindex="-1"></a>    <span class="at">plot.title       =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">size =</span> <span class="dv">14</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
-<span id="cb32-103"><a href="caso-de-estudio-west-virginia.html#cb32-103" tabindex="-1"></a>    <span class="at">plot.subtitle    =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;gray40&quot;</span>),</span>
-<span id="cb32-104"><a href="caso-de-estudio-west-virginia.html#cb32-104" tabindex="-1"></a>    <span class="at">axis.text.x      =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
-<span id="cb32-105"><a href="caso-de-estudio-west-virginia.html#cb32-105" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()</span>
-<span id="cb32-106"><a href="caso-de-estudio-west-virginia.html#cb32-106" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="caso-de-estudio-west-virginia.html#cb21-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb21-2"><a href="caso-de-estudio-west-virginia.html#cb21-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb21-3"><a href="caso-de-estudio-west-virginia.html#cb21-3" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb21-4"><a href="caso-de-estudio-west-virginia.html#cb21-4" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="caso-de-estudio-west-virginia.html#cb21-5" tabindex="-1"></a><span class="co"># Serie West Virginia – All causes</span></span>
+<span id="cb21-6"><a href="caso-de-estudio-west-virginia.html#cb21-6" tabindex="-1"></a>wv_total <span class="ot">&lt;-</span> datos_limpios <span class="sc">%&gt;%</span></span>
+<span id="cb21-7"><a href="caso-de-estudio-west-virginia.html#cb21-7" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb21-8"><a href="caso-de-estudio-west-virginia.html#cb21-8" tabindex="-1"></a>    state      <span class="sc">==</span> <span class="st">&quot;West Virginia&quot;</span>,</span>
+<span id="cb21-9"><a href="caso-de-estudio-west-virginia.html#cb21-9" tabindex="-1"></a>    cause_name <span class="sc">==</span> <span class="st">&quot;All causes&quot;</span>,</span>
+<span id="cb21-10"><a href="caso-de-estudio-west-virginia.html#cb21-10" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(age_adjusted_death_rate)</span>
+<span id="cb21-11"><a href="caso-de-estudio-west-virginia.html#cb21-11" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb21-12"><a href="caso-de-estudio-west-virginia.html#cb21-12" tabindex="-1"></a>  <span class="fu">arrange</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb21-13"><a href="caso-de-estudio-west-virginia.html#cb21-13" tabindex="-1"></a>  <span class="fu">select</span>(year, age_adjusted_death_rate) <span class="sc">%&gt;%</span></span>
+<span id="cb21-14"><a href="caso-de-estudio-west-virginia.html#cb21-14" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">serie =</span> <span class="st">&quot;West Virginia&quot;</span>)</span>
+<span id="cb21-15"><a href="caso-de-estudio-west-virginia.html#cb21-15" tabindex="-1"></a></span>
+<span id="cb21-16"><a href="caso-de-estudio-west-virginia.html#cb21-16" tabindex="-1"></a><span class="co"># Promedio de los 50 estados + DC (excluye el agregado nacional)</span></span>
+<span id="cb21-17"><a href="caso-de-estudio-west-virginia.html#cb21-17" tabindex="-1"></a>promedio_nac <span class="ot">&lt;-</span> datos_limpios <span class="sc">%&gt;%</span></span>
+<span id="cb21-18"><a href="caso-de-estudio-west-virginia.html#cb21-18" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb21-19"><a href="caso-de-estudio-west-virginia.html#cb21-19" tabindex="-1"></a>    state      <span class="sc">!=</span> <span class="st">&quot;United States&quot;</span>,</span>
+<span id="cb21-20"><a href="caso-de-estudio-west-virginia.html#cb21-20" tabindex="-1"></a>    cause_name <span class="sc">==</span> <span class="st">&quot;All causes&quot;</span>,</span>
+<span id="cb21-21"><a href="caso-de-estudio-west-virginia.html#cb21-21" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(age_adjusted_death_rate)</span>
+<span id="cb21-22"><a href="caso-de-estudio-west-virginia.html#cb21-22" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb21-23"><a href="caso-de-estudio-west-virginia.html#cb21-23" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb21-24"><a href="caso-de-estudio-west-virginia.html#cb21-24" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb21-25"><a href="caso-de-estudio-west-virginia.html#cb21-25" tabindex="-1"></a>    <span class="at">age_adjusted_death_rate =</span> <span class="fu">mean</span>(age_adjusted_death_rate, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb21-26"><a href="caso-de-estudio-west-virginia.html#cb21-26" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span></span>
+<span id="cb21-27"><a href="caso-de-estudio-west-virginia.html#cb21-27" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb21-28"><a href="caso-de-estudio-west-virginia.html#cb21-28" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">serie =</span> <span class="st">&quot;Promedio Nacional&quot;</span>)</span>
+<span id="cb21-29"><a href="caso-de-estudio-west-virginia.html#cb21-29" tabindex="-1"></a></span>
+<span id="cb21-30"><a href="caso-de-estudio-west-virginia.html#cb21-30" tabindex="-1"></a><span class="co"># Calcular brecha por año</span></span>
+<span id="cb21-31"><a href="caso-de-estudio-west-virginia.html#cb21-31" tabindex="-1"></a>brecha_df <span class="ot">&lt;-</span> wv_total <span class="sc">%&gt;%</span></span>
+<span id="cb21-32"><a href="caso-de-estudio-west-virginia.html#cb21-32" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
+<span id="cb21-33"><a href="caso-de-estudio-west-virginia.html#cb21-33" tabindex="-1"></a>    promedio_nac <span class="sc">%&gt;%</span> <span class="fu">select</span>(year, <span class="at">tasa_nac =</span> age_adjusted_death_rate),</span>
+<span id="cb21-34"><a href="caso-de-estudio-west-virginia.html#cb21-34" tabindex="-1"></a>    <span class="at">by =</span> <span class="st">&quot;year&quot;</span></span>
+<span id="cb21-35"><a href="caso-de-estudio-west-virginia.html#cb21-35" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb21-36"><a href="caso-de-estudio-west-virginia.html#cb21-36" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">brecha =</span> age_adjusted_death_rate <span class="sc">-</span> tasa_nac)</span>
+<span id="cb21-37"><a href="caso-de-estudio-west-virginia.html#cb21-37" tabindex="-1"></a></span>
+<span id="cb21-38"><a href="caso-de-estudio-west-virginia.html#cb21-38" tabindex="-1"></a>brecha_promedio <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">mean</span>(brecha_df<span class="sc">$</span>brecha, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">1</span>)</span>
+<span id="cb21-39"><a href="caso-de-estudio-west-virginia.html#cb21-39" tabindex="-1"></a>brecha_inicio   <span class="ot">&lt;-</span> <span class="fu">round</span>(brecha_df<span class="sc">$</span>brecha[brecha_df<span class="sc">$</span>year <span class="sc">==</span> <span class="dv">1999</span>], <span class="dv">1</span>)</span>
+<span id="cb21-40"><a href="caso-de-estudio-west-virginia.html#cb21-40" tabindex="-1"></a>brecha_final    <span class="ot">&lt;-</span> <span class="fu">round</span>(brecha_df<span class="sc">$</span>brecha[brecha_df<span class="sc">$</span>year <span class="sc">==</span> <span class="dv">2017</span>], <span class="dv">1</span>)</span>
+<span id="cb21-41"><a href="caso-de-estudio-west-virginia.html#cb21-41" tabindex="-1"></a></span>
+<span id="cb21-42"><a href="caso-de-estudio-west-virginia.html#cb21-42" tabindex="-1"></a><span class="co"># Unir series</span></span>
+<span id="cb21-43"><a href="caso-de-estudio-west-virginia.html#cb21-43" tabindex="-1"></a>ambas_series <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
+<span id="cb21-44"><a href="caso-de-estudio-west-virginia.html#cb21-44" tabindex="-1"></a>  wv_total    <span class="sc">%&gt;%</span> <span class="fu">select</span>(year, age_adjusted_death_rate, serie),</span>
+<span id="cb21-45"><a href="caso-de-estudio-west-virginia.html#cb21-45" tabindex="-1"></a>  promedio_nac <span class="sc">%&gt;%</span> <span class="fu">select</span>(year, age_adjusted_death_rate, serie)</span>
+<span id="cb21-46"><a href="caso-de-estudio-west-virginia.html#cb21-46" tabindex="-1"></a>)</span>
+<span id="cb21-47"><a href="caso-de-estudio-west-virginia.html#cb21-47" tabindex="-1"></a></span>
+<span id="cb21-48"><a href="caso-de-estudio-west-virginia.html#cb21-48" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb21-49"><a href="caso-de-estudio-west-virginia.html#cb21-49" tabindex="-1"></a></span>
+<span id="cb21-50"><a href="caso-de-estudio-west-virginia.html#cb21-50" tabindex="-1"></a>  <span class="co"># Área de brecha sombreada</span></span>
+<span id="cb21-51"><a href="caso-de-estudio-west-virginia.html#cb21-51" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(</span>
+<span id="cb21-52"><a href="caso-de-estudio-west-virginia.html#cb21-52" tabindex="-1"></a>    <span class="at">data  =</span> brecha_df,</span>
+<span id="cb21-53"><a href="caso-de-estudio-west-virginia.html#cb21-53" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">ymin =</span> tasa_nac, <span class="at">ymax =</span> age_adjusted_death_rate),</span>
+<span id="cb21-54"><a href="caso-de-estudio-west-virginia.html#cb21-54" tabindex="-1"></a>    <span class="at">fill  =</span> <span class="st">&quot;#E63946&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.13</span></span>
+<span id="cb21-55"><a href="caso-de-estudio-west-virginia.html#cb21-55" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb21-56"><a href="caso-de-estudio-west-virginia.html#cb21-56" tabindex="-1"></a></span>
+<span id="cb21-57"><a href="caso-de-estudio-west-virginia.html#cb21-57" tabindex="-1"></a>  <span class="co"># Líneas de las dos series</span></span>
+<span id="cb21-58"><a href="caso-de-estudio-west-virginia.html#cb21-58" tabindex="-1"></a>  <span class="fu">geom_line</span>(</span>
+<span id="cb21-59"><a href="caso-de-estudio-west-virginia.html#cb21-59" tabindex="-1"></a>    <span class="at">data =</span> ambas_series,</span>
+<span id="cb21-60"><a href="caso-de-estudio-west-virginia.html#cb21-60" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> age_adjusted_death_rate,</span>
+<span id="cb21-61"><a href="caso-de-estudio-west-virginia.html#cb21-61" tabindex="-1"></a>        <span class="at">color =</span> serie, <span class="at">linetype =</span> serie),</span>
+<span id="cb21-62"><a href="caso-de-estudio-west-virginia.html#cb21-62" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="fl">1.4</span></span>
+<span id="cb21-63"><a href="caso-de-estudio-west-virginia.html#cb21-63" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb21-64"><a href="caso-de-estudio-west-virginia.html#cb21-64" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb21-65"><a href="caso-de-estudio-west-virginia.html#cb21-65" tabindex="-1"></a>    <span class="at">data =</span> ambas_series,</span>
+<span id="cb21-66"><a href="caso-de-estudio-west-virginia.html#cb21-66" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> age_adjusted_death_rate, <span class="at">color =</span> serie),</span>
+<span id="cb21-67"><a href="caso-de-estudio-west-virginia.html#cb21-67" tabindex="-1"></a>    <span class="at">size =</span> <span class="fl">2.2</span></span>
+<span id="cb21-68"><a href="caso-de-estudio-west-virginia.html#cb21-68" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb21-69"><a href="caso-de-estudio-west-virginia.html#cb21-69" tabindex="-1"></a></span>
+<span id="cb21-70"><a href="caso-de-estudio-west-virginia.html#cb21-70" tabindex="-1"></a>  <span class="co"># Anotación de la brecha persistente</span></span>
+<span id="cb21-71"><a href="caso-de-estudio-west-virginia.html#cb21-71" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>,</span>
+<span id="cb21-72"><a href="caso-de-estudio-west-virginia.html#cb21-72" tabindex="-1"></a>           <span class="at">x     =</span> <span class="dv">2008</span>,</span>
+<span id="cb21-73"><a href="caso-de-estudio-west-virginia.html#cb21-73" tabindex="-1"></a>           <span class="at">y     =</span> <span class="fu">mean</span>(wv_total<span class="sc">$</span>age_adjusted_death_rate) <span class="sc">-</span> <span class="dv">130</span>,</span>
+<span id="cb21-74"><a href="caso-de-estudio-west-virginia.html#cb21-74" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">&quot;Brecha promedio:</span><span class="sc">\n</span><span class="st">+&quot;</span>, brecha_promedio,</span>
+<span id="cb21-75"><a href="caso-de-estudio-west-virginia.html#cb21-75" tabindex="-1"></a>                          <span class="st">&quot; por 100,000 hab.</span><span class="sc">\n</span><span class="st">(persistente 1999–2017)&quot;</span>),</span>
+<span id="cb21-76"><a href="caso-de-estudio-west-virginia.html#cb21-76" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">&quot;#E63946&quot;</span>, <span class="at">fontface =</span> <span class="st">&quot;bold&quot;</span>,</span>
+<span id="cb21-77"><a href="caso-de-estudio-west-virginia.html#cb21-77" tabindex="-1"></a>           <span class="at">size  =</span> <span class="fl">3.6</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb21-78"><a href="caso-de-estudio-west-virginia.html#cb21-78" tabindex="-1"></a></span>
+<span id="cb21-79"><a href="caso-de-estudio-west-virginia.html#cb21-79" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(</span>
+<span id="cb21-80"><a href="caso-de-estudio-west-virginia.html#cb21-80" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;West Virginia&quot;</span>     <span class="ot">=</span> <span class="st">&quot;#E63946&quot;</span>,</span>
+<span id="cb21-81"><a href="caso-de-estudio-west-virginia.html#cb21-81" tabindex="-1"></a>               <span class="st">&quot;Promedio Nacional&quot;</span> <span class="ot">=</span> <span class="st">&quot;#1D3557&quot;</span>)</span>
+<span id="cb21-82"><a href="caso-de-estudio-west-virginia.html#cb21-82" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb21-83"><a href="caso-de-estudio-west-virginia.html#cb21-83" tabindex="-1"></a>  <span class="fu">scale_linetype_manual</span>(</span>
+<span id="cb21-84"><a href="caso-de-estudio-west-virginia.html#cb21-84" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;West Virginia&quot;</span>     <span class="ot">=</span> <span class="st">&quot;solid&quot;</span>,</span>
+<span id="cb21-85"><a href="caso-de-estudio-west-virginia.html#cb21-85" tabindex="-1"></a>               <span class="st">&quot;Promedio Nacional&quot;</span> <span class="ot">=</span> <span class="st">&quot;dashed&quot;</span>)</span>
+<span id="cb21-86"><a href="caso-de-estudio-west-virginia.html#cb21-86" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb21-87"><a href="caso-de-estudio-west-virginia.html#cb21-87" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1999</span>, <span class="dv">2017</span>, <span class="at">by =</span> <span class="dv">2</span>)) <span class="sc">+</span></span>
+<span id="cb21-88"><a href="caso-de-estudio-west-virginia.html#cb21-88" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> comma) <span class="sc">+</span></span>
+<span id="cb21-89"><a href="caso-de-estudio-west-virginia.html#cb21-89" tabindex="-1"></a></span>
+<span id="cb21-90"><a href="caso-de-estudio-west-virginia.html#cb21-90" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb21-91"><a href="caso-de-estudio-west-virginia.html#cb21-91" tabindex="-1"></a>    <span class="at">title    =</span> <span class="st">&quot;West Virginia vs. Promedio Nacional&quot;</span>,</span>
+<span id="cb21-92"><a href="caso-de-estudio-west-virginia.html#cb21-92" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Evolución de la tasa ajustada de mortalidad – todas las causas (1999–2017)&quot;</span>,</span>
+<span id="cb21-93"><a href="caso-de-estudio-west-virginia.html#cb21-93" tabindex="-1"></a>    <span class="at">x        =</span> <span class="st">&quot;Año&quot;</span>,</span>
+<span id="cb21-94"><a href="caso-de-estudio-west-virginia.html#cb21-94" tabindex="-1"></a>    <span class="at">y        =</span> <span class="st">&quot;Tasa por 100,000 hab.&quot;</span>,</span>
+<span id="cb21-95"><a href="caso-de-estudio-west-virginia.html#cb21-95" tabindex="-1"></a>    <span class="at">color    =</span> <span class="cn">NULL</span>, <span class="at">linetype =</span> <span class="cn">NULL</span></span>
+<span id="cb21-96"><a href="caso-de-estudio-west-virginia.html#cb21-96" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb21-97"><a href="caso-de-estudio-west-virginia.html#cb21-97" tabindex="-1"></a></span>
+<span id="cb21-98"><a href="caso-de-estudio-west-virginia.html#cb21-98" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
+<span id="cb21-99"><a href="caso-de-estudio-west-virginia.html#cb21-99" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb21-100"><a href="caso-de-estudio-west-virginia.html#cb21-100" tabindex="-1"></a>    <span class="at">legend.position  =</span> <span class="st">&quot;top&quot;</span>,</span>
+<span id="cb21-101"><a href="caso-de-estudio-west-virginia.html#cb21-101" tabindex="-1"></a>    <span class="at">legend.text      =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
+<span id="cb21-102"><a href="caso-de-estudio-west-virginia.html#cb21-102" tabindex="-1"></a>    <span class="at">plot.title       =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">size =</span> <span class="dv">14</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb21-103"><a href="caso-de-estudio-west-virginia.html#cb21-103" tabindex="-1"></a>    <span class="at">plot.subtitle    =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;gray40&quot;</span>),</span>
+<span id="cb21-104"><a href="caso-de-estudio-west-virginia.html#cb21-104" tabindex="-1"></a>    <span class="at">axis.text.x      =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
+<span id="cb21-105"><a href="caso-de-estudio-west-virginia.html#cb21-105" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb21-106"><a href="caso-de-estudio-west-virginia.html#cb21-106" tabindex="-1"></a>  )</span></code></pre></div>
 <p><img src="mortalidad-eeuu_files/figure-html/wv_vs_nacional-1.png" width="1500" /></p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="caso-de-estudio-west-virginia.html#cb33-1" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
-<span id="cb33-2"><a href="caso-de-estudio-west-virginia.html#cb33-2" tabindex="-1"></a></span>
-<span id="cb33-3"><a href="caso-de-estudio-west-virginia.html#cb33-3" tabindex="-1"></a>brecha_df <span class="sc">%&gt;%</span></span>
-<span id="cb33-4"><a href="caso-de-estudio-west-virginia.html#cb33-4" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1999</span>, <span class="dv">2003</span>, <span class="dv">2007</span>, <span class="dv">2011</span>, <span class="dv">2014</span>, <span class="dv">2017</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb33-5"><a href="caso-de-estudio-west-virginia.html#cb33-5" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb33-6"><a href="caso-de-estudio-west-virginia.html#cb33-6" tabindex="-1"></a>    <span class="at">age_adjusted_death_rate =</span> <span class="fu">round</span>(age_adjusted_death_rate, <span class="dv">1</span>),</span>
-<span id="cb33-7"><a href="caso-de-estudio-west-virginia.html#cb33-7" tabindex="-1"></a>    <span class="at">tasa_nac                =</span> <span class="fu">round</span>(tasa_nac, <span class="dv">1</span>),</span>
-<span id="cb33-8"><a href="caso-de-estudio-west-virginia.html#cb33-8" tabindex="-1"></a>    <span class="at">brecha                  =</span> <span class="fu">round</span>(brecha, <span class="dv">1</span>)</span>
-<span id="cb33-9"><a href="caso-de-estudio-west-virginia.html#cb33-9" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb33-10"><a href="caso-de-estudio-west-virginia.html#cb33-10" tabindex="-1"></a>  <span class="fu">select</span>(</span>
-<span id="cb33-11"><a href="caso-de-estudio-west-virginia.html#cb33-11" tabindex="-1"></a>    <span class="st">`</span><span class="at">Año</span><span class="st">`</span>                  <span class="ot">=</span> year,</span>
-<span id="cb33-12"><a href="caso-de-estudio-west-virginia.html#cb33-12" tabindex="-1"></a>    <span class="st">`</span><span class="at">WV (tasa)</span><span class="st">`</span>            <span class="ot">=</span> age_adjusted_death_rate,</span>
-<span id="cb33-13"><a href="caso-de-estudio-west-virginia.html#cb33-13" tabindex="-1"></a>    <span class="st">`</span><span class="at">Nacional (promedio)</span><span class="st">`</span>  <span class="ot">=</span> tasa_nac,</span>
-<span id="cb33-14"><a href="caso-de-estudio-west-virginia.html#cb33-14" tabindex="-1"></a>    <span class="st">`</span><span class="at">Brecha (WV − Nac.)</span><span class="st">`</span>   <span class="ot">=</span> brecha</span>
-<span id="cb33-15"><a href="caso-de-estudio-west-virginia.html#cb33-15" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb33-16"><a href="caso-de-estudio-west-virginia.html#cb33-16" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
-<span id="cb33-17"><a href="caso-de-estudio-west-virginia.html#cb33-17" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Brecha entre West Virginia y el promedio nacional – años seleccionados&quot;</span>,</span>
-<span id="cb33-18"><a href="caso-de-estudio-west-virginia.html#cb33-18" tabindex="-1"></a>    </span>
-<span id="cb33-19"><a href="caso-de-estudio-west-virginia.html#cb33-19" tabindex="-1"></a>    </span>
-<span id="cb33-20"><a href="caso-de-estudio-west-virginia.html#cb33-20" tabindex="-1"></a>    <span class="at">align   =</span> <span class="fu">c</span>(<span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>)</span>
-<span id="cb33-21"><a href="caso-de-estudio-west-virginia.html#cb33-21" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb33-22"><a href="caso-de-estudio-west-virginia.html#cb33-22" tabindex="-1"></a>  <span class="fu">kable_styling</span>(</span>
-<span id="cb33-23"><a href="caso-de-estudio-west-virginia.html#cb33-23" tabindex="-1"></a>    <span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>),</span>
-<span id="cb33-24"><a href="caso-de-estudio-west-virginia.html#cb33-24" tabindex="-1"></a>    <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">font_size =</span> <span class="dv">12</span>, <span class="at">position =</span> <span class="st">&quot;center&quot;</span></span>
-<span id="cb33-25"><a href="caso-de-estudio-west-virginia.html#cb33-25" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb33-26"><a href="caso-de-estudio-west-virginia.html#cb33-26" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">background =</span> <span class="st">&quot;#1D3557&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb33-27"><a href="caso-de-estudio-west-virginia.html#cb33-27" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">4</span>, <span class="at">color =</span> <span class="st">&quot;#E63946&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="caso-de-estudio-west-virginia.html#cb22-1" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb22-2"><a href="caso-de-estudio-west-virginia.html#cb22-2" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="caso-de-estudio-west-virginia.html#cb22-3" tabindex="-1"></a>brecha_df <span class="sc">%&gt;%</span></span>
+<span id="cb22-4"><a href="caso-de-estudio-west-virginia.html#cb22-4" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1999</span>, <span class="dv">2003</span>, <span class="dv">2007</span>, <span class="dv">2011</span>, <span class="dv">2014</span>, <span class="dv">2017</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb22-5"><a href="caso-de-estudio-west-virginia.html#cb22-5" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb22-6"><a href="caso-de-estudio-west-virginia.html#cb22-6" tabindex="-1"></a>    <span class="at">age_adjusted_death_rate =</span> <span class="fu">round</span>(age_adjusted_death_rate, <span class="dv">1</span>),</span>
+<span id="cb22-7"><a href="caso-de-estudio-west-virginia.html#cb22-7" tabindex="-1"></a>    <span class="at">tasa_nac                =</span> <span class="fu">round</span>(tasa_nac, <span class="dv">1</span>),</span>
+<span id="cb22-8"><a href="caso-de-estudio-west-virginia.html#cb22-8" tabindex="-1"></a>    <span class="at">brecha                  =</span> <span class="fu">round</span>(brecha, <span class="dv">1</span>)</span>
+<span id="cb22-9"><a href="caso-de-estudio-west-virginia.html#cb22-9" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb22-10"><a href="caso-de-estudio-west-virginia.html#cb22-10" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb22-11"><a href="caso-de-estudio-west-virginia.html#cb22-11" tabindex="-1"></a>    <span class="st">`</span><span class="at">Año</span><span class="st">`</span>                  <span class="ot">=</span> year,</span>
+<span id="cb22-12"><a href="caso-de-estudio-west-virginia.html#cb22-12" tabindex="-1"></a>    <span class="st">`</span><span class="at">WV (tasa)</span><span class="st">`</span>            <span class="ot">=</span> age_adjusted_death_rate,</span>
+<span id="cb22-13"><a href="caso-de-estudio-west-virginia.html#cb22-13" tabindex="-1"></a>    <span class="st">`</span><span class="at">Nacional (promedio)</span><span class="st">`</span>  <span class="ot">=</span> tasa_nac,</span>
+<span id="cb22-14"><a href="caso-de-estudio-west-virginia.html#cb22-14" tabindex="-1"></a>    <span class="st">`</span><span class="at">Brecha (WV − Nac.)</span><span class="st">`</span>   <span class="ot">=</span> brecha</span>
+<span id="cb22-15"><a href="caso-de-estudio-west-virginia.html#cb22-15" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb22-16"><a href="caso-de-estudio-west-virginia.html#cb22-16" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb22-17"><a href="caso-de-estudio-west-virginia.html#cb22-17" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Brecha entre West Virginia y el promedio nacional – años seleccionados&quot;</span>,</span>
+<span id="cb22-18"><a href="caso-de-estudio-west-virginia.html#cb22-18" tabindex="-1"></a>    </span>
+<span id="cb22-19"><a href="caso-de-estudio-west-virginia.html#cb22-19" tabindex="-1"></a>    </span>
+<span id="cb22-20"><a href="caso-de-estudio-west-virginia.html#cb22-20" tabindex="-1"></a>    <span class="at">align   =</span> <span class="fu">c</span>(<span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>)</span>
+<span id="cb22-21"><a href="caso-de-estudio-west-virginia.html#cb22-21" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb22-22"><a href="caso-de-estudio-west-virginia.html#cb22-22" tabindex="-1"></a>  <span class="fu">kable_styling</span>(</span>
+<span id="cb22-23"><a href="caso-de-estudio-west-virginia.html#cb22-23" tabindex="-1"></a>    <span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>),</span>
+<span id="cb22-24"><a href="caso-de-estudio-west-virginia.html#cb22-24" tabindex="-1"></a>    <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">font_size =</span> <span class="dv">12</span>, <span class="at">position =</span> <span class="st">&quot;center&quot;</span></span>
+<span id="cb22-25"><a href="caso-de-estudio-west-virginia.html#cb22-25" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb22-26"><a href="caso-de-estudio-west-virginia.html#cb22-26" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">background =</span> <span class="st">&quot;#1D3557&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-27"><a href="caso-de-estudio-west-virginia.html#cb22-27" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">4</span>, <span class="at">color =</span> <span class="st">&quot;#E63946&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <table class="table table-striped table-hover" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-13">Tabla 9.1: </span>Brecha entre West Virginia y el promedio nacional – años seleccionados
+<span id="tab:unnamed-chunk-11">Tabla 9.1: </span>Brecha entre West Virginia y el promedio nacional – años seleccionados
 </caption>
 <thead>
 <tr>

@@ -195,8 +195,7 @@ div.csl-indent {
 <li class="chapter" data-level="3.4" data-path="metodología.html"><a href="metodología.html#análisis-geográfico"><i class="fa fa-check"></i><b>3.4</b> Análisis geográfico:</a></li>
 <li class="chapter" data-level="3.5" data-path="metodología.html"><a href="metodología.html#modelo-predictivo-arima"><i class="fa fa-check"></i><b>3.5</b> Modelo predictivo – ARIMA:</a></li>
 <li class="chapter" data-level="3.6" data-path="metodología.html"><a href="metodología.html#herramientas-computacionales"><i class="fa fa-check"></i><b>3.6</b> Herramientas Computacionales</a></li>
-<li class="chapter" data-level="3.7" data-path="metodología.html"><a href="metodología.html#carga-y-limpieza-de-datos"><i class="fa fa-check"></i><b>3.7</b> Carga y limpieza de datos</a></li>
-<li class="chapter" data-level="3.8" data-path="metodología.html"><a href="metodología.html#variables-del-dataset"><i class="fa fa-check"></i><b>3.8</b> Variables del Dataset</a></li>
+<li class="chapter" data-level="3.7" data-path="metodología.html"><a href="metodología.html#variables-del-dataset"><i class="fa fa-check"></i><b>3.7</b> Variables del Dataset</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html"><i class="fa fa-check"></i><b>4</b> Evolución de la tasa ajustada de mortalidad anual</a></li>
 <li class="chapter" data-level="5" data-path="análisis-de-ranking-cambios-en-la-posición-de-las-causas-de-muerte.html"><a href="análisis-de-ranking-cambios-en-la-posición-de-las-causas-de-muerte.html"><i class="fa fa-check"></i><b>5</b> Análisis de Ranking: Cambios en la Posición de las Causas de Muerte</a>
@@ -285,54 +284,54 @@ div.csl-indent {
 complejidad del modelo. El AICc es la métrica preferida cuando n &lt;
 40, ya que incorpora una corrección explícita por tamaño muestral que
 evita la sobreestimación de modelos complejos.</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="comparación-de-modelos.html#cb101-1" tabindex="-1"></a>modelo_holt_fit  <span class="ot">&lt;-</span> <span class="fu">ets</span>(ts_wv_acc, <span class="at">model =</span> <span class="st">&quot;AAN&quot;</span>)</span>
-<span id="cb101-2"><a href="comparación-de-modelos.html#cb101-2" tabindex="-1"></a>modelo_holtd_fit <span class="ot">&lt;-</span> <span class="fu">ets</span>(ts_wv_acc, <span class="at">model =</span> <span class="st">&quot;AAN&quot;</span>, <span class="at">damped =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb101-3"><a href="comparación-de-modelos.html#cb101-3" tabindex="-1"></a></span>
-<span id="cb101-4"><a href="comparación-de-modelos.html#cb101-4" tabindex="-1"></a>tabla_aic <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb101-5"><a href="comparación-de-modelos.html#cb101-5" tabindex="-1"></a>  <span class="at">Modelo =</span> <span class="fu">c</span>(</span>
-<span id="cb101-6"><a href="comparación-de-modelos.html#cb101-6" tabindex="-1"></a>    <span class="st">&quot;ARIMA(0,1,0) with drift&quot;</span>,</span>
-<span id="cb101-7"><a href="comparación-de-modelos.html#cb101-7" tabindex="-1"></a>    <span class="fu">paste0</span>(<span class="st">&quot;ETS – &quot;</span>, modelo_ets<span class="sc">$</span>method),</span>
-<span id="cb101-8"><a href="comparación-de-modelos.html#cb101-8" tabindex="-1"></a>    <span class="st">&quot;Holt lineal – ETS(A,A,N)&quot;</span>,</span>
-<span id="cb101-9"><a href="comparación-de-modelos.html#cb101-9" tabindex="-1"></a>    <span class="st">&quot;Holt amortiguado – ETS(A,Ad,N)&quot;</span></span>
-<span id="cb101-10"><a href="comparación-de-modelos.html#cb101-10" tabindex="-1"></a>  ),</span>
-<span id="cb101-11"><a href="comparación-de-modelos.html#cb101-11" tabindex="-1"></a>  Parámetros <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fu">length</span>(modelo_ets<span class="sc">$</span>par),</span>
-<span id="cb101-12"><a href="comparación-de-modelos.html#cb101-12" tabindex="-1"></a>                  <span class="fu">length</span>(modelo_holt_fit<span class="sc">$</span>par),</span>
-<span id="cb101-13"><a href="comparación-de-modelos.html#cb101-13" tabindex="-1"></a>                  <span class="fu">length</span>(modelo_holtd_fit<span class="sc">$</span>par)),</span>
-<span id="cb101-14"><a href="comparación-de-modelos.html#cb101-14" tabindex="-1"></a>  <span class="at">AIC  =</span> <span class="fu">round</span>(<span class="fu">c</span>(<span class="fu">AIC</span>(modelo_acc),</span>
-<span id="cb101-15"><a href="comparación-de-modelos.html#cb101-15" tabindex="-1"></a>                  <span class="fu">AIC</span>(modelo_ets),</span>
-<span id="cb101-16"><a href="comparación-de-modelos.html#cb101-16" tabindex="-1"></a>                  <span class="fu">AIC</span>(modelo_holt_fit),</span>
-<span id="cb101-17"><a href="comparación-de-modelos.html#cb101-17" tabindex="-1"></a>                  <span class="fu">AIC</span>(modelo_holtd_fit)), <span class="dv">2</span>),</span>
-<span id="cb101-18"><a href="comparación-de-modelos.html#cb101-18" tabindex="-1"></a>  <span class="at">AICc =</span> <span class="fu">round</span>(<span class="fu">c</span>(modelo_acc<span class="sc">$</span>aicc,</span>
-<span id="cb101-19"><a href="comparación-de-modelos.html#cb101-19" tabindex="-1"></a>                  modelo_ets<span class="sc">$</span>aicc,</span>
-<span id="cb101-20"><a href="comparación-de-modelos.html#cb101-20" tabindex="-1"></a>                  modelo_holt_fit<span class="sc">$</span>aicc,</span>
-<span id="cb101-21"><a href="comparación-de-modelos.html#cb101-21" tabindex="-1"></a>                  modelo_holtd_fit<span class="sc">$</span>aicc), <span class="dv">2</span>),</span>
-<span id="cb101-22"><a href="comparación-de-modelos.html#cb101-22" tabindex="-1"></a>  <span class="at">BIC  =</span> <span class="fu">round</span>(<span class="fu">c</span>(<span class="fu">BIC</span>(modelo_acc),</span>
-<span id="cb101-23"><a href="comparación-de-modelos.html#cb101-23" tabindex="-1"></a>                  <span class="fu">BIC</span>(modelo_ets),</span>
-<span id="cb101-24"><a href="comparación-de-modelos.html#cb101-24" tabindex="-1"></a>                  <span class="fu">BIC</span>(modelo_holt_fit),</span>
-<span id="cb101-25"><a href="comparación-de-modelos.html#cb101-25" tabindex="-1"></a>                  <span class="fu">BIC</span>(modelo_holtd_fit)), <span class="dv">2</span>),</span>
-<span id="cb101-26"><a href="comparación-de-modelos.html#cb101-26" tabindex="-1"></a>  <span class="at">check.names =</span> <span class="cn">FALSE</span></span>
-<span id="cb101-27"><a href="comparación-de-modelos.html#cb101-27" tabindex="-1"></a>)</span>
-<span id="cb101-28"><a href="comparación-de-modelos.html#cb101-28" tabindex="-1"></a></span>
-<span id="cb101-29"><a href="comparación-de-modelos.html#cb101-29" tabindex="-1"></a>mejor_aicc <span class="ot">&lt;-</span> <span class="fu">which.min</span>(tabla_aic<span class="sc">$</span>AICc)</span>
-<span id="cb101-30"><a href="comparación-de-modelos.html#cb101-30" tabindex="-1"></a></span>
-<span id="cb101-31"><a href="comparación-de-modelos.html#cb101-31" tabindex="-1"></a>tabla_aic <span class="sc">%&gt;%</span></span>
-<span id="cb101-32"><a href="comparación-de-modelos.html#cb101-32" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
-<span id="cb101-33"><a href="comparación-de-modelos.html#cb101-33" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Criterios de información por modelo (menor AICc = mejor)&quot;</span>,</span>
-<span id="cb101-34"><a href="comparación-de-modelos.html#cb101-34" tabindex="-1"></a>    </span>
-<span id="cb101-35"><a href="comparación-de-modelos.html#cb101-35" tabindex="-1"></a>    </span>
-<span id="cb101-36"><a href="comparación-de-modelos.html#cb101-36" tabindex="-1"></a>    <span class="at">align   =</span> <span class="fu">c</span>(<span class="st">&quot;l&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>)</span>
-<span id="cb101-37"><a href="comparación-de-modelos.html#cb101-37" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb101-38"><a href="comparación-de-modelos.html#cb101-38" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>),</span>
-<span id="cb101-39"><a href="comparación-de-modelos.html#cb101-39" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">font_size =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb101-40"><a href="comparación-de-modelos.html#cb101-40" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">background =</span> <span class="st">&quot;#1D3557&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb101-41"><a href="comparación-de-modelos.html#cb101-41" tabindex="-1"></a>  <span class="fu">row_spec</span>(mejor_aicc, <span class="at">background =</span> <span class="st">&quot;#A8DADC&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb101-42"><a href="comparación-de-modelos.html#cb101-42" tabindex="-1"></a>  <span class="fu">add_header_above</span>(</span>
-<span id="cb101-43"><a href="comparación-de-modelos.html#cb101-43" tabindex="-1"></a>    <span class="fu">c</span>(<span class="st">&quot; &quot;</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">&quot;Criterios de información (menor = mejor)&quot;</span> <span class="ot">=</span> <span class="dv">3</span>),</span>
-<span id="cb101-44"><a href="comparación-de-modelos.html#cb101-44" tabindex="-1"></a>    <span class="at">background =</span> <span class="st">&quot;#457B9D&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span></span>
-<span id="cb101-45"><a href="comparación-de-modelos.html#cb101-45" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="comparación-de-modelos.html#cb90-1" tabindex="-1"></a>modelo_holt_fit  <span class="ot">&lt;-</span> <span class="fu">ets</span>(ts_wv_acc, <span class="at">model =</span> <span class="st">&quot;AAN&quot;</span>)</span>
+<span id="cb90-2"><a href="comparación-de-modelos.html#cb90-2" tabindex="-1"></a>modelo_holtd_fit <span class="ot">&lt;-</span> <span class="fu">ets</span>(ts_wv_acc, <span class="at">model =</span> <span class="st">&quot;AAN&quot;</span>, <span class="at">damped =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb90-3"><a href="comparación-de-modelos.html#cb90-3" tabindex="-1"></a></span>
+<span id="cb90-4"><a href="comparación-de-modelos.html#cb90-4" tabindex="-1"></a>tabla_aic <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb90-5"><a href="comparación-de-modelos.html#cb90-5" tabindex="-1"></a>  <span class="at">Modelo =</span> <span class="fu">c</span>(</span>
+<span id="cb90-6"><a href="comparación-de-modelos.html#cb90-6" tabindex="-1"></a>    <span class="st">&quot;ARIMA(0,1,0) with drift&quot;</span>,</span>
+<span id="cb90-7"><a href="comparación-de-modelos.html#cb90-7" tabindex="-1"></a>    <span class="fu">paste0</span>(<span class="st">&quot;ETS – &quot;</span>, modelo_ets<span class="sc">$</span>method),</span>
+<span id="cb90-8"><a href="comparación-de-modelos.html#cb90-8" tabindex="-1"></a>    <span class="st">&quot;Holt lineal – ETS(A,A,N)&quot;</span>,</span>
+<span id="cb90-9"><a href="comparación-de-modelos.html#cb90-9" tabindex="-1"></a>    <span class="st">&quot;Holt amortiguado – ETS(A,Ad,N)&quot;</span></span>
+<span id="cb90-10"><a href="comparación-de-modelos.html#cb90-10" tabindex="-1"></a>  ),</span>
+<span id="cb90-11"><a href="comparación-de-modelos.html#cb90-11" tabindex="-1"></a>  Parámetros <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fu">length</span>(modelo_ets<span class="sc">$</span>par),</span>
+<span id="cb90-12"><a href="comparación-de-modelos.html#cb90-12" tabindex="-1"></a>                  <span class="fu">length</span>(modelo_holt_fit<span class="sc">$</span>par),</span>
+<span id="cb90-13"><a href="comparación-de-modelos.html#cb90-13" tabindex="-1"></a>                  <span class="fu">length</span>(modelo_holtd_fit<span class="sc">$</span>par)),</span>
+<span id="cb90-14"><a href="comparación-de-modelos.html#cb90-14" tabindex="-1"></a>  <span class="at">AIC  =</span> <span class="fu">round</span>(<span class="fu">c</span>(<span class="fu">AIC</span>(modelo_acc),</span>
+<span id="cb90-15"><a href="comparación-de-modelos.html#cb90-15" tabindex="-1"></a>                  <span class="fu">AIC</span>(modelo_ets),</span>
+<span id="cb90-16"><a href="comparación-de-modelos.html#cb90-16" tabindex="-1"></a>                  <span class="fu">AIC</span>(modelo_holt_fit),</span>
+<span id="cb90-17"><a href="comparación-de-modelos.html#cb90-17" tabindex="-1"></a>                  <span class="fu">AIC</span>(modelo_holtd_fit)), <span class="dv">2</span>),</span>
+<span id="cb90-18"><a href="comparación-de-modelos.html#cb90-18" tabindex="-1"></a>  <span class="at">AICc =</span> <span class="fu">round</span>(<span class="fu">c</span>(modelo_acc<span class="sc">$</span>aicc,</span>
+<span id="cb90-19"><a href="comparación-de-modelos.html#cb90-19" tabindex="-1"></a>                  modelo_ets<span class="sc">$</span>aicc,</span>
+<span id="cb90-20"><a href="comparación-de-modelos.html#cb90-20" tabindex="-1"></a>                  modelo_holt_fit<span class="sc">$</span>aicc,</span>
+<span id="cb90-21"><a href="comparación-de-modelos.html#cb90-21" tabindex="-1"></a>                  modelo_holtd_fit<span class="sc">$</span>aicc), <span class="dv">2</span>),</span>
+<span id="cb90-22"><a href="comparación-de-modelos.html#cb90-22" tabindex="-1"></a>  <span class="at">BIC  =</span> <span class="fu">round</span>(<span class="fu">c</span>(<span class="fu">BIC</span>(modelo_acc),</span>
+<span id="cb90-23"><a href="comparación-de-modelos.html#cb90-23" tabindex="-1"></a>                  <span class="fu">BIC</span>(modelo_ets),</span>
+<span id="cb90-24"><a href="comparación-de-modelos.html#cb90-24" tabindex="-1"></a>                  <span class="fu">BIC</span>(modelo_holt_fit),</span>
+<span id="cb90-25"><a href="comparación-de-modelos.html#cb90-25" tabindex="-1"></a>                  <span class="fu">BIC</span>(modelo_holtd_fit)), <span class="dv">2</span>),</span>
+<span id="cb90-26"><a href="comparación-de-modelos.html#cb90-26" tabindex="-1"></a>  <span class="at">check.names =</span> <span class="cn">FALSE</span></span>
+<span id="cb90-27"><a href="comparación-de-modelos.html#cb90-27" tabindex="-1"></a>)</span>
+<span id="cb90-28"><a href="comparación-de-modelos.html#cb90-28" tabindex="-1"></a></span>
+<span id="cb90-29"><a href="comparación-de-modelos.html#cb90-29" tabindex="-1"></a>mejor_aicc <span class="ot">&lt;-</span> <span class="fu">which.min</span>(tabla_aic<span class="sc">$</span>AICc)</span>
+<span id="cb90-30"><a href="comparación-de-modelos.html#cb90-30" tabindex="-1"></a></span>
+<span id="cb90-31"><a href="comparación-de-modelos.html#cb90-31" tabindex="-1"></a>tabla_aic <span class="sc">%&gt;%</span></span>
+<span id="cb90-32"><a href="comparación-de-modelos.html#cb90-32" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb90-33"><a href="comparación-de-modelos.html#cb90-33" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Criterios de información por modelo (menor AICc = mejor)&quot;</span>,</span>
+<span id="cb90-34"><a href="comparación-de-modelos.html#cb90-34" tabindex="-1"></a>    </span>
+<span id="cb90-35"><a href="comparación-de-modelos.html#cb90-35" tabindex="-1"></a>    </span>
+<span id="cb90-36"><a href="comparación-de-modelos.html#cb90-36" tabindex="-1"></a>    <span class="at">align   =</span> <span class="fu">c</span>(<span class="st">&quot;l&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>)</span>
+<span id="cb90-37"><a href="comparación-de-modelos.html#cb90-37" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb90-38"><a href="comparación-de-modelos.html#cb90-38" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>),</span>
+<span id="cb90-39"><a href="comparación-de-modelos.html#cb90-39" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">font_size =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb90-40"><a href="comparación-de-modelos.html#cb90-40" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">background =</span> <span class="st">&quot;#1D3557&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb90-41"><a href="comparación-de-modelos.html#cb90-41" tabindex="-1"></a>  <span class="fu">row_spec</span>(mejor_aicc, <span class="at">background =</span> <span class="st">&quot;#A8DADC&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb90-42"><a href="comparación-de-modelos.html#cb90-42" tabindex="-1"></a>  <span class="fu">add_header_above</span>(</span>
+<span id="cb90-43"><a href="comparación-de-modelos.html#cb90-43" tabindex="-1"></a>    <span class="fu">c</span>(<span class="st">&quot; &quot;</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">&quot;Criterios de información (menor = mejor)&quot;</span> <span class="ot">=</span> <span class="dv">3</span>),</span>
+<span id="cb90-44"><a href="comparación-de-modelos.html#cb90-44" tabindex="-1"></a>    <span class="at">background =</span> <span class="st">&quot;#457B9D&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span></span>
+<span id="cb90-45"><a href="comparación-de-modelos.html#cb90-45" tabindex="-1"></a>  )</span></code></pre></div>
 <table class="table table-striped table-hover" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-19">Tabla 14.1: </span>Criterios de información por modelo (menor AICc = mejor)
+<span id="tab:unnamed-chunk-17">Tabla 14.1: </span>Criterios de información por modelo (menor AICc = mejor)
 </caption>
 <thead>
 <tr>
@@ -457,57 +456,57 @@ modelo donde el ajuste converge.</p>
 estadísticamente independientes. Un p-value &gt; 0.05 es condición
 necesaria para que el modelo sea válido: residuos con autocorrelación
 indican que el modelo no capturó toda la estructura temporal disponible.</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="comparación-de-modelos.html#cb102-1" tabindex="-1"></a><span class="co"># Ljung-Box con lag = 4 (estándar para n = 19, series anuales)</span></span>
-<span id="cb102-2"><a href="comparación-de-modelos.html#cb102-2" tabindex="-1"></a>lb_arima <span class="ot">&lt;-</span> <span class="fu">Box.test</span>(<span class="fu">residuals</span>(modelo_acc),       <span class="at">lag =</span> <span class="dv">4</span>, <span class="at">type =</span> <span class="st">&quot;Ljung-Box&quot;</span>)</span>
-<span id="cb102-3"><a href="comparación-de-modelos.html#cb102-3" tabindex="-1"></a>lb_ets   <span class="ot">&lt;-</span> <span class="fu">Box.test</span>(<span class="fu">residuals</span>(modelo_ets),       <span class="at">lag =</span> <span class="dv">4</span>, <span class="at">type =</span> <span class="st">&quot;Ljung-Box&quot;</span>)</span>
-<span id="cb102-4"><a href="comparación-de-modelos.html#cb102-4" tabindex="-1"></a>lb_holt  <span class="ot">&lt;-</span> <span class="fu">Box.test</span>(<span class="fu">residuals</span>(modelo_holt_fit),  <span class="at">lag =</span> <span class="dv">4</span>, <span class="at">type =</span> <span class="st">&quot;Ljung-Box&quot;</span>)</span>
-<span id="cb102-5"><a href="comparación-de-modelos.html#cb102-5" tabindex="-1"></a>lb_holtd <span class="ot">&lt;-</span> <span class="fu">Box.test</span>(<span class="fu">residuals</span>(modelo_holtd_fit), <span class="at">lag =</span> <span class="dv">4</span>, <span class="at">type =</span> <span class="st">&quot;Ljung-Box&quot;</span>)</span>
-<span id="cb102-6"><a href="comparación-de-modelos.html#cb102-6" tabindex="-1"></a>lb_lm    <span class="ot">&lt;-</span> <span class="fu">Box.test</span>(<span class="fu">ts</span>(<span class="fu">residuals</span>(modelo_lm), <span class="at">start =</span> <span class="dv">1999</span>, <span class="at">frequency =</span> <span class="dv">1</span>),</span>
-<span id="cb102-7"><a href="comparación-de-modelos.html#cb102-7" tabindex="-1"></a>                     <span class="at">lag =</span> <span class="dv">4</span>, <span class="at">type =</span> <span class="st">&quot;Ljung-Box&quot;</span>)</span>
-<span id="cb102-8"><a href="comparación-de-modelos.html#cb102-8" tabindex="-1"></a></span>
-<span id="cb102-9"><a href="comparación-de-modelos.html#cb102-9" tabindex="-1"></a>tabla_lb <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb102-10"><a href="comparación-de-modelos.html#cb102-10" tabindex="-1"></a>  <span class="at">Modelo =</span> <span class="fu">c</span>(</span>
-<span id="cb102-11"><a href="comparación-de-modelos.html#cb102-11" tabindex="-1"></a>    <span class="st">&quot;ARIMA(0,1,0) with drift&quot;</span>,</span>
-<span id="cb102-12"><a href="comparación-de-modelos.html#cb102-12" tabindex="-1"></a>    <span class="fu">paste0</span>(<span class="st">&quot;ETS – &quot;</span>, modelo_ets<span class="sc">$</span>method),</span>
-<span id="cb102-13"><a href="comparación-de-modelos.html#cb102-13" tabindex="-1"></a>    <span class="st">&quot;Holt lineal&quot;</span>,</span>
-<span id="cb102-14"><a href="comparación-de-modelos.html#cb102-14" tabindex="-1"></a>    <span class="st">&quot;Holt amortiguado&quot;</span>,</span>
-<span id="cb102-15"><a href="comparación-de-modelos.html#cb102-15" tabindex="-1"></a>    <span class="st">&quot;Regresión lineal&quot;</span></span>
-<span id="cb102-16"><a href="comparación-de-modelos.html#cb102-16" tabindex="-1"></a>  ),</span>
-<span id="cb102-17"><a href="comparación-de-modelos.html#cb102-17" tabindex="-1"></a>  <span class="st">`</span><span class="at">Q*</span><span class="st">`</span>      <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">c</span>(lb_arima<span class="sc">$</span>statistic, lb_ets<span class="sc">$</span>statistic,</span>
-<span id="cb102-18"><a href="comparación-de-modelos.html#cb102-18" tabindex="-1"></a>                       lb_holt<span class="sc">$</span>statistic,  lb_holtd<span class="sc">$</span>statistic,</span>
-<span id="cb102-19"><a href="comparación-de-modelos.html#cb102-19" tabindex="-1"></a>                       lb_lm<span class="sc">$</span>statistic), <span class="dv">4</span>),</span>
-<span id="cb102-20"><a href="comparación-de-modelos.html#cb102-20" tabindex="-1"></a>  <span class="st">`</span><span class="at">df</span><span class="st">`</span>      <span class="ot">=</span> <span class="fu">c</span>(lb_arima<span class="sc">$</span>parameter, lb_ets<span class="sc">$</span>parameter,</span>
-<span id="cb102-21"><a href="comparación-de-modelos.html#cb102-21" tabindex="-1"></a>                 lb_holt<span class="sc">$</span>parameter,  lb_holtd<span class="sc">$</span>parameter,</span>
-<span id="cb102-22"><a href="comparación-de-modelos.html#cb102-22" tabindex="-1"></a>                 lb_lm<span class="sc">$</span>parameter),</span>
-<span id="cb102-23"><a href="comparación-de-modelos.html#cb102-23" tabindex="-1"></a>  <span class="st">`</span><span class="at">p-value</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">c</span>(lb_arima<span class="sc">$</span>p.value, lb_ets<span class="sc">$</span>p.value,</span>
-<span id="cb102-24"><a href="comparación-de-modelos.html#cb102-24" tabindex="-1"></a>                       lb_holt<span class="sc">$</span>p.value,  lb_holtd<span class="sc">$</span>p.value,</span>
-<span id="cb102-25"><a href="comparación-de-modelos.html#cb102-25" tabindex="-1"></a>                       lb_lm<span class="sc">$</span>p.value), <span class="dv">4</span>),</span>
-<span id="cb102-26"><a href="comparación-de-modelos.html#cb102-26" tabindex="-1"></a>  <span class="at">Resultado =</span> <span class="fu">ifelse</span>(</span>
-<span id="cb102-27"><a href="comparación-de-modelos.html#cb102-27" tabindex="-1"></a>    <span class="fu">c</span>(lb_arima<span class="sc">$</span>p.value, lb_ets<span class="sc">$</span>p.value,</span>
-<span id="cb102-28"><a href="comparación-de-modelos.html#cb102-28" tabindex="-1"></a>      lb_holt<span class="sc">$</span>p.value,  lb_holtd<span class="sc">$</span>p.value,</span>
-<span id="cb102-29"><a href="comparación-de-modelos.html#cb102-29" tabindex="-1"></a>      lb_lm<span class="sc">$</span>p.value) <span class="sc">&gt;</span> <span class="fl">0.05</span>,</span>
-<span id="cb102-30"><a href="comparación-de-modelos.html#cb102-30" tabindex="-1"></a>    <span class="st">&quot;✔ Ruido blanco&quot;</span>,</span>
-<span id="cb102-31"><a href="comparación-de-modelos.html#cb102-31" tabindex="-1"></a>    <span class="st">&quot;✖ Autocorrelación&quot;</span></span>
-<span id="cb102-32"><a href="comparación-de-modelos.html#cb102-32" tabindex="-1"></a>  ),</span>
-<span id="cb102-33"><a href="comparación-de-modelos.html#cb102-33" tabindex="-1"></a>  <span class="at">check.names =</span> <span class="cn">FALSE</span></span>
-<span id="cb102-34"><a href="comparación-de-modelos.html#cb102-34" tabindex="-1"></a>)</span>
-<span id="cb102-35"><a href="comparación-de-modelos.html#cb102-35" tabindex="-1"></a></span>
-<span id="cb102-36"><a href="comparación-de-modelos.html#cb102-36" tabindex="-1"></a>filas_ok <span class="ot">&lt;-</span> <span class="fu">which</span>(tabla_lb<span class="sc">$</span><span class="st">`</span><span class="at">p-value</span><span class="st">`</span> <span class="sc">&gt;</span> <span class="fl">0.05</span>)</span>
-<span id="cb102-37"><a href="comparación-de-modelos.html#cb102-37" tabindex="-1"></a></span>
-<span id="cb102-38"><a href="comparación-de-modelos.html#cb102-38" tabindex="-1"></a>tabla_lb <span class="sc">%&gt;%</span></span>
-<span id="cb102-39"><a href="comparación-de-modelos.html#cb102-39" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
-<span id="cb102-40"><a href="comparación-de-modelos.html#cb102-40" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Prueba de Ljung-Box por modelo (p &gt; 0.05 = residuos independientes)&quot;</span>,</span>
-<span id="cb102-41"><a href="comparación-de-modelos.html#cb102-41" tabindex="-1"></a>    </span>
-<span id="cb102-42"><a href="comparación-de-modelos.html#cb102-42" tabindex="-1"></a>    </span>
-<span id="cb102-43"><a href="comparación-de-modelos.html#cb102-43" tabindex="-1"></a>    <span class="at">align   =</span> <span class="fu">c</span>(<span class="st">&quot;l&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>)</span>
-<span id="cb102-44"><a href="comparación-de-modelos.html#cb102-44" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb102-45"><a href="comparación-de-modelos.html#cb102-45" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>),</span>
-<span id="cb102-46"><a href="comparación-de-modelos.html#cb102-46" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">font_size =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb102-47"><a href="comparación-de-modelos.html#cb102-47" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">background =</span> <span class="st">&quot;#1D3557&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb102-48"><a href="comparación-de-modelos.html#cb102-48" tabindex="-1"></a>  <span class="fu">row_spec</span>(filas_ok, <span class="at">background =</span> <span class="st">&quot;#D1FAE5&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="comparación-de-modelos.html#cb91-1" tabindex="-1"></a><span class="co"># Ljung-Box con lag = 4 (estándar para n = 19, series anuales)</span></span>
+<span id="cb91-2"><a href="comparación-de-modelos.html#cb91-2" tabindex="-1"></a>lb_arima <span class="ot">&lt;-</span> <span class="fu">Box.test</span>(<span class="fu">residuals</span>(modelo_acc),       <span class="at">lag =</span> <span class="dv">4</span>, <span class="at">type =</span> <span class="st">&quot;Ljung-Box&quot;</span>)</span>
+<span id="cb91-3"><a href="comparación-de-modelos.html#cb91-3" tabindex="-1"></a>lb_ets   <span class="ot">&lt;-</span> <span class="fu">Box.test</span>(<span class="fu">residuals</span>(modelo_ets),       <span class="at">lag =</span> <span class="dv">4</span>, <span class="at">type =</span> <span class="st">&quot;Ljung-Box&quot;</span>)</span>
+<span id="cb91-4"><a href="comparación-de-modelos.html#cb91-4" tabindex="-1"></a>lb_holt  <span class="ot">&lt;-</span> <span class="fu">Box.test</span>(<span class="fu">residuals</span>(modelo_holt_fit),  <span class="at">lag =</span> <span class="dv">4</span>, <span class="at">type =</span> <span class="st">&quot;Ljung-Box&quot;</span>)</span>
+<span id="cb91-5"><a href="comparación-de-modelos.html#cb91-5" tabindex="-1"></a>lb_holtd <span class="ot">&lt;-</span> <span class="fu">Box.test</span>(<span class="fu">residuals</span>(modelo_holtd_fit), <span class="at">lag =</span> <span class="dv">4</span>, <span class="at">type =</span> <span class="st">&quot;Ljung-Box&quot;</span>)</span>
+<span id="cb91-6"><a href="comparación-de-modelos.html#cb91-6" tabindex="-1"></a>lb_lm    <span class="ot">&lt;-</span> <span class="fu">Box.test</span>(<span class="fu">ts</span>(<span class="fu">residuals</span>(modelo_lm), <span class="at">start =</span> <span class="dv">1999</span>, <span class="at">frequency =</span> <span class="dv">1</span>),</span>
+<span id="cb91-7"><a href="comparación-de-modelos.html#cb91-7" tabindex="-1"></a>                     <span class="at">lag =</span> <span class="dv">4</span>, <span class="at">type =</span> <span class="st">&quot;Ljung-Box&quot;</span>)</span>
+<span id="cb91-8"><a href="comparación-de-modelos.html#cb91-8" tabindex="-1"></a></span>
+<span id="cb91-9"><a href="comparación-de-modelos.html#cb91-9" tabindex="-1"></a>tabla_lb <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb91-10"><a href="comparación-de-modelos.html#cb91-10" tabindex="-1"></a>  <span class="at">Modelo =</span> <span class="fu">c</span>(</span>
+<span id="cb91-11"><a href="comparación-de-modelos.html#cb91-11" tabindex="-1"></a>    <span class="st">&quot;ARIMA(0,1,0) with drift&quot;</span>,</span>
+<span id="cb91-12"><a href="comparación-de-modelos.html#cb91-12" tabindex="-1"></a>    <span class="fu">paste0</span>(<span class="st">&quot;ETS – &quot;</span>, modelo_ets<span class="sc">$</span>method),</span>
+<span id="cb91-13"><a href="comparación-de-modelos.html#cb91-13" tabindex="-1"></a>    <span class="st">&quot;Holt lineal&quot;</span>,</span>
+<span id="cb91-14"><a href="comparación-de-modelos.html#cb91-14" tabindex="-1"></a>    <span class="st">&quot;Holt amortiguado&quot;</span>,</span>
+<span id="cb91-15"><a href="comparación-de-modelos.html#cb91-15" tabindex="-1"></a>    <span class="st">&quot;Regresión lineal&quot;</span></span>
+<span id="cb91-16"><a href="comparación-de-modelos.html#cb91-16" tabindex="-1"></a>  ),</span>
+<span id="cb91-17"><a href="comparación-de-modelos.html#cb91-17" tabindex="-1"></a>  <span class="st">`</span><span class="at">Q*</span><span class="st">`</span>      <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">c</span>(lb_arima<span class="sc">$</span>statistic, lb_ets<span class="sc">$</span>statistic,</span>
+<span id="cb91-18"><a href="comparación-de-modelos.html#cb91-18" tabindex="-1"></a>                       lb_holt<span class="sc">$</span>statistic,  lb_holtd<span class="sc">$</span>statistic,</span>
+<span id="cb91-19"><a href="comparación-de-modelos.html#cb91-19" tabindex="-1"></a>                       lb_lm<span class="sc">$</span>statistic), <span class="dv">4</span>),</span>
+<span id="cb91-20"><a href="comparación-de-modelos.html#cb91-20" tabindex="-1"></a>  <span class="st">`</span><span class="at">df</span><span class="st">`</span>      <span class="ot">=</span> <span class="fu">c</span>(lb_arima<span class="sc">$</span>parameter, lb_ets<span class="sc">$</span>parameter,</span>
+<span id="cb91-21"><a href="comparación-de-modelos.html#cb91-21" tabindex="-1"></a>                 lb_holt<span class="sc">$</span>parameter,  lb_holtd<span class="sc">$</span>parameter,</span>
+<span id="cb91-22"><a href="comparación-de-modelos.html#cb91-22" tabindex="-1"></a>                 lb_lm<span class="sc">$</span>parameter),</span>
+<span id="cb91-23"><a href="comparación-de-modelos.html#cb91-23" tabindex="-1"></a>  <span class="st">`</span><span class="at">p-value</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">c</span>(lb_arima<span class="sc">$</span>p.value, lb_ets<span class="sc">$</span>p.value,</span>
+<span id="cb91-24"><a href="comparación-de-modelos.html#cb91-24" tabindex="-1"></a>                       lb_holt<span class="sc">$</span>p.value,  lb_holtd<span class="sc">$</span>p.value,</span>
+<span id="cb91-25"><a href="comparación-de-modelos.html#cb91-25" tabindex="-1"></a>                       lb_lm<span class="sc">$</span>p.value), <span class="dv">4</span>),</span>
+<span id="cb91-26"><a href="comparación-de-modelos.html#cb91-26" tabindex="-1"></a>  <span class="at">Resultado =</span> <span class="fu">ifelse</span>(</span>
+<span id="cb91-27"><a href="comparación-de-modelos.html#cb91-27" tabindex="-1"></a>    <span class="fu">c</span>(lb_arima<span class="sc">$</span>p.value, lb_ets<span class="sc">$</span>p.value,</span>
+<span id="cb91-28"><a href="comparación-de-modelos.html#cb91-28" tabindex="-1"></a>      lb_holt<span class="sc">$</span>p.value,  lb_holtd<span class="sc">$</span>p.value,</span>
+<span id="cb91-29"><a href="comparación-de-modelos.html#cb91-29" tabindex="-1"></a>      lb_lm<span class="sc">$</span>p.value) <span class="sc">&gt;</span> <span class="fl">0.05</span>,</span>
+<span id="cb91-30"><a href="comparación-de-modelos.html#cb91-30" tabindex="-1"></a>    <span class="st">&quot;✔ Ruido blanco&quot;</span>,</span>
+<span id="cb91-31"><a href="comparación-de-modelos.html#cb91-31" tabindex="-1"></a>    <span class="st">&quot;✖ Autocorrelación&quot;</span></span>
+<span id="cb91-32"><a href="comparación-de-modelos.html#cb91-32" tabindex="-1"></a>  ),</span>
+<span id="cb91-33"><a href="comparación-de-modelos.html#cb91-33" tabindex="-1"></a>  <span class="at">check.names =</span> <span class="cn">FALSE</span></span>
+<span id="cb91-34"><a href="comparación-de-modelos.html#cb91-34" tabindex="-1"></a>)</span>
+<span id="cb91-35"><a href="comparación-de-modelos.html#cb91-35" tabindex="-1"></a></span>
+<span id="cb91-36"><a href="comparación-de-modelos.html#cb91-36" tabindex="-1"></a>filas_ok <span class="ot">&lt;-</span> <span class="fu">which</span>(tabla_lb<span class="sc">$</span><span class="st">`</span><span class="at">p-value</span><span class="st">`</span> <span class="sc">&gt;</span> <span class="fl">0.05</span>)</span>
+<span id="cb91-37"><a href="comparación-de-modelos.html#cb91-37" tabindex="-1"></a></span>
+<span id="cb91-38"><a href="comparación-de-modelos.html#cb91-38" tabindex="-1"></a>tabla_lb <span class="sc">%&gt;%</span></span>
+<span id="cb91-39"><a href="comparación-de-modelos.html#cb91-39" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb91-40"><a href="comparación-de-modelos.html#cb91-40" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Prueba de Ljung-Box por modelo (p &gt; 0.05 = residuos independientes)&quot;</span>,</span>
+<span id="cb91-41"><a href="comparación-de-modelos.html#cb91-41" tabindex="-1"></a>    </span>
+<span id="cb91-42"><a href="comparación-de-modelos.html#cb91-42" tabindex="-1"></a>    </span>
+<span id="cb91-43"><a href="comparación-de-modelos.html#cb91-43" tabindex="-1"></a>    <span class="at">align   =</span> <span class="fu">c</span>(<span class="st">&quot;l&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>)</span>
+<span id="cb91-44"><a href="comparación-de-modelos.html#cb91-44" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb91-45"><a href="comparación-de-modelos.html#cb91-45" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>),</span>
+<span id="cb91-46"><a href="comparación-de-modelos.html#cb91-46" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">font_size =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb91-47"><a href="comparación-de-modelos.html#cb91-47" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">background =</span> <span class="st">&quot;#1D3557&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb91-48"><a href="comparación-de-modelos.html#cb91-48" tabindex="-1"></a>  <span class="fu">row_spec</span>(filas_ok, <span class="at">background =</span> <span class="st">&quot;#D1FAE5&quot;</span>)</span></code></pre></div>
 <table class="table table-striped table-hover" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-20">Tabla 14.2: </span>Prueba de Ljung-Box por modelo (p &gt; 0.05 = residuos independientes)
+<span id="tab:unnamed-chunk-18">Tabla 14.2: </span>Prueba de Ljung-Box por modelo (p &gt; 0.05 = residuos independientes)
 </caption>
 <thead>
 <tr>
@@ -631,91 +630,91 @@ origen. Es el método estándar cuando n es pequeño y no permite una
 partición train/test formal. Se evalúan dos horizontes: h = 1
 (precisión inmediata) y h = 3 (capacidad de proyección a mediano
 plazo).</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="comparación-de-modelos.html#cb103-1" tabindex="-1"></a>f_arima    <span class="ot">&lt;-</span> <span class="cf">function</span>(y, h) <span class="fu">forecast</span>(<span class="fu">auto.arima</span>(y, <span class="at">stepwise =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb103-2"><a href="comparación-de-modelos.html#cb103-2" tabindex="-1"></a>                                                  <span class="at">approximation =</span> <span class="cn">FALSE</span>), <span class="at">h =</span> h)</span>
-<span id="cb103-3"><a href="comparación-de-modelos.html#cb103-3" tabindex="-1"></a>f_ets      <span class="ot">&lt;-</span> <span class="cf">function</span>(y, h) <span class="fu">forecast</span>(<span class="fu">ets</span>(y), <span class="at">h =</span> h)</span>
-<span id="cb103-4"><a href="comparación-de-modelos.html#cb103-4" tabindex="-1"></a>f_holt     <span class="ot">&lt;-</span> <span class="cf">function</span>(y, h) <span class="fu">holt</span>(y, <span class="at">h =</span> h)</span>
-<span id="cb103-5"><a href="comparación-de-modelos.html#cb103-5" tabindex="-1"></a>f_holt_d   <span class="ot">&lt;-</span> <span class="cf">function</span>(y, h) <span class="fu">holt</span>(y, <span class="at">h =</span> h, <span class="at">damped =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb103-6"><a href="comparación-de-modelos.html#cb103-6" tabindex="-1"></a>f_naive_d  <span class="ot">&lt;-</span> <span class="cf">function</span>(y, h) <span class="fu">rwf</span>(y, <span class="at">h =</span> h, <span class="at">drift =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb103-7"><a href="comparación-de-modelos.html#cb103-7" tabindex="-1"></a>f_lm       <span class="ot">&lt;-</span> <span class="cf">function</span>(y, h) {</span>
-<span id="cb103-8"><a href="comparación-de-modelos.html#cb103-8" tabindex="-1"></a>  n      <span class="ot">&lt;-</span> <span class="fu">length</span>(y)</span>
-<span id="cb103-9"><a href="comparación-de-modelos.html#cb103-9" tabindex="-1"></a>  t_hist <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span>n</span>
-<span id="cb103-10"><a href="comparación-de-modelos.html#cb103-10" tabindex="-1"></a>  fit    <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> t_hist)</span>
-<span id="cb103-11"><a href="comparación-de-modelos.html#cb103-11" tabindex="-1"></a>  t_new  <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">t_hist =</span> (n <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>(n <span class="sc">+</span> h))</span>
-<span id="cb103-12"><a href="comparación-de-modelos.html#cb103-12" tabindex="-1"></a>  pred   <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit, <span class="at">newdata =</span> t_new)</span>
-<span id="cb103-13"><a href="comparación-de-modelos.html#cb103-13" tabindex="-1"></a>  <span class="fu">structure</span>(</span>
-<span id="cb103-14"><a href="comparación-de-modelos.html#cb103-14" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">mean =</span> <span class="fu">ts</span>(pred,</span>
-<span id="cb103-15"><a href="comparación-de-modelos.html#cb103-15" tabindex="-1"></a>                   <span class="at">start     =</span> <span class="fu">tsp</span>(y)[<span class="dv">2</span>] <span class="sc">+</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fu">tsp</span>(y)[<span class="dv">3</span>],</span>
-<span id="cb103-16"><a href="comparación-de-modelos.html#cb103-16" tabindex="-1"></a>                   <span class="at">frequency =</span> <span class="fu">tsp</span>(y)[<span class="dv">3</span>])),</span>
-<span id="cb103-17"><a href="comparación-de-modelos.html#cb103-17" tabindex="-1"></a>    <span class="at">class =</span> <span class="st">&quot;forecast&quot;</span></span>
-<span id="cb103-18"><a href="comparación-de-modelos.html#cb103-18" tabindex="-1"></a>  )</span>
-<span id="cb103-19"><a href="comparación-de-modelos.html#cb103-19" tabindex="-1"></a>}</span>
-<span id="cb103-20"><a href="comparación-de-modelos.html#cb103-20" tabindex="-1"></a></span>
-<span id="cb103-21"><a href="comparación-de-modelos.html#cb103-21" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
-<span id="cb103-22"><a href="comparación-de-modelos.html#cb103-22" tabindex="-1"></a></span>
-<span id="cb103-23"><a href="comparación-de-modelos.html#cb103-23" tabindex="-1"></a><span class="co"># h = 1</span></span>
-<span id="cb103-24"><a href="comparación-de-modelos.html#cb103-24" tabindex="-1"></a>e1_arima  <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_arima,   <span class="at">h =</span> <span class="dv">1</span>)</span>
-<span id="cb103-25"><a href="comparación-de-modelos.html#cb103-25" tabindex="-1"></a>e1_ets    <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_ets,     <span class="at">h =</span> <span class="dv">1</span>)</span>
-<span id="cb103-26"><a href="comparación-de-modelos.html#cb103-26" tabindex="-1"></a>e1_holt   <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_holt,    <span class="at">h =</span> <span class="dv">1</span>)</span>
-<span id="cb103-27"><a href="comparación-de-modelos.html#cb103-27" tabindex="-1"></a>e1_holtd  <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_holt_d,  <span class="at">h =</span> <span class="dv">1</span>)</span>
-<span id="cb103-28"><a href="comparación-de-modelos.html#cb103-28" tabindex="-1"></a>e1_naive  <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_naive_d, <span class="at">h =</span> <span class="dv">1</span>)</span>
-<span id="cb103-29"><a href="comparación-de-modelos.html#cb103-29" tabindex="-1"></a>e1_lm     <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_lm,      <span class="at">h =</span> <span class="dv">1</span>)</span>
-<span id="cb103-30"><a href="comparación-de-modelos.html#cb103-30" tabindex="-1"></a></span>
-<span id="cb103-31"><a href="comparación-de-modelos.html#cb103-31" tabindex="-1"></a><span class="co"># h = 3</span></span>
-<span id="cb103-32"><a href="comparación-de-modelos.html#cb103-32" tabindex="-1"></a>e3_arima  <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_arima,   <span class="at">h =</span> <span class="dv">3</span>)</span>
-<span id="cb103-33"><a href="comparación-de-modelos.html#cb103-33" tabindex="-1"></a>e3_ets    <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_ets,     <span class="at">h =</span> <span class="dv">3</span>)</span>
-<span id="cb103-34"><a href="comparación-de-modelos.html#cb103-34" tabindex="-1"></a>e3_holt   <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_holt,    <span class="at">h =</span> <span class="dv">3</span>)</span>
-<span id="cb103-35"><a href="comparación-de-modelos.html#cb103-35" tabindex="-1"></a>e3_holtd  <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_holt_d,  <span class="at">h =</span> <span class="dv">3</span>)</span>
-<span id="cb103-36"><a href="comparación-de-modelos.html#cb103-36" tabindex="-1"></a>e3_naive  <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_naive_d, <span class="at">h =</span> <span class="dv">3</span>)</span>
-<span id="cb103-37"><a href="comparación-de-modelos.html#cb103-37" tabindex="-1"></a>e3_lm     <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_lm,      <span class="at">h =</span> <span class="dv">3</span>)</span>
-<span id="cb103-38"><a href="comparación-de-modelos.html#cb103-38" tabindex="-1"></a></span>
-<span id="cb103-39"><a href="comparación-de-modelos.html#cb103-39" tabindex="-1"></a>cv_rmse <span class="ot">&lt;-</span> <span class="cf">function</span>(e) <span class="fu">round</span>(<span class="fu">sqrt</span>(<span class="fu">mean</span>(e<span class="sc">^</span><span class="dv">2</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)), <span class="dv">3</span>)</span>
-<span id="cb103-40"><a href="comparación-de-modelos.html#cb103-40" tabindex="-1"></a>cv_mae  <span class="ot">&lt;-</span> <span class="cf">function</span>(e) <span class="fu">round</span>(<span class="fu">mean</span>(<span class="fu">abs</span>(e),   <span class="at">na.rm =</span> <span class="cn">TRUE</span>),  <span class="dv">3</span>)</span>
-<span id="cb103-41"><a href="comparación-de-modelos.html#cb103-41" tabindex="-1"></a></span>
-<span id="cb103-42"><a href="comparación-de-modelos.html#cb103-42" tabindex="-1"></a>modelos_label <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb103-43"><a href="comparación-de-modelos.html#cb103-43" tabindex="-1"></a>  <span class="st">&quot;ARIMA(0,1,0) with drift&quot;</span>,</span>
-<span id="cb103-44"><a href="comparación-de-modelos.html#cb103-44" tabindex="-1"></a>  <span class="fu">paste0</span>(<span class="st">&quot;ETS – &quot;</span>, modelo_ets<span class="sc">$</span>method),</span>
-<span id="cb103-45"><a href="comparación-de-modelos.html#cb103-45" tabindex="-1"></a>  <span class="st">&quot;Holt lineal&quot;</span>,</span>
-<span id="cb103-46"><a href="comparación-de-modelos.html#cb103-46" tabindex="-1"></a>  <span class="st">&quot;Holt amortiguado&quot;</span>,</span>
-<span id="cb103-47"><a href="comparación-de-modelos.html#cb103-47" tabindex="-1"></a>  <span class="st">&quot;Naive with drift&quot;</span>,</span>
-<span id="cb103-48"><a href="comparación-de-modelos.html#cb103-48" tabindex="-1"></a>  <span class="st">&quot;Regresión lineal&quot;</span></span>
-<span id="cb103-49"><a href="comparación-de-modelos.html#cb103-49" tabindex="-1"></a>)</span>
-<span id="cb103-50"><a href="comparación-de-modelos.html#cb103-50" tabindex="-1"></a></span>
-<span id="cb103-51"><a href="comparación-de-modelos.html#cb103-51" tabindex="-1"></a>tabla_cv <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb103-52"><a href="comparación-de-modelos.html#cb103-52" tabindex="-1"></a>  <span class="at">Modelo     =</span> modelos_label,</span>
-<span id="cb103-53"><a href="comparación-de-modelos.html#cb103-53" tabindex="-1"></a>  <span class="st">`</span><span class="at">RMSE h=1</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">cv_rmse</span>(e1_arima), <span class="fu">cv_rmse</span>(e1_ets), <span class="fu">cv_rmse</span>(e1_holt),</span>
-<span id="cb103-54"><a href="comparación-de-modelos.html#cb103-54" tabindex="-1"></a>                  <span class="fu">cv_rmse</span>(e1_holtd), <span class="fu">cv_rmse</span>(e1_naive), <span class="fu">cv_rmse</span>(e1_lm)),</span>
-<span id="cb103-55"><a href="comparación-de-modelos.html#cb103-55" tabindex="-1"></a>  <span class="st">`</span><span class="at">MAE h=1</span><span class="st">`</span>  <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">cv_mae</span>(e1_arima),  <span class="fu">cv_mae</span>(e1_ets),  <span class="fu">cv_mae</span>(e1_holt),</span>
-<span id="cb103-56"><a href="comparación-de-modelos.html#cb103-56" tabindex="-1"></a>                  <span class="fu">cv_mae</span>(e1_holtd),  <span class="fu">cv_mae</span>(e1_naive),  <span class="fu">cv_mae</span>(e1_lm)),</span>
-<span id="cb103-57"><a href="comparación-de-modelos.html#cb103-57" tabindex="-1"></a>  <span class="st">`</span><span class="at">RMSE h=3</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">cv_rmse</span>(e3_arima), <span class="fu">cv_rmse</span>(e3_ets), <span class="fu">cv_rmse</span>(e3_holt),</span>
-<span id="cb103-58"><a href="comparación-de-modelos.html#cb103-58" tabindex="-1"></a>                  <span class="fu">cv_rmse</span>(e3_holtd), <span class="fu">cv_rmse</span>(e3_naive), <span class="fu">cv_rmse</span>(e3_lm)),</span>
-<span id="cb103-59"><a href="comparación-de-modelos.html#cb103-59" tabindex="-1"></a>  <span class="st">`</span><span class="at">MAE h=3</span><span class="st">`</span>  <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">cv_mae</span>(e3_arima),  <span class="fu">cv_mae</span>(e3_ets),  <span class="fu">cv_mae</span>(e3_holt),</span>
-<span id="cb103-60"><a href="comparación-de-modelos.html#cb103-60" tabindex="-1"></a>                  <span class="fu">cv_mae</span>(e3_holtd),  <span class="fu">cv_mae</span>(e3_naive),  <span class="fu">cv_mae</span>(e3_lm)),</span>
-<span id="cb103-61"><a href="comparación-de-modelos.html#cb103-61" tabindex="-1"></a>  <span class="at">check.names =</span> <span class="cn">FALSE</span></span>
-<span id="cb103-62"><a href="comparación-de-modelos.html#cb103-62" tabindex="-1"></a>)</span>
-<span id="cb103-63"><a href="comparación-de-modelos.html#cb103-63" tabindex="-1"></a></span>
-<span id="cb103-64"><a href="comparación-de-modelos.html#cb103-64" tabindex="-1"></a>mejor_rmse_h1 <span class="ot">&lt;-</span> <span class="fu">which.min</span>(tabla_cv<span class="sc">$</span><span class="st">`</span><span class="at">RMSE h=1</span><span class="st">`</span>)</span>
-<span id="cb103-65"><a href="comparación-de-modelos.html#cb103-65" tabindex="-1"></a>mejor_rmse_h3 <span class="ot">&lt;-</span> <span class="fu">which.min</span>(tabla_cv<span class="sc">$</span><span class="st">`</span><span class="at">RMSE h=3</span><span class="st">`</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="comparación-de-modelos.html#cb104-1" tabindex="-1"></a>tabla_cv <span class="sc">%&gt;%</span></span>
-<span id="cb104-2"><a href="comparación-de-modelos.html#cb104-2" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
-<span id="cb104-3"><a href="comparación-de-modelos.html#cb104-3" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Validación cruzada tsCV – RMSE y MAE por horizonte (menor = mejor)&quot;</span>,</span>
-<span id="cb104-4"><a href="comparación-de-modelos.html#cb104-4" tabindex="-1"></a>    </span>
-<span id="cb104-5"><a href="comparación-de-modelos.html#cb104-5" tabindex="-1"></a>    </span>
-<span id="cb104-6"><a href="comparación-de-modelos.html#cb104-6" tabindex="-1"></a>    <span class="at">align   =</span> <span class="fu">c</span>(<span class="st">&quot;l&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>)</span>
-<span id="cb104-7"><a href="comparación-de-modelos.html#cb104-7" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb104-8"><a href="comparación-de-modelos.html#cb104-8" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>),</span>
-<span id="cb104-9"><a href="comparación-de-modelos.html#cb104-9" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">font_size =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb104-10"><a href="comparación-de-modelos.html#cb104-10" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">background =</span> <span class="st">&quot;#1D3557&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb104-11"><a href="comparación-de-modelos.html#cb104-11" tabindex="-1"></a>  <span class="fu">row_spec</span>(mejor_rmse_h1, <span class="at">background =</span> <span class="st">&quot;#A8DADC&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb104-12"><a href="comparación-de-modelos.html#cb104-12" tabindex="-1"></a>  <span class="fu">add_header_above</span>(</span>
-<span id="cb104-13"><a href="comparación-de-modelos.html#cb104-13" tabindex="-1"></a>    <span class="fu">c</span>(<span class="st">&quot; &quot;</span> <span class="ot">=</span> <span class="dv">1</span>,</span>
-<span id="cb104-14"><a href="comparación-de-modelos.html#cb104-14" tabindex="-1"></a>      <span class="st">&quot;Horizonte 1 paso (h=1)&quot;</span> <span class="ot">=</span> <span class="dv">2</span>,</span>
-<span id="cb104-15"><a href="comparación-de-modelos.html#cb104-15" tabindex="-1"></a>      <span class="st">&quot;Horizonte 3 pasos (h=3)&quot;</span> <span class="ot">=</span> <span class="dv">2</span>),</span>
-<span id="cb104-16"><a href="comparación-de-modelos.html#cb104-16" tabindex="-1"></a>    <span class="at">background =</span> <span class="st">&quot;#457B9D&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span></span>
-<span id="cb104-17"><a href="comparación-de-modelos.html#cb104-17" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="comparación-de-modelos.html#cb92-1" tabindex="-1"></a>f_arima    <span class="ot">&lt;-</span> <span class="cf">function</span>(y, h) <span class="fu">forecast</span>(<span class="fu">auto.arima</span>(y, <span class="at">stepwise =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb92-2"><a href="comparación-de-modelos.html#cb92-2" tabindex="-1"></a>                                                  <span class="at">approximation =</span> <span class="cn">FALSE</span>), <span class="at">h =</span> h)</span>
+<span id="cb92-3"><a href="comparación-de-modelos.html#cb92-3" tabindex="-1"></a>f_ets      <span class="ot">&lt;-</span> <span class="cf">function</span>(y, h) <span class="fu">forecast</span>(<span class="fu">ets</span>(y), <span class="at">h =</span> h)</span>
+<span id="cb92-4"><a href="comparación-de-modelos.html#cb92-4" tabindex="-1"></a>f_holt     <span class="ot">&lt;-</span> <span class="cf">function</span>(y, h) <span class="fu">holt</span>(y, <span class="at">h =</span> h)</span>
+<span id="cb92-5"><a href="comparación-de-modelos.html#cb92-5" tabindex="-1"></a>f_holt_d   <span class="ot">&lt;-</span> <span class="cf">function</span>(y, h) <span class="fu">holt</span>(y, <span class="at">h =</span> h, <span class="at">damped =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb92-6"><a href="comparación-de-modelos.html#cb92-6" tabindex="-1"></a>f_naive_d  <span class="ot">&lt;-</span> <span class="cf">function</span>(y, h) <span class="fu">rwf</span>(y, <span class="at">h =</span> h, <span class="at">drift =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb92-7"><a href="comparación-de-modelos.html#cb92-7" tabindex="-1"></a>f_lm       <span class="ot">&lt;-</span> <span class="cf">function</span>(y, h) {</span>
+<span id="cb92-8"><a href="comparación-de-modelos.html#cb92-8" tabindex="-1"></a>  n      <span class="ot">&lt;-</span> <span class="fu">length</span>(y)</span>
+<span id="cb92-9"><a href="comparación-de-modelos.html#cb92-9" tabindex="-1"></a>  t_hist <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span>n</span>
+<span id="cb92-10"><a href="comparación-de-modelos.html#cb92-10" tabindex="-1"></a>  fit    <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> t_hist)</span>
+<span id="cb92-11"><a href="comparación-de-modelos.html#cb92-11" tabindex="-1"></a>  t_new  <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">t_hist =</span> (n <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>(n <span class="sc">+</span> h))</span>
+<span id="cb92-12"><a href="comparación-de-modelos.html#cb92-12" tabindex="-1"></a>  pred   <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit, <span class="at">newdata =</span> t_new)</span>
+<span id="cb92-13"><a href="comparación-de-modelos.html#cb92-13" tabindex="-1"></a>  <span class="fu">structure</span>(</span>
+<span id="cb92-14"><a href="comparación-de-modelos.html#cb92-14" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">mean =</span> <span class="fu">ts</span>(pred,</span>
+<span id="cb92-15"><a href="comparación-de-modelos.html#cb92-15" tabindex="-1"></a>                   <span class="at">start     =</span> <span class="fu">tsp</span>(y)[<span class="dv">2</span>] <span class="sc">+</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fu">tsp</span>(y)[<span class="dv">3</span>],</span>
+<span id="cb92-16"><a href="comparación-de-modelos.html#cb92-16" tabindex="-1"></a>                   <span class="at">frequency =</span> <span class="fu">tsp</span>(y)[<span class="dv">3</span>])),</span>
+<span id="cb92-17"><a href="comparación-de-modelos.html#cb92-17" tabindex="-1"></a>    <span class="at">class =</span> <span class="st">&quot;forecast&quot;</span></span>
+<span id="cb92-18"><a href="comparación-de-modelos.html#cb92-18" tabindex="-1"></a>  )</span>
+<span id="cb92-19"><a href="comparación-de-modelos.html#cb92-19" tabindex="-1"></a>}</span>
+<span id="cb92-20"><a href="comparación-de-modelos.html#cb92-20" tabindex="-1"></a></span>
+<span id="cb92-21"><a href="comparación-de-modelos.html#cb92-21" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb92-22"><a href="comparación-de-modelos.html#cb92-22" tabindex="-1"></a></span>
+<span id="cb92-23"><a href="comparación-de-modelos.html#cb92-23" tabindex="-1"></a><span class="co"># h = 1</span></span>
+<span id="cb92-24"><a href="comparación-de-modelos.html#cb92-24" tabindex="-1"></a>e1_arima  <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_arima,   <span class="at">h =</span> <span class="dv">1</span>)</span>
+<span id="cb92-25"><a href="comparación-de-modelos.html#cb92-25" tabindex="-1"></a>e1_ets    <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_ets,     <span class="at">h =</span> <span class="dv">1</span>)</span>
+<span id="cb92-26"><a href="comparación-de-modelos.html#cb92-26" tabindex="-1"></a>e1_holt   <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_holt,    <span class="at">h =</span> <span class="dv">1</span>)</span>
+<span id="cb92-27"><a href="comparación-de-modelos.html#cb92-27" tabindex="-1"></a>e1_holtd  <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_holt_d,  <span class="at">h =</span> <span class="dv">1</span>)</span>
+<span id="cb92-28"><a href="comparación-de-modelos.html#cb92-28" tabindex="-1"></a>e1_naive  <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_naive_d, <span class="at">h =</span> <span class="dv">1</span>)</span>
+<span id="cb92-29"><a href="comparación-de-modelos.html#cb92-29" tabindex="-1"></a>e1_lm     <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_lm,      <span class="at">h =</span> <span class="dv">1</span>)</span>
+<span id="cb92-30"><a href="comparación-de-modelos.html#cb92-30" tabindex="-1"></a></span>
+<span id="cb92-31"><a href="comparación-de-modelos.html#cb92-31" tabindex="-1"></a><span class="co"># h = 3</span></span>
+<span id="cb92-32"><a href="comparación-de-modelos.html#cb92-32" tabindex="-1"></a>e3_arima  <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_arima,   <span class="at">h =</span> <span class="dv">3</span>)</span>
+<span id="cb92-33"><a href="comparación-de-modelos.html#cb92-33" tabindex="-1"></a>e3_ets    <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_ets,     <span class="at">h =</span> <span class="dv">3</span>)</span>
+<span id="cb92-34"><a href="comparación-de-modelos.html#cb92-34" tabindex="-1"></a>e3_holt   <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_holt,    <span class="at">h =</span> <span class="dv">3</span>)</span>
+<span id="cb92-35"><a href="comparación-de-modelos.html#cb92-35" tabindex="-1"></a>e3_holtd  <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_holt_d,  <span class="at">h =</span> <span class="dv">3</span>)</span>
+<span id="cb92-36"><a href="comparación-de-modelos.html#cb92-36" tabindex="-1"></a>e3_naive  <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_naive_d, <span class="at">h =</span> <span class="dv">3</span>)</span>
+<span id="cb92-37"><a href="comparación-de-modelos.html#cb92-37" tabindex="-1"></a>e3_lm     <span class="ot">&lt;-</span> <span class="fu">tsCV</span>(ts_wv_acc, f_lm,      <span class="at">h =</span> <span class="dv">3</span>)</span>
+<span id="cb92-38"><a href="comparación-de-modelos.html#cb92-38" tabindex="-1"></a></span>
+<span id="cb92-39"><a href="comparación-de-modelos.html#cb92-39" tabindex="-1"></a>cv_rmse <span class="ot">&lt;-</span> <span class="cf">function</span>(e) <span class="fu">round</span>(<span class="fu">sqrt</span>(<span class="fu">mean</span>(e<span class="sc">^</span><span class="dv">2</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)), <span class="dv">3</span>)</span>
+<span id="cb92-40"><a href="comparación-de-modelos.html#cb92-40" tabindex="-1"></a>cv_mae  <span class="ot">&lt;-</span> <span class="cf">function</span>(e) <span class="fu">round</span>(<span class="fu">mean</span>(<span class="fu">abs</span>(e),   <span class="at">na.rm =</span> <span class="cn">TRUE</span>),  <span class="dv">3</span>)</span>
+<span id="cb92-41"><a href="comparación-de-modelos.html#cb92-41" tabindex="-1"></a></span>
+<span id="cb92-42"><a href="comparación-de-modelos.html#cb92-42" tabindex="-1"></a>modelos_label <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb92-43"><a href="comparación-de-modelos.html#cb92-43" tabindex="-1"></a>  <span class="st">&quot;ARIMA(0,1,0) with drift&quot;</span>,</span>
+<span id="cb92-44"><a href="comparación-de-modelos.html#cb92-44" tabindex="-1"></a>  <span class="fu">paste0</span>(<span class="st">&quot;ETS – &quot;</span>, modelo_ets<span class="sc">$</span>method),</span>
+<span id="cb92-45"><a href="comparación-de-modelos.html#cb92-45" tabindex="-1"></a>  <span class="st">&quot;Holt lineal&quot;</span>,</span>
+<span id="cb92-46"><a href="comparación-de-modelos.html#cb92-46" tabindex="-1"></a>  <span class="st">&quot;Holt amortiguado&quot;</span>,</span>
+<span id="cb92-47"><a href="comparación-de-modelos.html#cb92-47" tabindex="-1"></a>  <span class="st">&quot;Naive with drift&quot;</span>,</span>
+<span id="cb92-48"><a href="comparación-de-modelos.html#cb92-48" tabindex="-1"></a>  <span class="st">&quot;Regresión lineal&quot;</span></span>
+<span id="cb92-49"><a href="comparación-de-modelos.html#cb92-49" tabindex="-1"></a>)</span>
+<span id="cb92-50"><a href="comparación-de-modelos.html#cb92-50" tabindex="-1"></a></span>
+<span id="cb92-51"><a href="comparación-de-modelos.html#cb92-51" tabindex="-1"></a>tabla_cv <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb92-52"><a href="comparación-de-modelos.html#cb92-52" tabindex="-1"></a>  <span class="at">Modelo     =</span> modelos_label,</span>
+<span id="cb92-53"><a href="comparación-de-modelos.html#cb92-53" tabindex="-1"></a>  <span class="st">`</span><span class="at">RMSE h=1</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">cv_rmse</span>(e1_arima), <span class="fu">cv_rmse</span>(e1_ets), <span class="fu">cv_rmse</span>(e1_holt),</span>
+<span id="cb92-54"><a href="comparación-de-modelos.html#cb92-54" tabindex="-1"></a>                  <span class="fu">cv_rmse</span>(e1_holtd), <span class="fu">cv_rmse</span>(e1_naive), <span class="fu">cv_rmse</span>(e1_lm)),</span>
+<span id="cb92-55"><a href="comparación-de-modelos.html#cb92-55" tabindex="-1"></a>  <span class="st">`</span><span class="at">MAE h=1</span><span class="st">`</span>  <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">cv_mae</span>(e1_arima),  <span class="fu">cv_mae</span>(e1_ets),  <span class="fu">cv_mae</span>(e1_holt),</span>
+<span id="cb92-56"><a href="comparación-de-modelos.html#cb92-56" tabindex="-1"></a>                  <span class="fu">cv_mae</span>(e1_holtd),  <span class="fu">cv_mae</span>(e1_naive),  <span class="fu">cv_mae</span>(e1_lm)),</span>
+<span id="cb92-57"><a href="comparación-de-modelos.html#cb92-57" tabindex="-1"></a>  <span class="st">`</span><span class="at">RMSE h=3</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">cv_rmse</span>(e3_arima), <span class="fu">cv_rmse</span>(e3_ets), <span class="fu">cv_rmse</span>(e3_holt),</span>
+<span id="cb92-58"><a href="comparación-de-modelos.html#cb92-58" tabindex="-1"></a>                  <span class="fu">cv_rmse</span>(e3_holtd), <span class="fu">cv_rmse</span>(e3_naive), <span class="fu">cv_rmse</span>(e3_lm)),</span>
+<span id="cb92-59"><a href="comparación-de-modelos.html#cb92-59" tabindex="-1"></a>  <span class="st">`</span><span class="at">MAE h=3</span><span class="st">`</span>  <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">cv_mae</span>(e3_arima),  <span class="fu">cv_mae</span>(e3_ets),  <span class="fu">cv_mae</span>(e3_holt),</span>
+<span id="cb92-60"><a href="comparación-de-modelos.html#cb92-60" tabindex="-1"></a>                  <span class="fu">cv_mae</span>(e3_holtd),  <span class="fu">cv_mae</span>(e3_naive),  <span class="fu">cv_mae</span>(e3_lm)),</span>
+<span id="cb92-61"><a href="comparación-de-modelos.html#cb92-61" tabindex="-1"></a>  <span class="at">check.names =</span> <span class="cn">FALSE</span></span>
+<span id="cb92-62"><a href="comparación-de-modelos.html#cb92-62" tabindex="-1"></a>)</span>
+<span id="cb92-63"><a href="comparación-de-modelos.html#cb92-63" tabindex="-1"></a></span>
+<span id="cb92-64"><a href="comparación-de-modelos.html#cb92-64" tabindex="-1"></a>mejor_rmse_h1 <span class="ot">&lt;-</span> <span class="fu">which.min</span>(tabla_cv<span class="sc">$</span><span class="st">`</span><span class="at">RMSE h=1</span><span class="st">`</span>)</span>
+<span id="cb92-65"><a href="comparación-de-modelos.html#cb92-65" tabindex="-1"></a>mejor_rmse_h3 <span class="ot">&lt;-</span> <span class="fu">which.min</span>(tabla_cv<span class="sc">$</span><span class="st">`</span><span class="at">RMSE h=3</span><span class="st">`</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="comparación-de-modelos.html#cb93-1" tabindex="-1"></a>tabla_cv <span class="sc">%&gt;%</span></span>
+<span id="cb93-2"><a href="comparación-de-modelos.html#cb93-2" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb93-3"><a href="comparación-de-modelos.html#cb93-3" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Validación cruzada tsCV – RMSE y MAE por horizonte (menor = mejor)&quot;</span>,</span>
+<span id="cb93-4"><a href="comparación-de-modelos.html#cb93-4" tabindex="-1"></a>    </span>
+<span id="cb93-5"><a href="comparación-de-modelos.html#cb93-5" tabindex="-1"></a>    </span>
+<span id="cb93-6"><a href="comparación-de-modelos.html#cb93-6" tabindex="-1"></a>    <span class="at">align   =</span> <span class="fu">c</span>(<span class="st">&quot;l&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>)</span>
+<span id="cb93-7"><a href="comparación-de-modelos.html#cb93-7" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb93-8"><a href="comparación-de-modelos.html#cb93-8" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>),</span>
+<span id="cb93-9"><a href="comparación-de-modelos.html#cb93-9" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">font_size =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb93-10"><a href="comparación-de-modelos.html#cb93-10" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">background =</span> <span class="st">&quot;#1D3557&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb93-11"><a href="comparación-de-modelos.html#cb93-11" tabindex="-1"></a>  <span class="fu">row_spec</span>(mejor_rmse_h1, <span class="at">background =</span> <span class="st">&quot;#A8DADC&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb93-12"><a href="comparación-de-modelos.html#cb93-12" tabindex="-1"></a>  <span class="fu">add_header_above</span>(</span>
+<span id="cb93-13"><a href="comparación-de-modelos.html#cb93-13" tabindex="-1"></a>    <span class="fu">c</span>(<span class="st">&quot; &quot;</span> <span class="ot">=</span> <span class="dv">1</span>,</span>
+<span id="cb93-14"><a href="comparación-de-modelos.html#cb93-14" tabindex="-1"></a>      <span class="st">&quot;Horizonte 1 paso (h=1)&quot;</span> <span class="ot">=</span> <span class="dv">2</span>,</span>
+<span id="cb93-15"><a href="comparación-de-modelos.html#cb93-15" tabindex="-1"></a>      <span class="st">&quot;Horizonte 3 pasos (h=3)&quot;</span> <span class="ot">=</span> <span class="dv">2</span>),</span>
+<span id="cb93-16"><a href="comparación-de-modelos.html#cb93-16" tabindex="-1"></a>    <span class="at">background =</span> <span class="st">&quot;#457B9D&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span></span>
+<span id="cb93-17"><a href="comparación-de-modelos.html#cb93-17" tabindex="-1"></a>  )</span></code></pre></div>
 <table class="table table-striped table-hover" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-21">Tabla 14.3: </span>Validación cruzada tsCV – RMSE y MAE por horizonte (menor = mejor)
+<span id="tab:unnamed-chunk-19">Tabla 14.3: </span>Validación cruzada tsCV – RMSE y MAE por horizonte (menor = mejor)
 </caption>
 <thead>
 <tr>
@@ -871,96 +870,96 @@ ARIMA es consistentemente superior.</p>
 </div>
 <div id="gráfico-comparativo-de-proyecciones" class="section level2 hasAnchor" number="14.4">
 <h2><span class="header-section-number">14.4</span> Gráfico comparativo de proyecciones<a href="comparación-de-modelos.html#gráfico-comparativo-de-proyecciones" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="comparación-de-modelos.html#cb105-1" tabindex="-1"></a>pred_arima_f  <span class="ot">&lt;-</span> <span class="fu">forecast</span>(modelo_acc,       <span class="at">h =</span> horizonte)</span>
-<span id="cb105-2"><a href="comparación-de-modelos.html#cb105-2" tabindex="-1"></a>pred_ets_f    <span class="ot">&lt;-</span> <span class="fu">forecast</span>(modelo_ets,       <span class="at">h =</span> horizonte)</span>
-<span id="cb105-3"><a href="comparación-de-modelos.html#cb105-3" tabindex="-1"></a>pred_holt_f   <span class="ot">&lt;-</span> <span class="fu">forecast</span>(modelo_holt_fit,  <span class="at">h =</span> horizonte)</span>
-<span id="cb105-4"><a href="comparación-de-modelos.html#cb105-4" tabindex="-1"></a>pred_holtd_f  <span class="ot">&lt;-</span> <span class="fu">forecast</span>(modelo_holtd_fit, <span class="at">h =</span> horizonte)</span>
-<span id="cb105-5"><a href="comparación-de-modelos.html#cb105-5" tabindex="-1"></a>pred_naive_f  <span class="ot">&lt;-</span> <span class="fu">rwf</span>(ts_wv_acc, <span class="at">h =</span> horizonte, <span class="at">drift =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb105-6"><a href="comparación-de-modelos.html#cb105-6" tabindex="-1"></a></span>
-<span id="cb105-7"><a href="comparación-de-modelos.html#cb105-7" tabindex="-1"></a>tiempo_proj_v  <span class="ot">&lt;-</span> (<span class="fu">length</span>(serie_wv_acc) <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>(<span class="fu">length</span>(serie_wv_acc) <span class="sc">+</span> horizonte)</span>
-<span id="cb105-8"><a href="comparación-de-modelos.html#cb105-8" tabindex="-1"></a>pred_lm_v      <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(</span>
-<span id="cb105-9"><a href="comparación-de-modelos.html#cb105-9" tabindex="-1"></a>  <span class="fu">predict</span>(modelo_lm,</span>
-<span id="cb105-10"><a href="comparación-de-modelos.html#cb105-10" tabindex="-1"></a>          <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">tiempo_hist =</span> tiempo_proj_v))</span>
-<span id="cb105-11"><a href="comparación-de-modelos.html#cb105-11" tabindex="-1"></a>)</span>
-<span id="cb105-12"><a href="comparación-de-modelos.html#cb105-12" tabindex="-1"></a></span>
-<span id="cb105-13"><a href="comparación-de-modelos.html#cb105-13" tabindex="-1"></a>df_preds_final <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb105-14"><a href="comparación-de-modelos.html#cb105-14" tabindex="-1"></a>  <span class="at">year  =</span> <span class="fu">rep</span>(anios_fut, <span class="dv">6</span>),</span>
-<span id="cb105-15"><a href="comparación-de-modelos.html#cb105-15" tabindex="-1"></a>  <span class="at">valor =</span> <span class="fu">c</span>(</span>
-<span id="cb105-16"><a href="comparación-de-modelos.html#cb105-16" tabindex="-1"></a>    <span class="fu">as.numeric</span>(pred_arima_f<span class="sc">$</span>mean),</span>
-<span id="cb105-17"><a href="comparación-de-modelos.html#cb105-17" tabindex="-1"></a>    <span class="fu">as.numeric</span>(pred_ets_f<span class="sc">$</span>mean),</span>
-<span id="cb105-18"><a href="comparación-de-modelos.html#cb105-18" tabindex="-1"></a>    <span class="fu">as.numeric</span>(pred_holt_f<span class="sc">$</span>mean),</span>
-<span id="cb105-19"><a href="comparación-de-modelos.html#cb105-19" tabindex="-1"></a>    <span class="fu">as.numeric</span>(pred_holtd_f<span class="sc">$</span>mean),</span>
-<span id="cb105-20"><a href="comparación-de-modelos.html#cb105-20" tabindex="-1"></a>    <span class="fu">as.numeric</span>(pred_naive_f<span class="sc">$</span>mean),</span>
-<span id="cb105-21"><a href="comparación-de-modelos.html#cb105-21" tabindex="-1"></a>    pred_lm_v</span>
-<span id="cb105-22"><a href="comparación-de-modelos.html#cb105-22" tabindex="-1"></a>  ),</span>
-<span id="cb105-23"><a href="comparación-de-modelos.html#cb105-23" tabindex="-1"></a>  <span class="at">modelo =</span> <span class="fu">rep</span>(<span class="fu">c</span>(</span>
-<span id="cb105-24"><a href="comparación-de-modelos.html#cb105-24" tabindex="-1"></a>    <span class="st">&quot;ARIMA(0,1,0) drift&quot;</span>,</span>
-<span id="cb105-25"><a href="comparación-de-modelos.html#cb105-25" tabindex="-1"></a>    <span class="st">&quot;ETS&quot;</span>,</span>
-<span id="cb105-26"><a href="comparación-de-modelos.html#cb105-26" tabindex="-1"></a>    <span class="st">&quot;Holt lineal&quot;</span>,</span>
-<span id="cb105-27"><a href="comparación-de-modelos.html#cb105-27" tabindex="-1"></a>    <span class="st">&quot;Holt amortiguado&quot;</span>,</span>
-<span id="cb105-28"><a href="comparación-de-modelos.html#cb105-28" tabindex="-1"></a>    <span class="st">&quot;Naive drift&quot;</span>,</span>
-<span id="cb105-29"><a href="comparación-de-modelos.html#cb105-29" tabindex="-1"></a>    <span class="st">&quot;Reg. lineal&quot;</span></span>
-<span id="cb105-30"><a href="comparación-de-modelos.html#cb105-30" tabindex="-1"></a>  ), <span class="at">each =</span> horizonte)</span>
-<span id="cb105-31"><a href="comparación-de-modelos.html#cb105-31" tabindex="-1"></a>)</span>
-<span id="cb105-32"><a href="comparación-de-modelos.html#cb105-32" tabindex="-1"></a></span>
-<span id="cb105-33"><a href="comparación-de-modelos.html#cb105-33" tabindex="-1"></a>colores_comp <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb105-34"><a href="comparación-de-modelos.html#cb105-34" tabindex="-1"></a>  <span class="st">&quot;ARIMA(0,1,0) drift&quot;</span> <span class="ot">=</span> <span class="st">&quot;#1D3557&quot;</span>,</span>
-<span id="cb105-35"><a href="comparación-de-modelos.html#cb105-35" tabindex="-1"></a>  <span class="st">&quot;ETS&quot;</span>                <span class="ot">=</span> <span class="st">&quot;#E63946&quot;</span>,</span>
-<span id="cb105-36"><a href="comparación-de-modelos.html#cb105-36" tabindex="-1"></a>  <span class="st">&quot;Holt lineal&quot;</span>        <span class="ot">=</span> <span class="st">&quot;#2A9D8F&quot;</span>,</span>
-<span id="cb105-37"><a href="comparación-de-modelos.html#cb105-37" tabindex="-1"></a>  <span class="st">&quot;Holt amortiguado&quot;</span>   <span class="ot">=</span> <span class="st">&quot;#F4A261&quot;</span>,</span>
-<span id="cb105-38"><a href="comparación-de-modelos.html#cb105-38" tabindex="-1"></a>  <span class="st">&quot;Naive drift&quot;</span>        <span class="ot">=</span> <span class="st">&quot;#9B2226&quot;</span>,</span>
-<span id="cb105-39"><a href="comparación-de-modelos.html#cb105-39" tabindex="-1"></a>  <span class="st">&quot;Reg. lineal&quot;</span>        <span class="ot">=</span> <span class="st">&quot;#6A4C93&quot;</span></span>
-<span id="cb105-40"><a href="comparación-de-modelos.html#cb105-40" tabindex="-1"></a>)</span>
-<span id="cb105-41"><a href="comparación-de-modelos.html#cb105-41" tabindex="-1"></a></span>
-<span id="cb105-42"><a href="comparación-de-modelos.html#cb105-42" tabindex="-1"></a>tipos_comp <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb105-43"><a href="comparación-de-modelos.html#cb105-43" tabindex="-1"></a>  <span class="st">&quot;ARIMA(0,1,0) drift&quot;</span> <span class="ot">=</span> <span class="st">&quot;dashed&quot;</span>,</span>
-<span id="cb105-44"><a href="comparación-de-modelos.html#cb105-44" tabindex="-1"></a>  <span class="st">&quot;ETS&quot;</span>                <span class="ot">=</span> <span class="st">&quot;dashed&quot;</span>,</span>
-<span id="cb105-45"><a href="comparación-de-modelos.html#cb105-45" tabindex="-1"></a>  <span class="st">&quot;Holt lineal&quot;</span>        <span class="ot">=</span> <span class="st">&quot;dotdash&quot;</span>,</span>
-<span id="cb105-46"><a href="comparación-de-modelos.html#cb105-46" tabindex="-1"></a>  <span class="st">&quot;Holt amortiguado&quot;</span>   <span class="ot">=</span> <span class="st">&quot;dotdash&quot;</span>,</span>
-<span id="cb105-47"><a href="comparación-de-modelos.html#cb105-47" tabindex="-1"></a>  <span class="st">&quot;Naive drift&quot;</span>        <span class="ot">=</span> <span class="st">&quot;longdash&quot;</span>,</span>
-<span id="cb105-48"><a href="comparación-de-modelos.html#cb105-48" tabindex="-1"></a>  <span class="st">&quot;Reg. lineal&quot;</span>        <span class="ot">=</span> <span class="st">&quot;longdash&quot;</span></span>
-<span id="cb105-49"><a href="comparación-de-modelos.html#cb105-49" tabindex="-1"></a>)</span>
-<span id="cb105-50"><a href="comparación-de-modelos.html#cb105-50" tabindex="-1"></a></span>
-<span id="cb105-51"><a href="comparación-de-modelos.html#cb105-51" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb105-52"><a href="comparación-de-modelos.html#cb105-52" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data  =</span> df_hist_ets,</span>
-<span id="cb105-53"><a href="comparación-de-modelos.html#cb105-53" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> valor),</span>
-<span id="cb105-54"><a href="comparación-de-modelos.html#cb105-54" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">linewidth =</span> <span class="fl">1.4</span>) <span class="sc">+</span></span>
-<span id="cb105-55"><a href="comparación-de-modelos.html#cb105-55" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> df_hist_ets,</span>
-<span id="cb105-56"><a href="comparación-de-modelos.html#cb105-56" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> valor),</span>
-<span id="cb105-57"><a href="comparación-de-modelos.html#cb105-57" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">size =</span> <span class="fl">2.2</span>) <span class="sc">+</span></span>
-<span id="cb105-58"><a href="comparación-de-modelos.html#cb105-58" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> df_preds_final,</span>
-<span id="cb105-59"><a href="comparación-de-modelos.html#cb105-59" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> valor,</span>
-<span id="cb105-60"><a href="comparación-de-modelos.html#cb105-60" tabindex="-1"></a>                <span class="at">color =</span> modelo, <span class="at">linetype =</span> modelo),</span>
-<span id="cb105-61"><a href="comparación-de-modelos.html#cb105-61" tabindex="-1"></a>            <span class="at">linewidth =</span> <span class="fl">1.0</span>) <span class="sc">+</span></span>
-<span id="cb105-62"><a href="comparación-de-modelos.html#cb105-62" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> df_preds_final,</span>
-<span id="cb105-63"><a href="comparación-de-modelos.html#cb105-63" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> valor, <span class="at">color =</span> modelo),</span>
-<span id="cb105-64"><a href="comparación-de-modelos.html#cb105-64" tabindex="-1"></a>             <span class="at">size =</span> <span class="fl">2.5</span>, <span class="at">shape =</span> <span class="dv">17</span>) <span class="sc">+</span></span>
-<span id="cb105-65"><a href="comparación-de-modelos.html#cb105-65" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">2017.5</span>, <span class="at">linetype =</span> <span class="st">&quot;dotted&quot;</span>,</span>
-<span id="cb105-66"><a href="comparación-de-modelos.html#cb105-66" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;gray40&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb105-67"><a href="comparación-de-modelos.html#cb105-67" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="fl">2017.7</span>, <span class="at">y =</span> <span class="fu">max</span>(serie_wv_acc) <span class="sc">*</span> <span class="fl">0.75</span>,</span>
-<span id="cb105-68"><a href="comparación-de-modelos.html#cb105-68" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">&quot;→ Proyección&quot;</span>, <span class="at">hjust =</span> <span class="dv">0</span>,</span>
-<span id="cb105-69"><a href="comparación-de-modelos.html#cb105-69" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">&quot;gray40&quot;</span>, <span class="at">fontface =</span> <span class="st">&quot;italic&quot;</span>, <span class="at">size =</span> <span class="fl">3.5</span>) <span class="sc">+</span></span>
-<span id="cb105-70"><a href="comparación-de-modelos.html#cb105-70" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values    =</span> colores_comp) <span class="sc">+</span></span>
-<span id="cb105-71"><a href="comparación-de-modelos.html#cb105-71" tabindex="-1"></a>  <span class="fu">scale_linetype_manual</span>(<span class="at">values =</span> tipos_comp) <span class="sc">+</span></span>
-<span id="cb105-72"><a href="comparación-de-modelos.html#cb105-72" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1999</span>, <span class="dv">2022</span>, <span class="at">by =</span> <span class="dv">2</span>)) <span class="sc">+</span></span>
-<span id="cb105-73"><a href="comparación-de-modelos.html#cb105-73" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> comma) <span class="sc">+</span></span>
-<span id="cb105-74"><a href="comparación-de-modelos.html#cb105-74" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb105-75"><a href="comparación-de-modelos.html#cb105-75" tabindex="-1"></a>    <span class="at">title    =</span> <span class="st">&quot;Comparación de proyecciones – Unintentional Injuries&quot;</span>,</span>
-<span id="cb105-76"><a href="comparación-de-modelos.html#cb105-76" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;West Virginia · 2018–2022 · Todos los modelos evaluados&quot;</span>,</span>
-<span id="cb105-77"><a href="comparación-de-modelos.html#cb105-77" tabindex="-1"></a>    <span class="at">x        =</span> <span class="st">&quot;Año&quot;</span>,</span>
-<span id="cb105-78"><a href="comparación-de-modelos.html#cb105-78" tabindex="-1"></a>    <span class="at">y        =</span> <span class="st">&quot;Tasa ajustada por 100,000 hab.&quot;</span>,</span>
-<span id="cb105-79"><a href="comparación-de-modelos.html#cb105-79" tabindex="-1"></a>    <span class="at">color    =</span> <span class="st">&quot;Modelo&quot;</span>,</span>
-<span id="cb105-80"><a href="comparación-de-modelos.html#cb105-80" tabindex="-1"></a>    <span class="at">linetype =</span> <span class="st">&quot;Modelo&quot;</span></span>
-<span id="cb105-81"><a href="comparación-de-modelos.html#cb105-81" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb105-82"><a href="comparación-de-modelos.html#cb105-82" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb105-83"><a href="comparación-de-modelos.html#cb105-83" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb105-84"><a href="comparación-de-modelos.html#cb105-84" tabindex="-1"></a>    <span class="at">plot.title       =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
-<span id="cb105-85"><a href="comparación-de-modelos.html#cb105-85" tabindex="-1"></a>    <span class="at">plot.subtitle    =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;gray40&quot;</span>),</span>
-<span id="cb105-86"><a href="comparación-de-modelos.html#cb105-86" tabindex="-1"></a>    <span class="at">axis.text.x      =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
-<span id="cb105-87"><a href="comparación-de-modelos.html#cb105-87" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb105-88"><a href="comparación-de-modelos.html#cb105-88" tabindex="-1"></a>    <span class="at">legend.position  =</span> <span class="st">&quot;bottom&quot;</span>,</span>
-<span id="cb105-89"><a href="comparación-de-modelos.html#cb105-89" tabindex="-1"></a>    <span class="at">legend.title     =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>)</span>
-<span id="cb105-90"><a href="comparación-de-modelos.html#cb105-90" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="comparación-de-modelos.html#cb94-1" tabindex="-1"></a>pred_arima_f  <span class="ot">&lt;-</span> <span class="fu">forecast</span>(modelo_acc,       <span class="at">h =</span> horizonte)</span>
+<span id="cb94-2"><a href="comparación-de-modelos.html#cb94-2" tabindex="-1"></a>pred_ets_f    <span class="ot">&lt;-</span> <span class="fu">forecast</span>(modelo_ets,       <span class="at">h =</span> horizonte)</span>
+<span id="cb94-3"><a href="comparación-de-modelos.html#cb94-3" tabindex="-1"></a>pred_holt_f   <span class="ot">&lt;-</span> <span class="fu">forecast</span>(modelo_holt_fit,  <span class="at">h =</span> horizonte)</span>
+<span id="cb94-4"><a href="comparación-de-modelos.html#cb94-4" tabindex="-1"></a>pred_holtd_f  <span class="ot">&lt;-</span> <span class="fu">forecast</span>(modelo_holtd_fit, <span class="at">h =</span> horizonte)</span>
+<span id="cb94-5"><a href="comparación-de-modelos.html#cb94-5" tabindex="-1"></a>pred_naive_f  <span class="ot">&lt;-</span> <span class="fu">rwf</span>(ts_wv_acc, <span class="at">h =</span> horizonte, <span class="at">drift =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb94-6"><a href="comparación-de-modelos.html#cb94-6" tabindex="-1"></a></span>
+<span id="cb94-7"><a href="comparación-de-modelos.html#cb94-7" tabindex="-1"></a>tiempo_proj_v  <span class="ot">&lt;-</span> (<span class="fu">length</span>(serie_wv_acc) <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>(<span class="fu">length</span>(serie_wv_acc) <span class="sc">+</span> horizonte)</span>
+<span id="cb94-8"><a href="comparación-de-modelos.html#cb94-8" tabindex="-1"></a>pred_lm_v      <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(</span>
+<span id="cb94-9"><a href="comparación-de-modelos.html#cb94-9" tabindex="-1"></a>  <span class="fu">predict</span>(modelo_lm,</span>
+<span id="cb94-10"><a href="comparación-de-modelos.html#cb94-10" tabindex="-1"></a>          <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">tiempo_hist =</span> tiempo_proj_v))</span>
+<span id="cb94-11"><a href="comparación-de-modelos.html#cb94-11" tabindex="-1"></a>)</span>
+<span id="cb94-12"><a href="comparación-de-modelos.html#cb94-12" tabindex="-1"></a></span>
+<span id="cb94-13"><a href="comparación-de-modelos.html#cb94-13" tabindex="-1"></a>df_preds_final <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb94-14"><a href="comparación-de-modelos.html#cb94-14" tabindex="-1"></a>  <span class="at">year  =</span> <span class="fu">rep</span>(anios_fut, <span class="dv">6</span>),</span>
+<span id="cb94-15"><a href="comparación-de-modelos.html#cb94-15" tabindex="-1"></a>  <span class="at">valor =</span> <span class="fu">c</span>(</span>
+<span id="cb94-16"><a href="comparación-de-modelos.html#cb94-16" tabindex="-1"></a>    <span class="fu">as.numeric</span>(pred_arima_f<span class="sc">$</span>mean),</span>
+<span id="cb94-17"><a href="comparación-de-modelos.html#cb94-17" tabindex="-1"></a>    <span class="fu">as.numeric</span>(pred_ets_f<span class="sc">$</span>mean),</span>
+<span id="cb94-18"><a href="comparación-de-modelos.html#cb94-18" tabindex="-1"></a>    <span class="fu">as.numeric</span>(pred_holt_f<span class="sc">$</span>mean),</span>
+<span id="cb94-19"><a href="comparación-de-modelos.html#cb94-19" tabindex="-1"></a>    <span class="fu">as.numeric</span>(pred_holtd_f<span class="sc">$</span>mean),</span>
+<span id="cb94-20"><a href="comparación-de-modelos.html#cb94-20" tabindex="-1"></a>    <span class="fu">as.numeric</span>(pred_naive_f<span class="sc">$</span>mean),</span>
+<span id="cb94-21"><a href="comparación-de-modelos.html#cb94-21" tabindex="-1"></a>    pred_lm_v</span>
+<span id="cb94-22"><a href="comparación-de-modelos.html#cb94-22" tabindex="-1"></a>  ),</span>
+<span id="cb94-23"><a href="comparación-de-modelos.html#cb94-23" tabindex="-1"></a>  <span class="at">modelo =</span> <span class="fu">rep</span>(<span class="fu">c</span>(</span>
+<span id="cb94-24"><a href="comparación-de-modelos.html#cb94-24" tabindex="-1"></a>    <span class="st">&quot;ARIMA(0,1,0) drift&quot;</span>,</span>
+<span id="cb94-25"><a href="comparación-de-modelos.html#cb94-25" tabindex="-1"></a>    <span class="st">&quot;ETS&quot;</span>,</span>
+<span id="cb94-26"><a href="comparación-de-modelos.html#cb94-26" tabindex="-1"></a>    <span class="st">&quot;Holt lineal&quot;</span>,</span>
+<span id="cb94-27"><a href="comparación-de-modelos.html#cb94-27" tabindex="-1"></a>    <span class="st">&quot;Holt amortiguado&quot;</span>,</span>
+<span id="cb94-28"><a href="comparación-de-modelos.html#cb94-28" tabindex="-1"></a>    <span class="st">&quot;Naive drift&quot;</span>,</span>
+<span id="cb94-29"><a href="comparación-de-modelos.html#cb94-29" tabindex="-1"></a>    <span class="st">&quot;Reg. lineal&quot;</span></span>
+<span id="cb94-30"><a href="comparación-de-modelos.html#cb94-30" tabindex="-1"></a>  ), <span class="at">each =</span> horizonte)</span>
+<span id="cb94-31"><a href="comparación-de-modelos.html#cb94-31" tabindex="-1"></a>)</span>
+<span id="cb94-32"><a href="comparación-de-modelos.html#cb94-32" tabindex="-1"></a></span>
+<span id="cb94-33"><a href="comparación-de-modelos.html#cb94-33" tabindex="-1"></a>colores_comp <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb94-34"><a href="comparación-de-modelos.html#cb94-34" tabindex="-1"></a>  <span class="st">&quot;ARIMA(0,1,0) drift&quot;</span> <span class="ot">=</span> <span class="st">&quot;#1D3557&quot;</span>,</span>
+<span id="cb94-35"><a href="comparación-de-modelos.html#cb94-35" tabindex="-1"></a>  <span class="st">&quot;ETS&quot;</span>                <span class="ot">=</span> <span class="st">&quot;#E63946&quot;</span>,</span>
+<span id="cb94-36"><a href="comparación-de-modelos.html#cb94-36" tabindex="-1"></a>  <span class="st">&quot;Holt lineal&quot;</span>        <span class="ot">=</span> <span class="st">&quot;#2A9D8F&quot;</span>,</span>
+<span id="cb94-37"><a href="comparación-de-modelos.html#cb94-37" tabindex="-1"></a>  <span class="st">&quot;Holt amortiguado&quot;</span>   <span class="ot">=</span> <span class="st">&quot;#F4A261&quot;</span>,</span>
+<span id="cb94-38"><a href="comparación-de-modelos.html#cb94-38" tabindex="-1"></a>  <span class="st">&quot;Naive drift&quot;</span>        <span class="ot">=</span> <span class="st">&quot;#9B2226&quot;</span>,</span>
+<span id="cb94-39"><a href="comparación-de-modelos.html#cb94-39" tabindex="-1"></a>  <span class="st">&quot;Reg. lineal&quot;</span>        <span class="ot">=</span> <span class="st">&quot;#6A4C93&quot;</span></span>
+<span id="cb94-40"><a href="comparación-de-modelos.html#cb94-40" tabindex="-1"></a>)</span>
+<span id="cb94-41"><a href="comparación-de-modelos.html#cb94-41" tabindex="-1"></a></span>
+<span id="cb94-42"><a href="comparación-de-modelos.html#cb94-42" tabindex="-1"></a>tipos_comp <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb94-43"><a href="comparación-de-modelos.html#cb94-43" tabindex="-1"></a>  <span class="st">&quot;ARIMA(0,1,0) drift&quot;</span> <span class="ot">=</span> <span class="st">&quot;dashed&quot;</span>,</span>
+<span id="cb94-44"><a href="comparación-de-modelos.html#cb94-44" tabindex="-1"></a>  <span class="st">&quot;ETS&quot;</span>                <span class="ot">=</span> <span class="st">&quot;dashed&quot;</span>,</span>
+<span id="cb94-45"><a href="comparación-de-modelos.html#cb94-45" tabindex="-1"></a>  <span class="st">&quot;Holt lineal&quot;</span>        <span class="ot">=</span> <span class="st">&quot;dotdash&quot;</span>,</span>
+<span id="cb94-46"><a href="comparación-de-modelos.html#cb94-46" tabindex="-1"></a>  <span class="st">&quot;Holt amortiguado&quot;</span>   <span class="ot">=</span> <span class="st">&quot;dotdash&quot;</span>,</span>
+<span id="cb94-47"><a href="comparación-de-modelos.html#cb94-47" tabindex="-1"></a>  <span class="st">&quot;Naive drift&quot;</span>        <span class="ot">=</span> <span class="st">&quot;longdash&quot;</span>,</span>
+<span id="cb94-48"><a href="comparación-de-modelos.html#cb94-48" tabindex="-1"></a>  <span class="st">&quot;Reg. lineal&quot;</span>        <span class="ot">=</span> <span class="st">&quot;longdash&quot;</span></span>
+<span id="cb94-49"><a href="comparación-de-modelos.html#cb94-49" tabindex="-1"></a>)</span>
+<span id="cb94-50"><a href="comparación-de-modelos.html#cb94-50" tabindex="-1"></a></span>
+<span id="cb94-51"><a href="comparación-de-modelos.html#cb94-51" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb94-52"><a href="comparación-de-modelos.html#cb94-52" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data  =</span> df_hist_ets,</span>
+<span id="cb94-53"><a href="comparación-de-modelos.html#cb94-53" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> valor),</span>
+<span id="cb94-54"><a href="comparación-de-modelos.html#cb94-54" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">linewidth =</span> <span class="fl">1.4</span>) <span class="sc">+</span></span>
+<span id="cb94-55"><a href="comparación-de-modelos.html#cb94-55" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> df_hist_ets,</span>
+<span id="cb94-56"><a href="comparación-de-modelos.html#cb94-56" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> valor),</span>
+<span id="cb94-57"><a href="comparación-de-modelos.html#cb94-57" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">size =</span> <span class="fl">2.2</span>) <span class="sc">+</span></span>
+<span id="cb94-58"><a href="comparación-de-modelos.html#cb94-58" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> df_preds_final,</span>
+<span id="cb94-59"><a href="comparación-de-modelos.html#cb94-59" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> valor,</span>
+<span id="cb94-60"><a href="comparación-de-modelos.html#cb94-60" tabindex="-1"></a>                <span class="at">color =</span> modelo, <span class="at">linetype =</span> modelo),</span>
+<span id="cb94-61"><a href="comparación-de-modelos.html#cb94-61" tabindex="-1"></a>            <span class="at">linewidth =</span> <span class="fl">1.0</span>) <span class="sc">+</span></span>
+<span id="cb94-62"><a href="comparación-de-modelos.html#cb94-62" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> df_preds_final,</span>
+<span id="cb94-63"><a href="comparación-de-modelos.html#cb94-63" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> valor, <span class="at">color =</span> modelo),</span>
+<span id="cb94-64"><a href="comparación-de-modelos.html#cb94-64" tabindex="-1"></a>             <span class="at">size =</span> <span class="fl">2.5</span>, <span class="at">shape =</span> <span class="dv">17</span>) <span class="sc">+</span></span>
+<span id="cb94-65"><a href="comparación-de-modelos.html#cb94-65" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">2017.5</span>, <span class="at">linetype =</span> <span class="st">&quot;dotted&quot;</span>,</span>
+<span id="cb94-66"><a href="comparación-de-modelos.html#cb94-66" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;gray40&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb94-67"><a href="comparación-de-modelos.html#cb94-67" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="fl">2017.7</span>, <span class="at">y =</span> <span class="fu">max</span>(serie_wv_acc) <span class="sc">*</span> <span class="fl">0.75</span>,</span>
+<span id="cb94-68"><a href="comparación-de-modelos.html#cb94-68" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">&quot;→ Proyección&quot;</span>, <span class="at">hjust =</span> <span class="dv">0</span>,</span>
+<span id="cb94-69"><a href="comparación-de-modelos.html#cb94-69" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">&quot;gray40&quot;</span>, <span class="at">fontface =</span> <span class="st">&quot;italic&quot;</span>, <span class="at">size =</span> <span class="fl">3.5</span>) <span class="sc">+</span></span>
+<span id="cb94-70"><a href="comparación-de-modelos.html#cb94-70" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values    =</span> colores_comp) <span class="sc">+</span></span>
+<span id="cb94-71"><a href="comparación-de-modelos.html#cb94-71" tabindex="-1"></a>  <span class="fu">scale_linetype_manual</span>(<span class="at">values =</span> tipos_comp) <span class="sc">+</span></span>
+<span id="cb94-72"><a href="comparación-de-modelos.html#cb94-72" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1999</span>, <span class="dv">2022</span>, <span class="at">by =</span> <span class="dv">2</span>)) <span class="sc">+</span></span>
+<span id="cb94-73"><a href="comparación-de-modelos.html#cb94-73" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> comma) <span class="sc">+</span></span>
+<span id="cb94-74"><a href="comparación-de-modelos.html#cb94-74" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb94-75"><a href="comparación-de-modelos.html#cb94-75" tabindex="-1"></a>    <span class="at">title    =</span> <span class="st">&quot;Comparación de proyecciones – Unintentional Injuries&quot;</span>,</span>
+<span id="cb94-76"><a href="comparación-de-modelos.html#cb94-76" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;West Virginia · 2018–2022 · Todos los modelos evaluados&quot;</span>,</span>
+<span id="cb94-77"><a href="comparación-de-modelos.html#cb94-77" tabindex="-1"></a>    <span class="at">x        =</span> <span class="st">&quot;Año&quot;</span>,</span>
+<span id="cb94-78"><a href="comparación-de-modelos.html#cb94-78" tabindex="-1"></a>    <span class="at">y        =</span> <span class="st">&quot;Tasa ajustada por 100,000 hab.&quot;</span>,</span>
+<span id="cb94-79"><a href="comparación-de-modelos.html#cb94-79" tabindex="-1"></a>    <span class="at">color    =</span> <span class="st">&quot;Modelo&quot;</span>,</span>
+<span id="cb94-80"><a href="comparación-de-modelos.html#cb94-80" tabindex="-1"></a>    <span class="at">linetype =</span> <span class="st">&quot;Modelo&quot;</span></span>
+<span id="cb94-81"><a href="comparación-de-modelos.html#cb94-81" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb94-82"><a href="comparación-de-modelos.html#cb94-82" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb94-83"><a href="comparación-de-modelos.html#cb94-83" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb94-84"><a href="comparación-de-modelos.html#cb94-84" tabindex="-1"></a>    <span class="at">plot.title       =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb94-85"><a href="comparación-de-modelos.html#cb94-85" tabindex="-1"></a>    <span class="at">plot.subtitle    =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;gray40&quot;</span>),</span>
+<span id="cb94-86"><a href="comparación-de-modelos.html#cb94-86" tabindex="-1"></a>    <span class="at">axis.text.x      =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
+<span id="cb94-87"><a href="comparación-de-modelos.html#cb94-87" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb94-88"><a href="comparación-de-modelos.html#cb94-88" tabindex="-1"></a>    <span class="at">legend.position  =</span> <span class="st">&quot;bottom&quot;</span>,</span>
+<span id="cb94-89"><a href="comparación-de-modelos.html#cb94-89" tabindex="-1"></a>    <span class="at">legend.title     =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>)</span>
+<span id="cb94-90"><a href="comparación-de-modelos.html#cb94-90" tabindex="-1"></a>  )</span></code></pre></div>
 <p><img src="mortalidad-eeuu_files/figure-html/grafico_comparacion_final-1.png" width="1650" /></p>
 
 </div>

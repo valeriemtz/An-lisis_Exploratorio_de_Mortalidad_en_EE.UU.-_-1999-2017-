@@ -195,8 +195,7 @@ div.csl-indent {
 <li class="chapter" data-level="3.4" data-path="metodología.html"><a href="metodología.html#análisis-geográfico"><i class="fa fa-check"></i><b>3.4</b> Análisis geográfico:</a></li>
 <li class="chapter" data-level="3.5" data-path="metodología.html"><a href="metodología.html#modelo-predictivo-arima"><i class="fa fa-check"></i><b>3.5</b> Modelo predictivo – ARIMA:</a></li>
 <li class="chapter" data-level="3.6" data-path="metodología.html"><a href="metodología.html#herramientas-computacionales"><i class="fa fa-check"></i><b>3.6</b> Herramientas Computacionales</a></li>
-<li class="chapter" data-level="3.7" data-path="metodología.html"><a href="metodología.html#carga-y-limpieza-de-datos"><i class="fa fa-check"></i><b>3.7</b> Carga y limpieza de datos</a></li>
-<li class="chapter" data-level="3.8" data-path="metodología.html"><a href="metodología.html#variables-del-dataset"><i class="fa fa-check"></i><b>3.8</b> Variables del Dataset</a></li>
+<li class="chapter" data-level="3.7" data-path="metodología.html"><a href="metodología.html#variables-del-dataset"><i class="fa fa-check"></i><b>3.7</b> Variables del Dataset</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html"><i class="fa fa-check"></i><b>4</b> Evolución de la tasa ajustada de mortalidad anual</a></li>
 <li class="chapter" data-level="5" data-path="análisis-de-ranking-cambios-en-la-posición-de-las-causas-de-muerte.html"><a href="análisis-de-ranking-cambios-en-la-posición-de-las-causas-de-muerte.html"><i class="fa fa-check"></i><b>5</b> Análisis de Ranking: Cambios en la Posición de las Causas de Muerte</a>
@@ -285,23 +284,23 @@ las tendencias y las disparidades en mortalidad en los Estados Unidos
 entre 1999 y 2017.</p>
 <div id="la-tasa-ajustada-por-edad-concepto-y-fórmula" class="section level2 hasAnchor" number="2.1">
 <h2><span class="header-section-number">2.1</span> La tasa ajustada por edad: concepto y fórmula<a href="marco-teórico.html#la-tasa-ajustada-por-edad-concepto-y-fórmula" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>El indicador central de este trabajo es la <strong>tasa ajustada por edad</strong>
+<p>El indicador central de este trabajo es la tasa ajustada por edad
 (<em>age-adjusted death rate</em>), cuyo propósito es eliminar el efecto de
 las diferencias en la estructura etaria entre poblaciones, permitiendo
 comparaciones válidas entre estados y a lo largo del tiempo.</p>
-<p>La fórmula estándar es la del <strong>método de estandarización directa</strong>:</p>
+<p>La fórmula estándar es la del método de estandarización directa:</p>
 <p><span class="math display">\[\text{Tasa ajustada} = \sum_{i} \left( \frac{d_i}{n_i} \right) \times w_i \times 100{,}000\]</span></p>
 <p>donde:</p>
 <ul>
 <li><span class="math inline">\(d_i\)</span> = número de muertes en el grupo de edad <span class="math inline">\(i\)</span></li>
 <li><span class="math inline">\(n_i\)</span> = población en el grupo de edad <span class="math inline">\(i\)</span></li>
-<li><span class="math inline">\(w_i\)</span> = peso del grupo de edad <span class="math inline">\(i\)</span> en la <strong>población estándar de referencia</strong> (en EE. UU. se usa la población estándar del año 2000)</li>
+<li><span class="math inline">\(w_i\)</span> = peso del grupo de edad <span class="math inline">\(i\)</span> en la población estándar de referencia (en EE. UU. se usa la población estándar del año 2000)</li>
 <li>La suma recorre todos los grupos etarios</li>
 </ul>
-<p>El resultado se interpreta como: <em>si la población analizada tuviera la
+<p><em>si la población analizada tuviera la
 misma estructura de edad que la población estándar, ¿cuántas muertes
 ocurrirían por cada 100,000 habitantes?</em> Es por eso que la tasa ajustada
-<strong>no es un conteo de muertes reales</strong>: en 1999 la tasa fue 875.6 por
+no es un conteo de muertes reales: en 1999 la tasa fue 875.6 por
 100,000, pero el número real de muertes en EE. UU. ese año fue
 2,391,399, en una población de casi 280 millones.</p>
 <p>Esta distinción es fundamental para interpretar correctamente los

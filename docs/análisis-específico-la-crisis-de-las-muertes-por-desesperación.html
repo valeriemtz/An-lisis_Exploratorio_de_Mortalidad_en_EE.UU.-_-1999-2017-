@@ -195,8 +195,7 @@ div.csl-indent {
 <li class="chapter" data-level="3.4" data-path="metodología.html"><a href="metodología.html#análisis-geográfico"><i class="fa fa-check"></i><b>3.4</b> Análisis geográfico:</a></li>
 <li class="chapter" data-level="3.5" data-path="metodología.html"><a href="metodología.html#modelo-predictivo-arima"><i class="fa fa-check"></i><b>3.5</b> Modelo predictivo – ARIMA:</a></li>
 <li class="chapter" data-level="3.6" data-path="metodología.html"><a href="metodología.html#herramientas-computacionales"><i class="fa fa-check"></i><b>3.6</b> Herramientas Computacionales</a></li>
-<li class="chapter" data-level="3.7" data-path="metodología.html"><a href="metodología.html#carga-y-limpieza-de-datos"><i class="fa fa-check"></i><b>3.7</b> Carga y limpieza de datos</a></li>
-<li class="chapter" data-level="3.8" data-path="metodología.html"><a href="metodología.html#variables-del-dataset"><i class="fa fa-check"></i><b>3.8</b> Variables del Dataset</a></li>
+<li class="chapter" data-level="3.7" data-path="metodología.html"><a href="metodología.html#variables-del-dataset"><i class="fa fa-check"></i><b>3.7</b> Variables del Dataset</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html"><i class="fa fa-check"></i><b>4</b> Evolución de la tasa ajustada de mortalidad anual</a></li>
 <li class="chapter" data-level="5" data-path="análisis-de-ranking-cambios-en-la-posición-de-las-causas-de-muerte.html"><a href="análisis-de-ranking-cambios-en-la-posición-de-las-causas-de-muerte.html"><i class="fa fa-check"></i><b>5</b> Análisis de Ranking: Cambios en la Posición de las Causas de Muerte</a>
@@ -285,52 +284,52 @@ fenómenos más preocupantes en la mortalidad de EE.UU. durante el periodo
 de estudio.</p>
 <div id="evolución-conjunta-de-suicidio-y-accidentes" class="section level2 hasAnchor" number="6.1">
 <h2><span class="header-section-number">6.1</span> Evolución conjunta de suicidio y accidentes<a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#evolución-conjunta-de-suicidio-y-accidentes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-1" tabindex="-1"></a><span class="co"># Definir causas</span></span>
-<span id="cb17-2"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-2" tabindex="-1"></a>causas <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Suicide&quot;</span>, <span class="st">&quot;Unintentional injuries&quot;</span>)</span>
-<span id="cb17-3"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-3" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-4" tabindex="-1"></a><span class="co"># Crear gráfico</span></span>
-<span id="cb17-5"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-5" tabindex="-1"></a>datos_nacional <span class="sc">%&gt;%</span></span>
-<span id="cb17-6"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-6" tabindex="-1"></a>  <span class="fu">filter</span>(causa <span class="sc">%in%</span> causas) <span class="sc">%&gt;%</span></span>
-<span id="cb17-7"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">anio =</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(anio))) <span class="sc">%&gt;%</span></span>
-<span id="cb17-8"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-8" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> anio, <span class="at">y =</span> muertes, <span class="at">color =</span> causa)) <span class="sc">+</span></span>
-<span id="cb17-9"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-9" tabindex="-1"></a>  </span>
-<span id="cb17-10"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-10" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
-<span id="cb17-11"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-11" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb17-12"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-12" tabindex="-1"></a>  </span>
-<span id="cb17-13"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-13" tabindex="-1"></a>  <span class="co"># Línea de tendencia</span></span>
-<span id="cb17-14"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-14" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb17-15"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-15" tabindex="-1"></a>  </span>
-<span id="cb17-16"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-16" tabindex="-1"></a>  <span class="co"># Línea vertical (aceleración desde 2014)</span></span>
-<span id="cb17-17"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-17" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">2014</span>, <span class="at">linetype =</span> <span class="st">&quot;dotted&quot;</span>, <span class="at">color =</span> <span class="st">&quot;gray40&quot;</span>) <span class="sc">+</span></span>
-<span id="cb17-18"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-18" tabindex="-1"></a>  </span>
-<span id="cb17-19"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-19" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;#2F4F4F&quot;</span>, <span class="st">&quot;#528B8B&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb17-20"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-20" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> comma) <span class="sc">+</span></span>
-<span id="cb17-21"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-21" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1999</span>, <span class="dv">2017</span>, <span class="at">by =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb17-22"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-22" tabindex="-1"></a>  </span>
-<span id="cb17-23"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-23" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb17-24"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-24" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Evolución de las &#39;Muertes por Desesperación&#39; (1999-2017)&quot;</span>,</span>
-<span id="cb17-25"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-25" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Suicidio y Lesiones No Intencionales&quot;</span>,</span>
-<span id="cb17-26"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-26" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Año&quot;</span>,</span>
-<span id="cb17-27"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-27" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Tasa por 100,000 habitantes&quot;</span>,</span>
-<span id="cb17-28"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-28" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;Causa&quot;</span>,</span>
-<span id="cb17-29"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-29" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Fuente: CDC - Leading Causes of Death&quot;</span></span>
-<span id="cb17-30"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-30" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb17-31"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-31" tabindex="-1"></a>  </span>
-<span id="cb17-32"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-32" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb17-33"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-33" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb17-34"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-34" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>,</span>
-<span id="cb17-35"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-35" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
-<span id="cb17-36"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-36" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">size =</span> <span class="dv">16</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
-<span id="cb17-37"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-37" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;gray30&quot;</span>),</span>
-<span id="cb17-38"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-38" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
-<span id="cb17-39"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-39" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>)</span>
-<span id="cb17-40"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb17-40" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="mortalidad-eeuu_files/figure-html/unnamed-chunk-6-1.png" width="1500" /></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-1" tabindex="-1"></a><span class="co"># Definir causas</span></span>
+<span id="cb6-2"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-2" tabindex="-1"></a>causas <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Suicide&quot;</span>, <span class="st">&quot;Unintentional injuries&quot;</span>)</span>
+<span id="cb6-3"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-3" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-4" tabindex="-1"></a><span class="co"># Crear gráfico</span></span>
+<span id="cb6-5"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-5" tabindex="-1"></a>datos_nacional <span class="sc">%&gt;%</span></span>
+<span id="cb6-6"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-6" tabindex="-1"></a>  <span class="fu">filter</span>(causa <span class="sc">%in%</span> causas) <span class="sc">%&gt;%</span></span>
+<span id="cb6-7"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">anio =</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(anio))) <span class="sc">%&gt;%</span></span>
+<span id="cb6-8"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-8" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> anio, <span class="at">y =</span> muertes, <span class="at">color =</span> causa)) <span class="sc">+</span></span>
+<span id="cb6-9"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-9" tabindex="-1"></a>  </span>
+<span id="cb6-10"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-10" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb6-11"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-11" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb6-12"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-12" tabindex="-1"></a>  </span>
+<span id="cb6-13"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-13" tabindex="-1"></a>  <span class="co"># Línea de tendencia</span></span>
+<span id="cb6-14"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-14" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb6-15"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-15" tabindex="-1"></a>  </span>
+<span id="cb6-16"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-16" tabindex="-1"></a>  <span class="co"># Línea vertical (aceleración desde 2014)</span></span>
+<span id="cb6-17"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-17" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">2014</span>, <span class="at">linetype =</span> <span class="st">&quot;dotted&quot;</span>, <span class="at">color =</span> <span class="st">&quot;gray40&quot;</span>) <span class="sc">+</span></span>
+<span id="cb6-18"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-18" tabindex="-1"></a>  </span>
+<span id="cb6-19"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-19" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;#2F4F4F&quot;</span>, <span class="st">&quot;#528B8B&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb6-20"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-20" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> comma) <span class="sc">+</span></span>
+<span id="cb6-21"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-21" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1999</span>, <span class="dv">2017</span>, <span class="at">by =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb6-22"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-22" tabindex="-1"></a>  </span>
+<span id="cb6-23"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-23" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb6-24"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-24" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Evolución de las &#39;Muertes por Desesperación&#39; (1999-2017)&quot;</span>,</span>
+<span id="cb6-25"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-25" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Suicidio y Lesiones No Intencionales&quot;</span>,</span>
+<span id="cb6-26"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-26" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Año&quot;</span>,</span>
+<span id="cb6-27"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-27" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Tasa por 100,000 habitantes&quot;</span>,</span>
+<span id="cb6-28"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-28" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;Causa&quot;</span>,</span>
+<span id="cb6-29"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-29" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Fuente: CDC - Leading Causes of Death&quot;</span></span>
+<span id="cb6-30"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-30" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb6-31"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-31" tabindex="-1"></a>  </span>
+<span id="cb6-32"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-32" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb6-33"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-33" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb6-34"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-34" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>,</span>
+<span id="cb6-35"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-35" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
+<span id="cb6-36"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-36" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">size =</span> <span class="dv">16</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb6-37"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-37" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;gray30&quot;</span>),</span>
+<span id="cb6-38"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-38" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
+<span id="cb6-39"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-39" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>)</span>
+<span id="cb6-40"><a href="análisis-específico-la-crisis-de-las-muertes-por-desesperación.html#cb6-40" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="mortalidad-eeuu_files/figure-html/unnamed-chunk-4-1.png" width="1500" /></p>
 <p>Interpretación: Lo primero que llama la atención en este gráfico es
-la asimetría de magnitudes: las lesiones no intencionales alcanzan
+la asimetría de magnitudes porque las lesiones no intencionales alcanzan
 cerca de 175,000 muertes absolutas anuales en 2017, mientras el
 suicidio se mantiene por debajo de 50,000. Sin embargo, leer esto como
-que el suicidio es un problema menor sería un error de interpretación:
+que el suicidio es un problema menor sería un error:
 su crecimiento porcentual en el período es constante y no muestra
 ninguna señal de reversión.</p>
 <p>El año 2014 funciona como bisagra para ambas curvas. Antes de ese
@@ -345,8 +344,8 @@ que el sistema de salud tardó en reconocer y catalogar como tal.</p>
 desvinculados: mayor precariedad económica en comunidades que perdieron
 su base industrial y un deterioro del bienestar social que <span class="citation">Daugherty et al. (<a href="#ref-daugherty2019">2019</a>)</span>
 documenta en los Apalaches y el Medio Oeste. Que ambas curvas crezcan
-en paralelo no es coincidencia —comparten el mismo sustrato de
-vulnerabilidad estructural—, lo que sugiere que intervenciones que
+en paralelo no es coincidencia comparten el mismo estado de
+vulnerabilidad estructural, lo que sugiere que intervenciones que
 traten estas causas de forma aislada probablemente sean insuficientes.</p>
 
 </div>

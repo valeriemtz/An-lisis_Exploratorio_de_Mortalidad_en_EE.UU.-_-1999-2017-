@@ -195,8 +195,7 @@ div.csl-indent {
 <li class="chapter" data-level="3.4" data-path="metodología.html"><a href="metodología.html#análisis-geográfico"><i class="fa fa-check"></i><b>3.4</b> Análisis geográfico:</a></li>
 <li class="chapter" data-level="3.5" data-path="metodología.html"><a href="metodología.html#modelo-predictivo-arima"><i class="fa fa-check"></i><b>3.5</b> Modelo predictivo – ARIMA:</a></li>
 <li class="chapter" data-level="3.6" data-path="metodología.html"><a href="metodología.html#herramientas-computacionales"><i class="fa fa-check"></i><b>3.6</b> Herramientas Computacionales</a></li>
-<li class="chapter" data-level="3.7" data-path="metodología.html"><a href="metodología.html#carga-y-limpieza-de-datos"><i class="fa fa-check"></i><b>3.7</b> Carga y limpieza de datos</a></li>
-<li class="chapter" data-level="3.8" data-path="metodología.html"><a href="metodología.html#variables-del-dataset"><i class="fa fa-check"></i><b>3.8</b> Variables del Dataset</a></li>
+<li class="chapter" data-level="3.7" data-path="metodología.html"><a href="metodología.html#variables-del-dataset"><i class="fa fa-check"></i><b>3.7</b> Variables del Dataset</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html"><i class="fa fa-check"></i><b>4</b> Evolución de la tasa ajustada de mortalidad anual</a></li>
 <li class="chapter" data-level="5" data-path="análisis-de-ranking-cambios-en-la-posición-de-las-causas-de-muerte.html"><a href="análisis-de-ranking-cambios-en-la-posición-de-las-causas-de-muerte.html"><i class="fa fa-check"></i><b>5</b> Análisis de Ranking: Cambios en la Posición de las Causas de Muerte</a>
@@ -342,25 +341,6 @@ el modelo no dejó estructura sin capturar. Las proyecciones cubren
 </div>
 <div id="herramientas-computacionales" class="section level2 hasAnchor" number="3.6">
 <h2><span class="header-section-number">3.6</span> Herramientas Computacionales<a href="metodología.html#herramientas-computacionales" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="metodología.html#cb1-1" tabindex="-1"></a><span class="co"># librerías necesarias</span></span>
-<span id="cb1-2"><a href="metodología.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-3"><a href="metodología.html#cb1-3" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
-<span id="cb1-4"><a href="metodología.html#cb1-4" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
-<span id="cb1-5"><a href="metodología.html#cb1-5" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
-<span id="cb1-6"><a href="metodología.html#cb1-6" tabindex="-1"></a><span class="fu">library</span>(viridis)</span>
-<span id="cb1-7"><a href="metodología.html#cb1-7" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb1-8"><a href="metodología.html#cb1-8" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
-<span id="cb1-9"><a href="metodología.html#cb1-9" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb1-10"><a href="metodología.html#cb1-10" tabindex="-1"></a><span class="fu">library</span>(usmap)</span>
-<span id="cb1-11"><a href="metodología.html#cb1-11" tabindex="-1"></a><span class="fu">library</span>(grid)</span>
-<span id="cb1-12"><a href="metodología.html#cb1-12" tabindex="-1"></a><span class="fu">library</span>(leaflet)</span>
-<span id="cb1-13"><a href="metodología.html#cb1-13" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-14"><a href="metodología.html#cb1-14" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb1-15"><a href="metodología.html#cb1-15" tabindex="-1"></a><span class="fu">library</span>(htmltools)</span>
-<span id="cb1-16"><a href="metodología.html#cb1-16" tabindex="-1"></a><span class="fu">library</span>(tigris)</span>
-<span id="cb1-17"><a href="metodología.html#cb1-17" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb1-18"><a href="metodología.html#cb1-18" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-19"><a href="metodología.html#cb1-19" tabindex="-1"></a><span class="fu">library</span>(htmlwidgets)</span></code></pre></div>
 <p>El procesamiento y análisis de los datos se realizó utilizando el
 lenguaje de programación R (versión 4.4.1) y el entorno de
 desarrollo RStudio. Las principales librerías empleadas fueron:</p>
@@ -392,134 +372,12 @@ realizar operaciones geométricas.</p></li>
 plotly, DT) en R y documentos R Markdown.</p></li>
 </ul>
 </div>
-<div id="carga-y-limpieza-de-datos" class="section level2 hasAnchor" number="3.7">
-<h2><span class="header-section-number">3.7</span> Carga y limpieza de datos<a href="metodología.html#carga-y-limpieza-de-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="metodología.html#cb2-1" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;NCHS_Leading_Causes.csv&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="metodología.html#cb3-1" tabindex="-1"></a>datos <span class="ot">&lt;-</span> datos <span class="sc">%&gt;%</span> <span class="fu">clean_names</span>()</span>
-<span id="cb3-2"><a href="metodología.html#cb3-2" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="metodología.html#cb3-3" tabindex="-1"></a>datos <span class="ot">&lt;-</span> datos <span class="sc">%&gt;%</span></span>
-<span id="cb3-4"><a href="metodología.html#cb3-4" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb3-5"><a href="metodología.html#cb3-5" tabindex="-1"></a>    <span class="at">anio =</span> <span class="fu">as.numeric</span>(year),</span>
-<span id="cb3-6"><a href="metodología.html#cb3-6" tabindex="-1"></a>    <span class="at">causa =</span> cause_name,</span>
-<span id="cb3-7"><a href="metodología.html#cb3-7" tabindex="-1"></a>    <span class="at">estado =</span> state,</span>
-<span id="cb3-8"><a href="metodología.html#cb3-8" tabindex="-1"></a>    <span class="at">muertes =</span> <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">&quot;,&quot;</span>, <span class="st">&quot;&quot;</span>, deaths)),</span>
-<span id="cb3-9"><a href="metodología.html#cb3-9" tabindex="-1"></a>    <span class="at">tasa_ajustada =</span> <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">&quot;,&quot;</span>, <span class="st">&quot;.&quot;</span>, age_adjusted_death_rate))</span>
-<span id="cb3-10"><a href="metodología.html#cb3-10" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb3-11"><a href="metodología.html#cb3-11" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
-<span id="cb3-12"><a href="metodología.html#cb3-12" tabindex="-1"></a>    estado <span class="sc">==</span> <span class="st">&quot;United States&quot;</span>,</span>
-<span id="cb3-13"><a href="metodología.html#cb3-13" tabindex="-1"></a>    anio <span class="sc">&gt;=</span> <span class="dv">1999</span> <span class="sc">&amp;</span> anio <span class="sc">&lt;=</span> <span class="dv">2017</span></span>
-<span id="cb3-14"><a href="metodología.html#cb3-14" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb3-15"><a href="metodología.html#cb3-15" tabindex="-1"></a>  <span class="fu">select</span>(anio, causa, muertes, tasa_ajustada)</span>
-<span id="cb3-16"><a href="metodología.html#cb3-16" tabindex="-1"></a></span>
-<span id="cb3-17"><a href="metodología.html#cb3-17" tabindex="-1"></a>totales_anuales <span class="ot">&lt;-</span> datos <span class="sc">%&gt;%</span></span>
-<span id="cb3-18"><a href="metodología.html#cb3-18" tabindex="-1"></a>  <span class="fu">filter</span>(causa <span class="sc">==</span> <span class="st">&quot;All causes&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-19"><a href="metodología.html#cb3-19" tabindex="-1"></a>  <span class="fu">select</span>(anio, muertes)</span>
-<span id="cb3-20"><a href="metodología.html#cb3-20" tabindex="-1"></a></span>
-<span id="cb3-21"><a href="metodología.html#cb3-21" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Totales nacionales por año:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
-<pre><code>## 
-## Totales nacionales por año:</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="metodología.html#cb5-1" tabindex="-1"></a><span class="fu">print</span>(totales_anuales <span class="sc">%&gt;%</span></span>
-<span id="cb5-2"><a href="metodología.html#cb5-2" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">muertes =</span> <span class="fu">comma</span>(muertes)))</span></code></pre></div>
-<pre><code>## # A tibble: 19 × 2
-##     anio muertes
-##    &lt;dbl&gt; &lt;chr&gt;  
-##  1  2014 &lt;NA&gt;   
-##  2  2016 &lt;NA&gt;   
-##  3  2017 &lt;NA&gt;   
-##  4  2013 &lt;NA&gt;   
-##  5  2012 &lt;NA&gt;   
-##  6  2015 &lt;NA&gt;   
-##  7  2011 &lt;NA&gt;   
-##  8  2010 &lt;NA&gt;   
-##  9  2009 &lt;NA&gt;   
-## 10  2008 &lt;NA&gt;   
-## 11  2007 &lt;NA&gt;   
-## 12  2006 &lt;NA&gt;   
-## 13  2004 &lt;NA&gt;   
-## 14  2005 &lt;NA&gt;   
-## 15  2003 &lt;NA&gt;   
-## 16  2002 &lt;NA&gt;   
-## 17  2001 &lt;NA&gt;   
-## 18  2000 &lt;NA&gt;   
-## 19  1999 &lt;NA&gt;</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="metodología.html#cb7-1" tabindex="-1"></a>totales_causa <span class="ot">&lt;-</span> datos <span class="sc">%&gt;%</span></span>
-<span id="cb7-2"><a href="metodología.html#cb7-2" tabindex="-1"></a>  <span class="fu">filter</span>(causa <span class="sc">!=</span> <span class="st">&quot;All causes&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb7-3"><a href="metodología.html#cb7-3" tabindex="-1"></a>  <span class="fu">group_by</span>(causa) <span class="sc">%&gt;%</span></span>
-<span id="cb7-4"><a href="metodología.html#cb7-4" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb7-5"><a href="metodología.html#cb7-5" tabindex="-1"></a>    <span class="at">total_1999_2017 =</span> <span class="fu">sum</span>(muertes, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb7-6"><a href="metodología.html#cb7-6" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span></span>
-<span id="cb7-7"><a href="metodología.html#cb7-7" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb7-8"><a href="metodología.html#cb7-8" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(total_1999_2017))</span>
-<span id="cb7-9"><a href="metodología.html#cb7-9" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="metodología.html#cb7-10" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Total acumulado por causa (1999–2017):</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
-<pre><code>## 
-## Total acumulado por causa (1999–2017):</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="metodología.html#cb9-1" tabindex="-1"></a><span class="fu">print</span>(totales_causa <span class="sc">%&gt;%</span></span>
-<span id="cb9-2"><a href="metodología.html#cb9-2" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">total_1999_2017 =</span> <span class="fu">comma</span>(total_1999_2017)))</span></code></pre></div>
-<pre><code>## # A tibble: 10 × 2
-##    causa                   total_1999_2017
-##    &lt;chr&gt;                   &lt;chr&gt;          
-##  1 Heart disease           12,223         
-##  2 Cancer                  10,844         
-##  3 Stroke                  2,727          
-##  4 CLRD                    2,595          
-##  5 Unintentional injuries  2,348          
-##  6 Alzheimer&#39;s disease     1,495          
-##  7 Diabetes                1,400          
-##  8 Influenza and pneumonia 1,095          
-##  9 Kidney disease          859            
-## 10 Suicide                 697</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="metodología.html#cb11-1" tabindex="-1"></a>datos_comp <span class="ot">&lt;-</span> datos <span class="sc">%&gt;%</span></span>
-<span id="cb11-2"><a href="metodología.html#cb11-2" tabindex="-1"></a>  <span class="fu">filter</span>(anio <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1999</span>, <span class="dv">2017</span>),</span>
-<span id="cb11-3"><a href="metodología.html#cb11-3" tabindex="-1"></a>         causa <span class="sc">!=</span> <span class="st">&quot;All causes&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb11-4"><a href="metodología.html#cb11-4" tabindex="-1"></a>  <span class="fu">group_by</span>(anio) <span class="sc">%&gt;%</span></span>
-<span id="cb11-5"><a href="metodología.html#cb11-5" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb11-6"><a href="metodología.html#cb11-6" tabindex="-1"></a>    <span class="at">total_anual =</span> <span class="fu">sum</span>(muertes),</span>
-<span id="cb11-7"><a href="metodología.html#cb11-7" tabindex="-1"></a>    <span class="at">porcentaje =</span> (muertes <span class="sc">/</span> total_anual) <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb11-8"><a href="metodología.html#cb11-8" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb11-9"><a href="metodología.html#cb11-9" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb11-10"><a href="metodología.html#cb11-10" tabindex="-1"></a></span>
-<span id="cb11-11"><a href="metodología.html#cb11-11" tabindex="-1"></a>orden_causas <span class="ot">&lt;-</span> datos_comp <span class="sc">%&gt;%</span></span>
-<span id="cb11-12"><a href="metodología.html#cb11-12" tabindex="-1"></a>  <span class="fu">filter</span>(anio <span class="sc">==</span> <span class="dv">2017</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb11-13"><a href="metodología.html#cb11-13" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(porcentaje)) <span class="sc">%&gt;%</span></span>
-<span id="cb11-14"><a href="metodología.html#cb11-14" tabindex="-1"></a>  <span class="fu">pull</span>(causa)</span>
-<span id="cb11-15"><a href="metodología.html#cb11-15" tabindex="-1"></a></span>
-<span id="cb11-16"><a href="metodología.html#cb11-16" tabindex="-1"></a>datos_comp<span class="sc">$</span>causa <span class="ot">&lt;-</span> <span class="fu">factor</span>(datos_comp<span class="sc">$</span>causa, <span class="at">levels =</span> orden_causas)</span>
-<span id="cb11-17"><a href="metodología.html#cb11-17" tabindex="-1"></a></span>
-<span id="cb11-18"><a href="metodología.html#cb11-18" tabindex="-1"></a><span class="fu">ggplot</span>(datos_comp, <span class="fu">aes</span>(<span class="at">x =</span> causa,</span>
-<span id="cb11-19"><a href="metodología.html#cb11-19" tabindex="-1"></a>                       <span class="at">y =</span> porcentaje,</span>
-<span id="cb11-20"><a href="metodología.html#cb11-20" tabindex="-1"></a>                       <span class="at">fill =</span> <span class="fu">factor</span>(anio))) <span class="sc">+</span></span>
-<span id="cb11-21"><a href="metodología.html#cb11-21" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.8</span>)) <span class="sc">+</span></span>
-<span id="cb11-22"><a href="metodología.html#cb11-22" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(porcentaje,<span class="dv">1</span>), <span class="st">&quot;%&quot;</span>)),</span>
-<span id="cb11-23"><a href="metodología.html#cb11-23" tabindex="-1"></a>            <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.8</span>),</span>
-<span id="cb11-24"><a href="metodología.html#cb11-24" tabindex="-1"></a>            <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.2</span>,</span>
-<span id="cb11-25"><a href="metodología.html#cb11-25" tabindex="-1"></a>            <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb11-26"><a href="metodología.html#cb11-26" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb11-27"><a href="metodología.html#cb11-27" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">paste0</span>(x, <span class="st">&quot;%&quot;</span>),</span>
-<span id="cb11-28"><a href="metodología.html#cb11-28" tabindex="-1"></a>                     <span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.1</span>))) <span class="sc">+</span></span>
-<span id="cb11-29"><a href="metodología.html#cb11-29" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Blues&quot;</span>) <span class="sc">+</span></span>
-<span id="cb11-30"><a href="metodología.html#cb11-30" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Comparación porcentual de muertes por causa&quot;</span>,</span>
-<span id="cb11-31"><a href="metodología.html#cb11-31" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;1999 vs 2017 – Total Nacional&quot;</span>,</span>
-<span id="cb11-32"><a href="metodología.html#cb11-32" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Causa de muerte&quot;</span>,</span>
-<span id="cb11-33"><a href="metodología.html#cb11-33" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Porcentaje del total anual&quot;</span>,</span>
-<span id="cb11-34"><a href="metodología.html#cb11-34" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">&quot;Año&quot;</span>) <span class="sc">+</span></span>
-<span id="cb11-35"><a href="metodología.html#cb11-35" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code></pre></div>
-<p><img src="mortalidad-eeuu_files/figure-html/unnamed-chunk-1-1.png" width="1500" /></p>
-<p>Interpretación: El gráfico muestra cómo han cambiado las principales
-causas de muerte entre 1999 y 2017 mientras enfermedades como suicidio,
-diabetes, enfermedad renal y respiratorias crónicas bajaron en
-proporción, otras como influenza, neumonía, accidentes, derrames
-cerebrales y especialmente Alzheimer aumentaron, reflejando el impacto
-del envejecimiento poblacional; cáncer se mantuvo estable alrededor del
-29%, pero las enfermedades cardíacas crecieron fuertemente de 31.1% a
-38.1%, consolidándose como la principal causa de muerte en 2017.</p>
-</div>
-<div id="variables-del-dataset" class="section level2 hasAnchor" number="3.8">
-<h2><span class="header-section-number">3.8</span> Variables del Dataset<a href="metodología.html#variables-del-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="variables-del-dataset" class="section level2 hasAnchor" number="3.7">
+<h2><span class="header-section-number">3.7</span> Variables del Dataset<a href="metodología.html#variables-del-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>El dataset original contiene las siguientes variables:</p>
 <table class="table table-striped table-hover" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-2">Tabla 3.1: </span>Variables del dataset original y su correspondencia en el análisis
+(#tab:tabla_variables)Variables del dataset original y su correspondencia en el análisis
 </caption>
 <thead>
 <tr>
@@ -625,11 +483,11 @@ Numérico continuo (double)
 </tbody>
 </table>
 <p>Para facilitar el análisis, las variables fueron renombradas en el
-entorno de trabajo
-como: <code>anio</code>, <code>causa_codigo</code>, <code>causa</code>, <code>estado</code>, <code>muertes</code> y <code>tasa_ajustada</code>.
-No se incluyen variables demográficas como sexo o grupo etario, por lo
-que el análisis se centra en las dimensiones temporal, geográfica y de
-ranking.</p>
+entorno de trabajo como: <code>anio</code>, <code>causa_codigo</code>, <code>causa</code>, <code>estado</code>,
+<code>muertes</code> y <code>tasa_ajustada</code>. No se incluyen variables demográficas como
+sexo o grupo etario, por lo que el análisis se centra en las dimensiones
+temporal, geográfica y de ranking.</p>
+
 
 </div>
 </div>
