@@ -292,7 +292,7 @@ div.csl-indent {
 <span id="cb11-11"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html#cb11-11" tabindex="-1"></a>    <span class="at">anio          =</span> <span class="fu">as.numeric</span>(year),</span>
 <span id="cb11-12"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html#cb11-12" tabindex="-1"></a>    <span class="at">causa         =</span> cause_name,</span>
 <span id="cb11-13"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html#cb11-13" tabindex="-1"></a>    <span class="at">estado        =</span> state,</span>
-<span id="cb11-14"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html#cb11-14" tabindex="-1"></a>    <span class="at">muertes       =</span> <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">.&quot;</span>, <span class="st">&quot;&quot;</span>, deaths)),</span>
+<span id="cb11-14"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html#cb11-14" tabindex="-1"></a>    <span class="at">muertes =</span> <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">.&quot;</span>, <span class="st">&quot;&quot;</span>, deaths)),</span>
 <span id="cb11-15"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html#cb11-15" tabindex="-1"></a>    <span class="at">tasa_ajustada =</span> <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">&quot;,&quot;</span>, <span class="st">&quot;.&quot;</span>, age_adjusted_death_rate))</span>
 <span id="cb11-16"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html#cb11-16" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
 <span id="cb11-17"><a href="evolución-de-la-tasa-ajustada-de-mortalidad-anual.html#cb11-17" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
@@ -394,7 +394,7 @@ campañas de prevención del tabaquismo y avances en oncología. Sin
 embargo, la tendencia no es lineal: se observa una desaceleración del
 descenso entre 2013 y 2017, período que coincide con el agravamiento
 de la crisis de opioides y el aumento de suicidios —las llamadas
-“muertes por desesperación”—, factores que frenaron parcialmente las
+“muertes por desesperación”, factores que frenaron parcialmente las
 ganancias logradas en otras causas. La línea de tendencia lineal
 confirma la dirección general descendente, pero oculta esta
 heterogeneidad por subperíodos que sí es visible en el análisis por
