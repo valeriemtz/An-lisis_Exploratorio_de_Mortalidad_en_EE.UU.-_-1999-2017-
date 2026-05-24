@@ -184,9 +184,15 @@ div.csl-indent {
 <li class="chapter" data-level="2" data-path="marco-teórico.html"><a href="marco-teórico.html"><i class="fa fa-check"></i><b>2</b> Marco teórico</a>
 <ul>
 <li class="chapter" data-level="2.1" data-path="marco-teórico.html"><a href="marco-teórico.html#la-tasa-ajustada-por-edad-concepto-y-fórmula"><i class="fa fa-check"></i><b>2.1</b> La tasa ajustada por edad: concepto y fórmula</a></li>
-<li class="chapter" data-level="2.2" data-path="marco-teórico.html"><a href="marco-teórico.html#prevalencia-de-las-enfermedades-crónicas-en-ee.-uu."><i class="fa fa-check"></i><b>2.2</b> Prevalencia de las enfermedades crónicas en EE. UU.</a></li>
-<li class="chapter" data-level="2.3" data-path="marco-teórico.html"><a href="marco-teórico.html#las-disparidades-geográficas-como-patrón-persistente"><i class="fa fa-check"></i><b>2.3</b> Las disparidades geográficas como patrón persistente</a></li>
-<li class="chapter" data-level="2.4" data-path="marco-teórico.html"><a href="marco-teórico.html#la-importancia-del-análisis-temporal-y-por-ranking"><i class="fa fa-check"></i><b>2.4</b> La importancia del análisis temporal y por ranking</a></li>
+<li class="chapter" data-level="2.2" data-path="marco-teórico.html"><a href="marco-teórico.html#modelos-de-predicción-utilizados"><i class="fa fa-check"></i><b>2.2</b> Modelos de predicción utilizados</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="marco-teórico.html"><a href="marco-teórico.html#modelo-arima"><i class="fa fa-check"></i><b>2.2.1</b> Modelo ARIMA</a></li>
+<li class="chapter" data-level="2.2.2" data-path="marco-teórico.html"><a href="marco-teórico.html#modelo-ets"><i class="fa fa-check"></i><b>2.2.2</b> Modelo ETS</a></li>
+<li class="chapter" data-level="2.2.3" data-path="marco-teórico.html"><a href="marco-teórico.html#modelo-de-regresión-lineal-con-tendencia-temporal"><i class="fa fa-check"></i><b>2.2.3</b> Modelo de Regresión Lineal con Tendencia Temporal</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="marco-teórico.html"><a href="marco-teórico.html#prevalencia-de-las-enfermedades-crónicas-en-ee.-uu."><i class="fa fa-check"></i><b>2.3</b> Prevalencia de las enfermedades crónicas en EE. UU.</a></li>
+<li class="chapter" data-level="2.4" data-path="marco-teórico.html"><a href="marco-teórico.html#las-disparidades-geográficas-como-patrón-persistente"><i class="fa fa-check"></i><b>2.4</b> Las disparidades geográficas como patrón persistente</a></li>
+<li class="chapter" data-level="2.5" data-path="marco-teórico.html"><a href="marco-teórico.html#la-importancia-del-análisis-temporal-y-por-ranking"><i class="fa fa-check"></i><b>2.5</b> La importancia del análisis temporal y por ranking</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="metodología.html"><a href="metodología.html"><i class="fa fa-check"></i><b>3</b> Metodología</a>
 <ul>
@@ -299,21 +305,86 @@ comparaciones válidas entre estados y a lo largo del tiempo.</p>
 <li><span class="math inline">\(w_i\)</span> = peso del grupo de edad <span class="math inline">\(i\)</span> en la población estándar de referencia (en EE. UU. se usa la población estándar del año 2000)</li>
 <li>La suma recorre todos los grupos etarios</li>
 </ul>
-<p>si la población analizada tuviera la
-misma estructura de edad que la población estándar, ¿cuántas muertes
-ocurrirían por cada 100,000 habitantes? Es por eso que la tasa ajustada
-no es un conteo de muertes reales: en 1999 la tasa fue 875.6 por
-100,000, pero el número real de muertes en EE. UU. ese año fue
-2,391,399, en una población de casi 280 millones.</p>
+<p>Si la población analizada tuviera la misma estructura de edad que la
+población estándar, ¿cuántas muertes ocurrirían por cada 100,000
+habitantes? Es por eso que la tasa ajustada no es un conteo de muertes
+reales: en 1999 la tasa fue 875.6 por 100,000, pero el número real de
+muertes en EE. UU. ese año fue 2,391,399, en una población de casi 280
+millones.</p>
 <p>Esta distinción es fundamental para interpretar correctamente los
 gráficos de este análisis. Una tasa ajustada puede descender (mejora
 en salud pública) mientras el número absoluto de muertes sube (por
 crecimiento o envejecimiento poblacional), como ocurrió en EE. UU.
 entre 1999 y 2017.</p>
 </div>
-<div id="prevalencia-de-las-enfermedades-crónicas-en-ee.-uu." class="section level2 hasAnchor" number="2.2">
-<h2><span class="header-section-number">2.2</span> Prevalencia de las enfermedades crónicas en EE. UU.<a href="marco-teórico.html#prevalencia-de-las-enfermedades-crónicas-en-ee.-uu." class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Como la mayoria de las naciones desarrolladas, hace décadas Estados
+<div id="modelos-de-predicción-utilizados" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Modelos de predicción utilizados<a href="marco-teórico.html#modelos-de-predicción-utilizados" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Para proyectar las tendencias de mortalidad más allá del período
+observado, se implementaron tres modelos con enfoques complementarios,
+permitiendo comparar su desempeño y justificar la selección del más
+adecuado.</p>
+<div id="modelo-arima" class="section level3 hasAnchor" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Modelo ARIMA<a href="marco-teórico.html#modelo-arima" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El modelo ARIMA(<em>p</em>, <em>d</em>, <em>q</em>) — <em>Autoregressive Integrated Moving
+Average</em> — es el estándar para el análisis de series de tiempo. Combina
+tres componentes: un componente autoregresivo (AR) de orden <em>p</em>, una
+diferenciación de orden <em>d</em> para lograr estacionariedad, y un componente
+de media móvil (MA) de orden <em>q</em>.</p>
+<p>Su ecuación general, una vez diferenciada la serie, es:</p>
+<p><span class="math display">\[\tilde{y}_t = c + \phi_1\tilde{y}_{t-1} + \cdots + \phi_p\tilde{y}_{t-p} + \theta_1\varepsilon_{t-1} + \cdots + \theta_q\varepsilon_{t-q} + \varepsilon_t\]</span></p>
+<p>donde:</p>
+<ul>
+<li><span class="math inline">\(\tilde{y}_t\)</span> = serie diferenciada <span class="math inline">\(d\)</span> veces</li>
+<li><span class="math inline">\(\phi_1, \ldots, \phi_p\)</span> = coeficientes autoregresivos</li>
+<li><span class="math inline">\(\theta_1, \ldots, \theta_q\)</span> = coeficientes de media móvil</li>
+<li><span class="math inline">\(\varepsilon_t\)</span> = término de error (ruido blanco)</li>
+<li><span class="math inline">\(c\)</span> = constante</li>
+</ul>
+<p>La selección de los parámetros óptimos (<em>p</em>, <em>d</em>, <em>q</em>) se realizó
+mediante el criterio de información de Akaike (AIC), y la validez del
+modelo se verificó con la prueba de Ljung-Box sobre los residuos.</p>
+</div>
+<div id="modelo-ets" class="section level3 hasAnchor" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Modelo ETS<a href="marco-teórico.html#modelo-ets" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El modelo ETS (<em>Error, Trend, Seasonality</em>) descompone la serie en tres
+componentes: error, tendencia y estacionalidad, cada uno modelado de
+forma aditiva o multiplicativa. Para series anuales sin estacionalidad,
+el modelo se reduce a su forma de suavizado exponencial con tendencia
+(Holt):</p>
+<p><span class="math display">\[\hat{y}_{t+h} = \ell_t + h \cdot b_t\]</span></p>
+<p>donde los componentes se actualizan en cada período mediante:</p>
+<p><span class="math display">\[\ell_t = \alpha\, y_t + (1 - \alpha)(\ell_{t-1} + b_{t-1})\]</span></p>
+<p><span class="math display">\[b_t = \beta^*(\ell_t - \ell_{t-1}) + (1 - \beta^*)\, b_{t-1}\]</span></p>
+<p>y donde:</p>
+<ul>
+<li><span class="math inline">\(\ell_t\)</span> = nivel estimado en el período <span class="math inline">\(t\)</span></li>
+<li><span class="math inline">\(b_t\)</span> = tendencia estimada en el período <span class="math inline">\(t\)</span></li>
+<li><span class="math inline">\(\alpha\)</span> = parámetro de suavizado del nivel <span class="math inline">\((0 &lt; \alpha &lt; 1)\)</span></li>
+<li><span class="math inline">\(\beta^*\)</span> = parámetro de suavizado de la tendencia <span class="math inline">\((0 &lt; \beta^* &lt; 1)\)</span></li>
+<li><span class="math inline">\(h\)</span> = horizonte de predicción</li>
+</ul>
+</div>
+<div id="modelo-de-regresión-lineal-con-tendencia-temporal" class="section level3 hasAnchor" number="2.2.3">
+<h3><span class="header-section-number">2.2.3</span> Modelo de Regresión Lineal con Tendencia Temporal<a href="marco-teórico.html#modelo-de-regresión-lineal-con-tendencia-temporal" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La regresión lineal modela la serie como una función lineal del tiempo,
+capturando únicamente la tendencia global sin considerar la estructura
+de autocorrelación de los datos:</p>
+<p><span class="math display">\[y_t = \beta_0 + \beta_1\, t + \varepsilon_t\]</span></p>
+<p>donde:</p>
+<ul>
+<li><span class="math inline">\(y_t\)</span> = tasa ajustada de mortalidad en el año <span class="math inline">\(t\)</span></li>
+<li><span class="math inline">\(\beta_0\)</span> = intercepto</li>
+<li><span class="math inline">\(\beta_1\)</span> = pendiente (cambio promedio por año)</li>
+<li><span class="math inline">\(\varepsilon_t\)</span> = término de error</li>
+</ul>
+<p>Este modelo sirve como referencia base (<em>baseline</em>) para evaluar si
+modelos más complejos como ARIMA o ETS aportan una mejora real en la
+capacidad predictiva.</p>
+</div>
+</div>
+<div id="prevalencia-de-las-enfermedades-crónicas-en-ee.-uu." class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Prevalencia de las enfermedades crónicas en EE. UU.<a href="marco-teórico.html#prevalencia-de-las-enfermedades-crónicas-en-ee.-uu." class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Como la mayoría de las naciones desarrolladas, hace décadas Estados
 Unidos experimentó un cambio epidemiológico. Las enfermedades
 infecciosas dejaron de ser las principales causas de muerte,
 posibilitando el predominio de enfermedades crónicas y degenerativas.
@@ -323,21 +394,21 @@ primeros puestos de las cifras de mortalidad en el país. <span class="citation"
 <p>La evolución de estas enfermedades no ha sido estática. Investigaciones
 recientes documentan que, tras décadas de reducción sostenida, la
 mortalidad por enfermedades cardiovasculares comenzó a estabilizarse
-alrededor de 2010<span class="citation">(<a href="#ref-shah2019">Shah et al. 2019</a>)</span>. De igual forma, otras causas como el
+alrededor de 2010 <span class="citation">(<a href="#ref-shah2019">Shah et al. 2019</a>)</span>. De igual forma, otras causas como el
 Alzheimer, diabetes y las enfermedades renales han incrementado su
 contribución relativa al total de defunciones en el país, reflejando el
 envejecimiento poblacional y el aumento de condiciones metabólicas como
-la obesidad<span class="citation">(<a href="#ref-shah2019">Shah et al. 2019</a>)</span>.</p>
+la obesidad <span class="citation">(<a href="#ref-shah2019">Shah et al. 2019</a>)</span>.</p>
 <p>A estas causas se añaden otros nuevos factores. Como las muertes por
 causas externas, suicidios y accidentes no intencionales. Los
 accidentes, en particular, han mostrado un crecimiento en este último
 siglo, impulsados principalmente por intoxicaciones accidentales
 relacionadas con el consumo de drogas, aunque también influyen
-accidentes de tráfico, caídas y otros eventos
-prevenible<span class="citation">(<a href="#ref-daugherty2019">Daugherty et al. 2019</a>)</span>.</p>
+accidentes de tráfico, caídas y otros eventos prevenibles
+<span class="citation">(<a href="#ref-daugherty2019">Daugherty et al. 2019</a>)</span>.</p>
 </div>
-<div id="las-disparidades-geográficas-como-patrón-persistente" class="section level2 hasAnchor" number="2.3">
-<h2><span class="header-section-number">2.3</span> Las disparidades geográficas como patrón persistente<a href="marco-teórico.html#las-disparidades-geográficas-como-patrón-persistente" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="las-disparidades-geográficas-como-patrón-persistente" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Las disparidades geográficas como patrón persistente<a href="marco-teórico.html#las-disparidades-geográficas-como-patrón-persistente" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Uno de los descubrimientos más sólidos en la literatura acerca de la
 mortalidad en Estados Unidos es que hay un “gradiente geográfico” que
 perjudica de manera sistemática al sureste del país. Según la
@@ -351,8 +422,8 @@ factores. Entre ellos, se encuentran un nivel socioeconómico más bajo,
 el acceso limitado a servicios de salud y una mayor prevalencia de
 conductas de riesgo.</p>
 </div>
-<div id="la-importancia-del-análisis-temporal-y-por-ranking" class="section level2 hasAnchor" number="2.4">
-<h2><span class="header-section-number">2.4</span> La importancia del análisis temporal y por ranking<a href="marco-teórico.html#la-importancia-del-análisis-temporal-y-por-ranking" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="la-importancia-del-análisis-temporal-y-por-ranking" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> La importancia del análisis temporal y por ranking<a href="marco-teórico.html#la-importancia-del-análisis-temporal-y-por-ranking" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Se ha demostrado por medio de la literatura la existencia de cambios
 significativos en las causas de muerte a lo largo del periodo. Existe un
 aumento en enfermedades como el Alzheimer debido al envejecimiento de la

@@ -23,12 +23,12 @@ donde:
 - $w_i$ = peso del grupo de edad $i$ en la población estándar de referencia (en EE. UU. se usa la población estándar del año 2000)
 - La suma recorre todos los grupos etarios
 
-si la población analizada tuviera la
-misma estructura de edad que la población estándar, ¿cuántas muertes
-ocurrirían por cada 100,000 habitantes? Es por eso que la tasa ajustada
-no es un conteo de muertes reales: en 1999 la tasa fue 875.6 por
-100,000, pero el número real de muertes en EE. UU. ese año fue
-2,391,399, en una población de casi 280 millones.
+Si la población analizada tuviera la misma estructura de edad que la
+población estándar, ¿cuántas muertes ocurrirían por cada 100,000
+habitantes? Es por eso que la tasa ajustada no es un conteo de muertes
+reales: en 1999 la tasa fue 875.6 por 100,000, pero el número real de
+muertes en EE. UU. ese año fue 2,391,399, en una población de casi 280
+millones.
 
 Esta distinción es fundamental para interpretar correctamente los
 gráficos de este análisis. Una tasa ajustada puede descender (mejora
@@ -36,9 +36,83 @@ en salud pública) mientras el número absoluto de muertes sube (por
 crecimiento o envejecimiento poblacional), como ocurrió en EE. UU.
 entre 1999 y 2017.
 
+## Modelos de predicción utilizados
+
+Para proyectar las tendencias de mortalidad más allá del período
+observado, se implementaron tres modelos con enfoques complementarios,
+permitiendo comparar su desempeño y justificar la selección del más
+adecuado.
+
+### Modelo ARIMA
+
+El modelo ARIMA(*p*, *d*, *q*) — *Autoregressive Integrated Moving
+Average* — es el estándar para el análisis de series de tiempo. Combina
+tres componentes: un componente autoregresivo (AR) de orden *p*, una
+diferenciación de orden *d* para lograr estacionariedad, y un componente
+de media móvil (MA) de orden *q*.
+
+Su ecuación general, una vez diferenciada la serie, es:
+
+$$\tilde{y}_t = c + \phi_1\tilde{y}_{t-1} + \cdots + \phi_p\tilde{y}_{t-p} + \theta_1\varepsilon_{t-1} + \cdots + \theta_q\varepsilon_{t-q} + \varepsilon_t$$
+
+donde:
+
+- $\tilde{y}_t$ = serie diferenciada $d$ veces
+- $\phi_1, \ldots, \phi_p$ = coeficientes autoregresivos
+- $\theta_1, \ldots, \theta_q$ = coeficientes de media móvil
+- $\varepsilon_t$ = término de error (ruido blanco)
+- $c$ = constante
+
+La selección de los parámetros óptimos (*p*, *d*, *q*) se realizó
+mediante el criterio de información de Akaike (AIC), y la validez del
+modelo se verificó con la prueba de Ljung-Box sobre los residuos.
+
+### Modelo ETS
+
+El modelo ETS (*Error, Trend, Seasonality*) descompone la serie en tres
+componentes: error, tendencia y estacionalidad, cada uno modelado de
+forma aditiva o multiplicativa. Para series anuales sin estacionalidad,
+el modelo se reduce a su forma de suavizado exponencial con tendencia
+(Holt):
+
+$$\hat{y}_{t+h} = \ell_t + h \cdot b_t$$
+
+donde los componentes se actualizan en cada período mediante:
+
+$$\ell_t = \alpha\, y_t + (1 - \alpha)(\ell_{t-1} + b_{t-1})$$
+
+$$b_t = \beta^*(\ell_t - \ell_{t-1}) + (1 - \beta^*)\, b_{t-1}$$
+
+y donde:
+
+- $\ell_t$ = nivel estimado en el período $t$
+- $b_t$ = tendencia estimada en el período $t$
+- $\alpha$ = parámetro de suavizado del nivel $(0 < \alpha < 1)$
+- $\beta^*$ = parámetro de suavizado de la tendencia $(0 < \beta^* < 1)$
+- $h$ = horizonte de predicción
+
+### Modelo de Regresión Lineal con Tendencia Temporal
+
+La regresión lineal modela la serie como una función lineal del tiempo,
+capturando únicamente la tendencia global sin considerar la estructura
+de autocorrelación de los datos:
+
+$$y_t = \beta_0 + \beta_1\, t + \varepsilon_t$$
+
+donde:
+
+- $y_t$ = tasa ajustada de mortalidad en el año $t$
+- $\beta_0$ = intercepto
+- $\beta_1$ = pendiente (cambio promedio por año)
+- $\varepsilon_t$ = término de error
+
+Este modelo sirve como referencia base (*baseline*) para evaluar si
+modelos más complejos como ARIMA o ETS aportan una mejora real en la
+capacidad predictiva.
+
 ## Prevalencia de las enfermedades crónicas en EE. UU.
 
-Como la mayoria de las naciones desarrolladas, hace décadas Estados
+Como la mayoría de las naciones desarrolladas, hace décadas Estados
 Unidos experimentó un cambio epidemiológico. Las enfermedades
 infecciosas dejaron de ser las principales causas de muerte,
 posibilitando el predominio de enfermedades crónicas y degenerativas.
@@ -49,19 +123,19 @@ primeros puestos de las cifras de mortalidad en el país. [@shah2019].
 La evolución de estas enfermedades no ha sido estática. Investigaciones
 recientes documentan que, tras décadas de reducción sostenida, la
 mortalidad por enfermedades cardiovasculares comenzó a estabilizarse
-alrededor de 2010[@shah2019]. De igual forma, otras causas como el
+alrededor de 2010 [@shah2019]. De igual forma, otras causas como el
 Alzheimer, diabetes y las enfermedades renales han incrementado su
 contribución relativa al total de defunciones en el país, reflejando el
 envejecimiento poblacional y el aumento de condiciones metabólicas como
-la obesidad[@shah2019].
+la obesidad [@shah2019].
 
 A estas causas se añaden otros nuevos factores. Como las muertes por
 causas externas, suicidios y accidentes no intencionales. Los
 accidentes, en particular, han mostrado un crecimiento en este último
 siglo, impulsados principalmente por intoxicaciones accidentales
 relacionadas con el consumo de drogas, aunque también influyen
-accidentes de tráfico, caídas y otros eventos
-prevenible[@daugherty2019].
+accidentes de tráfico, caídas y otros eventos prevenibles
+[@daugherty2019].
 
 ## Las disparidades geográficas como patrón persistente
 

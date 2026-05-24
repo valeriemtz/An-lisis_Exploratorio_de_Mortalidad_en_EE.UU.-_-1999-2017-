@@ -20,6 +20,10 @@ objetivos-específicos
 dashboard-interactivo
 marco-teórico
 la-tasa-ajustada-por-edad-concepto-y-fórmula
+modelos-de-predicción-utilizados
+modelo-arima
+modelo-ets
+modelo-de-regresión-lineal-con-tendencia-temporal
 prevalencia-de-las-enfermedades-crónicas-en-ee.-uu.
 las-disparidades-geográficas-como-patrón-persistente
 la-importancia-del-análisis-temporal-y-por-ranking
