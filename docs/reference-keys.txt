@@ -17,6 +17,7 @@ pregunta-central-de-investigación
 objetivos-del-estudio
 objetivo-general
 objetivos-específicos
+dashboard-interactivo
 marco-teórico
 la-tasa-ajustada-por-edad-concepto-y-fórmula
 prevalencia-de-las-enfermedades-crónicas-en-ee.-uu.
