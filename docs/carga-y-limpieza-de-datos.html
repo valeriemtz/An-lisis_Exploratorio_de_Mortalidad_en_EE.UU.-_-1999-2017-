@@ -283,7 +283,9 @@ div.csl-indent {
 <span id="cb1-2"><a href="carga-y-limpieza-de-datos.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
 <span id="cb1-3"><a href="carga-y-limpieza-de-datos.html#cb1-3" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
 <span id="cb1-4"><a href="carga-y-limpieza-de-datos.html#cb1-4" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="carga-y-limpieza-de-datos.html#cb1-5" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;NCHS_Leading_Causes.csv&quot;</span>)</span></code></pre></div>
+<span id="cb1-5"><a href="carga-y-limpieza-de-datos.html#cb1-5" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;NCHS_Leading_Causes.csv&quot;</span>,</span>
+<span id="cb1-6"><a href="carga-y-limpieza-de-datos.html#cb1-6" tabindex="-1"></a>                  <span class="at">col_types =</span> <span class="fu">cols</span>(<span class="at">Deaths =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb1-7"><a href="carga-y-limpieza-de-datos.html#cb1-7" tabindex="-1"></a>                                   <span class="st">`</span><span class="at">Age-adjusted Death Rate</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">col_character</span>()))</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="carga-y-limpieza-de-datos.html#cb2-1" tabindex="-1"></a>datos <span class="ot">&lt;-</span> datos <span class="sc">%&gt;%</span> <span class="fu">clean_names</span>()</span>
 <span id="cb2-2"><a href="carga-y-limpieza-de-datos.html#cb2-2" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="carga-y-limpieza-de-datos.html#cb2-3" tabindex="-1"></a>datos <span class="ot">&lt;-</span> datos <span class="sc">%&gt;%</span></span>
@@ -311,27 +313,27 @@ div.csl-indent {
 <span id="cb4-2"><a href="carga-y-limpieza-de-datos.html#cb4-2" tabindex="-1"></a>        <span class="fu">arrange</span>(anio) <span class="sc">%&gt;%</span></span>
 <span id="cb4-3"><a href="carga-y-limpieza-de-datos.html#cb4-3" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">muertes =</span> <span class="fu">format</span>(muertes, <span class="at">big.mark =</span> <span class="st">&quot;,&quot;</span>, <span class="at">scientific =</span> <span class="cn">FALSE</span>)))</span></code></pre></div>
 <pre><code>## # A tibble: 19 × 2
-##     anio muertes
-##    &lt;dbl&gt; &lt;chr&gt;  
-##  1  1999 NA     
-##  2  2000 NA     
-##  3  2001 NA     
-##  4  2002 NA     
-##  5  2003 NA     
-##  6  2004 NA     
-##  7  2005 NA     
-##  8  2006 NA     
-##  9  2007 NA     
-## 10  2008 NA     
-## 11  2009 NA     
-## 12  2010 NA     
-## 13  2011 NA     
-## 14  2012 NA     
-## 15  2013 NA     
-## 16  2014 NA     
-## 17  2015 NA     
-## 18  2016 NA     
-## 19  2017 NA</code></pre>
+##     anio muertes  
+##    &lt;dbl&gt; &lt;chr&gt;    
+##  1  1999 2,391,399
+##  2  2000 2,403,351
+##  3  2001 2,416,425
+##  4  2002 2,443,387
+##  5  2003 2,448,288
+##  6  2004 2,397,615
+##  7  2005 2,448,017
+##  8  2006 2,426,264
+##  9  2007 2,423,712
+## 10  2008 2,471,984
+## 11  2009 2,437,163
+## 12  2010 2,468,435
+## 13  2011 2,515,458
+## 14  2012 2,543,279
+## 15  2013 2,596,993
+## 16  2014 2,626,418
+## 17  2015 2,712,630
+## 18  2016 2,744,248
+## 19  2017 2,813,503</code></pre>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="carga-y-limpieza-de-datos.html#cb6-1" tabindex="-1"></a>totales_causa <span class="ot">&lt;-</span> datos <span class="sc">%&gt;%</span></span>
 <span id="cb6-2"><a href="carga-y-limpieza-de-datos.html#cb6-2" tabindex="-1"></a>  <span class="fu">filter</span>(causa <span class="sc">!=</span> <span class="st">&quot;All causes&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb6-3"><a href="carga-y-limpieza-de-datos.html#cb6-3" tabindex="-1"></a>  <span class="fu">group_by</span>(causa) <span class="sc">%&gt;%</span></span>
@@ -349,16 +351,16 @@ div.csl-indent {
 <pre><code>## # A tibble: 10 × 2
 ##    causa                   total_1999_2017
 ##    &lt;chr&gt;                   &lt;chr&gt;          
-##  1 Heart disease           &quot;11,011,222&quot;   
-##  2 Cancer                  &quot; 9,721,524&quot;   
+##  1 Heart disease           &quot;12,222,640&quot;   
+##  2 Cancer                  &quot;10,843,644&quot;   
 ##  3 Stroke                  &quot; 2,726,523&quot;   
-##  4 CLRD                    &quot; 2,343,674&quot;   
-##  5 Unintentional injuries  &quot; 2,162,825&quot;   
+##  4 CLRD                    &quot; 2,594,927&quot;   
+##  5 Unintentional injuries  &quot; 2,347,820&quot;   
 ##  6 Alzheimer&#39;s disease     &quot; 1,494,816&quot;   
 ##  7 Diabetes                &quot; 1,399,943&quot;   
-##  8 Influenza and pneumonia &quot; 1,037,284&quot;   
-##  9 Kidney disease          &quot;   784,849&quot;   
-## 10 Suicide                 &quot;   597,440&quot;</code></pre>
+##  8 Influenza and pneumonia &quot; 1,094,641&quot;   
+##  9 Kidney disease          &quot;   858,613&quot;   
+## 10 Suicide                 &quot;   697,016&quot;</code></pre>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="carga-y-limpieza-de-datos.html#cb10-1" tabindex="-1"></a>datos_nacional <span class="ot">&lt;-</span> datos <span class="sc">%&gt;%</span></span>
 <span id="cb10-2"><a href="carga-y-limpieza-de-datos.html#cb10-2" tabindex="-1"></a>  <span class="fu">filter</span>(causa <span class="sc">!=</span> <span class="st">&quot;All causes&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb10-3"><a href="carga-y-limpieza-de-datos.html#cb10-3" tabindex="-1"></a>  <span class="fu">group_by</span>(anio, causa) <span class="sc">%&gt;%</span></span>

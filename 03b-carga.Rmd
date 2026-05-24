@@ -5,7 +5,9 @@ library(tidyverse)
 library(janitor)
 library(scales)
 
-datos <- read_csv("NCHS_Leading_Causes.csv")
+datos <- read_csv("NCHS_Leading_Causes.csv",
+                  col_types = cols(Deaths = col_character(),
+                                   `Age-adjusted Death Rate` = col_character()))
 ```
 
 ```{r limpieza, echo=TRUE, warning=FALSE, message=FALSE}

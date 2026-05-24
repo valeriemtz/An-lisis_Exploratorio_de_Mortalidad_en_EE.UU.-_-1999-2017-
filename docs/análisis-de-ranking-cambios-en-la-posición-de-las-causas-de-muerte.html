@@ -301,7 +301,7 @@ mortalidad.</p>
 <span id="cb12-14"><a href="análisis-de-ranking-cambios-en-la-posición-de-las-causas-de-muerte.html#cb12-14" tabindex="-1"></a></span>
 <span id="cb12-15"><a href="análisis-de-ranking-cambios-en-la-posición-de-las-causas-de-muerte.html#cb12-15" tabindex="-1"></a><span class="co"># 3. Verificar rango de tasas</span></span>
 <span id="cb12-16"><a href="análisis-de-ranking-cambios-en-la-posición-de-las-causas-de-muerte.html#cb12-16" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Rango de tasas:&quot;</span>, <span class="fu">min</span>(datos_tasas_nac<span class="sc">$</span>tasa_nac), <span class="st">&quot;-&quot;</span>, <span class="fu">max</span>(datos_tasas_nac<span class="sc">$</span>tasa_nac)))</span></code></pre></div>
-<pre><code>## [1] &quot;Rango de tasas: 104 - 2665&quot;</code></pre>
+<pre><code>## [1] &quot;Rango de tasas: 10.4 - 266.5&quot;</code></pre>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="análisis-de-ranking-cambios-en-la-posición-de-las-causas-de-muerte.html#cb14-1" tabindex="-1"></a>colores_set1 <span class="ot">&lt;-</span> <span class="fu">brewer.pal</span>(<span class="dv">9</span>, <span class="st">&quot;Set1&quot;</span>)</span>
 <span id="cb14-2"><a href="análisis-de-ranking-cambios-en-la-posición-de-las-causas-de-muerte.html#cb14-2" tabindex="-1"></a>colores_10 <span class="ot">&lt;-</span> <span class="fu">c</span>(colores_set1, <span class="st">&quot;#333333&quot;</span>)  <span class="co"># añadimos gris oscuro para la décima causa</span></span>
 <span id="cb14-3"><a href="análisis-de-ranking-cambios-en-la-posición-de-las-causas-de-muerte.html#cb14-3" tabindex="-1"></a>causas_ordenadas <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">unique</span>(datos_tasas_nac<span class="sc">$</span>causa))</span>
@@ -471,23 +471,6 @@ Variación %
 <tbody>
 <tr>
 <td style="text-align:left;">
-Unintentional injuries
-</td>
-<td style="text-align:center;">
-9
-</td>
-<td style="text-align:center;">
-3
-</td>
-<td style="text-align:center;font-weight: bold;color: green !important;">
-▲ 6
-</td>
-<td style="text-align:right;font-weight: bold;color: red !important;">
-1636.5
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 Stroke
 </td>
 <td style="text-align:center;">
@@ -505,16 +488,50 @@ Stroke
 </tr>
 <tr>
 <td style="text-align:left;">
-Diabetes
+Unintentional injuries
 </td>
 <td style="text-align:center;">
 5
 </td>
 <td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;font-weight: bold;color: green !important;">
+▲ 2
+</td>
+<td style="text-align:right;font-weight: bold;color: red !important;">
+73.7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Alzheimer’s disease
+</td>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;font-weight: bold;color: green !important;">
+▲ 2
+</td>
+<td style="text-align:right;font-weight: bold;color: red !important;">
+172.6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Diabetes
+</td>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
 7
 </td>
 <td style="text-align:center;font-weight: bold;color: red !important;">
-▼ 2
+▼ 1
 </td>
 <td style="text-align:right;font-weight: bold;color: red !important;">
 22.2
@@ -522,53 +539,19 @@ Diabetes
 </tr>
 <tr>
 <td style="text-align:left;">
-Kidney disease
+Influenza and pneumonia
 </td>
 <td style="text-align:center;">
 7
 </td>
 <td style="text-align:center;">
-9
-</td>
-<td style="text-align:center;font-weight: bold;color: red !important;">
-▼ 2
-</td>
-<td style="text-align:right;font-weight: bold;color: red !important;">
-42.5
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Suicide
-</td>
-<td style="text-align:center;">
 8
 </td>
-<td style="text-align:center;">
-10
-</td>
 <td style="text-align:center;font-weight: bold;color: red !important;">
-▼ 2
+▼ 1
 </td>
-<td style="text-align:right;font-weight: bold;color: red !important;">
-61.6
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Influenza and pneumonia
-</td>
-<td style="text-align:center;">
-10
-</td>
-<td style="text-align:center;">
-8
-</td>
-<td style="text-align:center;font-weight: bold;color: green !important;">
-▲ 2
-</td>
-<td style="text-align:right;font-weight: bold;color: red !important;">
-773.6
+<td style="text-align:right;font-weight: bold;color: green !important;">
+-12.6
 </td>
 </tr>
 <tr>
@@ -624,19 +607,36 @@ CLRD
 </tr>
 <tr>
 <td style="text-align:left;">
-Alzheimer’s disease
+Kidney disease
 </td>
 <td style="text-align:center;">
-6
+9
 </td>
 <td style="text-align:center;">
-6
+9
 </td>
 <td style="text-align:center;color: gray !important;">
 =
 </td>
 <td style="text-align:right;font-weight: bold;color: red !important;">
-172.6
+42.5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Suicide
+</td>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;color: gray !important;">
+=
+</td>
+<td style="text-align:right;font-weight: bold;color: red !important;">
+61.6
 </td>
 </tr>
 </tbody>
