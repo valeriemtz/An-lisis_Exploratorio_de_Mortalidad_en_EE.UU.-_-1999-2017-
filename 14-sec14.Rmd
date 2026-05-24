@@ -6,7 +6,7 @@ tasa de mortalidad es una función lineal del tiempo:
 
 $$\hat{y}_t = \beta_0 + \beta_1 \cdot t + \varepsilon_t$$
 
-donde $t = 1, 2, ..., 19$ indexa los años 1999–2017. Su inclusión en la
+donde $t = 1, 2, ..., 19$ indexa los años 1999-2017. Su inclusión en la
 comparación cumple una función metodológica específica: constituye el
 benchmark mínimo.
 

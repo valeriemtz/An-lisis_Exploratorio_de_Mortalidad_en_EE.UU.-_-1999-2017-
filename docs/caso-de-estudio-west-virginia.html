@@ -583,14 +583,14 @@ territoriales <span class="citation">(<a href="#ref-james2018">James, Cossman, a
 <span id="cb31-47"><a href="caso-de-estudio-west-virginia.html#cb31-47" tabindex="-1"></a></span>
 <span id="cb31-48"><a href="caso-de-estudio-west-virginia.html#cb31-48" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb31-49"><a href="caso-de-estudio-west-virginia.html#cb31-49" tabindex="-1"></a></span>
-<span id="cb31-50"><a href="caso-de-estudio-west-virginia.html#cb31-50" tabindex="-1"></a>  <span class="co"># Área de brecha sombreada</span></span>
+<span id="cb31-50"><a href="caso-de-estudio-west-virginia.html#cb31-50" tabindex="-1"></a>  <span class="co"># brecha sombreada</span></span>
 <span id="cb31-51"><a href="caso-de-estudio-west-virginia.html#cb31-51" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(</span>
 <span id="cb31-52"><a href="caso-de-estudio-west-virginia.html#cb31-52" tabindex="-1"></a>    <span class="at">data  =</span> brecha_df,</span>
 <span id="cb31-53"><a href="caso-de-estudio-west-virginia.html#cb31-53" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">ymin =</span> tasa_nac, <span class="at">ymax =</span> age_adjusted_death_rate),</span>
 <span id="cb31-54"><a href="caso-de-estudio-west-virginia.html#cb31-54" tabindex="-1"></a>    <span class="at">fill  =</span> <span class="st">&quot;#E63946&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.13</span></span>
 <span id="cb31-55"><a href="caso-de-estudio-west-virginia.html#cb31-55" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb31-56"><a href="caso-de-estudio-west-virginia.html#cb31-56" tabindex="-1"></a></span>
-<span id="cb31-57"><a href="caso-de-estudio-west-virginia.html#cb31-57" tabindex="-1"></a>  <span class="co"># Líneas de las dos series</span></span>
+<span id="cb31-57"><a href="caso-de-estudio-west-virginia.html#cb31-57" tabindex="-1"></a>  <span class="co"># Lineas de las dos series</span></span>
 <span id="cb31-58"><a href="caso-de-estudio-west-virginia.html#cb31-58" tabindex="-1"></a>  <span class="fu">geom_line</span>(</span>
 <span id="cb31-59"><a href="caso-de-estudio-west-virginia.html#cb31-59" tabindex="-1"></a>    <span class="at">data =</span> ambas_series,</span>
 <span id="cb31-60"><a href="caso-de-estudio-west-virginia.html#cb31-60" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> age_adjusted_death_rate,</span>
@@ -603,7 +603,7 @@ territoriales <span class="citation">(<a href="#ref-james2018">James, Cossman, a
 <span id="cb31-67"><a href="caso-de-estudio-west-virginia.html#cb31-67" tabindex="-1"></a>    <span class="at">size =</span> <span class="fl">2.2</span></span>
 <span id="cb31-68"><a href="caso-de-estudio-west-virginia.html#cb31-68" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb31-69"><a href="caso-de-estudio-west-virginia.html#cb31-69" tabindex="-1"></a></span>
-<span id="cb31-70"><a href="caso-de-estudio-west-virginia.html#cb31-70" tabindex="-1"></a>  <span class="co"># Anotación de la brecha persistente</span></span>
+<span id="cb31-70"><a href="caso-de-estudio-west-virginia.html#cb31-70" tabindex="-1"></a>  <span class="co"># Anotacion de la brecha persistente</span></span>
 <span id="cb31-71"><a href="caso-de-estudio-west-virginia.html#cb31-71" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>,</span>
 <span id="cb31-72"><a href="caso-de-estudio-west-virginia.html#cb31-72" tabindex="-1"></a>           <span class="at">x     =</span> <span class="dv">2008</span>,</span>
 <span id="cb31-73"><a href="caso-de-estudio-west-virginia.html#cb31-73" tabindex="-1"></a>           <span class="at">y     =</span> <span class="fu">mean</span>(wv_total<span class="sc">$</span>age_adjusted_death_rate) <span class="sc">-</span> <span class="dv">130</span>,</span>

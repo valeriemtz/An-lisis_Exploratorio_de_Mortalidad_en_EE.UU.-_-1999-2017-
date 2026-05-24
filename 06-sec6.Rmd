@@ -24,7 +24,7 @@ datos_nacional %>%
   # Linea de tendencia
   geom_smooth(se = FALSE, linetype = "dashed", linewidth = 0.8) +
   
-  # Línea vertical (aceleración desde 2014)
+  # Linea vertical (aceleración desde 2014)
   geom_vline(xintercept = 2014, linetype = "dotted", color = "gray40") +
   
   scale_color_manual(values = c("#2F4F4F", "#528B8B")) +

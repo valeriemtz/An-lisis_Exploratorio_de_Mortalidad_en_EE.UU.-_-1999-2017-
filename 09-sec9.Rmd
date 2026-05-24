@@ -316,14 +316,14 @@ ambas_series <- bind_rows(
 
 ggplot() +
 
-  # Área de brecha sombreada
+  # brecha sombreada
   geom_ribbon(
     data  = brecha_df,
     aes(x = year, ymin = tasa_nac, ymax = age_adjusted_death_rate),
     fill  = "#E63946", alpha = 0.13
   ) +
 
-  # Líneas de las dos series
+  # Lineas de las dos series
   geom_line(
     data = ambas_series,
     aes(x = year, y = age_adjusted_death_rate,
@@ -336,7 +336,7 @@ ggplot() +
     size = 2.2
   ) +
 
-  # Anotación de la brecha persistente
+  # Anotacion de la brecha persistente
   annotate("text",
            x     = 2008,
            y     = mean(wv_total$age_adjusted_death_rate) - 130,

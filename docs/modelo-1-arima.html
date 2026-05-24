@@ -284,7 +284,7 @@ div.csl-indent {
 su trayectoria futura. Los objetivos del modelo predictivo son:</p>
 <ol style="list-style-type: decimal">
 <li>Proyectar la tasa ajustada total de West Virginia hacia
-2018–2022, el período posterior al horizonte de los datos.</li>
+2018-2022, el período posterior al horizonte de los datos.</li>
 <li>Proyectar específicamente la tasa de Unintentional injuries, la
 causa de mayor crecimiento y el indicador diferenciador clave del
 estado, cuya aceleración desde 2014 hace especialmente relevante
@@ -322,7 +322,7 @@ con intervalos de confianza.</p>
 <span id="cb33-23"><a href="modelo-1-arima.html#cb33-23" tabindex="-1"></a>    year  <span class="sc">&lt;=</span> <span class="dv">2017</span></span>
 <span id="cb33-24"><a href="modelo-1-arima.html#cb33-24" tabindex="-1"></a>  )</span>
 <span id="cb33-25"><a href="modelo-1-arima.html#cb33-25" tabindex="-1"></a></span>
-<span id="cb33-26"><a href="modelo-1-arima.html#cb33-26" tabindex="-1"></a><span class="co"># --- Serie 1: Tasa ajustada total – West Virginia ---</span></span>
+<span id="cb33-26"><a href="modelo-1-arima.html#cb33-26" tabindex="-1"></a><span class="co"># Serie 1: Tasa ajustada total – West Virginia </span></span>
 <span id="cb33-27"><a href="modelo-1-arima.html#cb33-27" tabindex="-1"></a>serie_wv_total <span class="ot">&lt;-</span> datos_limpios <span class="sc">%&gt;%</span></span>
 <span id="cb33-28"><a href="modelo-1-arima.html#cb33-28" tabindex="-1"></a>  <span class="fu">filter</span>(state      <span class="sc">==</span> <span class="st">&quot;West Virginia&quot;</span>,</span>
 <span id="cb33-29"><a href="modelo-1-arima.html#cb33-29" tabindex="-1"></a>         cause_name <span class="sc">==</span> <span class="st">&quot;All causes&quot;</span>,</span>
@@ -332,7 +332,7 @@ con intervalos de confianza.</p>
 <span id="cb33-33"><a href="modelo-1-arima.html#cb33-33" tabindex="-1"></a></span>
 <span id="cb33-34"><a href="modelo-1-arima.html#cb33-34" tabindex="-1"></a>ts_wv_total <span class="ot">&lt;-</span> <span class="fu">ts</span>(serie_wv_total, <span class="at">start =</span> <span class="dv">1999</span>, <span class="at">frequency =</span> <span class="dv">1</span>)</span>
 <span id="cb33-35"><a href="modelo-1-arima.html#cb33-35" tabindex="-1"></a></span>
-<span id="cb33-36"><a href="modelo-1-arima.html#cb33-36" tabindex="-1"></a><span class="co"># --- Serie 2: Tasa de Unintentional injuries – West Virginia ---</span></span>
+<span id="cb33-36"><a href="modelo-1-arima.html#cb33-36" tabindex="-1"></a><span class="co"># Serie 2: Tasa de Unintentional injuries – West Virginia</span></span>
 <span id="cb33-37"><a href="modelo-1-arima.html#cb33-37" tabindex="-1"></a>serie_wv_acc <span class="ot">&lt;-</span> datos_limpios <span class="sc">%&gt;%</span></span>
 <span id="cb33-38"><a href="modelo-1-arima.html#cb33-38" tabindex="-1"></a>  <span class="fu">filter</span>(state      <span class="sc">==</span> <span class="st">&quot;West Virginia&quot;</span>,</span>
 <span id="cb33-39"><a href="modelo-1-arima.html#cb33-39" tabindex="-1"></a>         cause_name <span class="sc">==</span> <span class="st">&quot;Unintentional injuries&quot;</span>,</span>
@@ -600,7 +600,7 @@ encima de 0.05.</em></p>
 <span id="cb54-4"><a href="modelo-1-arima.html#cb54-4" tabindex="-1"></a>pred_total   <span class="ot">&lt;-</span> <span class="fu">forecast</span>(modelo_total, <span class="at">h =</span> horizonte, <span class="at">level =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">95</span>))</span>
 <span id="cb54-5"><a href="modelo-1-arima.html#cb54-5" tabindex="-1"></a>pred_acc     <span class="ot">&lt;-</span> <span class="fu">forecast</span>(modelo_acc,   <span class="at">h =</span> horizonte, <span class="at">level =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">95</span>))</span>
 <span id="cb54-6"><a href="modelo-1-arima.html#cb54-6" tabindex="-1"></a></span>
-<span id="cb54-7"><a href="modelo-1-arima.html#cb54-7" tabindex="-1"></a><span class="co"># Función para construir data frames de pronóstico</span></span>
+<span id="cb54-7"><a href="modelo-1-arima.html#cb54-7" tabindex="-1"></a><span class="co"># Funcion para construir data frames de pronostico</span></span>
 <span id="cb54-8"><a href="modelo-1-arima.html#cb54-8" tabindex="-1"></a>build_fc <span class="ot">&lt;-</span> <span class="cf">function</span>(serie_orig, pred_obj, inicio) {</span>
 <span id="cb54-9"><a href="modelo-1-arima.html#cb54-9" tabindex="-1"></a>  anios_hist <span class="ot">&lt;-</span> <span class="fu">seq</span>(inicio, inicio <span class="sc">+</span> <span class="fu">length</span>(serie_orig) <span class="sc">-</span> <span class="dv">1</span>)</span>
 <span id="cb54-10"><a href="modelo-1-arima.html#cb54-10" tabindex="-1"></a>  anios_fut  <span class="ot">&lt;-</span> <span class="fu">seq</span>(inicio <span class="sc">+</span> <span class="fu">length</span>(serie_orig),</span>
@@ -620,7 +620,7 @@ encima de 0.05.</em></p>
 <span id="cb54-24"><a href="modelo-1-arima.html#cb54-24" tabindex="-1"></a>d_tot <span class="ot">&lt;-</span> <span class="fu">build_fc</span>(serie_wv_total, pred_total, <span class="dv">1999</span>)</span>
 <span id="cb54-25"><a href="modelo-1-arima.html#cb54-25" tabindex="-1"></a>d_acc <span class="ot">&lt;-</span> <span class="fu">build_fc</span>(serie_wv_acc,   pred_acc,   <span class="dv">1999</span>)</span>
 <span id="cb54-26"><a href="modelo-1-arima.html#cb54-26" tabindex="-1"></a></span>
-<span id="cb54-27"><a href="modelo-1-arima.html#cb54-27" tabindex="-1"></a><span class="co"># ── Gráfico 1 – Tasa total ────────────────────────────────────────────────</span></span>
+<span id="cb54-27"><a href="modelo-1-arima.html#cb54-27" tabindex="-1"></a><span class="co"># Grafico 1 – Tasa total </span></span>
 <span id="cb54-28"><a href="modelo-1-arima.html#cb54-28" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb54-29"><a href="modelo-1-arima.html#cb54-29" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> d_tot<span class="sc">$</span>fut,</span>
 <span id="cb54-30"><a href="modelo-1-arima.html#cb54-30" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">ymin =</span> lo95, <span class="at">ymax =</span> hi95),</span>
@@ -658,7 +658,7 @@ encima de 0.05.</em></p>
 <span id="cb54-62"><a href="modelo-1-arima.html#cb54-62" tabindex="-1"></a>        <span class="at">axis.text.x   =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
 <span id="cb54-63"><a href="modelo-1-arima.html#cb54-63" tabindex="-1"></a>        <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span>
 <span id="cb54-64"><a href="modelo-1-arima.html#cb54-64" tabindex="-1"></a></span>
-<span id="cb54-65"><a href="modelo-1-arima.html#cb54-65" tabindex="-1"></a><span class="co"># ── Gráfico 2 – Unintentional injuries ───────────────────────────────────</span></span>
+<span id="cb54-65"><a href="modelo-1-arima.html#cb54-65" tabindex="-1"></a><span class="co"># Grafico 2 – Unintentional injuries </span></span>
 <span id="cb54-66"><a href="modelo-1-arima.html#cb54-66" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb54-67"><a href="modelo-1-arima.html#cb54-67" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> d_acc<span class="sc">$</span>fut,</span>
 <span id="cb54-68"><a href="modelo-1-arima.html#cb54-68" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">ymin =</span> lo95, <span class="at">ymax =</span> hi95),</span>
@@ -906,11 +906,11 @@ acercarse al promedio nacional y no parece que vaya a alcanzarlo pronto.</p>
 <p>Unintentional injuries es la proyección con mayores implicaciones para
 la política pública. El modelo captura la aceleración estructural
 iniciada en 2014 vinculada a la epidemia de sobredosis de opioides
-documentada en la <em>sección 9.1.1</em> y la proyecta hacia 2018–2022. Si las
+documentada en la <em>sección 9.1.1</em> y la proyecta hacia 2018-2022. Si las
 condiciones estructurales persisten, la tasa de lesiones no
 intencionales en West Virginia continuará creciendo, consolidando la
 brecha ya identificada respecto al promedio nacional y al resto de los
-estados del Clúster 3.</p>
+estados con altas tasas.</p>
 
 </div>
 </div>

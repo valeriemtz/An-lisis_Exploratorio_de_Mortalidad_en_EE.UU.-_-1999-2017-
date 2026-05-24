@@ -1,6 +1,6 @@
 # Conclusiones
 
-El análisis sobre la mortalidad en Estados Unidos (1999–2017) revela
+El análisis sobre la mortalidad en Estados Unidos (1999-2017) revela
 una evolución en el perfil epidemiológico del país: Las enfermedades
 cardíacas y el cáncer se mantienen como las causas dominantes, pero
 mientras las primeras descienden sostenidamente, el cáncer se

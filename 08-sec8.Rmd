@@ -125,8 +125,8 @@ ggplot(tasas_semestre, aes(x = semestre_periodo,
 
 Los boxplots revelan algo más preciso que las series de tiempo: la
 dispersión dentro de cada subperíodo. Heart disease y Cancer no solo
-bajan de mediana entre el primer (1999–2008) y el segundo período
-(2009–2017), sino que también reducen su variabilidad, lo que indica
+bajan de mediana entre el primer (1999-2008) y el segundo período
+(2009-2017), sino que también reducen su variabilidad, lo que indica
 que la mejora es consistente entre años, no impulsada por un par de
 años atípicos. Stroke y Diabetes muestran un patrón similar.
 

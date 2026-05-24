@@ -4,7 +4,7 @@ Con el perfil de West Virginia caracterizado en el estudio de caso, el paso sigu
 su trayectoria futura. Los objetivos del modelo predictivo son:
 
 1.  Proyectar la tasa ajustada total de West Virginia hacia
-    2018–2022, el período posterior al horizonte de los datos.
+    2018-2022, el período posterior al horizonte de los datos.
 2.  Proyectar específicamente la tasa de Unintentional injuries, la
     causa de mayor crecimiento y el indicador diferenciador clave del
     estado, cuya aceleración desde 2014 hace especialmente relevante
@@ -44,7 +44,7 @@ datos_limpios <- read_csv(
     year  <= 2017
   )
 
-# --- Serie 1: Tasa ajustada total – West Virginia ---
+# Serie 1: Tasa ajustada total – West Virginia 
 serie_wv_total <- datos_limpios %>%
   filter(state      == "West Virginia",
          cause_name == "All causes",
@@ -54,7 +54,7 @@ serie_wv_total <- datos_limpios %>%
 
 ts_wv_total <- ts(serie_wv_total, start = 1999, frequency = 1)
 
-# --- Serie 2: Tasa de Unintentional injuries – West Virginia ---
+# Serie 2: Tasa de Unintentional injuries – West Virginia
 serie_wv_acc <- datos_limpios %>%
   filter(state      == "West Virginia",
          cause_name == "Unintentional injuries",
@@ -188,7 +188,7 @@ horizonte    <- 5
 pred_total   <- forecast(modelo_total, h = horizonte, level = c(80, 95))
 pred_acc     <- forecast(modelo_acc,   h = horizonte, level = c(80, 95))
 
-# Función para construir data frames de pronóstico
+# Funcion para construir data frames de pronostico
 build_fc <- function(serie_orig, pred_obj, inicio) {
   anios_hist <- seq(inicio, inicio + length(serie_orig) - 1)
   anios_fut  <- seq(inicio + length(serie_orig),
@@ -208,7 +208,7 @@ build_fc <- function(serie_orig, pred_obj, inicio) {
 d_tot <- build_fc(serie_wv_total, pred_total, 1999)
 d_acc <- build_fc(serie_wv_acc,   pred_acc,   1999)
 
-# ── Gráfico 1 – Tasa total ────────────────────────────────────────────────
+# Grafico 1 – Tasa total 
 p1 <- ggplot() +
   geom_ribbon(data = d_tot$fut,
               aes(x = year, ymin = lo95, ymax = hi95),
@@ -246,7 +246,7 @@ p1 <- ggplot() +
         axis.text.x   = element_text(angle = 45, hjust = 1),
         panel.grid.minor = element_blank())
 
-# ── Gráfico 2 – Unintentional injuries ───────────────────────────────────
+# Grafico 2 – Unintentional injuries 
 p2 <- ggplot() +
   geom_ribbon(data = d_acc$fut,
               aes(x = year, ymin = lo95, ymax = hi95),
@@ -338,8 +338,8 @@ acercarse al promedio nacional y no parece que vaya a alcanzarlo pronto.
 Unintentional injuries es la proyección con mayores implicaciones para
 la política pública. El modelo captura la aceleración estructural
 iniciada en 2014 vinculada a la epidemia de sobredosis de opioides
-documentada en la *sección 9.1.1* y la proyecta hacia 2018–2022. Si las
+documentada en la *sección 9.1.1* y la proyecta hacia 2018-2022. Si las
 condiciones estructurales persisten, la tasa de lesiones no
 intencionales en West Virginia continuará creciendo, consolidando la
 brecha ya identificada respecto al promedio nacional y al resto de los
-estados del Clúster 3.
+estados con altas tasas.
